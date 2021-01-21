@@ -6,7 +6,7 @@
   <p align="center">
     Maintain a healthy posture as you work from home!
     <br />
-    <a href="https://github.com/ESE-Peasy/PosturePerfection"><strong>Explore the docs »</strong></a>
+    <a href="https://ese-peasy.github.io/PosturePerfection/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/ESE-Peasy/PosturePerfection">View Demo</a>
@@ -79,7 +79,7 @@ To get PosturePerfection running by yourself you will need to follow these steps
 Specify which software dependencies are used and how to install them:
 
   ```sh
-  npm install npm@latest -g
+  TBC
   ```
 
 ### Installation
@@ -87,11 +87,11 @@ Specify which software dependencies are used and how to install them:
 1. Fork the repo
 2. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/PosturePerfection.git
+   git clone https://github.com/ESE-Peasy/PosturePerfection.git
    ```
 3. Install NPM packages
    ```sh
-   npm install
+   TBC
    ```
 
 
@@ -135,7 +135,7 @@ This project is being completed by a team of 5th Year Engineering students at th
 * [Andrew Ritchie](https://github.com/Andrew-Ritchie) 
 * [Ashwin Maliampurakal](https://github.com/Ashwin-MJ)
 * [Conor Begley](https://github.com/C-Begley)
-* [Miklas Reichmann](https://github.com/miklasr)
+* [Miklas Riechmann](https://github.com/miklasr)
 
 
 
