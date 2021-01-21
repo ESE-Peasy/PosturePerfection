@@ -1,6 +1,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
+
+  <img src="images/logo.svg" alt="Logo for PosturePerfection" width="250">
+
   <h1 align="center">PosturePerfection</h1>
 
   <p align="center">
