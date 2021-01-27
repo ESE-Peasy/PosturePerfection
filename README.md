@@ -2,7 +2,7 @@
 <br />
 <p align="center">
 
-  <img src="images/logo.svg" alt="Logo for PosturePerfection" width="250">
+  <img src="docs/images/logo.svg" alt="Logo for PosturePerfection" width="250">
 
   <h1 align="center">PosturePerfection</h1>
 
