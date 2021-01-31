@@ -1,37 +1,24 @@
-## Welcome to GitHub Pages
+---
+nav_order: 1
+title: Welcome!
+---
 
-You can use the [editor on GitHub](https://github.com/ESE-Peasy/PosturePerfection/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+<div align="center"> 
+  <img src="images/logo.svg" alt="Logo for PosturePerfection" width="300">
+</div>
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[Explain who we are and why we are completing the project]
 
-### Markdown
+We are a group of 5th Year Electronics & Software Engineering students...
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Demonstration
 
-```markdown
-Syntax highlighted code block
+[Include a video or some images demonstrating the device]
 
-# Header 1
-## Header 2
-### Header 3
+## Future Plans
 
-- Bulleted
-- List
+[Next steps for the project]
 
-1. Numbered
-2. List
+## Support or Contact
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ESE-Peasy/PosturePerfection/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Please reach out to us [here](/about-us) if you have any questions.

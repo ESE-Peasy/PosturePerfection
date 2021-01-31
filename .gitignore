@@ -47,3 +47,6 @@ _deps
 
 # Editor settings
 .vscode
+
+# Gemfile
+*.lock
