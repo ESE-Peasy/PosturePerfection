@@ -30,4 +30,4 @@ jobs:
         run: |
           pip install cpplint
           cd src
-          python -m cpplint ./*
+          python -m cpplint --filter=-legal/copyright ./*
