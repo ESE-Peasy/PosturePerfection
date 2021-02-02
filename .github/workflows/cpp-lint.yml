@@ -25,10 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Install linter (Google style)
-        run: pip install cpplint
-
-      # Runs a set of commands using the runners shell
-      - name: Check files
-        run: cpplint src/*
+      - name: Install and run linter (Google style)
+        run: |
+          pip3 install cpplint
+          cpplint src/*
