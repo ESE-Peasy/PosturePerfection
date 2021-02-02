@@ -29,4 +29,5 @@ jobs:
       - name: Install and run linter (Google style)
         run: |
           pip install cpplint
-          python -m cpplint src/*
+          cd src
+          python -m cpplint ./*
