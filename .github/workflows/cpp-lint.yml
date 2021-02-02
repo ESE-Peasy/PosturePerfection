@@ -24,8 +24,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
 
       - name: Install and run linter (Google style)
         run: |
-          pip3 install cpplint
-          cpplint src/*
+          pip install cpplint
+          python -m cpplint src/*
