@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: CPP-Lint
 
 # Controls when the action will run. 
 on:
@@ -24,9 +24,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
 
-      - name: Build Doxygen
+      - name: Install and run linter (Google style)
         run: |
-          sudo apt install doxygen
-          sudo apt install graphviz
-          doxygen docs/Doxyfile
+          pip install cpplint
+          cd src
+          python -m cpplint --filter=-legal/copyright,-build/include_subdir ./*
