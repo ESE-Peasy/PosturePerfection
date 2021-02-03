@@ -1,14 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-<<<<<<< HEAD
-<<<<<<< HEAD:.github/workflows/cpp-lint.yml
 name: CPP-Lint
-=======
-name: Doxygen
->>>>>>> upstream/main:.github/workflows/doxygen.yml
-=======
-name: CPP-Lint
->>>>>>> upstream/main
 
 # Controls when the action will run. 
 on:
