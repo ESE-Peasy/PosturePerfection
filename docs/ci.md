@@ -1,9 +1,11 @@
 ---
-nav_order: 6
+nav_order: 5
 title: Continuous Integration
 ---
 
+# Continuous Integration
 GitHub *Actions* are being used to perform CI on this project. Below is a list of all jobs and any notes.
+{: .fs-6 .fw-300 }
 
 ## Doxygen Documentation Generation
 Automatic generation of source code documentation from comments, performed by Doxygen. In this project the headers are to be documented, so source code documentation can be found in the interface specified by the header files. To ensure the file is included in the documentation it needs a `@file` comment at the top. Only comments relating to implementation details should be in the C source files. All usage documentation should be in the header files.
