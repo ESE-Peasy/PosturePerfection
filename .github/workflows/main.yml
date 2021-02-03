@@ -15,6 +15,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   Doxygen:
+       
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -37,7 +38,8 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -m "Update docs" -a
+          git add docs/html/
+          git commit -m "Update docs"
       
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -46,6 +48,9 @@ jobs:
           branch: ${{ github.HEAD_REF }}
 
   CMake:
+
+    needs: Doxygen
+    
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
     # cross-platform coverage.
@@ -84,6 +89,9 @@ jobs:
       run: ctest -C $BUILD_TYPE
 
   CPP-Lint:
+
+    needs: Doxygen
+
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
