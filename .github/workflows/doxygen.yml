@@ -10,9 +10,6 @@ on:
   pull_request:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -25,8 +22,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Build Doxygen
-        run: |
-          sudo apt install doxygen
-          sudo apt install graphviz
-          doxygen docs/Doxyfile
+      # Build the documentation
+      - name: Doxygen Action
+          uses: mattnotmitt/doxygen-action@v1.1.0
+          with:
+              doxyfile-path: docs/Doxyfile
+              working-directory: .
+
+      - name: Deploy Docs
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+              github_token: ${{ secrets.GITHUB_TOKEN }}
+              publish_dir: ./doc/html/
+              enable_jekyll: false
+              allow_empty_commit: false
+              force_orphan: true
+              publish_branch: main
