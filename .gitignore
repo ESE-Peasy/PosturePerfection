@@ -50,3 +50,6 @@ _deps
 
 # Gemfile
 *.lock
+
+#Site
+docs/_site/*
