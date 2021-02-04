@@ -1,28 +1,28 @@
 ---
-nav_order: 2
-title: Components
+nav_order: 3
+title: Hardware Setup
 ---
 
-# Components
+# Hardware Setup
+If you would like to setup PosturePerfection using your own Raspberry Pi follow the steps below!
+{: .fs-6 .fw-300 }
+## You will need:
+- Raspberry Pi
+  - We use a Raspberry Pi 4B for testing, but other versions may work.
+- Raspberry Pi Camera Module
+- Screen/monitor
+- SD Card
+  - Minimum recommended storage size is 8GB
+  - Note that Raspberry Pi model 3 or higher takes a micro SD card
+- USB type C power supply
+- Optionally, a case for the Raspberry Pi and camera
 
-Here we have detailed the components we used for this project, and why we selected them
+We estimate that this will cost around £150 for all components.
 
-### Raspberry Pi X Model X
+## Assembly
+This section covers the hardware assembly. For software setup checkout the [software setup guide (TBC)]().
 
-TBC
-
-### Camera Module
-
-TBC
-
-## Overall Cost
-
-Cost is a critical consideration in developing a new product such as this, and played a key role in our choice of components.
-
-The overall cost breakdown of the system is as follows:
-
-Component | Cost
-----------|-----
-Raspberry Pi X... | £X
-... | ...
-Total | £X
+1. Attach the camera module to the CSI port. This is the slot closest to the Ethernet (or furthest from the SD card). Lift up the plastic toggle and slide in the camera ribbon cable. Ensure the contacts on the cable face in the correct direction. Push down the toggle softly to fix the ribbon cable in place.
+1. Attach the screen or monitor. You will either attach this via a HDMI port (on the side) or the other ribbon cable port.
+1. Insert the flashed SD card (see [here(TBC)]() for instructions on flashing).
+1. Attach the power supply and you're good to go!
