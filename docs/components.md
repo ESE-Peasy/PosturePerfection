@@ -1,8 +1,11 @@
 ---
-nav_order: 2
+nav_order: 3
 title: Hardware Setup
 ---
 
+# Hardware Setup
+If you would like to setup PosturePerfection using your own Raspberry Pi follow the steps below!
+{: .fs-6 .fw-300 }
 ## You will need:
 - Raspberry Pi
   - We use a Raspberry Pi 4B for testing, but other versions may work.
