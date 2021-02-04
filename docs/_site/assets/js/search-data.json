@@ -5,28 +5,94 @@
     "url": "http://localhost:4000/about-us.html",
     "relUrl": "/about-us.html"
   },"1": {
-    "doc": "Components",
-    "title": "Components",
-    "content": "Here we have detailed the components we used for this project, and why we selected them . Raspberry Pi X Model X . TBC . Camera Module . TBC . Overall Cost . Cost is a critical consideration in developing a new product such as this, and played a key role in our choice of components. The overall cost breakdown of the system is as follows: . | Component | Cost | . | Raspberry Pi X… | £X | . | … | … | . | Total | £X | . ",
+    "doc": "Continuous Integration",
+    "title": "Continuous Integration",
+    "content": "GitHub Actions are being used to perform CI on this project. Below is a list of all jobs and any notes. Doxygen Documentation Generation . Automatic generation of source code documentation from comments, performed by Doxygen. In this project the headers are to be documented, so source code documentation can be found in the interface specified by the header files. To ensure the file is included in the documentation it needs a @file comment at the top. Only comments relating to implementation details should be in the C source files. All usage documentation should be in the header files. A minimal header file may therefore be: . /** * @file hello.h * @brief A hello world function * */ #ifndef SRC_HELLO_H_ #define SRC_HELLO_H_ /** * @brief Example to print \"Hello, world!\" * */ void hello_world(void); #endif // SRC_HELLO_H_ . Note the @file at the top if the file to ensure this is included in the documentation. CMake . This job attempts to build the project and then runs tests as defined in the CMake configuration. See See https://cmake.org/cmake/help/latest/manual/ctest.1.html for details. If this passes, the project can be built and all unit tests will have passed. C++ Linting . This job runs the cpplint python package on all code. This checks against Google code formatting guidelines, with some minor modifications. See the project page for details. The following checks are disabled at the moment: . | legal/copyright . | Would require a copyright statement at the top of every file | . | build/include_subdir . | Would require subdirectory paths to be specified when including headers | We may want to enable this again if we change the directory structure of the project | . | . To ensure adherence to the desired coding style before pushing you can install cpplint locally using pip install cpplint. Check the documentation or run cpplint --help for usage instructions. An example run might be cpplint --filter=-legal/copyright src/*. You can also set the C_Cpp.clang_format_style setting (from the C/C++ extension) in VSCode to “Google”, to use Google style formatting. Remember you can apply formatting at any time using the keyboard shortcut Ctrl+Shift+i in VSCode. ",
+    "url": "http://localhost:4000/ci.html",
+    "relUrl": "/ci.html"
+  },"2": {
+    "doc": "Hardware Setup",
+    "title": "Hardware Setup",
+    "content": "If you would like to setup PosturePerfection using your own Raspberry Pi follow the steps below! . You will need: . | Raspberry Pi . | We use a Raspberry Pi 4B for testing, but other versions may work. | . | Raspberry Pi Camera Module | Screen/monitor | SD Card . | Minimum recommended storage size is 8GB | Note that Raspberry Pi model 3 or higher takes a micro SD card | . | USB type C power supply | Optionally, a case for the Raspberry Pi and camera | . We estimate that this will cost around £150 for all components. Assembly . This section covers the hardware assembly. For software setup checkout the software setup guide (TBC). | Attach the camera module to the CSI port. This is the slot closest to the Ethernet (or furthest from the SD card). Lift up the plastic toggle and slide in the camera ribbon cable. Ensure the contacts on the cable face in the correct direction. Push down the toggle softly to fix the ribbon cable in place. | Attach the screen or monitor. You will either attach this via a HDMI port (on the side) or the other ribbon cable port. | Insert the flashed SD card (see here(TBC) for instructions on flashing). | Attach the power supply and you’re good to go! | . ",
     "url": "http://localhost:4000/components.html",
     "relUrl": "/components.html"
-  },"2": {
+  },"3": {
     "doc": "Guidance",
     "title": "Locally editing the website",
     "content": "We will remove this page in the future, but it is useful if anyone else wants to update the website. | Ensure you have Jekylland its pre-requisites (mainly Ruby and RubyGems) installed. See here. | Navigate to the docs/ directory | Execute the following in your command line: | . bundle exec jekyll serve --livereload . After a few seconds this should give you an output as follows: ... LiveReload address: http://127.0.0.1:35729 Server address: http://127.0.0.1:4000 Server running... press ctrl-c to stop. | Navigate to the server address specified | Make changes as required and the webpage will automatically be updated. See here for customisation options for the theme we are using. (Feel free to change the theme, I just thought this one works well for simplicity and how easy it is to add content) | Note - if you modify the _config.yml file you will need to restart the server by executing step 3 | . ",
     "url": "http://localhost:4000/guidance.html#locally-editing-the-website",
     "relUrl": "/guidance.html#locally-editing-the-website"
-  },"3": {
+  },"4": {
     "doc": "Guidance",
     "title": "Guidance",
     "content": " ",
     "url": "http://localhost:4000/guidance.html",
     "relUrl": "/guidance.html"
-  },"4": {
+  },"5": {
     "doc": "Welcome!",
-    "title": "Welcome!",
-    "content": "[Explain who we are and why we are completing the project] . We are a group of 5th Year Electronics &amp; Software Engineering students… . Demonstration . [Include a video or some images demonstrating the device] . Future Plans . [Next steps for the project] . Support or Contact . Please reach out to us here if you have any questions. ",
+    "title": "Welcome to Posture Perfection!",
+    "content": ". We are a group of 5th Year Electronics &amp; Software Engineering students at the University of Glasgow, completing a project which provides you with real-time notifications when we detect you have adopted a poor seated posture which could be detrimental to your future health. With the rapidly increased number of individuals around the world being forced to “work from home”, we are aware that many of you have far from ideal setups for your working day, with a lack of office-made chairs and desks as you spend the majority of your day at your work device. Naturally this leads to significant discomfort as you might find yourself gradually slouching further and further into your desk over the course of the day. Not only does this lead to immediate pain in the form of a strained neck or a sore back, but further down the line this can lead to even more significant health impacts. The main difficulty with this is that you may not even notice just how poor your posture is when you are seated for extensive periods of time! . Therefore we wanted to create a system which notifies you when it detects a poor posture. This should encourage you to try and resolve the problem, but we are also hoping to incorporate a system which provides you with real-time visual feedback to guide you back to a “good” posture. Demonstration . Coming Soon! . Future Plans . Coming Soon! . Support or Contact . Please reach out to us here if you have any questions. ",
     "url": "http://localhost:4000/",
     "relUrl": "/"
+  },"6": {
+    "doc": "Welcome!",
+    "title": "Welcome!",
+    "content": " ",
+    "url": "http://localhost:4000/",
+    "relUrl": "/"
+  },"7": {
+    "doc": "Requirements",
+    "title": "Requirements",
+    "content": "The requirements of our project are outlined below . ",
+    "url": "http://localhost:4000/requirements/requirements.html",
+    "relUrl": "/requirements/requirements.html"
+  },"8": {
+    "doc": "Source Code Documentation",
+    "title": "Source Code Documentation",
+    "content": "We are using Doxygen to generate documentation for PosturePerfection . Check out our docs by clicking here! . ",
+    "url": "http://localhost:4000/source-documentation.html",
+    "relUrl": "/source-documentation.html"
+  },"9": {
+    "doc": "Specification",
+    "title": "Specification",
+    "content": "| The main system must be able to run as a standalone application on a Raspberry Pi | . | It must run using a single camera attached to the Raspberry Pi | . | The system should work with sensible default settings such that initialisation of PosturePerfection is straightforward | . | Customisable settings/options must be presentable and configurable with minimal overhead | . | The system should act as a “posture warning system” which warns the user within X seconds of their posture worsening. A “bad” posture is defined here | . | The warning defined must initially at a minimum be in the form of an obvious notification to the user. The exact nature of this notification is yet to be decided | . | The system should also incorporate a “posture correction” aspect which can guide the user to “good” posture as defined here | . | The system could be extended to make use of a GUI via a small/medium sized HDMI-connected screen | . | Optionally, the system could also send a notification to the main work machine of the user, so that they are immediately made aware of worsened posture, and so that they can turn to the posture correction tool for guidance | . ",
+    "url": "http://localhost:4000/requirements/spec.html",
+    "relUrl": "/requirements/spec.html"
+  },"10": {
+    "doc": "System Outline",
+    "title": "System Diagram",
+    "content": " ",
+    "url": "http://localhost:4000/sys_design.html#system-diagram",
+    "relUrl": "/sys_design.html#system-diagram"
+  },"11": {
+    "doc": "System Outline",
+    "title": "System Description",
+    "content": "Camera . The camera provides visual information of the user to the Raspberry Pi. The team has chosen the Raspberry Pi camera for ease of use, but any camera suitable for use with the Pi should be a valid option. The camera will be placed side on, so that the side profile of the users pose can be seen. Raspberry Pi . The Raspberry Pi will handle all processing of the incoming images. The team has currently chosen to use the Pi 4 4GB and 8GB models, but further research may be done on older models if times permits. The Raspberry Pi will either use a trained neueral network model or computer vision depending on limitations discovered during the project. Real Time considerations will have to be made, so the user can have live feedback on their pose. Screen . This will provide a live update of the user’s current pose, using the data generate from the Raspberry Pi. A notification will be displayed whenever the user’s pose has been bad for a given time period. They will provided with onscreen real time feedback to show what they have to correct to improve their pose. As they attempt to change their posture, this changes will be processed by the Raspberry Pi in real time and new suggestions will be given, if the user is still not in a correct pose. User’s Work Device . Alonside the screen notification, furhter notifications will be sent to the user’s main computer device e.g Desktop PC, Laptop etc. This may be in the form of an email or a desktop client also running on the device. ",
+    "url": "http://localhost:4000/sys_design.html#system-description",
+    "relUrl": "/sys_design.html#system-description"
+  },"12": {
+    "doc": "System Outline",
+    "title": "Software Systems Interactions",
+    "content": " ",
+    "url": "http://localhost:4000/sys_design.html#software-systems-interactions",
+    "relUrl": "/sys_design.html#software-systems-interactions"
+  },"13": {
+    "doc": "System Outline",
+    "title": "UML Diagrams",
+    "content": "Coming Soon! . ",
+    "url": "http://localhost:4000/sys_design.html#uml-diagrams",
+    "relUrl": "/sys_design.html#uml-diagrams"
+  },"14": {
+    "doc": "System Outline",
+    "title": "System Outline",
+    "content": " ",
+    "url": "http://localhost:4000/sys_design.html",
+    "relUrl": "/sys_design.html"
+  },"15": {
+    "doc": "User Stories",
+    "title": "User Stories",
+    "content": "To be completed . ",
+    "url": "http://localhost:4000/requirements/user-stories.html",
+    "relUrl": "/requirements/user-stories.html"
   }
 }
