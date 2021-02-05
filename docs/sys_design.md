@@ -26,7 +26,7 @@ Alonside the screen notification, furhter notifications will be sent to the user
 </div>
 
 # Inital UML Diagrams
-As the software is still be researched, this is a representation of what roughly will be expected of the program
+As the software is still being researched, this is a representation of what roughly will be expected of the program
 
 <div align = "center">
 <img src="images/UML_diagram.png" alt="Image of System UML Diagram">
