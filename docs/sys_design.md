@@ -22,11 +22,20 @@ Alonside the screen notification, furhter notifications will be sent to the user
 
 # Software Systems Interactions
 <div align = "center">
-<img src="images/software_flow.png" alt="Image of System Diagram">
+<img src="images/software_flow.png" alt="Image of System Flow Diagram">
 </div>
 
-# UML Diagrams
+# Inital UML Diagrams
+As the software is still be researched, this is a representation of what roughly will be expected of the program
 
-Coming Soon!
-{: .label .label-yellow}
+<div align = "center">
+<img src="images/UML_diagram.png" alt="Image of System UML Diagram">
+</div>
+## Pose
+This will be an object representation of the user's pose. There is a boolean denoting if the pose is good or bad, as per specific pose requirements e.g neck straight, shoulder over hips etc. There is also a list, pose_co_ords, which will contains the location of important pose points. This may change depending on the pose identifying method. There is another list of co-ordinates that will represent the user's ideal pose.
 
+## Pose_Estimater
+This represents the neural network/computer vision handler that will be implemented. It will contain a pose object and a boolean for enabling/disabling. This class will handle processing images from the camera to identify the current user's pose, as well as calculating the ideal user's pose from the pre-calibrated pose. There is the option to disable/enable the pose_estimation, giving the user a break etc.  
+
+## Display
+Further buttons detailed in the wire frames may need to be added as functions, depending how the project progresses. Similarly depending on the UI libraries etc used, the UI objects will be defined. The display class will handle updating the screen as well as starting calibration. There is then also the options for updating the user when their posture has become bad.  
