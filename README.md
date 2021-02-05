@@ -48,7 +48,8 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#social-media-and-outreach">Social Media and Outreach</a></li>
+    <li><a href="#contacts">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
@@ -129,7 +130,14 @@ Contributions are what make the open source community such an amazing place to b
 
 Distributed under the GPL-3.0 License. See [`LICENSE`](https://github.com/ESE-Peasy/PosturePerfection/blob/main/LICENSE) for more information.
 
+<!-- SOCIAL -->
+## Social Media and Outreach
 
+Follow our social channels to keep up to date with our branding and public outreach.
+
+ * [Twitter](https://twitter.com/PosturePerfect3)
+ * [Instagram](https://www.instagram.com/postureperfection1/)
+ 
 <!-- CONTACT -->
 ## Contacts
 
