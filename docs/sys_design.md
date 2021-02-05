@@ -39,3 +39,13 @@ This represents the neural network/computer vision handler that will be implemen
 
 ## Display
 Further buttons detailed in the wire frames may need to be added as functions, depending how the project progresses. Similarly depending on the UI libraries etc used, the UI objects will be defined. The display class will handle updating the screen as well as starting calibration. There is then also the options for updating the user when their posture has become bad.  
+=======
+<img src="images/software_flow.png" alt="Image of System Diagram">
+</div>
+
+# UML Diagrams
+
+Coming Soon!
+{: .label .label-yellow}
+
+
