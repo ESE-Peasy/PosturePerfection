@@ -54,10 +54,10 @@ int main(int, char **) {
   interpreter->AllocateTensors();
   auto input = &(interpreter->typed_input_tensor<float>(0)[0]);
 
-  auto length = image.width * image.height * image.bytes_per_pixel;
+  auto size = image.width * image.height;
   auto step = image.bytes_per_pixel;
 
-  for (int i = 0; i < length; i += step) {
+  for (int i = 0; i < size * image.bytes_per_pixel; i += step) {
     const uint8_t *img = &(image.pixel_data[i]);
     input[i + 0] = img[0];
     input[i + 1] = img[1];
@@ -69,14 +69,14 @@ int main(int, char **) {
 
   Result results[16];
 
-  for (int i = 0; i < length; i += 16) {
+  for (int i = 0; i < size * 16; i += 16) {
     // printf("[%d] ", i);
     for (int body_part = head_top; body_part <= left_ankle; body_part++) {
       auto out = output[i + body_part];
       // printf("%f ", out);
       if (out > results[body_part].confidence) {
-        results[body_part] = {out, (i / 16) / image.width,
-                              (i / 16) % image.height};
+        results[body_part] = {out, (i / 16) % (int) image.height,
+                              (i / 16) / (int) image.width};
       }
     }
     // printf("\n");
@@ -87,5 +87,4 @@ int main(int, char **) {
     printf("%d: %f @ (%d, %d)\n", body_part, result.confidence, result.x,
            result.y);
   }
-  printf("The End\n");
 }
