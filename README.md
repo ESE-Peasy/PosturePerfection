@@ -152,6 +152,14 @@ This project is being completed by a team of 5th Year Engineering students at th
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* 
+* Using a pre-trained model with citation:
+    ```
+    @article{groos2020efficientpose,
+      title={EfficientPose: Scalable single-person pose estimation},
+      author={Groos, Daniel and Ramampiaro, Heri and Ihlen, Espen},
+      journal={Applied intelligence},
+      year={2020}
+    }
+    ```
 * 
 * 
