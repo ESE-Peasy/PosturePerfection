@@ -26,5 +26,5 @@ add_subdirectory(
 
 include_directories("${CMAKE_SOURCE_DIR}/../../tensorflow_src/tensorflow/lite")
 
-add_executable(PosturePerfection main.cpp hello.cpp)
+add_executable(PosturePerfection inference_core.cpp)
 target_link_libraries(PosturePerfection tensorflow-lite ${CMAKE_DL_LIBS})
