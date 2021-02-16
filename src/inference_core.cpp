@@ -61,8 +61,9 @@ InferenceCore::InferenceCore(const char *model_filename,
 }
 
 Coordinate InferenceCore::pixel_coord_to_Coordinate(uint32_t x, uint32_t y) {
-  return Coordinate{(float)x / (float)this->model_input_width,
-                    (float)y / (float)this->model_input_height};
+  return Coordinate{
+      static_cast<float>(x) / static_cast<float>(this->model_input_width),
+      static_cast<float>(y) / static_cast<float>(this->model_input_height)};
 }
 
 InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {

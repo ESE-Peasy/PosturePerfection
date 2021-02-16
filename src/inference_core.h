@@ -4,11 +4,12 @@
  *
  */
 
-#ifndef INFERENCE_CORE_H
-#define INFERENCE_CORE_H
+#ifndef SRC_INFERENCE_CORE_H_
+#define SRC_INFERENCE_CORE_H_
 
 #include <interpreter_builder.h>
 #include <stdint.h>
+#include <memory>
 
 typedef struct Coordinate {
   float x;
@@ -82,4 +83,4 @@ class InferenceCore {
   InferenceResults run(PreprocessedImage preprocessed_image);
 };
 
-#endif
+#endif  // SRC_INFERENCE_CORE_H_

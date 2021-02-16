@@ -1,6 +1,5 @@
-#include "posture_in.c"  // TODO Remove
-
 #include "inference_core.h"
+#include "posture_in.h"  // Hardcoded image for testing
 
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
