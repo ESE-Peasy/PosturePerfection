@@ -35,28 +35,29 @@ typedef struct Result {
   size_t y;
 } Result;
 
-InferenceCore::InferenceCore(const char* model_filename,
+InferenceCore::InferenceCore(const char *model_filename,
                              size_t model_input_width,
                              size_t model_input_height) {
   this->model_input_width = model_input_width;
   this->model_input_height = model_input_height;
   this->model_input_size = model_input_width * model_input_height;
 
-  tflite::StderrReporter error_reporter;
-
   // Load the model
   auto model =
       tflite::FlatBufferModel::BuildFromFile(model_filename, &error_reporter);
+  this->model.swap(model);
 
   auto resolver = tflite::CreateOpResolver();
 
   // Start the interpreter
-  if (tflite::InterpreterBuilder(*model, *resolver)(&interpreter) !=
-      kTfLiteOk) {
+  if (tflite::InterpreterBuilder(
+          *(this->model), *resolver)(&(this->interpreter)) != kTfLiteOk) {
     // Return failure.
     fprintf(stderr, "Could not start interpreter\n");
     exit(EXIT_FAILURE);
   }
+
+  this->interpreter->AllocateTensors();
 }
 
 Coordinate InferenceCore::pixel_coord_to_Coordinate(uint32_t x, uint32_t y) {
@@ -66,8 +67,7 @@ Coordinate InferenceCore::pixel_coord_to_Coordinate(uint32_t x, uint32_t y) {
 
 InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
   // Initialise and get pointer to input
-  interpreter->AllocateTensors();
-  auto input = interpreter->typed_input_tensor<float>(0);
+  auto input = this->interpreter->typed_input_tensor<float>(0);
 
   size_t size = this->model_input_size;
 
@@ -77,17 +77,17 @@ InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
       size * this->model_input_channels * sizeof(preprocessed_image.image[0]));
 
   // Run the model
-  interpreter->Invoke();
+  this->interpreter->Invoke();
 
   // Get pointer to output
-  auto output = interpreter->typed_output_tensor<float>(0);
+  auto output = this->interpreter->typed_output_tensor<float>(0);
 
   Result results[BodyPart_MAX + 1];
   memset(results, 0, sizeof(results));
 
   size_t step = BodyPart_MAX + 1;
-  size_t width = preprocessed_image.width;
-  size_t height = preprocessed_image.height;
+  size_t width = this->model_input_width;
+  size_t height = this->model_input_height;
 
   // Go through output to find where largest confidence for each body part is
   // Step through each pixel
@@ -122,10 +122,4 @@ InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
       pixel_coord_to_Coordinate(results[left_ankle].x, results[left_ankle].y)};
 
   return results_out;
-}
-
-int main(int argc, char const *argv[])
-{
-  // Dummy main for compiling
-  return 0;
 }

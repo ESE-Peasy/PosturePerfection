@@ -1,90 +1,43 @@
-#include <create_op_resolver.h>
-#include <interpreter_builder.h>
-#include <model_builder.h>
-#include <op_resolver.h>
-#include <stderr_reporter.h>
+#include "posture_in.c"  // TODO Remove
 
-#include <memory>
+#include "inference_core.h"
 
-#include "posture_in.c"
+#define MODEL_INPUT_X 224
+#define MODEL_INPUT_Y 224
 
-enum BodyPart {
-  head_top,
-  upper_neck,
-  right_shoulder,
-  right_elbow,
-  right_wrist,
-  thorax,
-  left_shoulder,
-  left_elbow,
-  left_wrist,
-  pelvis,
-  right_hip,
-  right_knee,
-  right_ankle,
-  left_hip,
-  left_knee,
-  left_ankle
-};
+int main(int argc, char const *argv[]) {
+  float preprocessed_image[224 * 224 * 3 + 1];
 
-typedef struct Result {
-  float confidence;
-  int x;
-  int y;
-} Result;
+  int size = MODEL_INPUT_X * MODEL_INPUT_Y;
+  int step = 3;
 
-int main(int, char **) {
-  tflite::StderrReporter error_reporter;
-
-  auto model = tflite::FlatBufferModel::BuildFromFile(
-      "../models/EfficientPoseRT_LITE.tflite", &error_reporter);
-
-  auto resolver = tflite::CreateOpResolver();
-
-  // auto interpreter_builder = ;
-
-  std::unique_ptr<tflite::Interpreter> interpreter;
-
-  if (tflite::InterpreterBuilder(*model, *resolver)(&interpreter) !=
-      kTfLiteOk) {
-    // Return failure.
-    printf("Erorroor\n");
-  }
-
-  interpreter->AllocateTensors();
-  auto input = &(interpreter->typed_input_tensor<float>(0)[0]);
-
-  auto size = image.width * image.height;
-  auto step = image.bytes_per_pixel;
-
-  for (int i = 0; i < size * image.bytes_per_pixel; i += step) {
+  for (int i = 0; i < size * step; i += step) {
     const uint8_t *img = &(image.pixel_data[i]);
-    input[i + 0] = img[0];
-    input[i + 1] = img[1];
-    input[i + 2] = img[2];
-  }
-  interpreter->Invoke();
-
-  auto output = &(interpreter->typed_output_tensor<float>(0)[0]);
-
-  Result results[16];
-
-  for (int i = 0; i < size * 16; i += 16) {
-    // printf("[%d] ", i);
-    for (int body_part = head_top; body_part <= left_ankle; body_part++) {
-      auto out = output[i + body_part];
-      // printf("%f ", out);
-      if (out > results[body_part].confidence) {
-        results[body_part] = {out, (i / 16) % (int) image.height,
-                              (i / 16) / (int) image.width};
-      }
-    }
-    // printf("\n");
+    // Scale to [-1..1]
+    preprocessed_image[i + 0] = img[0] / 127.5 - 1;
+    preprocessed_image[i + 1] = img[1] / 127.5 - 1;
+    preprocessed_image[i + 2] = img[2] / 127.5 - 1;
   }
 
-  for (int body_part = head_top; body_part <= left_ankle; body_part++) {
-    auto result = results[body_part];
-    printf("%d: %f @ (%d, %d)\n", body_part, result.confidence, result.x,
-           result.y);
-  }
+  InferenceCore core("../models/EfficientPoseRT_LITE.tflite", MODEL_INPUT_X,
+                     MODEL_INPUT_Y);
+
+  InferenceResults results = core.run(PreprocessedImage{preprocessed_image});
+
+  printf("%f, %f\n", results.head_top.x, results.head_top.y);
+  printf("%f, %f\n", results.upper_neck.x, results.upper_neck.y);
+  printf("%f, %f\n", results.right_shoulder.x, results.right_shoulder.y);
+  printf("%f, %f\n", results.right_elbow.x, results.right_elbow.y);
+  printf("%f, %f\n", results.right_wrist.x, results.right_wrist.y);
+  printf("%f, %f\n", results.thorax.x, results.thorax.y);
+  printf("%f, %f\n", results.left_shoulder.x, results.left_shoulder.y);
+  printf("%f, %f\n", results.left_elbow.x, results.left_elbow.y);
+  printf("%f, %f\n", results.left_wrist.x, results.left_wrist.y);
+  printf("%f, %f\n", results.pelvis.x, results.pelvis.y);
+  printf("%f, %f\n", results.right_hip.x, results.right_hip.y);
+  printf("%f, %f\n", results.right_knee.x, results.right_knee.y);
+  printf("%f, %f\n", results.right_ankle.x, results.right_ankle.y);
+  printf("%f, %f\n", results.left_hip.x, results.left_hip.y);
+  printf("%f, %f\n", results.left_knee.x, results.left_knee.y);
+  printf("%f, %f\n", results.left_ankle.x, results.left_ankle.y);
 }

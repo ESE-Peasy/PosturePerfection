@@ -36,9 +36,6 @@ typedef struct InferenceResults {
 
 typedef struct PreprocessedImage {
   float* image;
-  size_t width;
-  size_t height;
-  uint8_t channels = 3;
 } PreprocessedImage;
 
 /**
@@ -53,11 +50,13 @@ typedef struct PreprocessedImage {
  */
 class InferenceCore {
  private:
-  std::unique_ptr<tflite::Interpreter> interpreter;
   size_t model_input_width;
   size_t model_input_height;
   size_t model_input_size;
   uint8_t model_input_channels = 3;
+  std::unique_ptr<tflite::Interpreter> interpreter;
+  tflite::StderrReporter error_reporter;
+  std::unique_ptr<tflite::FlatBufferModel> model;
 
   Coordinate pixel_coord_to_Coordinate(uint32_t x, uint32_t y);
 
