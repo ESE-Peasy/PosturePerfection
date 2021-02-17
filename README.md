@@ -153,6 +153,7 @@ Follow our social channels to keep up to date with our branding and public outre
 
  * [Twitter](https://twitter.com/PosturePerfect3)
  * [Instagram](https://www.instagram.com/postureperfection1/)
+ * [Facebook](https://www.facebook.com/postureperfection1/)
  
 <!-- CONTACT -->
 ## Contacts
