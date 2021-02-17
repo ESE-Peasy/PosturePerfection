@@ -60,10 +60,12 @@ InferenceCore::InferenceCore(const char *model_filename,
   this->interpreter->AllocateTensors();
 }
 
-Coordinate InferenceCore::pixel_coord_to_Coordinate(uint32_t x, uint32_t y) {
+Coordinate InferenceCore::pixel_coord_to_Coordinate(uint32_t x, uint32_t y,
+                                                    float confidence) {
   return Coordinate{
       static_cast<float>(x) / static_cast<float>(this->model_input_width),
-      static_cast<float>(y) / static_cast<float>(this->model_input_height)};
+      static_cast<float>(y) / static_cast<float>(this->model_input_height),
+      confidence};
 }
 
 InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
@@ -103,24 +105,40 @@ InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
   }
 
   InferenceResults results_out = {
-      pixel_coord_to_Coordinate(results[head_top].x, results[head_top].y),
-      pixel_coord_to_Coordinate(results[upper_neck].x, results[upper_neck].y),
+      pixel_coord_to_Coordinate(results[head_top].x, results[head_top].y,
+                                results[head_top].confidence),
+      pixel_coord_to_Coordinate(results[upper_neck].x, results[upper_neck].y,
+                                results[upper_neck].confidence),
       pixel_coord_to_Coordinate(results[right_shoulder].x,
-                                results[right_shoulder].y),
-      pixel_coord_to_Coordinate(results[right_elbow].x, results[right_elbow].y),
-      pixel_coord_to_Coordinate(results[right_wrist].x, results[right_wrist].y),
-      pixel_coord_to_Coordinate(results[thorax].x, results[thorax].y),
+                                results[right_shoulder].y,
+                                results[left_elbow].confidence),
+      pixel_coord_to_Coordinate(results[right_elbow].x, results[right_elbow].y,
+                                results[right_elbow].confidence),
+      pixel_coord_to_Coordinate(results[right_wrist].x, results[right_wrist].y,
+                                results[right_wrist].confidence),
+      pixel_coord_to_Coordinate(results[thorax].x, results[thorax].y,
+                                results[thorax].confidence),
       pixel_coord_to_Coordinate(results[left_shoulder].x,
-                                results[left_shoulder].y),
-      pixel_coord_to_Coordinate(results[left_elbow].x, results[left_elbow].y),
-      pixel_coord_to_Coordinate(results[left_wrist].x, results[left_wrist].y),
-      pixel_coord_to_Coordinate(results[pelvis].x, results[pelvis].y),
-      pixel_coord_to_Coordinate(results[right_hip].x, results[right_hip].y),
-      pixel_coord_to_Coordinate(results[right_knee].x, results[right_knee].y),
-      pixel_coord_to_Coordinate(results[right_ankle].x, results[right_ankle].y),
-      pixel_coord_to_Coordinate(results[left_hip].x, results[left_hip].y),
-      pixel_coord_to_Coordinate(results[left_knee].x, results[left_knee].y),
-      pixel_coord_to_Coordinate(results[left_ankle].x, results[left_ankle].y)};
+                                results[left_shoulder].y,
+                                results[left_elbow].confidence),
+      pixel_coord_to_Coordinate(results[left_elbow].x, results[left_elbow].y,
+                                results[left_elbow].confidence),
+      pixel_coord_to_Coordinate(results[left_wrist].x, results[left_wrist].y,
+                                results[left_wrist].confidence),
+      pixel_coord_to_Coordinate(results[pelvis].x, results[pelvis].y,
+                                results[pelvis].confidence),
+      pixel_coord_to_Coordinate(results[right_hip].x, results[right_hip].y,
+                                results[right_hip].confidence),
+      pixel_coord_to_Coordinate(results[right_knee].x, results[right_knee].y,
+                                results[right_knee].confidence),
+      pixel_coord_to_Coordinate(results[right_ankle].x, results[right_ankle].y,
+                                results[right_ankle].confidence),
+      pixel_coord_to_Coordinate(results[left_hip].x, results[left_hip].y,
+                                results[left_hip].confidence),
+      pixel_coord_to_Coordinate(results[left_knee].x, results[left_knee].y,
+                                results[left_knee].confidence),
+      pixel_coord_to_Coordinate(results[left_ankle].x, results[left_ankle].y,
+                                results[left_ankle].confidence)};
 
   return results_out;
 }

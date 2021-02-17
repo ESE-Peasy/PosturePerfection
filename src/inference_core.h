@@ -9,11 +9,13 @@
 
 #include <interpreter_builder.h>
 #include <stdint.h>
+
 #include <memory>
 
 typedef struct Coordinate {
   float x;
   float y;
+  float confidence;
 } Coordinate;
 
 typedef struct InferenceResults {
@@ -59,7 +61,8 @@ class InferenceCore {
   tflite::StderrReporter error_reporter;
   std::unique_ptr<tflite::FlatBufferModel> model;
 
-  Coordinate pixel_coord_to_Coordinate(uint32_t x, uint32_t y);
+  Coordinate pixel_coord_to_Coordinate(uint32_t x, uint32_t y,
+                                       float confidence);
 
  public:
   /**
