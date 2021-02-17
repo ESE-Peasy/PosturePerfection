@@ -18,7 +18,7 @@ int main(int argc, char const *argv[]) {
     preprocessed_image[i + 2] = img[2] / 127.5 - 1;
   }
 
-  InferenceCore core("../models/EfficientPoseRT_LITE.tflite", MODEL_INPUT_X,
+  InferenceCore core("models/EfficientPoseRT_LITE.tflite", MODEL_INPUT_X,
                      MODEL_INPUT_Y);
 
   InferenceResults results = core.run(PreprocessedImage{preprocessed_image});
