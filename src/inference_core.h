@@ -12,6 +12,8 @@
 
 #include <memory>
 
+namespace Inference {
+
 typedef struct Coordinate {
   float x;
   float y;
@@ -85,5 +87,6 @@ class InferenceCore {
    */
   InferenceResults run(PreprocessedImage preprocessed_image);
 };
+}  // namespace Inference
 
 #endif  // SRC_INFERENCE_CORE_H_
