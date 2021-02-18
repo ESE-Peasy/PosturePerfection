@@ -1,3 +1,21 @@
+/**
+ * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 #include "inference_core.h"
 #include "posture_in.h"  // Hardcoded image for testing
 
@@ -18,10 +36,11 @@ int main(int argc, char const *argv[]) {
     preprocessed_image[i + 2] = img[2] / 127.5 - 1;
   }
 
-  InferenceCore core("models/EfficientPoseRT_LITE.tflite", MODEL_INPUT_X,
-                     MODEL_INPUT_Y);
+  Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
+                                MODEL_INPUT_X, MODEL_INPUT_Y);
 
-  InferenceResults results = core.run(PreprocessedImage{preprocessed_image});
+  Inference::InferenceResults results =
+      core.run(Inference::PreprocessedImage{preprocessed_image});
 
   printf("%f, %f\n", results.head_top.x, results.head_top.y);
   printf("%f, %f\n", results.upper_neck.x, results.upper_neck.y);
