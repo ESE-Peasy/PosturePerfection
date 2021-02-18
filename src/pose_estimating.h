@@ -1,5 +1,5 @@
 /*
- * @file pose.h
+ * @file pose_estimating.h
  * @brief Interface for representation of user's pose
 
  * @copyright Copyright (C) 2021  Conor Begley
