@@ -40,7 +40,7 @@ int main(int argc, char const *argv[]) {
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
 
   Inference::InferenceResults results =
-      core.run(Inference::PreprocessedImage{preprocessed_image});
+      core.run(PreProcessing::PreProcessedImage{preprocessed_image});
 
   printf("%f, %f\n", results.head_top.x, results.head_top.y);
   printf("%f, %f\n", results.upper_neck.x, results.upper_neck.y);
