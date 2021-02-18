@@ -41,7 +41,8 @@ enum Joint {
 /*
  * @brief A representation of a body part
  *
- * Each body part is represented as a `Pose::ConnectedJoint` to record the joints relative position and the connected joints to this joint
+ * Each body part is represented as a `Pose::ConnectedJoint` to record the joints 
+ * relative position and the connected joints to this joint
  * 
  * @brief Angles are measured clockwise from Head 
  *
@@ -62,7 +63,8 @@ struct ConnectedJoint {
 }
 
 /* 
- *  @brief The `Pose::Pose` representation of a human's pose, containing all the expected `Pose::ConnectedJoint 
+ *  @brief The representation of a human's pose, containing  all 
+ *  the expected ConnectedJoint 
  */
 struct Pose {
   ConnectedJoint head;
@@ -74,106 +76,120 @@ struct Pose {
 }
 
 /*
- * @brief This class handles representations of the user's pose and calculates any updates to their pose that is required.
+ * @brief This class handles representations of the user's pose and 
+ * calculates any updates to their pose that is required.
  * 
- * This class stores representations of the users current pose and their calibrated ideal pose, from the results of the PostProcessor class.
+ * This class stores representations of the users current pose and their 
+ * calibrated ideal pose, from the results of the PostProcessor class.
  *
  * This class handles:
- * Updating current user's pose or ideal user's pose
+ * Updating current user's pose or ideal user's pose.
  * Calculating the angle between ConnectedJoints
- * Comparing the current user's pose and ideal user's pose
+ * Comparing the current user's pose and ideal user's pose.
  *
- * General use should just consist of updateAndCheckCurrentPose()
+ * General use should just consist of updateAndCheckCurrentPose.
  * 
  */
 class PoseEstimater {
  private:
   /*
-   * @brief Calculates the angle(in degrees) between two points, anticlockwise from origin / bottom left corner of image
-   * @param x1 Relative X co-ordinate of first point
-   * @param y1 Relative Y co-ordinate of second point
-   * @param x2 Relative X co-ordinate of first point
-   * @param y2 Relative Y co-ordinate of first point
+   * @brief Calculates the angle(in degrees) between two points, clockwise 
+   * from the Head.
+   *
+   * @param coord1 Coordinate 1 
+   * @param coord2 Coordinate 2
    *
    * @returns float
    */
-  float getLineAngle(float x1, float y1, float x2, float y2)
+  float getLineAngle(
+          PostProcessing::Coordindate coord1,
+          PostProcessing::Coordindate coord2);
 
   /*
-   * @brief Converts `PostProcesser::ProcessedResults` to a `Pose::Pose`
+   * @brief Converts `PostProcesser::ProcessedResults` to a Pose.
    *
-   * @param results  The PostProcessor::ProccessedResults struct from PostProcessor::PostProcessor being run
+   * @param results  The PostProcessor::ProccessedResults struct 
+   * from PostProcessor::PostProcessor being run.
+   *
    * @return JointsPose
    */
   Pose createPose(PostProcessing::ProcessedResults results);
 
- public:
   /*
-   * @brief The user's current pose from most recent data provided
-   */
-  Pose current_pose;
-
-  /* 
-   * @brief The user's ideal pose, expected to be generated during user calibration  
-   */
-  Pose ideal_pose;
-
-  /*
-   * @brief A representation of what changes are needed to get back to ideal pose
-   */
-  Pose pose_changes;
-
-  /*
-   * @brief A representation of what absolute value changes for a pose is acceptably still a good pose
-   */
-  float pose_change_threshold;
-
-  /*
-   * @brief Whether the user is in a good pose (true) or bad pose (false)
-   */
-  bool good_pose;
-
-  /*
-   * @brief Updates the user's current pose from PostProcesser results
+   * @brief Updates the user's current pose from PostProcesser results.
    *
-   * @param results ProcessedResults struct containing user's pose data
+   * @param results ProcessedResults struct containing user's pose data.
    */
   void update_current_pose(PostProcessing::ProcessedResults results);
 
   /*
-   * @brief Updates the user's ideal pose from PostProcesser results
-   *
-   * @param results ProcessedResults struct containing user's pose data
-   */
-  void update_ideal_pose(PostProcessing::ProcessedResults results);
-
-  /*
-   * @brief Compares user's current pose and ideal pose, returing a pose object, with the angles of the ConnectJoints representing the change needed for each 
-   * one to return current pose to ideal pose. 
+   * @brief Compares user's current pose and ideal pose, returing a pose 
+   * object, with the angles of the ConnectJoints representing the change 
+   * needed for each one to return current pose to ideal pose. 
    *
    * @returns Pose
    */  
   Pose calculatePoseChanges();
 
   /*
-   * @brief Checks the current pose_changes_needed and sees if they are still within the good posture threshold. WARNING Does not calculate posture changes
-   * Designed to be used in conjunction with calculate_pose_changes_needed
+   * @brief Checks the current pose_changes_needed and sees if they are still 
+   * within the good posture threshold. WARNING Does not calculate posture 
+   * changes. Designed to be used in conjunction with calculate
+   * pose_changes_needed.
    */
   bool checkGoodPosture();
 
   /*
-   * @brief calculates current posture and ideal posture difference and decides if is a good posture based of posture threshold values
+   * @brief calculates current posture and ideal posture difference and decides 
+   * if is a good posture based of posture threshold values.
    * @returns bool
    */
   bool calculateChangesAndCheckPosture();
 
+
+ public:
+  /*
+   * @brief The user's current pose from most recent data provided.
+   */
+  Pose current_pose;
+
+  /* 
+   * @brief The user's ideal pose, expected to be generated 
+   * during user calibration.  
+   */
+  Pose ideal_pose;
+
+  /*
+   * @brief A representation of what changes are needed to get 
+   * back to ideal pose.
+   */
+  Pose pose_changes;
+
+  /*
+   * @brief A representation of what absolute value changes for a pose 
+   * is acceptably still a good pose.
+   */
+  float pose_change_threshold;
+
+  /*
+   * @brief Whether the user is in a good pose (true) or bad pose (false).
+   */
+  bool good_pose;
+
+  /*
+   * @brief Updates the user's ideal pose from PostProcesser results.
+   *
+   * @param results ProcessedResults struct containing user's pose data.
+   */
+  void update_ideal_pose(PostProcessing::ProcessedResults results);
+
   /*     
    * @brief Updates the user's current pose from PostProcesser results, 
-   * Calculates pose change needed 
-   * Checks if pose change needed is outside threshold
-   * Returns true or false if user in bad pose
+   * Calculates pose change needed.
+   * Checks if pose change needed is outside threshold.
+   * Returns true or false if user in bad pose.
    * 
-   * @param results ProcessedResults struct containing user's pose data
+   * @param results ProcessedResults struct containing user's pose data.
    * 
    * @returns bool
    */
