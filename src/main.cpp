@@ -36,10 +36,11 @@ int main(int argc, char const *argv[]) {
     preprocessed_image[i + 2] = img[2] / 127.5 - 1;
   }
 
-  InferenceCore core("models/EfficientPoseRT_LITE.tflite", MODEL_INPUT_X,
-                     MODEL_INPUT_Y);
+  Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
+                                MODEL_INPUT_X, MODEL_INPUT_Y);
 
-  InferenceResults results = core.run(PreprocessedImage{preprocessed_image});
+  Inference::InferenceResults results =
+      core.run(Inference::PreprocessedImage{preprocessed_image});
 
   printf("%f, %f\n", results.head_top.x, results.head_top.y);
   printf("%f, %f\n", results.upper_neck.x, results.upper_neck.y);

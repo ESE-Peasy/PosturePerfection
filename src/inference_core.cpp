@@ -53,6 +53,8 @@ typedef struct Result {
   size_t y;
 } Result;
 
+namespace Inference {
+
 InferenceCore::InferenceCore(const char *model_filename,
                              size_t model_input_width,
                              size_t model_input_height) {
@@ -160,3 +162,4 @@ InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
 
   return results_out;
 }
+}  // namespace Inference
