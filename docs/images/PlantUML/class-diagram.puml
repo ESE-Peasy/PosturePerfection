@@ -1,9 +1,12 @@
 @startuml
+<<<<<<< HEAD
 skinparam titleBorderThickness 2
 skinparam titleBorderColor red
 skinparam titleFontStyle bold
 
 title Posture Perfection System
+=======
+>>>>>>> Initial class diagrams
 
 !include preprocessor.puml!PreProcessor
 !include preprocessor.puml!PreProcessedImage
@@ -13,6 +16,10 @@ PreProcessor -- PreProcessedImage
 !include inferencecore.puml!InferenceCore
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Initial class diagrams
 PreProcessor -> InferenceCore : PreProcessedImage
 
 !include inferencecore.puml!Coordinate
@@ -23,12 +30,18 @@ InferenceCore -- InferenceResults
 
 !include postprocessor.puml!PostProcessor
 !include postprocessor.puml!Status
+<<<<<<< HEAD
 !include postprocessor.puml!SmoothingSettings
 !include postprocessor.puml!ProcessedResults
+=======
+!include postprocessor.puml!ProcessedResults
+!include postprocessor.puml!SmoothingSettings
+>>>>>>> Initial class diagrams
 
 InferenceCore -> PostProcessor : InferenceResults
 
 PostProcessor -- Status
+<<<<<<< HEAD
 PostProcessor -- SmoothingSettings
 PostProcessor -- ProcessedResults
 
@@ -44,5 +57,12 @@ PostureEstimator -- ConnectedJoint
 PostureEstimator -- Pose
 
 PostureEstimator -> GUI
+=======
+PostProcessor -- ProcessedResults
+PostProcessor -- SmoothingSettings
+
+PostProcessor -> PoseEstimator : ProcessedResults
+
+>>>>>>> Initial class diagrams
 
 @enduml
