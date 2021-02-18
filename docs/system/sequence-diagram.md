@@ -32,8 +32,7 @@ Update to include link to Doxygen
 
 The `InferenceCore` is the heart of the system, and is responsible for performing pose estimation on the input image. Various models are likely to be used for this during the trialling phases, and so the component should be designed to allow the choice of model to be modified relatively easily. The system will then utilise [TensorFlow Lite](https://www.tensorflow.org/lite/) to perform the pose estimation, and structure the output results in a suitable format. The output is expected to be the co-ordinates and confidence value of the points of interest detected during pose estimation relative to the input image. These co-ordinates and confidence values are then passed to the `PostProcessor`.
 
-Update to include link to Doxygen
-{: .label .label-yellow}
+[InferenceCore Documentation](../html/classInferenceCore.html){: .btn .btn-green}
 
 ## 4. `PostProcessor`
 
