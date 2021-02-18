@@ -2,7 +2,7 @@
  * @file pre_processor.h
  * @brief Interface for pre processing the input image before passing to
  * `Inference::InferenceCore`
- * 
+ *
  * @copyright Copyright (C) 2021  Ashwin Maliampurakal
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -34,12 +34,13 @@ namespace PreProcessing {
  * being passed to the `Inference::InferenceCore` as a `PreProcessedImage`
  *
  */
-typedef struct PreProcessedImage {
+struct PreProcessedImage {
   float* image;
-} PreProcessedImage;
+};
 
 /**
- * @brief PreProcess the input image before passing to `Inference::InferenceCore`
+ * @brief PreProcess the input image before passing to
+ * `Inference::InferenceCore`
  *
  * This class contains some pre processing steps to allow an input image to be
  * passed to the `Inference::InferenceCore`. The following operations are
@@ -66,7 +67,7 @@ class PreProcessor {
   /**
    * @brief Normalise the input image to the required interval [-1..1]
    *
-   * @param resized_image Array of pixels of the resized input image  
+   * @param resized_image Array of pixels of the resized input image
    * @return The normalised array of pixels of the input image
    */
   float* normalise(uint8_t* resized_image);
@@ -74,11 +75,13 @@ class PreProcessor {
  public:
   /**
    * @brief Construct a new PreProcessor object
-   *    
+   *
    * @param input_image_width Width of the input image
    * @param input_image_height Height of the input image
-   * @param model_width Desired width of the resized image (should match `Inference::InferenceCore::model_input_width`)
-   * @param model_height Desired height of the resized image (should match `Inference::InferenceCore::model_input_height`)   
+   * @param model_width Desired width of the resized image (should match
+   * `Inference::InferenceCore::model_input_width`)
+   * @param model_height Desired height of the resized image (should match
+   * `Inference::InferenceCore::model_input_height`)
    * @return The resized array of pixels of the input image
    */
   PreProcessor(size_t input_image_width, size_t input_image_height,
