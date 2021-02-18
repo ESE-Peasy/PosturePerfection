@@ -68,7 +68,7 @@ class PreProcessor {
    * @brief Normalise the input image to the required interval [-1..1]
    *
    * @param resized_image Array of pixels of the resized input image  
-   * @return The noramlised array of pixels of the input image
+   * @return The normalised array of pixels of the input image
    */
   float* normalise(uint8_t* resized_image);
 
