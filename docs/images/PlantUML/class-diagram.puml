@@ -1,6 +1,7 @@
 @startuml
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Update class diagram with Posture Estimator
 skinparam titleBorderThickness 2
@@ -13,6 +14,8 @@ title Posture Perfection System
 >>>>>>> Initial class diagrams
 =======
 >>>>>>> Update class diagram with Posture Estimator
+=======
+>>>>>>> Initial class diagrams
 
 !include preprocessor.puml!PreProcessor
 !include preprocessor.puml!PreProcessedImage
@@ -24,11 +27,15 @@ PreProcessor -- PreProcessedImage
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> Initial class diagrams
 =======
 >>>>>>> Update class diagram with Posture Estimator
+=======
+
+>>>>>>> Initial class diagrams
 PreProcessor -> InferenceCore : PreProcessedImage
 
 !include inferencecore.puml!Coordinate
@@ -41,6 +48,7 @@ InferenceCore -- InferenceResults
 !include postprocessor.puml!Status
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 !include postprocessor.puml!SmoothingSettings
 !include postprocessor.puml!ProcessedResults
 =======
@@ -51,12 +59,17 @@ InferenceCore -- InferenceResults
 !include postprocessor.puml!SmoothingSettings
 !include postprocessor.puml!ProcessedResults
 >>>>>>> Update class diagram with Posture Estimator
+=======
+!include postprocessor.puml!ProcessedResults
+!include postprocessor.puml!SmoothingSettings
+>>>>>>> Initial class diagrams
 
 InferenceCore -> PostProcessor : InferenceResults
 
 PostProcessor -- Status
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 PostProcessor -- SmoothingSettings
 PostProcessor -- ProcessedResults
 
@@ -95,5 +108,12 @@ PostureEstimator -- Pose
 =======
 PostureEstimator -> GUI
 >>>>>>> Update class diagram with Posture Estimator
+=======
+PostProcessor -- ProcessedResults
+PostProcessor -- SmoothingSettings
+
+PostProcessor -> PoseEstimator : ProcessedResults
+
+>>>>>>> Initial class diagrams
 
 @enduml
