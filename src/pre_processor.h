@@ -50,19 +50,18 @@ typedef struct PreProcessedImage {
  */
 class PreProcessor {
  private:
+  size_t input_image_width;
+  size_t input_image_height;
+  size_t model_width;
+  size_t model_height;
+
   /**
    * @brief Resize the input image to the desired dimensions
    *
    * @param input_image Array of pixels of the input image
-   * @param input_width Width of the input image
-   * @param input_height Height of the input image
-   * @param desired_width Desired width of the resized image (should match `Inference::InferenceCore::model_input_width`)
-   * @param desired_height Desired height of the resized image (should match `Inference::InferenceCore::model_input_height`)   
    * @return The resized array of pixels of the input image
    */
-  uint8_t* resize(uint8_t* input_image, size_t input_width,
-                   size_t input_height, size_t desired_width,
-                   size_t desired_height);
+  uint8_t* resize(uint8_t* input_image);
 
   /**
    * @brief Normalise the input image to the required interval [-1..1]
@@ -75,8 +74,15 @@ class PreProcessor {
  public:
   /**
    * @brief Construct a new PreProcessor object
+   *    
+   * @param input_image_width Width of the input image
+   * @param input_image_height Height of the input image
+   * @param model_width Desired width of the resized image (should match `Inference::InferenceCore::model_input_width`)
+   * @param model_height Desired height of the resized image (should match `Inference::InferenceCore::model_input_height`)   
+   * @return The resized array of pixels of the input image
    */
-  PreProcessor();
+  PreProcessor(size_t input_image_width, size_t input_image_height,
+               size_t model_width, size_t model_height);
 
   /**
    * @brief Apply pre processing to the given input image
