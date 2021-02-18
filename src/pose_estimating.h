@@ -43,20 +43,21 @@ enum Joint {
  *
  * Each body part is represented as a `Pose::ConnectedJoint` to record the joints relative position and the connected joints to this joint
  * 
+ * @brief Angles are measured clockwise from Head 
+ *
+ * ^HEAD
+ * |
+ * |/ +30 degrees
+ * |
+ * |__ +90 degrees
  */
+
 struct ConnectedJoint {
   Joint joint;
-  /* @brief relative x co-ordinate of joint */
   PostProcessing::Coordindate coord;
   ConnectedJoint * upper_connected_joint;
-  /* 
-   * @brief Angle(in degrees) of upper joint measured anticlockwise from bottom left corner  
-   */
   float upper_angle;
   ConnectedJoint * lower_connected_joint;
-  /* 
-   * @brief Angle(in degrees) of lower joint measured anticlockwise from bottom left corner  
-   */
   float lower_angle;
 }
 
@@ -104,28 +105,7 @@ class PoseEstimater {
    * @param results  The PostProcessor::ProccessedResults struct from PostProcessor::PostProcessor being run
    * @return JointsPose
    */
-  Pose createPose(PostProcessing :: ProcessedResults results);
-
-  /*
-   * @brief sets user's current pose
-   *
-   * @param Pose
-   */
-  void set_current_pose(Pose current);
-
-  /*
-   * @brief sets user's ideal pose
-   *
-   * @param Pose
-   */
-  void set_ideal_pose(Pose current);
-
-  /*
-   * @brief sets calcaluted changes needed pose
-   *
-   * @param Pose
-   */
-  void set_pose_changes_needed(Pose current);
+  Pose createPose(PostProcessing::ProcessedResults results);
 
  public:
   /*
@@ -141,7 +121,7 @@ class PoseEstimater {
   /*
    * @brief A representation of what changes are needed to get back to ideal pose
    */
-  Pose pose_changes_needed;
+  Pose pose_changes;
 
   /*
    * @brief A representation of what absolute value changes for a pose is acceptably still a good pose
@@ -154,25 +134,11 @@ class PoseEstimater {
   bool good_pose;
 
   /*
-   * @brief Returns the user's current pose
-   * 
-   * @returns Pose
-   */
-  Pose get_current_pose();
-
-  /*
    * @brief Updates the user's current pose from PostProcesser results
    *
    * @param results ProcessedResults struct containing user's pose data
    */
   void update_current_pose(PostProcessing::ProcessedResults results);
-
-  /*
-   * @brief Returns the user's ideal pose
-   * 
-   * @returns Pose
-   */
-  Pose get_ideal_pose();
 
   /*
    * @brief Updates the user's ideal pose from PostProcesser results
@@ -182,37 +148,26 @@ class PoseEstimater {
   void update_ideal_pose(PostProcessing::ProcessedResults results);
 
   /*
-   * @brief Gets the current threshold for deciding if a ConnectJoint angle is considered good posture relative to ideal posture 
-   */
-  float get_pose_change_threshold();
-
-  /*
-   * @brief Sets the current threshold for deciding if a ConnectJoint angle is considered good posture relative to ideal posture 
-   */
-  void set_pose_change_threshold(int threshold);
-
-  /*
-   * @brief Returns last calculated users pose, does NOT calculate current pose differnece
-   * This is intended to be used in conjuction with updateCurrentPoseCheck
-   * When updateCurrentPoseCheck returns false, this funtion should be used to retrieve the necessary changes
-   */   
-  Pose get_pose_changes_needed();
-
-  /*
    * @brief Compares user's current pose and ideal pose, returing a pose object, with the angles of the ConnectJoints representing the change needed for each 
    * one to return current pose to ideal pose. 
    *
    * @returns Pose
    */  
-  Pose calculate_pose_changes_needed();
+  Pose calculatePoseChanges();
 
   /*
-   * @brief Checks the current pose_changes_needed and sees if they are still withing the good posture threshold
+   * @brief Checks the current pose_changes_needed and sees if they are still within the good posture threshold. WARNING Does not calculate posture changes
    * Designed to be used in conjunction with calculate_pose_changes_needed
    */
-  bool check_good_posture();
+  bool checkGoodPosture();
 
   /*
+   * @brief calculates current posture and ideal posture difference and decides if is a good posture based of posture threshold values
+   * @returns bool
+   */
+  bool calculateChangesAndCheckPosture();
+
+  /*     
    * @brief Updates the user's current pose from PostProcesser results, 
    * Calculates pose change needed 
    * Checks if pose change needed is outside threshold
