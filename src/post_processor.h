@@ -27,7 +27,7 @@
 
 namespace PostProcessing {
 
-enum Status { Untrustworthy Trustworthy };
+enum Status { Untrustworthy, Trustworthy };
 
 typedef struct Coordinate {
   float x;
@@ -38,8 +38,8 @@ typedef struct Coordinate {
 /**
  * @brief The `PostProcessing::Coordinate` of each body part
  *
- * Each body part is expressed as a `PostProcessing::Coordinate` to indicate the best
- * estimate for that body part's location in the current frame. This is not
+ * Each body part is expressed as a `PostProcessing::Coordinate` to indicate the
+ * best estimate for that body part's location in the current frame. This is not
  * necessarily the same as the output of the pose estimation model for a given
  * frame.
  *
