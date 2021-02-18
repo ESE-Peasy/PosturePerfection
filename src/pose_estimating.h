@@ -118,7 +118,7 @@ class PoseEstimater {
    *
    * @param Pose
    */
-  void set_idea_pose(Pose current);
+  void set_ideal_pose(Pose current);
 
   /*
    * @brief sets calcaluted changes needed pose
