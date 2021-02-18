@@ -41,7 +41,7 @@ enum Joint {
 /*
  * @brief A representation of a body part
  *
- * Each body part is represented as a `Pose::ConnectedJoint` to record the joints 
+ * Each body part is represented as a `ConnectedJoint` to record the joints 
  * relative position and the connected joints to this joint
  * 
  * @brief Angles are measured clockwise from Head 
@@ -64,7 +64,7 @@ struct ConnectedJoint {
 
 /* 
  *  @brief The representation of a human's pose, containing  all 
- *  the expected ConnectedJoint 
+ *  the expected `ConnectedJoint` 
  */
 struct Pose {
   ConnectedJoint head;
@@ -80,14 +80,14 @@ struct Pose {
  * calculates any updates to their pose that is required.
  * 
  * This class stores representations of the users current pose and their 
- * calibrated ideal pose, from the results of the PostProcessor class.
+ * calibrated ideal pose, from `PostProcessng::ProcessedResult` class.
  *
  * This class handles:
  * Updating current user's pose or ideal user's pose.
- * Calculating the angle between ConnectedJoints
+ * Calculating the angle between `ConnectedJoint`
  * Comparing the current user's pose and ideal user's pose.
  *
- * General use should just consist of updateAndCheckCurrentPose.
+ * General use should just consist of `updateAndCheckCurrentPose`.
  * 
  */
 class PoseEstimater {
@@ -106,17 +106,17 @@ class PoseEstimater {
           PostProcessing::Coordindate coord2);
 
   /*
-   * @brief Converts `PostProcesser::ProcessedResults` to a Pose.
+   * @brief Converts `PostProcessing::ProcessedResults` to a Pose.
    *
-   * @param results  The PostProcessor::ProccessedResults struct 
-   * from PostProcessor::PostProcessor being run.
+   * @param results  The `PostProcessing::ProccessedResults` struct 
+   * from `PostProcessing::PostProcessor` being run.
    *
    * @return JointsPose
    */
   Pose createPose(PostProcessing::ProcessedResults results);
 
   /*
-   * @brief Updates the user's current pose from PostProcesser results.
+   * @brief Updates the user's current pose from `PostProcessing::ProccessedResults`.
    *
    * @param results ProcessedResults struct containing user's pose data.
    */
@@ -124,7 +124,7 @@ class PoseEstimater {
 
   /*
    * @brief Compares user's current pose and ideal pose, returing a pose 
-   * object, with the angles of the ConnectJoints representing the change 
+   * object, with the angles of the `ConnectJoint` representing the change 
    * needed for each one to return current pose to ideal pose. 
    *
    * @returns Pose
@@ -178,19 +178,19 @@ class PoseEstimater {
   bool good_pose;
 
   /*
-   * @brief Updates the user's ideal pose from PostProcesser results.
+   * @brief Updates the user's ideal pose from `PostProcessing::ProcessingResults`.
    *
    * @param results ProcessedResults struct containing user's pose data.
    */
   void update_ideal_pose(PostProcessing::ProcessedResults results);
 
   /*     
-   * @brief Updates the user's current pose from PostProcesser results, 
+   * @brief Updates the user's current pose from `PostProcessing::ProcessingResults`, 
    * Calculates pose change needed.
    * Checks if pose change needed is outside threshold.
    * Returns true or false if user in bad pose.
    * 
-   * @param results ProcessedResults struct containing user's pose data.
+   * @param results `PostProcessing::ProcessingResults` struct containing user's pose data.
    * 
    * @return true If user's posture is good
    * @return false If user's posture is bad
