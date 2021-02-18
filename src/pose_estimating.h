@@ -142,7 +142,8 @@ class PoseEstimater {
   /*
    * @brief calculates current posture and ideal posture difference and decides 
    * if is a good posture based of posture threshold values.
-   * @returns bool
+   * @return true If user's posture is good
+   * @return false If user's posture is bad
    */
   bool calculateChangesAndCheckPosture();
 
@@ -191,8 +192,9 @@ class PoseEstimater {
    * 
    * @param results ProcessedResults struct containing user's pose data.
    * 
-   * @returns bool
-   */
+   * @return true If user's posture is good
+   * @return false If user's posture is bad
+    */
   bool updateCurrentPoseAndCheck(PostProcessing::ProcessedResults results);
 }
 }  // namespace PoseEstimating
