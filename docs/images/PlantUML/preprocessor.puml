@@ -1,0 +1,23 @@
+' File: preprocessor.puml
+
+@startuml(id=PreProcessor)
+class PreProcessor {
+   -size_t input_image_width
+   -size_t input_image_height
+   -size_t model_width
+   -size_t model_height
+
+   -uint8_t* resize(uint8_t* input_image)
+   -float* normalise(uint8_t* resized_image)
+
+   +PreProcessor(size_t input_image_width, size_t input_image_height, 
+                 size_t model_width, size_t model_height)
+   +PreProcessedImage run(uint8_t* input_image)
+}
+@enduml
+
+@startuml(id=PreProcessedImage)
+object PreProcessedImage {
+   float* image
+}
+@enduml

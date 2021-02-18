@@ -1,0 +1,34 @@
+@startuml
+
+!include preprocessor.puml!PreProcessor
+!include preprocessor.puml!PreProcessedImage
+
+PreProcessor -- PreProcessedImage
+
+!include inferencecore.puml!InferenceCore
+
+
+
+PreProcessor -> InferenceCore : PreProcessedImage
+
+!include inferencecore.puml!Coordinate
+!include inferencecore.puml!InferenceResults
+
+InferenceCore -- Coordinate
+InferenceCore -- InferenceResults
+
+!include postprocessor.puml!PostProcessor
+!include postprocessor.puml!Status
+!include postprocessor.puml!ProcessedResults
+!include postprocessor.puml!SmoothingSettings
+
+InferenceCore -> PostProcessor : InferenceResults
+
+PostProcessor -- Status
+PostProcessor -- ProcessedResults
+PostProcessor -- SmoothingSettings
+
+PostProcessor -> PoseEstimator : ProcessedResults
+
+
+@enduml

@@ -37,7 +37,7 @@ Update to include link to Doxygen
 
 ## 4. `PostProcessor`
 
-The input co-ordinates to the `PostProcessor` from the `InferenceCore` will be relative, and therefore can be used directly with the initial input image from the `PiCamera`. This component is then responsible for  analyse the confidence level of the various points detected and performing some thresholding to discard values which are not deemed to be confident enough, and other points which may not be of interest. The final co-ordinates of interest are then output from this component to the `PoseEstimator`.
+The input co-ordinates to the `PostProcessor` from the `InferenceCore` will be relative, and therefore can be used directly with the initial input image from the `PiCamera`. This component is then responsible for analyse the confidence level of the various points detected and performing some thresholding to discard values which are not deemed to be confident enough, and other points which may not be of interest. The final co-ordinates of interest are then output from this component to the `PoseEstimator`.
 
 Update to include link to Doxygen
 {: .label .label-yellow}
