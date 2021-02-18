@@ -87,6 +87,9 @@ typedef struct SmoothingSettings {
  *
  */
 class PostProcessor {
+ private:
+  float confidence_threshold;
+
  public:
   /**
    * @brief Construct a new Post Processor object
