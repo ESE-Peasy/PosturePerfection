@@ -111,14 +111,14 @@ class PoseEstimater {
    * @param results  The `PostProcessing::ProccessedResults` struct 
    * from `PostProcessing::PostProcessor` being run.
    *
-   * @return JointsPose
+   * @return `Pose`
    */
   Pose createPose(PostProcessing::ProcessedResults results);
 
   /*
    * @brief Updates the user's current pose from `PostProcessing::ProccessedResults`.
    *
-   * @param results ProcessedResults struct containing user's pose data.
+   * @param results `PostProcessing::ProcessedResults struct containing user's pose data.
    */
   void update_current_pose(PostProcessing::ProcessedResults results);
 
@@ -180,7 +180,7 @@ class PoseEstimater {
   /*
    * @brief Updates the user's ideal pose from `PostProcessing::ProcessingResults`.
    *
-   * @param results ProcessedResults struct containing user's pose data.
+   * @param results `PostProcessing::ProcessedResults` struct containing user's pose data.
    */
   void update_ideal_pose(PostProcessing::ProcessedResults results);
 
