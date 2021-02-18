@@ -27,6 +27,8 @@
 
 #include <memory>
 
+#include "pre_processor.h"
+
 namespace Inference {
 
 typedef struct Coordinate {
@@ -53,10 +55,6 @@ typedef struct InferenceResults {
   Coordinate left_knee;
   Coordinate left_ankle;
 } InferenceResults;
-
-typedef struct PreprocessedImage {
-  float* image;
-} PreprocessedImage;
 
 /**
  * @brief A wrapper to make running inference easier
@@ -100,7 +98,7 @@ class InferenceCore {
    * [-1..1] before being passed to this function
    * @return InferenceResults
    */
-  InferenceResults run(PreprocessedImage preprocessed_image);
+  InferenceResults run(PreProcessing::PreProcessedImage preprocessed_image);
 };
 }  // namespace Inference
 

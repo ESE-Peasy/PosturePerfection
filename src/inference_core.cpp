@@ -88,7 +88,8 @@ Coordinate InferenceCore::pixel_coord_to_Coordinate(uint32_t x, uint32_t y,
       confidence};
 }
 
-InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
+InferenceResults InferenceCore::run(
+    PreProcessing::PreProcessedImage preprocessed_image) {
   // Initialise and get pointer to input
   auto input = this->interpreter->typed_input_tensor<float>(0);
 
