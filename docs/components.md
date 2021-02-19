@@ -20,7 +20,7 @@ If you would like to setup PosturePerfection using your own Raspberry Pi follow 
 We estimate that this will cost around £150 for all components.
 
 ## Assembly
-This section covers the hardware assembly. For software setup checkout the [software setup guide (TBC)]().
+This section covers the hardware assembly. For software setup checkout the [software setup guide](software-install).
 
 1. Attach the camera module to the CSI port. This is the slot closest to the Ethernet (or furthest from the SD card). Lift up the plastic toggle and slide in the camera ribbon cable. Ensure the contacts on the cable face in the correct direction. Push down the toggle softly to fix the ribbon cable in place.
 1. Attach the screen or monitor. You will either attach this via a HDMI port (on the side) or the other ribbon cable port.

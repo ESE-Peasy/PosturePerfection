@@ -76,36 +76,39 @@ To be completed
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get PosturePerfection running by yourself you will need to follow these steps.
+To get PosturePerfection running by yourself you will need to follow these steps. The installation currently only works on Linux and OSX machines. In particular, we test the software on the following:
+- Intel x86 running Ubuntu 20.04 LTS
+- Raspberry Pi 4B running Raspberry Pi OS
 
 ### Prerequisites
 
-Specify which software dependencies are used and how to install them:
+> All requirements will be installed if you follow the [installation](#installation) instructions below.
 
-  ```sh
-  TBC
-  ```
+PosturePerfection uses the following tools and libraries:
+- TensorFlow Lite
+
 
 ### Installation
 
-1. Fork the repo
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/ESE-Peasy/PosturePerfection.git
    ```
-3. Install NPM packages
+1. Run the installation script
    ```sh
-   TBC
+   cd PosturePerfection && ./install.sh
    ```
 
+This builds the binary in the `build` directory.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-* Include screenshots, video demos and code examples to demonstrate how the project works
+Start the application by running from the project root:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
+```sh
+./build/PosturePerfection
+```
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -152,6 +155,13 @@ This project is being completed by a team of 5th Year Engineering students at th
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* 
-* 
-* 
+* Using a pre-trained model with citation:
+    ```
+    @article{groos2020efficientpose,
+      title={EfficientPose: Scalable single-person pose estimation},
+      author={Groos, Daniel and Ramampiaro, Heri and Ihlen, Espen},
+      journal={Applied intelligence},
+      year={2020}
+    }
+    ```
+* Uses the [TensorFlow](https://github.com/tensorflow/tensorflow) Lite C++ library
