@@ -1,6 +1,6 @@
 /*
- * @file datapage.h 
- * @brief Interface for the data page
+ * @file settingspage.h
+ * @brief Interface for the settings page
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -17,64 +17,57 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef SRC_DATAPAGE_H_
-#define SRC_DATAPAGE_H_
+#ifndef SRC_SETTINGSPAGE_H_
+#define SRC_SETTINGSPAGE_H_
 
 #include <QMainWindow>
 
-namespace Ui {
-class DataPage;
-}
-
 /*
- * @brief This class allows for navigation around the application from the data page.
+ * @brief This class allows for navigation around the application from the settings page.
  *
- * This class lets the user navigate to the mainwindow, settingspage and fullscreen from the data page.
+ * This class lets the user navigate to the mainwindow, datapage and fullscreen from the settings page.
  *
  * This class handles:
  * Navigating to the main window.
- * Navigating to the settings page.
+ * Navigating to the data page.
  * Navigating to the full screen.
  *
  */
-class DataPage : public QMainWindow{
+namespace Ui {
+class settingsPage;
+}
+
+class settingsPage : public QMainWindow{
     Q_OBJECT
 
  public:
     /*
-      * @brief Initialises the data page.
+      * @brief Initialises the settings page.
       */
-    explicit DataPage(QWidget *parent = nullptr);
-    ~DataPage();
+    explicit settingsPage(QWidget *parent = nullptr);
+    ~settingsPage();
 
  private slots:
     /*
-      * @brief Closes the data page and opens the main window.
+      * @brief Closes the settings page and opens the main window.
       */
     void on_home_button_clicked();
 
     /*
-      * @brief Triggers functionality letting the user reset their posture.
+      * @brief Closes the settings page and opens the data page.
       */
-    void on_reset_button_clicked();
+    void on_data_button_clicked();
 
     /*
-      * @brief Closes the data page and opens the fullscreen page.
+      * @brief Closes the settings page and opens the fullscreen page.
       */
     void on_full_button_clicked();
 
-    /*
-      * @brief Closes the data page and opens the settings page.
-      */
-    void on_settings_button_clicked();
-
-
-
  private:
     /*
-      * @brief Closes the data page.
+      * @brief Closes the settings page.
       */
-    Ui::DataPage *ui;
+    Ui::settingsPage *ui;
 };
 
-#endif  // SRC_DATAPAGE_H_
+#endif  // SRC_SETTINGSPAGE_H_
