@@ -1,13 +1,25 @@
 #! /bin/sh
 
+while getopts ":t" opt; do
+  case ${opt} in
+    t) TESTING=1
+  esac
+done
+
 ## Install dependecies
-./install_dependencies.sh
+if [ $TESTING -eq 1 ]
+then
+  ./install_dependencies.sh -t
+else
+  ./install_dependencies.sh
+fi
+
+
 
 ## Build PosturePerfection
 mkdir -p build
-cd build
-cmake ../src
-cmake --build .
+cmake . -B build
+cmake --build build
 
 cd ..
 

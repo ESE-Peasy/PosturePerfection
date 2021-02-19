@@ -101,6 +101,11 @@ PosturePerfection uses the following tools and libraries:
 
 This builds the binary in the `build` directory.
 
+To download dependencies needed for unit testing run `install` with the `-r` flag:
+```sh
+./install.sh -r
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
@@ -108,6 +113,14 @@ Start the application by running from the project root:
 
 ```sh
 ./build/PosturePerfection
+```
+
+## Testing
+
+To run the unit tests:
+
+```sh
+(cd build && ctest)
 ```
 
 <!-- ROADMAP -->

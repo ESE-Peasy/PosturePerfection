@@ -6,6 +6,11 @@ PP_ROOT=$(pwd)
 MIN_CMAKE="3.16"
 TF_VERSION="f32b4d37cc059771198484d453d5cf288cf7803b"
 
+while getopts ":t" opt; do
+  case ${opt} in
+    t) TESTING=1
+  esac
+done
 
 ## Check for correct version of CMake
 if ! cmake --version >/dev/null 2>&1
@@ -37,10 +42,16 @@ echo "Installing TensorFlow Lite ..."
 mkdir -p tflite_build
 cd tflite_build
 cmake ../tensorflow_src/tensorflow/lite
-# cmake --build .
 
 ## Reset directory to project root
 cd $PP_ROOT
 
 echo ""
 echo "Successfully installed dependencies"
+
+if [ $TESTING -eq 1 ]
+then
+  ## For unit testing
+  sudo apt install libboost-dev libboost-all-dev -y
+  echo "Installed unit testing dependencies"
+fi
