@@ -17,8 +17,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef DATAPAGE_H
-#define DATAPAGE_H
+#ifndef SRC_DATAPAGE_H_
+#define SRC_DATAPAGE_H_
 
 #include <QMainWindow>
 
@@ -35,23 +35,19 @@ class DataPage;
  * Navigating to the main window.
  * Navigating to the settings page.
  * Navigating to the full screen.
- * 
- *
- *
  *
  */
-class DataPage : public QMainWindow
-{
+class DataPage : public QMainWindow{
     Q_OBJECT
 
-public:
+ public:
     /*
       * @brief Initialises the data page.
       */
     explicit DataPage(QWidget *parent = nullptr);
     ~DataPage();
 
-private slots:
+ private slots:
     /*
       * @brief Closes the fullscreen page and opens the main window.
       */
@@ -72,14 +68,13 @@ private slots:
       */
     void on_settings_button_clicked();
 
-    
-    
 
-private:
+
+ private:
     /*
       * @brief Closes the data page.
       */
     Ui::DataPage *ui;
 };
 
-#endif // DATAPAGE_H
+#endif  // DATAPAGE_H
