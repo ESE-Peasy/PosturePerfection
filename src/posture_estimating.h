@@ -1,5 +1,5 @@
 /*
- * @file pose_estimating.h
+ * @file posture_estimating.h
  * @brief Interface for representation of user's pose
 
  * @copyright Copyright (C) 2021  Conor Begley
@@ -19,12 +19,12 @@
  *
  */
 
-#ifndef SRC_POSE_ESTIMATING_H_
-#define SRC_POSE_ESTIMATING_H_
+#ifndef SRC_POSTURE_ESTIMATING_H_
+#define SRC_POSTURE_ESTIMATING_H_
 
 #include "post_processor.h"
 
-namespace PoseEstimating {
+namespace PostureEstimating {
 
 /**
  * @brief An enum for each important pose body part
@@ -44,7 +44,7 @@ enum Joint {
  * Each body part is represented as a `ConnectedJoint` to record the joints 
  * relative position and the connected joints to this joint
  * 
- * @brief Angles are measured clockwise from Head 
+ * Angles are measured clockwise from Head 
  *
  * ^HEAD
  * |
@@ -55,7 +55,7 @@ enum Joint {
 
 struct ConnectedJoint {
   Joint joint;
-  PostProcessing::Coordindate coord;
+  PostProcessing::Coordinate coord;
   ConnectedJoint * upper_connected_joint;
   float upper_angle;
   ConnectedJoint * lower_connected_joint;
@@ -80,17 +80,17 @@ struct Pose {
  * calculates any updates to their pose that is required.
  * 
  * This class stores representations of the users current pose and their 
- * calibrated ideal pose, from `PostProcessng::ProcessedResult` class.
+ * calibrated ideal pose, from `PostProcessing::ProcessedResult` class.
  *
  * This class handles:
  * Updating current user's pose or ideal user's pose.
  * Calculating the angle between `ConnectedJoint`
  * Comparing the current user's pose and ideal user's pose.
  *
- * General use should just consist of `updateAndCheckCurrentPose`.
+ * General use should just consist of `updateCurrentPoseAndCheckPosture`.
  * 
  */
-class PoseEstimater {
+class PostureEstimator {
  private:
   /*
    * @brief Calculates the angle(in degrees) between two points, clockwise 
@@ -102,8 +102,8 @@ class PoseEstimater {
    * @returns float
    */
   float getLineAngle(
-          PostProcessing::Coordindate coord1,
-          PostProcessing::Coordindate coord2);
+          PostProcessing::Coordinate coord1,
+          PostProcessing::Coordinate coord2);
 
   /*
    * @brief Converts `PostProcessing::ProcessedResults` to a Pose.
@@ -124,7 +124,7 @@ class PoseEstimater {
 
   /*
    * @brief Compares user's current pose and ideal pose, returing a pose 
-   * object, with the angles of the `ConnectJoint` representing the change 
+   * object, with the angles of the `ConnectedJoint` representing the change 
    * needed for each one to return current pose to ideal pose. 
    *
    * @returns Pose
@@ -135,7 +135,7 @@ class PoseEstimater {
    * @brief Checks the current pose_changes_needed and sees if they are still 
    * within the good posture threshold. WARNING Does not calculate posture 
    * changes. Designed to be used in conjunction with calculate
-   * pose_changes_needed.
+   * pose_changes
    */
   bool checkGoodPosture();
 
@@ -195,8 +195,9 @@ class PoseEstimater {
    * @return true If user's posture is good
    * @return false If user's posture is bad
     */
-  bool updateCurrentPoseAndCheck(PostProcessing::ProcessedResults results);
+  bool updateCurrentPoseAndCheckPosture(
+    PostProcessing::ProcessedResults results);
 }
-}  // namespace PoseEstimating
-#endif  // SRC_POSE_ESTIMATING_H_
+}  // namespace PostureEstimating
+#endif  // SRC_POSTURE_ESTIMATING_H_
 
