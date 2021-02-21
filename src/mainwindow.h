@@ -1,5 +1,5 @@
 /*
- * @file datapage.h 
+ * @file mainwindow.h
  * @brief Interface for the main page
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
@@ -17,8 +17,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef SRC_MAINWINDOW_H_
+#define SRC_MAINWINDOW_H_
 
 #include <QMainWindow>
 
@@ -38,15 +38,14 @@ QT_END_NAMESPACE
  * Navigating to the full screen.
  *
  */
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow{
     Q_OBJECT
 
  public:
     /*
       * @brief Initialises the main page.
       */
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 
@@ -77,6 +76,5 @@ class MainWindow : public QMainWindow
       * @brief Closes the main window.
       */
     Ui::MainWindow *ui;
-
 };
-#endif // MAINWINDOW_H
+#endif  // SRC_MAINWINDOW_H_
