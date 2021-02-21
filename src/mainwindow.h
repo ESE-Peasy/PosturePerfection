@@ -36,6 +36,7 @@ QT_END_NAMESPACE
  * Navigating to the data page.
  * Navigating to the settings page.
  * Navigating to the full screen.
+ * Triggering posture reseting functionality
  *
  */
 class MainWindow : public QMainWindow{
@@ -69,6 +70,11 @@ class MainWindow : public QMainWindow{
       * @brief Outputs the current time.
       */
     void showTime();
+
+    /*
+      * @brief Triggers the posture reset functionality.
+      */
+    void on_reset_button_clicked();
 
 
  private:
