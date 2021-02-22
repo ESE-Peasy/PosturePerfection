@@ -23,7 +23,9 @@
 #ifndef SRC_PRE_PROCESSOR_H_
 #define SRC_PRE_PROCESSOR_H_
 
-#include "inference_core.h"
+#include <stdint.h>
+
+#include <memory>
 
 namespace PreProcessing {
 
