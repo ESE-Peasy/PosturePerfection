@@ -1,12 +1,18 @@
 @startuml
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Update class diagram with Posture Estimator
 skinparam titleBorderThickness 2
 skinparam titleBorderColor red
 skinparam titleFontStyle bold
 
 title Posture Perfection System
+<<<<<<< HEAD
 =======
 >>>>>>> Initial class diagrams
+=======
+>>>>>>> Update class diagram with Posture Estimator
 
 !include preprocessor.puml!PreProcessor
 !include preprocessor.puml!PreProcessedImage
@@ -17,9 +23,12 @@ PreProcessor -- PreProcessedImage
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> Initial class diagrams
+=======
+>>>>>>> Update class diagram with Posture Estimator
 PreProcessor -> InferenceCore : PreProcessedImage
 
 !include inferencecore.puml!Coordinate
@@ -31,16 +40,22 @@ InferenceCore -- InferenceResults
 !include postprocessor.puml!PostProcessor
 !include postprocessor.puml!Status
 <<<<<<< HEAD
+<<<<<<< HEAD
 !include postprocessor.puml!SmoothingSettings
 !include postprocessor.puml!ProcessedResults
 =======
 !include postprocessor.puml!ProcessedResults
 !include postprocessor.puml!SmoothingSettings
 >>>>>>> Initial class diagrams
+=======
+!include postprocessor.puml!SmoothingSettings
+!include postprocessor.puml!ProcessedResults
+>>>>>>> Update class diagram with Posture Estimator
 
 InferenceCore -> PostProcessor : InferenceResults
 
 PostProcessor -- Status
+<<<<<<< HEAD
 <<<<<<< HEAD
 PostProcessor -- SmoothingSettings
 PostProcessor -- ProcessedResults
@@ -59,10 +74,26 @@ PostureEstimator -- Pose
 PostureEstimator -> GUI
 =======
 PostProcessor -- ProcessedResults
+=======
+>>>>>>> Update class diagram with Posture Estimator
 PostProcessor -- SmoothingSettings
+PostProcessor -- ProcessedResults
 
-PostProcessor -> PoseEstimator : ProcessedResults
+!include postureestimator.puml!PostureEstimator
+!include postureestimator.puml!Joint
+!include postureestimator.puml!ConnectedJoint
+!include postureestimator.puml!Pose
 
+PostProcessor -> PostureEstimator : ProcessedResults
+
+PostureEstimator -- Joint
+PostureEstimator -- ConnectedJoint
+PostureEstimator -- Pose
+
+<<<<<<< HEAD
 >>>>>>> Initial class diagrams
+=======
+PostureEstimator -> GUI
+>>>>>>> Update class diagram with Posture Estimator
 
 @enduml
