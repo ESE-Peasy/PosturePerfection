@@ -1,4 +1,9 @@
 @startuml
+skinparam titleBorderThickness 2
+skinparam titleBorderColor red
+skinparam titleFontStyle bold
+
+title Posture Perfection System
 
 !include preprocessor.puml!PreProcessor
 !include preprocessor.puml!PreProcessedImage
@@ -6,7 +11,6 @@
 PreProcessor -- PreProcessedImage
 
 !include inferencecore.puml!InferenceCore
-
 
 
 PreProcessor -> InferenceCore : PreProcessedImage
@@ -19,16 +23,26 @@ InferenceCore -- InferenceResults
 
 !include postprocessor.puml!PostProcessor
 !include postprocessor.puml!Status
-!include postprocessor.puml!ProcessedResults
 !include postprocessor.puml!SmoothingSettings
+!include postprocessor.puml!ProcessedResults
 
 InferenceCore -> PostProcessor : InferenceResults
 
 PostProcessor -- Status
-PostProcessor -- ProcessedResults
 PostProcessor -- SmoothingSettings
+PostProcessor -- ProcessedResults
 
-PostProcessor -> PoseEstimator : ProcessedResults
+!include postureestimator.puml!PostureEstimator
+!include postureestimator.puml!Joint
+!include postureestimator.puml!ConnectedJoint
+!include postureestimator.puml!Pose
 
+PostProcessor -> PostureEstimator : ProcessedResults
+
+PostureEstimator -- Joint
+PostureEstimator -- ConnectedJoint
+PostureEstimator -- Pose
+
+PostureEstimator -> GUI
 
 @enduml
