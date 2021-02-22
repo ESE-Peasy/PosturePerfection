@@ -41,6 +41,8 @@ class DataPage : public QMainWindow{
  public:
     /*
       * @brief Initialises the data page.
+      * 
+      * @param *parent Pointer to the parent interface.
       */
     explicit DataPage(QWidget *parent = nullptr);
     ~DataPage();

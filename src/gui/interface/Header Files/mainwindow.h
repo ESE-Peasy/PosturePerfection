@@ -17,14 +17,13 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef SRC_MAINWINDOW_H_
-#define SRC_MAINWINDOW_H_
+#ifndef SRC_GUI_INTERFACE_HEADER_FILES_MAINWINDOW_H_
+#define SRC_GUI_INTERFACE_HEADER_FILES_MAINWINDOW_H_
 
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace GUI {
 
 
 /*
@@ -45,6 +44,8 @@ class MainWindow : public QMainWindow{
  public:
     /*
       * @brief Initialises the main page.
+      * 
+      * @param *parent Pointer to the parent interface.
       */
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -81,6 +82,9 @@ class MainWindow : public QMainWindow{
     /*
       * @brief Closes the main window.
       */
-    Ui::MainWindow *ui;
+    GUI::MainWindow *ui;
 };
-#endif  // SRC_MAINWINDOW_H_
+}  // namespace GUI
+QT_END_NAMESPACE
+
+#endif  // SRC_GUI_INTERFACE_HEADER_FILES_MAINWINDOW_H_

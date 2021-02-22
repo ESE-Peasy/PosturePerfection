@@ -18,15 +18,13 @@
  *
  */
 
-#ifndef SRC_FULLSCREEN_H_
-#define SRC_FULLSCREEN_H_
+#ifndef SRC_GUI_INTERFACE_HEADER_FILES_FULLSCREEN_H_
+#define SRC_GUI_INTERFACE_HEADER_FILES_FULLSCREEN_H_
 
 #include <QMainWindow>
 
 
-namespace Ui {
-class fullscreen;
-}
+namespace GUI {
 
 
 
@@ -49,6 +47,8 @@ class FullScreen : public QMainWindow{
  public:
     /*
       * @brief Initialises the full screen.
+      * 
+      * @param *parent Pointer to the parent interface.
       */
     explicit FullScreen(QWidget *parent = nullptr);
     ~FullScreen();
@@ -76,7 +76,8 @@ class FullScreen : public QMainWindow{
     /*
       * @brief Closes the full screen page.
       */
-    Ui::FullScreen *ui;
+    GUI::FullScreen *ui;
 };
+}  // namespace GUI
 
-#endif  // SRC_FULLSCREEN_H_
+#endif  // SRC_GUI_INTERFACE_HEADER_FILES_FULLSCREEN_H_

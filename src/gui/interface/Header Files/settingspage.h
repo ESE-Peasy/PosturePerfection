@@ -17,8 +17,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef SRC_SETTINGSPAGE_H_
-#define SRC_SETTINGSPAGE_H_
+#ifndef SRC_GUI_INTERFACE_HEADER_FILES_SETTINGSPAGE_H_
+#define SRC_GUI_INTERFACE_HEADER_FILES_SETTINGSPAGE_H_
 
 #include <QMainWindow>
 
@@ -33,9 +33,7 @@
  * Navigating to the full screen.
  *
  */
-namespace Ui {
-class settingsPage;
-}
+namespace GUI {
 
 class settingsPage : public QMainWindow{
     Q_OBJECT
@@ -43,6 +41,8 @@ class settingsPage : public QMainWindow{
  public:
     /*
       * @brief Initialises the settings page.
+      * 
+      * @param *parent Pointer to the parent interface.
       */
     explicit settingsPage(QWidget *parent = nullptr);
     ~settingsPage();
@@ -67,7 +67,8 @@ class settingsPage : public QMainWindow{
     /*
       * @brief Closes the settings page.
       */
-    Ui::settingsPage *ui;
+    GUI::settingsPage *ui;
 };
+}  // namespace GUI
 
-#endif  // SRC_SETTINGSPAGE_H_
+#endif  // SRC_GUI_INTERFACE_HEADER_FILES_SETTINGSPAGE_H_
