@@ -17,14 +17,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef SRC_DATAPAGE_H_
-#define SRC_DATAPAGE_H_
+#ifndef SRC_GUI_INTERFACE_HEADER_FILES_DATAPAGE_H_
+#define SRC_GUI_INTERFACE_HEADER_FILES_DATAPAGE_H_
 
 #include <QMainWindow>
 
-namespace Ui {
-class DataPage;
-}
+namespace GUI {
 
 /*
  * @brief This class allows for navigation around the application from the data page.
@@ -74,7 +72,8 @@ class DataPage : public QMainWindow{
     /*
       * @brief Closes the data page.
       */
-    Ui::DataPage *ui;
+    GUI::DataPage *ui;
 };
+}  // namespace GUI
 
-#endif  // SRC_DATAPAGE_H_
+#endif  // SRC_GUI_INTERFACE_HEADER_FILES_DATAPAGE_H_
