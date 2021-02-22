@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['inference_5fcore_2eh_3',['inference_core.h',['../inference__core_8h.html',1,'']]],
-  ['inferencecore_4',['InferenceCore',['../classInferenceCore.html',1,'InferenceCore'],['../classInferenceCore.html#a89c87e17562b7a3c421a9f9bef5bb4a2',1,'InferenceCore::InferenceCore()']]],
-  ['inferenceresults_5',['InferenceResults',['../structInferenceResults.html',1,'']]]
+  ['hello_2eh_2',['hello.h',['../hello_8h.html',1,'']]],
+  ['hello_5fworld_3',['hello_world',['../hello_8h.html#a8674ffb3345a47f83692fb3988e4037b',1,'hello.cpp']]]
 ];
