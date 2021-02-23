@@ -59,7 +59,7 @@ void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
 }
 
 int main(int argc, char const *argv[]) {
-  // Setup the vamera input
+  // Setup the camera input
   cv::VideoCapture cap(0);
 
   if (!cap.isOpened()) {
