@@ -2,6 +2,21 @@
  * @file inference_core.h
  * @brief Wrapper API for the TensorFlow Lite model
  *
+ * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
  */
 
 #ifndef SRC_INFERENCE_CORE_H_
@@ -11,6 +26,10 @@
 #include <stdint.h>
 
 #include <memory>
+
+#include "pre_processor.h"
+
+namespace Inference {
 
 typedef struct Coordinate {
   float x;
@@ -36,10 +55,6 @@ typedef struct InferenceResults {
   Coordinate left_knee;
   Coordinate left_ankle;
 } InferenceResults;
-
-typedef struct PreprocessedImage {
-  float* image;
-} PreprocessedImage;
 
 /**
  * @brief A wrapper to make running inference easier
@@ -83,7 +98,8 @@ class InferenceCore {
    * [-1..1] before being passed to this function
    * @return InferenceResults
    */
-  InferenceResults run(PreprocessedImage preprocessed_image);
+  InferenceResults run(PreProcessing::PreProcessedImage preprocessed_image);
 };
+}  // namespace Inference
 
 #endif  // SRC_INFERENCE_CORE_H_

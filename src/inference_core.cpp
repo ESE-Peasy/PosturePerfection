@@ -1,3 +1,21 @@
+/**
+ * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 #include "inference_core.h"
 
 #include <create_op_resolver.h>
@@ -35,6 +53,8 @@ typedef struct Result {
   size_t y;
 } Result;
 
+namespace Inference {
+
 InferenceCore::InferenceCore(const char *model_filename,
                              size_t model_input_width,
                              size_t model_input_height) {
@@ -68,7 +88,8 @@ Coordinate InferenceCore::pixel_coord_to_Coordinate(uint32_t x, uint32_t y,
       confidence};
 }
 
-InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
+InferenceResults InferenceCore::run(
+    PreProcessing::PreProcessedImage preprocessed_image) {
   // Initialise and get pointer to input
   auto input = this->interpreter->typed_input_tensor<float>(0);
 
@@ -142,3 +163,4 @@ InferenceResults InferenceCore::run(PreprocessedImage preprocessed_image) {
 
   return results_out;
 }
+}  // namespace Inference
