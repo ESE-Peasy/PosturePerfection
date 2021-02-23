@@ -45,6 +45,19 @@ cd ..
 # cmake ../tensorflow_src/tensorflow/lite
 # cmake --build .
 
+## Download OpenCV code
+cd ..
+echo "Downloading OpenCV ..."
+if [ ! -d "opencv_src" ]; then
+  git clone https://github.com/opencv/opencv.git opencv_src
+fi
+
+## Build OpenCV
+mkdir -p opencv_build
+cd opencv_build
+cmake -DCMAKE_BUILD_TYPE=Release ../opencv_src
+make -j7
+
 ## Reset directory to project root
 cd $PP_ROOT
 
