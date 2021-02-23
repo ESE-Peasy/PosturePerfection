@@ -1,5 +1,5 @@
 ---
-nav_order: 5
+nav_order: 7
 title: Continuous Integration
 ---
 
@@ -37,12 +37,14 @@ This job attempts to build the project and then runs tests as defined in the CMa
 This job runs the `cpplint` python package on all code. This checks against Google code formatting guidelines, with some minor modifications. See the [project page](https://github.com/cpplint/cpplint) for details.
 
 The following checks are disabled at the moment:
-- `legal/copyright`
-  - Would require a copyright statement at the top of every file
 - `build/include_subdir`
   - Would require subdirectory paths to be specified when including headers
   - We may want to enable this again if we change the directory structure of the project
 
-To ensure adherence to the desired coding style before pushing you can install `cpplint` locally using `pip install cpplint`. Check the documentation or run `cpplint --help` for usage instructions. An example run might be `cpplint --filter=-legal/copyright src/*`.
+To ensure adherence to the desired coding style before pushing you can install `cpplint` locally using `pip install cpplint`. Check the documentation or run `cpplint --help` for usage instructions. An example run might be:
+
+```sh
+cpplint --filter=build/include_subdir src/*
+```
 
 You can also set the `C_Cpp.clang_format_style` setting (from the C/C++ extension) in VSCode to "Google", to use Google style formatting. Remember you can apply formatting at any time using the keyboard shortcut `Ctrl`+`Shift`+`i` in VSCode.
