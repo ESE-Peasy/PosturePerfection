@@ -1,7 +1,7 @@
 /**
  * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal
  *
- *  This program is free software: you can redistribute it and/or modify
+ *  This program is free software: you can blueistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
@@ -18,6 +18,8 @@
 
 #include "iir.h"
 #include "inference_core.h"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 #include "post_processor.h"
 #include "posture_in.h"  // Hardcoded image for testing
 #include "pre_processor.h"
@@ -25,11 +27,49 @@
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
 
+void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
+  char *windowName = "Inference Results";
+
+  cv::namedWindow(windowName);
+  cv::Scalar blue(255, 0, 0);
+
+  cv::circle(originalImage,
+             cv::Point((int)(results.head_top.x * originalImage.cols),
+                       (int)(results.head_top.y * originalImage.rows)),
+             5, blue, -1);
+  cv::circle(originalImage,
+             cv::Point((int)(results.upper_neck.x * originalImage.cols),
+                       (int)(results.upper_neck.y * originalImage.rows)),
+             5, blue, -1);
+  cv::circle(originalImage,
+             cv::Point((int)(results.right_shoulder.x * originalImage.cols),
+                       (int)(results.right_shoulder.y * originalImage.rows)),
+             5, blue, -1);
+  cv::circle(originalImage,
+             cv::Point((int)(results.pelvis.x * originalImage.cols),
+                       (int)(results.pelvis.y * originalImage.rows)),
+             5, blue, -1);
+  cv::circle(originalImage,
+             cv::Point((int)(results.right_knee.x * originalImage.cols),
+                       (int)(results.right_knee.y * originalImage.rows)),
+             5, blue, -1);
+
+  cv::imshow(windowName, originalImage);
+
+  cv::waitKey(0);
+
+  cv::destroyWindow(windowName);
+}
+
 int main(int argc, char const *argv[]) {
-  PreProcessing::PreProcessor preprocessor(500, 500, 224, 224);
+  // Read in image and resize
+  cv::Mat loadedImage = cv::imread("./person2.jpeg");
+
+  // Pass to PreProcessor to normalise and filter
+  PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
 
   PreProcessing::PreProcessedImage preprocessed_image =
-      preprocessor.run(image.pixel_data);
+      preprocessor.run(loadedImage);
 
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
@@ -49,4 +89,6 @@ int main(int argc, char const *argv[]) {
            (body_part.status == PostProcessing::Trustworthy) ? "Trustworthy"
                                                              : "Untrustworthy");
   }
+  // Display image with detected points
+  // displayImage(loadedImage, results);
 }

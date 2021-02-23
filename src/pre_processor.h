@@ -27,6 +27,8 @@
 
 #include <memory>
 
+#include "opencv2/imgproc.hpp"
+
 namespace PreProcessing {
 
 /**
@@ -53,18 +55,17 @@ struct PreProcessedImage {
  */
 class PreProcessor {
  private:
-  size_t input_image_width;
-  size_t input_image_height;
   size_t model_width;
   size_t model_height;
+  float preprocessed_image[224 * 224 * 3 + 1];
 
   /**
    * @brief Resize the input image to the desired dimensions
    *
-   * @param input_image Array of pixels of the input image
+   * @param cv_image The OpenCV image to be preprocessed
    * @return The resized array of pixels of the input image
    */
-  uint8_t* resize(uint8_t* input_image);
+  uint8_t* resize(cv::Mat cv_image);
 
   /**
    * @brief Normalise the input image to the required interval [-1..1]
@@ -78,24 +79,21 @@ class PreProcessor {
   /**
    * @brief Construct a new PreProcessor object
    *
-   * @param input_image_width Width of the input image
-   * @param input_image_height Height of the input image
    * @param model_width Desired width of the resized image (should match
    * `Inference::InferenceCore::model_input_width`)
    * @param model_height Desired height of the resized image (should match
    * `Inference::InferenceCore::model_input_height`)
    * @return The resized array of pixels of the input image
    */
-  PreProcessor(size_t input_image_width, size_t input_image_height,
-               size_t model_width, size_t model_height);
+  PreProcessor(size_t model_width, size_t model_height);
 
   /**
    * @brief Apply pre processing to the given input image
    *
-   * @param input_image Array of pixels of the input image
+   * @param cv_image The OpenCV image to be preprocessed
    * @return PreprocessedImage after resizing and normalising
    */
-  PreProcessedImage run(uint8_t* input_image);
+  PreProcessedImage run(cv::Mat cv_image);
 };
 
 }  // namespace PreProcessing
