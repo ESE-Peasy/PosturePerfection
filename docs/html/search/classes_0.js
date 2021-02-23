@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['coordinate_10',['Coordinate',['../structCoordinate.html',1,'']]]
+  ['coordinate_16',['Coordinate',['../structInference_1_1Coordinate.html',1,'Inference::Coordinate'],['../structPostProcessing_1_1Coordinate.html',1,'PostProcessing::Coordinate']]]
 ];

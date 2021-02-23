@@ -79,15 +79,28 @@ $(function() {
 <div class="textblock"><code>#include &lt;interpreter_builder.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &quot;<a class="el" href="pre__processor_8h_source.html">pre_processor.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for inference_core.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="inference__core_8h__incl.png" border="0" usemap="#ainference__core_8h" alt=""/></div>
 <map name="ainference__core_8h" id="ainference__core_8h">
-<area shape="rect" title="Wrapper API for the TensorFlow Lite model." alt="" coords="138,5,255,32"/>
+<area shape="rect" title="Wrapper API for the TensorFlow Lite model." alt="" coords="229,5,346,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,140,107"/>
 <area shape="rect" title=" " alt="" coords="165,80,229,107"/>
 <area shape="rect" title=" " alt="" coords="253,80,321,107"/>
+<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="346,80,461,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="inference__core_8h__dep__incl.png" border="0" usemap="#ainference__core_8hdep" alt=""/></div>
+<map name="ainference__core_8hdep" id="ainference__core_8hdep">
+<area shape="rect" title="Wrapper API for the TensorFlow Lite model." alt="" coords="161,5,278,32"/>
+<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="16,80,137,107"/>
+<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="162,80,277,107"/>
+<area shape="rect" href="posture__estimating_8h_source.html" title=" " alt="" coords="5,155,148,181"/>
 </map>
 </div>
 </div>
@@ -95,30 +108,29 @@ Include dependency graph for inference_core.h:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCoordinate.html">Coordinate</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structInference_1_1Coordinate.html">Inference::Coordinate</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structInferenceResults.html">InferenceResults</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPreprocessedImage.html">PreprocessedImage</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInferenceCore.html">InferenceCore</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper to make running inference easier.  <a href="classInferenceCore.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper to make running inference easier.  <a href="classInference_1_1InferenceCore.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a8c2b55ab401adc15d3582ef7366b600f"><td class="memItemLeft" align="right" valign="top"><a id="a8c2b55ab401adc15d3582ef7366b600f"></a>
-typedef struct <a class="el" href="structCoordinate.html">Coordinate</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Coordinate</b></td></tr>
-<tr class="separator:a8c2b55ab401adc15d3582ef7366b600f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33842546b794ef2bc766daffce0f0704"><td class="memItemLeft" align="right" valign="top"><a id="a33842546b794ef2bc766daffce0f0704"></a>
-typedef struct <a class="el" href="structInferenceResults.html">InferenceResults</a>&#160;</td><td class="memItemRight" valign="bottom"><b>InferenceResults</b></td></tr>
-<tr class="separator:a33842546b794ef2bc766daffce0f0704"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d24eb277a160ee9fe0b950ea933abcb"><td class="memItemLeft" align="right" valign="top"><a id="a7d24eb277a160ee9fe0b950ea933abcb"></a>
-typedef struct <a class="el" href="structPreprocessedImage.html">PreprocessedImage</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PreprocessedImage</b></td></tr>
-<tr class="separator:a7d24eb277a160ee9fe0b950ea933abcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a235a732b3b9a5b2777026288bfc4af04"><td class="memItemLeft" align="right" valign="top"><a id="a235a732b3b9a5b2777026288bfc4af04"></a>
+typedef struct <a class="el" href="structInference_1_1Coordinate.html">Inference::Coordinate</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Inference::Coordinate</b></td></tr>
+<tr class="separator:a235a732b3b9a5b2777026288bfc4af04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb08817a558f0d635b772f9785c42db"><td class="memItemLeft" align="right" valign="top"><a id="abfb08817a558f0d635b772f9785c42db"></a>
+typedef struct <a class="el" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Inference::InferenceResults</b></td></tr>
+<tr class="separator:abfb08817a558f0d635b772f9785c42db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Wrapper API for the TensorFlow Lite model. </p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2021 Miklas Riechmann, Ashwin Maliampurakal</dd></dl>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

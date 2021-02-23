@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['inferencecore_11',['InferenceCore',['../classInferenceCore.html',1,'']]],
-  ['inferenceresults_12',['InferenceResults',['../structInferenceResults.html',1,'']]]
+  ['inferencecore_17',['InferenceCore',['../classInference_1_1InferenceCore.html',1,'Inference']]],
+  ['inferenceresults_18',['InferenceResults',['../structInference_1_1InferenceResults.html',1,'Inference']]]
 ];
