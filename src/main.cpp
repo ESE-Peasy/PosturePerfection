@@ -21,7 +21,6 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "post_processor.h"
-#include "posture_in.h"  // Hardcoded image for testing
 #include "pre_processor.h"
 
 #define MODEL_INPUT_X 224
@@ -56,21 +55,20 @@ void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
 
   cv::imshow(windowName, originalImage);
 
-  cv::waitKey(0);
-
-  cv::destroyWindow(windowName);
+  cv::waitKey(5);
 }
 
 int main(int argc, char const *argv[]) {
-  // Read in image and resize
-  cv::Mat loadedImage = cv::imread("./person2.jpeg");
+  // Setup the vamera input
+  cv::VideoCapture cap(0);
 
-  // Pass to PreProcessor to normalise and filter
+  if (!cap.isOpened()) {
+    printf("Error opening camera");
+    return 0;
+  }
+
+  // Initialise the PreProcessor and InferenceCore
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
-
-  PreProcessing::PreProcessedImage preprocessed_image =
-      preprocessor.run(loadedImage);
-
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
 
