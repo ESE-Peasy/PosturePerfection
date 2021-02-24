@@ -53,3 +53,6 @@ _deps
 
 #Site
 docs/_site/*
+
+# Mac
+*.DS_Store

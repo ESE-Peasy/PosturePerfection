@@ -1,0 +1,67 @@
+@startuml
+actor user
+participant PiCamera
+participant PreProcessor
+participant InferenceCore
+participant PostProcessor
+participant PoseEstimator
+participant GUI
+
+user -> PiCamera: Video feed
+user -> PiCamera: 
+user -> PiCamera: 
+PiCamera -> PreProcessor: Analyse video \nframe by frame
+activate PreProcessor
+note over PreProcessor
+    1. Resize image 
+        to suit model
+    2. Fore/background 
+        filtering    
+end note
+PreProcessor -> InferenceCore: Perform pose estimation \non image
+activate InferenceCore
+
+note over InferenceCore    
+    Pass through model    
+end note
+
+InferenceCore -> PostProcessor : Output results \nof inference
+
+activate PostProcessor
+
+note over PostProcessor    
+    1. Apply thresholding to discard
+        unusable values  
+    2. Filter output results
+end note
+
+PostProcessor -> PoseEstimator : Output co-ordinates \nof interest
+
+activate PoseEstimator
+
+note over PoseEstimator
+    1. Use co-ordinates to
+        determine if posture 
+        is good/bad.
+    2. Determine which changes
+        need to be made to
+        correct posture
+end note
+
+user <- PoseEstimator : Notification if poor posture
+
+activate GUI
+note over GUI
+    Render user posture
+    using co-ordinates    
+end note
+user <- GUI : GUI alert if poor posture
+
+deactivate
+deactivate
+deactivate
+deactivate
+deactivate
+
+
+@enduml

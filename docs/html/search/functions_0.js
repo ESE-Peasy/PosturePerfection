@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hello_5fworld_3',['hello_world',['../hello_8h.html#a8674ffb3345a47f83692fb3988e4037b',1,'hello.cpp']]]
+  ['inferencecore_44',['InferenceCore',['../classInference_1_1InferenceCore.html#a6d0465cab368c842b3ae33b1b9eebeec',1,'Inference::InferenceCore']]]
 ];

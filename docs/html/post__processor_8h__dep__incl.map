@@ -1,0 +1,4 @@
+<map id="post_processor.h" name="post_processor.h">
+<area shape="rect" id="node1" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="13,5,134,32"/>
+<area shape="rect" id="node2" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="5,80,141,107"/>
+</map>

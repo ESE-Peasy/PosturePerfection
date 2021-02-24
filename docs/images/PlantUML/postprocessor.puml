@@ -1,0 +1,42 @@
+' File: postprocessor.puml
+
+@startuml(id=PostProcessor)
+class PostProcessor {    
+   -float confidence_threshold       
+   +PostProcessor(float confidence_threshold, 
+                        SmoothingSettings smoothing_settings)
+   +ProcessedResults run(InferenceResults inference_core_output)
+}
+@enduml
+
+@startuml(id=Status)
+enum Status {
+    Trustworthy
+    Untrustworthy
+}
+@enduml
+
+@startuml(id=Coordinate)
+object Coordinate {
+    float x
+    float y
+    Status status
+}
+@enduml
+
+@startuml(id=ProcessedResults)
+object ProcessedResults {
+    Coordinate head_top
+    Coordinate upper_neck
+    Coordinate right_shoulder
+    ...
+    Coordinate left_knee
+    Coordinate left_ankle
+}
+@enduml
+
+@startuml(id=SmoothingSettings)
+object SmoothingSettings {
+    float** sos_coefficients
+}
+@enduml

@@ -1,0 +1,37 @@
+' File: inferencecore.puml
+
+@startuml(id=InferenceCore)
+class InferenceCore {    
+   -float model_input_width
+   -float model_input_height
+   -float model_input_size
+   -float model_input_channels = 3
+   -std::unique_ptr<tflite::Interpreter> interpreter
+   -tflite::StderrReporter err_reporter
+   -std::unique_ptr<tflite::FlatBufferModel> model
+   -Coordinate pixel_coord_to_Coordinate(uint32_t x, uint32_t y, float confidence)
+   
+   +InferenceCore(const char* model_filename, size_t model_input_width,
+                size_t model_input_height)
+   +InferenceResults run(PreProcessedImage preprocessed_image)
+}
+@enduml
+
+@startuml(id=Coordinate)
+object Coordinate {
+    float x
+    float y
+    float confidence
+}
+@enduml
+
+@startuml(id=InferenceResults)
+object InferenceResults {
+    Coordinate head_top
+    Coordinate upper_neck
+    Coordinate right_shoulder
+    ...
+    Coordinate left_knee
+    Coordinate left_ankle
+}
+@enduml

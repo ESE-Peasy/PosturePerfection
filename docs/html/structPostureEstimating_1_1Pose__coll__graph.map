@@ -1,0 +1,5 @@
+<map id="PostureEstimating::Pose" name="PostureEstimating::Pose">
+<area shape="rect" id="node1" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint" alt="" coords="15,272,179,299"/>
+<area shape="rect" id="node2" href="$structPostureEstimating_1_1ConnectedJoint.html" title="A representation of a body part." alt="" coords="29,95,164,136"/>
+<area shape="rect" id="node3" href="$structPostProcessing_1_1Coordinate.html" title=" " alt="" coords="5,5,188,32"/>
+</map>

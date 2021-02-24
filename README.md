@@ -54,66 +54,89 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-To be completed
+We are a group of 5th Year Electronics & Software Engineering students at the University of Glasgow, completing a project which provides you with real-time notifications when we detect you have adopted a poor seated posture which could be detrimental to your future health. Check out our [website](https://ese-peasy.github.io/PosturePerfection/) for more information!
 
 ### Components Used
 
-*
-*
-*
+- [TensorFlow Lite C++ API](https://www.tensorflow.org/lite/)
+- [OpenCV C++ API](https://opencv.org)
+-
+
 ### Built With
 
-* <!-- [Bootstrap](https://getbootstrap.com) -->
-* <!-- [JQuery](https://jquery.com) -->
-* <!-- [Laravel](https://laravel.com) -->
-
+- GitHub Pages
+- Doxygen
+- CMake
+- CTest
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
-To get PosturePerfection running by yourself you will need to follow these steps.
+To get PosturePerfection running by yourself you will need to follow these steps. The installation currently only works on Linux and OSX machines. In particular, we test the software on the following:
+
+- Intel x86 running Ubuntu 20.04 LTS
+- Raspberry Pi 4B running Raspberry Pi OS
+- Intel Core i5 running MacOS Big Sur
 
 ### Prerequisites
 
-Specify which software dependencies are used and how to install them:
+> All requirements will be installed if you follow the [installation](#installation) instructions below.
 
-  ```sh
-  TBC
-  ```
+PosturePerfection uses the following tools and libraries:
+
+- TensorFlow Lite
+- OpenCV
 
 ### Installation
 
-1. Fork the repo
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/ESE-Peasy/PosturePerfection.git
    ```
-3. Install NPM packages
+1. Run the installation script
    ```sh
-   TBC
+   cd PosturePerfection && ./install.sh
    ```
 
+This builds the binary in the `build` directory.
+
+To download dependencies needed for unit testing run `install` with the `-t` flag:
+
+```sh
+./install.sh -t
+```
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
-* Include screenshots, video demos and code examples to demonstrate how the project works
+Start the application by running from the project root:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+```sh
+./build/PosturePerfection
+```
 
+## Testing
+
+To run the unit tests:
+
+```sh
+(cd build && ctest)
+```
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
 See the [open issues](https://github.com/ESE-Peasy/PosturePerfection/issues) for a list of proposed features (and known issues).
 
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -124,34 +147,45 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the GPL-3.0 License. See [`LICENSE`](https://github.com/ESE-Peasy/PosturePerfection/blob/main/LICENSE) for more information.
 
 <!-- SOCIAL -->
+
 ## Social Media and Outreach
 
 Follow our social channels to keep up to date with our branding and public outreach.
 
- * [Twitter](https://twitter.com/PosturePerfect3)
- * [Instagram](https://www.instagram.com/postureperfection1/)
- 
+- [Twitter](https://twitter.com/PosturePerfect3)
+- [Instagram](https://www.instagram.com/postureperfection1/)
+- [Facebook](https://www.facebook.com/postureperfection1/)
+
 <!-- CONTACT -->
+
 ## Contacts
 
 This project is being completed by a team of 5th Year Engineering students at the University of Glasgow:
 
-* [Andrew Ritchie](https://github.com/Andrew-Ritchie) 
-* [Ashwin Maliampurakal](https://github.com/Ashwin-MJ)
-* [Conor Begley](https://github.com/C-Begley)
-* [Miklas Riechmann](https://github.com/miklasr)
-
-
+- [Andrew Ritchie](https://github.com/Andrew-Ritchie)
+- [Ashwin Maliampurakal](https://github.com/Ashwin-MJ)
+- [Conor Begley](https://github.com/C-Begley)
+- [Miklas Riechmann](https://github.com/miklasr)
 
 <!-- ACKNOWLEDGEMENTS -->
+
 ## Acknowledgements
-* 
-* 
-* 
+
+- Using a pre-trained model with citation:
+  ```
+  @article{groos2020efficientpose,
+    title={EfficientPose: Scalable single-person pose estimation},
+    author={Groos, Daniel and Ramampiaro, Heri and Ihlen, Espen},
+    journal={Applied intelligence},
+    year={2020}
+  }
+  ```
+- Uses the [TensorFlow](https://github.com/tensorflow/tensorflow) Lite C++ library
+- Uses the [OpenCV](https://github.com/opencv/opencv) C++ library
