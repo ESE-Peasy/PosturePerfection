@@ -13,6 +13,8 @@ class PostureEstimator {
    -Pose calculatePoseChanges()
    -bool checkGoodPosture()
    -bool calculateChangesAndCheckPosture()
+
+   +PostureEstimator()
    +void update_ideal_pose(PostProcessing::ProcessedResults results)
    +bool updateCurrentPoseAndCheck(PostProcessing::ProcessedResults results)
 }
