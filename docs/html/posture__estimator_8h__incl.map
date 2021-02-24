@@ -1,0 +1,9 @@
+<map id="posture_estimator.h" name="posture_estimator.h">
+<area shape="rect" id="node1" title="Interface for representation of user&#39;s pose." alt="" coords="219,5,355,32"/>
+<area shape="rect" id="node2" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="227,80,348,107"/>
+<area shape="rect" id="node3" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="229,155,346,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,229,140,256"/>
+<area shape="rect" id="node5" title=" " alt="" coords="165,229,229,256"/>
+<area shape="rect" id="node6" title=" " alt="" coords="253,229,321,256"/>
+<area shape="rect" id="node7" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="346,229,461,256"/>
+</map>
