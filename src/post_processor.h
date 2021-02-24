@@ -69,11 +69,12 @@ typedef struct ProcessedResults {
  * Wraps the second-order section coefficients for an IIR filter. The
  * `sos_coefficients` are a 2D array, where the rows correspond to each of the
  * second order stages, and the columns correspond to coefficients for each
- * stage.
+ * stage. There are `num_stages` rows in the array.
  *
  */
 typedef struct SmoothingSettings {
   float** sos_coefficients;
+  size_t num_stages;
 } SmoothingSettings;
 
 /**
