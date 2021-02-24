@@ -16,7 +16,7 @@ echo "Running cpplint ... DONE"
 
 echo "Starting build ... "
 
-./install.sh || { echo "Problem building, see above for specific errors"; exit 1; }
+./install.sh -t || { echo "Problem building, see above for specific errors"; exit 1; }
 
 echo "Running ctest ... "
 
