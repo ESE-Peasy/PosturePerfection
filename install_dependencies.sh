@@ -49,7 +49,7 @@ cd $PP_ROOT
 echo ""
 echo "Successfully installed dependencies"
 
-if [ $TESTING -eq 1 ]
+if [ $TESTING ]
 then
   ## For unit testing
   sudo apt install libboost-dev libboost-all-dev -y
