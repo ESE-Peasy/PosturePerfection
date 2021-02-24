@@ -22,16 +22,15 @@
 namespace PreProcessing {
 
 PreProcessor::PreProcessor(size_t model_width, size_t model_height)
-    : model_width(model_width), model_height(model_height) {
-  memset(this->preprocessed_image, 0, sizeof(preprocessed_image));
-}
+    : model_width(model_width), model_height(model_height) {}
 
 uint8_t* PreProcessor::resize(cv::Mat cv_image) {
   cv::resize(cv_image, cv_image, cv::Size(model_width, model_height));
   return cv_image.data;
 }
 
-float* PreProcessor::normalise(uint8_t* resized_image) {
+void PreProcessor::normalise(uint8_t* resized_image,
+                             float* preprocessed_image) {
   int size = model_width * model_height;
   int step = 3;
 
@@ -44,14 +43,13 @@ float* PreProcessor::normalise(uint8_t* resized_image) {
     preprocessed_image[i + 1] = img[1] / 127.5 - 1;
     preprocessed_image[i + 2] = img[0] / 127.5 - 1;  // Switch B and R channels
   }
-
-  return preprocessed_image;
 }
 
 PreProcessedImage PreProcessor::run(cv::Mat cv_image) {
   uint8_t* resized_image = resize(cv_image);
 
-  float* image = normalise(resized_image);
+  float* image = (float*)malloc(224 * 224 * 3 * sizeof(float));
+  normalise(resized_image, image);
 
   return PreProcessedImage{image};
 }

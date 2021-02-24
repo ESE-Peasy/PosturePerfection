@@ -81,6 +81,8 @@ InferenceResults InferenceCore::run(
       input, preprocessed_image.image,
       size * this->model_input_channels * sizeof(preprocessed_image.image[0]));
 
+  free(preprocessed_image.image);
+
   // Run the model
   this->interpreter->Invoke();
 
