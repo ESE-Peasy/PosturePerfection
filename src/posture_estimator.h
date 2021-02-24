@@ -19,8 +19,8 @@
  *
  */
 
-#ifndef SRC_POSTURE_ESTIMATING_H_
-#define SRC_POSTURE_ESTIMATING_H_
+#ifndef SRC_POSTURE_ESTIMATOR_H_
+#define SRC_POSTURE_ESTIMATOR_H_
 
 #include "post_processor.h"
 
@@ -200,4 +200,4 @@ class PostureEstimator {
       PostProcessing::ProcessedResults results);
 }
 }  // namespace PostureEstimating
-#endif  // SRC_POSTURE_ESTIMATING_H_
+#endif  // SRC_POSTURE_ESTIMATOR_H_
