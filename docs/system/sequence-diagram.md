@@ -43,7 +43,7 @@ The input co-ordinates to the `PostProcessor` from the `InferenceCore` will be r
 
 The `PoseEstimator` is then responsible for using the co-ordinates received to determine if the user's posture is healthy or not. If a poor posture is detected, this should be immediately brought to the user's attention on the `Graphical User Interface` and an additional alert may be sent from this unit directly to the user's work device if configured. The final output of this should be easily usable by the `Graphical User Interface` to allow a visual representation of the real-time processing to be displayed.
 
-[PostureEstimating Documentation](../html/classPostureEstimating_1_1PostureEstimator.html){: .btn .btn-green}
+[PostureEstimator Documentation](../html/classPostureEstimating_1_1PostureEstimator.html){: .btn .btn-green}
 
 ## 5. `GraphicalUserInterface`
 
