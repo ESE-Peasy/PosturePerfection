@@ -1,0 +1,54 @@
+' File: postureestimator.puml
+
+@startuml(id=PostureEstimator)
+class PostureEstimator {
+   +Pose current_pose
+   +Pose ideal_pose
+   +Pose pose_changes
+   +float pose_change_threshold
+   +bool good_pose   
+   -float getLineAngle(PostProcessing::Coordinate coord1, PostProcessing::Coordinate coord2)
+   -Pose createPose(PostProcessing::ProcessedResults results)
+   -void update_current_pose(ProcessedResults results)
+   -Pose calculatePoseChanges()
+   -bool checkGoodPosture()
+   -bool calculateChangesAndCheckPosture()
+
+   +PostureEstimator()
+   +void update_ideal_pose(PostProcessing::ProcessedResults results)
+   +bool updateCurrentPoseAndCheck(PostProcessing::ProcessedResults results)
+}
+@enduml
+
+@startuml(id=Joint)
+enum Joint {
+    Head
+    Neck
+    Shoulder
+    Hip
+    Knee
+    Foot
+}
+@enduml
+
+@startuml(id=ConnectedJoint)
+object ConnectedJoint{
+    Joint joint
+    PostProcessing::Coordinate coord
+    ConnectedJoint * upper_connected_joint
+    float upper_angle
+    ConnectedJoint * lower_connected_joint
+    float lower_angle
+}
+@enduml
+
+@startuml(id=Pose)
+object Pose {
+    ConnectedJoint head
+    ConnectedJoint neck
+    ConnectedJoint shoulder
+    ConnectedJoint hip
+    ConnectedJoint knee
+    ConnectedJoint foot    
+}
+@enduml
