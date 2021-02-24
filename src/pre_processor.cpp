@@ -22,7 +22,9 @@
 namespace PreProcessing {
 
 PreProcessor::PreProcessor(size_t model_width, size_t model_height)
-    : model_width(model_width), model_height(model_height) {}
+    : model_width(model_width), model_height(model_height) {
+  memset(this->preprocessed_image, 0, sizeof(preprocessed_image));
+}
 
 uint8_t* PreProcessor::resize(cv::Mat cv_image) {
   cv::resize(cv_image, cv_image, cv::Size(model_width, model_height));

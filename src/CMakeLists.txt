@@ -11,15 +11,10 @@ set(LIBSRC
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../opencv_build")
 find_package(OpenCV REQUIRED)
 
-# Ensure all necessary libraries are included
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../tensorflow_src")
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../tensorflow_src/tensorflow/lite")
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../opencv_src/include")
-
 # Set up TFL path
 if(NOT TENSORFLOW_SOURCE_DIR)
 get_filename_component(TENSORFLOW_SOURCE_DIR
-"${CMAKE_CURRENT_BINARY_DIR}/../../../tensorflow_src" ABSOLUTE)
+"${CMAKE_CURRENT_BINARY_DIR}/../../tensorflow_src" ABSOLUTE)
 endif()
 
 # Ensure all necessary libraries are included
