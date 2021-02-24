@@ -34,14 +34,16 @@ if [ ! -d "tensorflow_src" ]; then
   git clone https://github.com/tensorflow/tensorflow.git tensorflow_src
 fi
 cd tensorflow_src
+git fetch
 git checkout $TF_VERSION
 cd ..
 
 ## Build TFL
-echo "Installing TensorFlow Lite ..."
-mkdir -p tflite_build
-cd tflite_build
-cmake ../tensorflow_src/tensorflow/lite
+# echo "Installing TensorFlow Lite ..."
+# mkdir -p tflite_build
+# cd tflite_build
+# cmake ../tensorflow_src/tensorflow/lite
+# cmake --build .
 
 ## Reset directory to project root
 cd $PP_ROOT
