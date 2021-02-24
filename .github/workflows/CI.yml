@@ -26,4 +26,4 @@ jobs:
         run: |
           pip install cpplint
           cd src
-          python -m cpplint --filter=-build/include_subdir ./*
+          python -m cpplint --filter=-build/include_subdir --recursive --quiet ./src/*
