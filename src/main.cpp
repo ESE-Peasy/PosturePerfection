@@ -27,9 +27,9 @@
 #define MODEL_INPUT_Y 224
 
 void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
-  std::string windowName = "Inference Results";
+  // std::string windowName = "Inference Results";
 
-  cv::namedWindow(windowName);
+  // cv::namedWindow(windowName);
   cv::Scalar blue(255, 0, 0);
 
   cv::circle(originalImage,
@@ -53,21 +53,18 @@ void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
                        (int)(results.right_knee.y * originalImage.rows)),
              5, blue, -1);
 
-  cv::imshow(windowName, originalImage);
+  // cv::imshow(windowName, originalImage);
 
-  cv::waitKey(5);
+  // cv::waitKey(5);
+
+  cv::imwrite("./testimg.jpg", originalImage);
 }
 
 int main(int argc, char const *argv[]) {
-  // Setup the camera input
-  cv::VideoCapture cap(0);
-
-  if (!cap.isOpened()) {
-    printf("Error opening camera");
-    return 0;
-  }
-
   // Initialise the PreProcessor and InferenceCore
+
+  cv::Mat loadedImage = cv::imread("./person.jpg");
+
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
