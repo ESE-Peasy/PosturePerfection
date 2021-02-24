@@ -25,8 +25,7 @@ Update to include link to Doxygen
 
 The `PreProcessor` is responsible for performing some initial processing on each frame of the video stream as it comes in. At the very least, the image will need to be resized and normalised to suit the model being used in the `InferenceCore`, however it is also possible that some further filtering can be completed to improve the performance of the pose estimation model. This could be filtering the image to discard sections which are not of interest, such as the background of the picture.
 
-Update to include link to Doxygen
-{: .label .label-yellow}
+[PreProcessor Documentation](../html/classPreProcessing_1_1PreProcessor.html){: .btn .btn-green}
 
 ## 3. `InferenceCore`
 
@@ -38,15 +37,13 @@ The `InferenceCore` is the heart of the system, and is responsible for performin
 
 The input co-ordinates to the `PostProcessor` from the `InferenceCore` will be relative, and therefore can be used directly with the initial input image from the `PiCamera`. This component is then responsible for analyse the confidence level of the various points detected and performing some thresholding to discard values which are not deemed to be confident enough, and other points which may not be of interest. The final co-ordinates of interest are then output from this component to the `PoseEstimator`.
 
-Update to include link to Doxygen
-{: .label .label-yellow}
+[PostProcessor Documentation](../html/classPostProcessing_1_1PostProcessor.html){: .btn .btn-green}
 
 ## 5. `PoseEstimator`
 
 The `PoseEstimator` is then responsible for using the co-ordinates received to determine if the user's posture is healthy or not. If a poor posture is detected, this should be immediately brought to the user's attention on the `Graphical User Interface` and an additional alert may be sent from this unit directly to the user's work device if configured. The final output of this should be easily usable by the `Graphical User Interface` to allow a visual representation of the real-time processing to be displayed.
 
-Update to include link to Doxygen
-{: .label .label-yellow}
+[PostureEstimating Documentation](../html/classPostureEstimating_1_1PostureEstimator.html){: .btn .btn-green}
 
 ## 5. `GraphicalUserInterface`
 
