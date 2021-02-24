@@ -12,7 +12,7 @@ It can sometimes be useful to add a screenshot or animated gif to demonstrate ne
 
 ## Code
 - [ ] I have added some tests
-- [ ] I have run the tests locally to ensure they all pass
+- [ ] I have run the tests locally to ensure they all pass by running `./test.sh`
 
 ## Documentation
 - [ ] I have updated documentation appropriately (GitHub Pages)
