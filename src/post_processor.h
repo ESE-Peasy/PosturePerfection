@@ -24,6 +24,7 @@
 #define SRC_POST_PROCESSOR_H_
 
 #include "inference_core.h"
+#include "iir/iir.h"
 
 namespace PostProcessing {
 
@@ -90,6 +91,7 @@ typedef struct SmoothingSettings {
 class PostProcessor {
  private:
   float confidence_threshold;
+  IIR::IIRFilter iir_filter;
 
  public:
   /**

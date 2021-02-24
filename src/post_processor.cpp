@@ -17,6 +17,7 @@
  */
 
 #include "post_processor.h"
+#include "iir/iir.h"
 
 #define MIN_CONF_THRESH 0.0 // Minimum value a confidence threshold can be
 #define MAX_CONF_THRESH 1.0 // Maximum value a confidence threshold can be
@@ -25,7 +26,9 @@
 
 namespace PostProcessing {
 
-PostProcessor::PostProcessor(float confidence_threshold, SmoothingSettings smoothing_settings) : confidence_threshold(confidence_threshold), smoothing_settings(smoothing_settings) {}
+PostProcessor::PostProcessor(float confidence_threshold, SmoothingSettings smoothing_settings) : confidence_threshold(confidence_threshold), smoothing_settings(smoothing_settings) {
+  this->iir_filter = IIR::IIRFilter(smoothing_settings);
+}
 
 ProcessedResults PostProcessor::run(InferenceResults inference_core_output) {
   //
