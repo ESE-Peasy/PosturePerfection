@@ -1,5 +1,7 @@
 #! /bin/sh
 
+echo "Starting installation ... "
+
 while getopts ":t" opt; do
   case ${opt} in
     t) TESTING=1
@@ -7,7 +9,7 @@ while getopts ":t" opt; do
 done
 
 ## Install dependecies
-if [ $TESTING -eq 1 ]
+if [ $TESTING ]
 then
   ./install_dependencies.sh -t
 else
@@ -18,8 +20,10 @@ fi
 
 ## Build PosturePerfection
 mkdir -p build
-cmake . -B build
-cmake --build build
+
+cmake . -B build || exit 1
+
+cmake --build build || exit 1
 
 cd ..
 
