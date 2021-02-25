@@ -11,9 +11,9 @@ class PostureEstimating::PostureEstimator {
 
     float getLineAngle(PostProcessing::Coordinate coord1,
                      PostProcessing::Coordinate coord2){
-                         x_dif = coord2.x - coord1.x;
-                         y_dif = coord2.y - coord1.y;
-                         slope = y_dif/x_dif;
+                         float x_dif = coord2.x - coord1.x;
+                         float y_dif = coord2.y - coord1.y;
+                         float slope = y_dif/x_dif;
                          return atan(slope);
                      }
     
