@@ -2,8 +2,12 @@ set(CMAKE_CXX_STANDARD 11)
 cmake_minimum_required(VERSION 3.16) # Required by TFL
 project(PosturePerfection VERSION 0.1.0)
 
-# Build from the iir subdirectory
-add_subdirectory("${CMAKE_CURRENT_BINARY_DIR}../src/iir")
+
+set(LIBSRC
+  inference_core.cpp
+  iir.cpp
+  post_processor.cpp)
+
 
 # Set up TFL path
 if(NOT TENSORFLOW_SOURCE_DIR)
@@ -14,6 +18,7 @@ endif()
 # Ensure all necessary libraries are included
 include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
+include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
 
 # Add and build TFL
 add_subdirectory(
@@ -21,6 +26,8 @@ add_subdirectory(
   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
 
 add_library(doubler doubler.cpp)
+
+add_library(PosturePerfection_static STATIC ${LIBSRC})
 
 add_executable(PosturePerfection inference_core.cpp main.cpp)
 target_link_libraries(PosturePerfection tensorflow-lite doubler ${CMAKE_DL_LIBS})
