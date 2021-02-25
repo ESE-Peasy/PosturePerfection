@@ -24,13 +24,7 @@ namespace PreProcessing {
 PreProcessor::PreProcessor(size_t model_width, size_t model_height)
     : model_width(model_width), model_height(model_height) {}
 
-uint8_t* PreProcessor::resize(cv::Mat cv_image) {
-  cv::resize(cv_image, cv_image, cv::Size(model_width, model_height));
-  return cv_image.data;
-}
-
-void PreProcessor::normalise(uint8_t* resized_image,
-                             float* preprocessed_image) {
+void PreProcessor::normalise(uint8_t* resized_image, float* normalised_image) {
   int size = model_width * model_height;
   int step = 3;
 
@@ -39,18 +33,20 @@ void PreProcessor::normalise(uint8_t* resized_image,
     // - OpenCV uses BGR but the model uses RGB, therefore
     //   the channels must also be switched.
     uint8_t* img = &(resized_image[i]);
-    preprocessed_image[i + 0] = img[2] / 127.5 - 1;  // Switch R and B channels
-    preprocessed_image[i + 1] = img[1] / 127.5 - 1;
-    preprocessed_image[i + 2] = img[0] / 127.5 - 1;  // Switch B and R channels
+    normalised_image[i + 0] = img[2] / 127.5 - 1;  // Switch R and B channels
+    normalised_image[i + 1] = img[1] / 127.5 - 1;
+    normalised_image[i + 2] = img[0] / 127.5 - 1;  // Switch B and R channels
   }
 }
 
 PreProcessedImage PreProcessor::run(cv::Mat cv_image) {
-  uint8_t* resized_image = resize(cv_image);
+  cv::resize(cv_image, cv_image, cv::Size(model_width, model_height));
+  uint8_t* resized_image = cv_image.data;
 
-  float* image = (float*)malloc(224 * 224 * 3 * sizeof(float));
-  normalise(resized_image, image);
+  float* normalised_image = (float*)malloc(224 * 224 * 3 * sizeof(float));
 
-  return PreProcessedImage{image};
+  normalise(resized_image, normalised_image);
+
+  return PreProcessedImage{normalised_image};
 }
 }  // namespace PreProcessing

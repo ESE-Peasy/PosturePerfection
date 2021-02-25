@@ -21,7 +21,7 @@ endif()
 include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
 include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
-include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../opencv-master/include")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../opencv_src/include")
 
 # Add and build TFL
 add_subdirectory(

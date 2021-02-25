@@ -27,52 +27,42 @@
 #define MODEL_INPUT_Y 224
 
 void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
-  // std::string windowName = "Inference Results";
-
-  // cv::namedWindow(windowName);
   cv::Scalar blue(255, 0, 0);
 
   cv::circle(originalImage,
-             cv::Point((int)(results.head_top.x * originalImage.cols),
-                       (int)(results.head_top.y * originalImage.rows)),
-             5, blue, -1);
+             cv::Point((int)(results.head_top.x * imageWidth),
+                       (int)(results.head_top.y * imageHeight)),
+             circleRadius, blue, -1);
   cv::circle(originalImage,
-             cv::Point((int)(results.upper_neck.x * originalImage.cols),
-                       (int)(results.upper_neck.y * originalImage.rows)),
-             5, blue, -1);
+             cv::Point((int)(results.upper_neck.x * imageWidth),
+                       (int)(results.upper_neck.y * imageHeight)),
+             circleRadius, blue, -1);
   cv::circle(originalImage,
-             cv::Point((int)(results.right_shoulder.x * originalImage.cols),
-                       (int)(results.right_shoulder.y * originalImage.rows)),
-             5, blue, -1);
+             cv::Point((int)(results.right_shoulder.x * imageWidth),
+                       (int)(results.right_shoulder.y * imageHeight)),
+             circleRadius, blue, -1);
   cv::circle(originalImage,
-             cv::Point((int)(results.pelvis.x * originalImage.cols),
-                       (int)(results.pelvis.y * originalImage.rows)),
-             5, blue, -1);
+             cv::Point((int)(results.pelvis.x * imageWidth),
+                       (int)(results.pelvis.y * imageHeight)),
+             circleRadius, blue, -1);
   cv::circle(originalImage,
-             cv::Point((int)(results.right_knee.x * originalImage.cols),
-                       (int)(results.right_knee.y * originalImage.rows)),
-             5, blue, -1);
+             cv::Point((int)(results.right_knee.x * imageWidth),
+                       (int)(results.right_knee.y * imageHeight)),
+             circleRadius, blue, -1);
 
-  // cv::imshow(windowName, originalImage);
-
-  // cv::waitKey(5);
-
+  // Save the image with detected points
   cv::imwrite("./testimg.jpg", originalImage);
 }
 
 int main(int argc, char const *argv[]) {
-  // Initialise the PreProcessor and InferenceCore
-
   cv::Mat loadedImage = cv::imread("./person.jpg");
 
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
-
-  // Empty settings to disable IIR filtering
-  IIR::SmoothingSettings smoothing_settings =
-      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
   PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
+
+  PreProcessing::PreProcessedImage preprocessed_image = preprocessor.run(frame);
 
   Inference::InferenceResults results = core.run(preprocessed_image);
 

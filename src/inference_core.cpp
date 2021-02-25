@@ -81,6 +81,7 @@ InferenceResults InferenceCore::run(
       input, preprocessed_image.image,
       size * this->model_input_channels * sizeof(preprocessed_image.image[0]));
 
+  // Free the memory allocated for the image as it is no longer needed
   free(preprocessed_image.image);
 
   // Run the model

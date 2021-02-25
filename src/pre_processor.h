@@ -61,18 +61,8 @@ class PreProcessor {
   /**
    * @brief Resize the input image to the desired dimensions
    *
-   * @param cv_image The OpenCV image to be preprocessed
-   * @return The resized array of pixels of the input image
    */
-  uint8_t* resize(cv::Mat cv_image);
-
-  /**
-   * @brief Normalise the input image to the required interval [-1..1]
-   *
-   * @param resized_image Array of pixels of the resized input image
-   * @param preprocessed_image Array of pixels for the normalised image
-   */
-  void normalise(uint8_t* resized_image, float* preprocessed_image);
+  void normalise(uint8_t* resized_image, float* normalised_image);
 
  public:
   /**
