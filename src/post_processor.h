@@ -23,8 +23,8 @@
 #ifndef SRC_POST_PROCESSOR_H_
 #define SRC_POST_PROCESSOR_H_
 
-#include "inference_core.h"
 #include "iir/iir.h"
+#include "inference_core.h"
 
 namespace PostProcessing {
 
@@ -92,6 +92,9 @@ class PostProcessor {
  private:
   float confidence_threshold;
   IIR::IIRFilter iir_filter;
+
+  Coordinate inference_results_processed_results(Inference::Coordinate coord_in,
+                                                 float confidence_threshold);
 
  public:
   /**
