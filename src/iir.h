@@ -18,10 +18,10 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef SRC_IIR_IIR_H_
-#define SRC_IIR_IIR_H_
+#ifndef SRC_IIR_H_
+#define SRC_IIR_H_
 
-#include "../post_processor.h"
+#include <stdlib.h>
 
 namespace IIR {
 
@@ -29,7 +29,7 @@ namespace IIR {
  * @brief Taps inside the second-order IIR filter
  *
  */
-typedef Nodes struct {
+struct Nodes {
   float b0;
   float b1;
   float b2;
@@ -38,7 +38,21 @@ typedef Nodes struct {
   float a2;
   float tap1;
   float tap2;
-} Nodes;
+};
+
+/**
+ * @brief Settings for an IIR filter
+ *
+ * Wraps the second-order section coefficients for an IIR filter. The
+ * `sos_coefficients` are a 2D array, where the rows correspond to each of the
+ * second order stages, and the columns correspond to coefficients for each
+ * stage. There are `num_stages` rows in the array.
+ *
+ */
+typedef struct SmoothingSettings {
+  float** sos_coefficients;
+  size_t num_stages;
+} SmoothingSettings;
 
 /**
  * @brief Second-order IIR filter stage, for use with the `IIRFilter`
@@ -55,7 +69,7 @@ class IIR2ndOrderFilter {
    * @param coefficients List of `float` coefficients for use in the IIR filter
    * stage
    */
-  IIR2ndOrderFilter(float* coefficients);
+  explicit IIR2ndOrderFilter(float* coefficients);
 
   /**
    * @brief Apply the filter to the next data sample, `x`
@@ -63,8 +77,9 @@ class IIR2ndOrderFilter {
    * Every call to this method constitutes a time step in the IIR filter
    *
    * @param x The next data sample
+   * @return float Filtered data sample
    */
-  run(float x);
+  float run(float x);
 };
 
 /**
@@ -96,14 +111,14 @@ class IIRFilter {
   /**
    * @brief Construct a new `IIRFilter` object
    *
-   * Passing empty `PostProcessing::SmoothingSettings` disbales the IIR filter.
-   * To count as empty the settings
-   * `PostProcessing::SmoothingSettings.num_stages` field must be set to zero.
+   * Passing empty `SmoothingSettings` disbales the IIR filter. To count as
+   * empty the settings `SmoothingSettings.num_stages` field must be set to
+   * zero.
    *
-   * @param smoothing_settings `PostProcessing::SmoothingSettings` structure
+   * @param smoothing_settings `SmoothingSettings` structure
    * containing the SOS coefficients for the IIR filter
    */
-  IIRFilter(PostProcessing::SmoothingSettings smoothing_settings);
+  explicit IIRFilter(SmoothingSettings smoothing_settings);
   ~IIRFilter();
 
   /**
@@ -112,9 +127,10 @@ class IIRFilter {
    * Every call to this method constitutes a time step in the IIR filter
    *
    * @param x The next data sample
+   * @return float Filtered data sample
    */
-  run(float x);
+  float run(float x);
 };
 
 }  // namespace IIR
-#endif  // SRC_IIR_IIR_H_
+#endif  // SRC_IIR_H_

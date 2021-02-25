@@ -18,21 +18,23 @@
 
 #include "iir.h"
 
-#include "../post_processor.h"
+#include "post_processor.h"
 
 namespace IIR {
 IIR2ndOrderFilter::IIR2ndOrderFilter(float* coefficients) {
-  this->nodes.b0 = coefficients[0];
-  this->nodes.b1 = coefficients[1];
-  this->nodes.b2 = coefficients[2];
-  this->nodes.a0 = coefficients[3];
-  this->nodes.a1 = coefficients[4];
-  this->nodes.a2 = coefficients[5];
-  this->nodes.tap1 = 0.0;
-  this->nodes.tap2 = 0.0;
+  this->nodes = Nodes{
+      .b0 = coefficients[0],
+      .b1 = coefficients[1],
+      .b2 = coefficients[2],
+      .a0 = coefficients[3],
+      .a1 = coefficients[4],
+      .a2 = coefficients[5],
+      .tap1 = 0.0,
+      .tap2 = 0.0,
+  };
 }
 
-IIR2ndOrderFilter::run(float x) {
+float IIR2ndOrderFilter::run(float x) {
   float output = this->nodes.b1 * this->nodes.tap1;
   x = x - (this->nodes.a1 * this->nodes.tap1);
   output = output + (this->nodes.b2 * this->nodes.tap2);
@@ -43,9 +45,9 @@ IIR2ndOrderFilter::run(float x) {
   return output;
 }
 
-IIRFilter::IIRFilter(PostProcessing::ProcessedResults smoothing_settings) {
-  this->filters =
-      (float*)malloc(sizeof(IIR2ndOrderFilter) * smoothing_settings.num_stages);
+IIRFilter::IIRFilter(SmoothingSettings smoothing_settings) {
+  this->filters = reinterpret_cast<IIR2ndOrderFilter*>(
+      malloc(sizeof(IIR2ndOrderFilter) * smoothing_settings.num_stages));
   for (int i = 0; i < smoothing_settings.num_stages; i++) {
     IIR2ndOrderFilter(smoothing_settings.sos_coefficients[i]);
   }
@@ -54,7 +56,7 @@ IIRFilter::IIRFilter(PostProcessing::ProcessedResults smoothing_settings) {
 
 IIRFilter::~IIRFilter() { free(this->filters); }
 
-IIRFilter::run(float x) {
+float IIRFilter::run(float x) {
   for (int i = 0; i < this->num_stages; i++) {
     x = this->filters[i].run(x);
   }

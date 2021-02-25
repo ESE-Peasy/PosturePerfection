@@ -23,7 +23,7 @@
 #ifndef SRC_POST_PROCESSOR_H_
 #define SRC_POST_PROCESSOR_H_
 
-#include "iir/iir.h"
+#include "iir.h"
 #include "inference_core.h"
 
 namespace PostProcessing {
@@ -65,20 +65,6 @@ typedef struct ProcessedResults {
 } ProcessedResults;
 
 /**
- * @brief Settings for an IIR filter
- *
- * Wraps the second-order section coefficients for an IIR filter. The
- * `sos_coefficients` are a 2D array, where the rows correspond to each of the
- * second order stages, and the columns correspond to coefficients for each
- * stage. There are `num_stages` rows in the array.
- *
- */
-typedef struct SmoothingSettings {
-  float** sos_coefficients;
-  size_t num_stages;
-} SmoothingSettings;
-
-/**
  * @brief Process the output of an `Inference::InferenceCore`
  *
  * This class contains some processing steps to make the output of the
@@ -93,8 +79,8 @@ class PostProcessor {
   float confidence_threshold;
   IIR::IIRFilter iir_filter;
 
-  Coordinate inference_results_processed_results(Inference::Coordinate coord_in,
-                                                 float confidence_threshold);
+  Coordinate inference_results_processed_results(
+      Inference::Coordinate coord_in);
 
  public:
   /**
@@ -102,10 +88,10 @@ class PostProcessor {
    *
    * @param confidence_threshold Confidence value that must be exceeded for a
    * prediction for a given body part to be useable
-   * @param smoothing_settings
+   * @param smoothing_settings settings for the IIR filter
    */
   PostProcessor(float confidence_threshold,
-                SmoothingSettings smoothing_settings);
+                IIR::SmoothingSettings smoothing_settings);
 
   /**
    * @brief Apply post processing to the given `Inference::InferenceCore` output
@@ -125,7 +111,7 @@ class PostProcessor {
    * @return false If the new threshold value is invalid
    */
   bool set_confidence_threshold(float confidence_threshold);
-}
+};
 
 }  // namespace PostProcessing
 #endif  // SRC_POST_PROCESSOR_H_
