@@ -1,4 +1,3 @@
-#define BOOST_TEST_MODULE EstimatorTests
 #include <boost/test/unit_test.hpp>
 
 // For testing private functions
