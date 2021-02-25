@@ -29,4 +29,4 @@ add_subdirectory(
 add_library(PosturePerfection_static STATIC ${LIBSRC})
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
-target_link_libraries(PosturePerfection tensorflow-lite doubler ${CMAKE_DL_LIBS})
+target_link_libraries(PosturePerfection tensorflow-lite ${CMAKE_DL_LIBS})
