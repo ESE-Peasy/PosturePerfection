@@ -5,7 +5,7 @@
 #include "../src/posture_estimator.h"
 #undef private
 
-#include "src/post_processor.h"
+#include "../src/post_processor.h"
 
 BOOST_AUTO_TEST_CASE(LinesAngleCorrect) {
   PostProcessing::Coordinate p1;
