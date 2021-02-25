@@ -30,11 +30,11 @@ namespace PostProcessing {
 
 enum Status { Untrustworthy, Trustworthy };
 
-typedef struct Coordinate {
+struct Coordinate {
   float x;
   float y;
   Status status;
-} Coordinate;
+};
 
 /**
  * @brief The `PostProcessing::Coordinate` of each body part
@@ -45,7 +45,7 @@ typedef struct Coordinate {
  * frame.
  *
  */
-typedef struct ProcessedResults {
+struct ProcessedResults {
   Coordinate head_top;
   Coordinate upper_neck;
   Coordinate right_shoulder;
@@ -62,7 +62,7 @@ typedef struct ProcessedResults {
   Coordinate left_hip;
   Coordinate left_knee;
   Coordinate left_ankle;
-} ProcessedResults;
+};
 
 /**
  * @brief Process the output of an `Inference::InferenceCore`
