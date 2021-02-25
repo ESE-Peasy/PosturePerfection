@@ -21,7 +21,7 @@
 #include "post_processor.h"
 
 namespace IIR {
-IIR2ndOrderFilter::IIR2ndOrderFilter(float* coefficients) {
+IIR2ndOrderFilter::IIR2ndOrderFilter(std::vector<float> coefficients) {
   this->nodes = Nodes{
       .b0 = coefficients[0],
       .b1 = coefficients[1],
@@ -46,19 +46,15 @@ float IIR2ndOrderFilter::run(float x) {
 }
 
 IIRFilter::IIRFilter(SmoothingSettings smoothing_settings) {
-  this->filters = reinterpret_cast<IIR2ndOrderFilter*>(
-      malloc(sizeof(IIR2ndOrderFilter) * smoothing_settings.num_stages));
-  for (int i = 0; i < smoothing_settings.num_stages; i++) {
-    IIR2ndOrderFilter(smoothing_settings.sos_coefficients[i]);
+  for (std::vector<float> cs : smoothing_settings.coefficients) {
+    this->filters.push_back(IIR2ndOrderFilter(cs));
   }
-  this->num_stages = smoothing_settings.num_stages;
 }
 
-IIRFilter::~IIRFilter() { free(this->filters); }
-
 float IIRFilter::run(float x) {
-  for (int i = 0; i < this->num_stages; i++) {
-    x = this->filters[i].run(x);
+  for (std::vector<IIR2ndOrderFilter>::iterator filter = this->filters.begin();
+       filter < this->filters.end(); filter++) {
+    x = (*filter).run(x);
   }
   return x;
 }

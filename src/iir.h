@@ -23,6 +23,10 @@
 
 #include <stdlib.h>
 
+#include <vector>
+
+#define COEFFS_PER_IIR2ndOrderFilter 6  //  Coefficients per filter stage
+
 namespace IIR {
 
 /**
@@ -44,15 +48,14 @@ struct Nodes {
  * @brief Settings for an IIR filter
  *
  * Wraps the second-order section coefficients for an IIR filter. The
- * `sos_coefficients` are a 2D array, where the rows correspond to each of the
+ * `sos_coefficients` are a 2D vector, where the rows correspond to each of the
  * second order stages, and the columns correspond to coefficients for each
- * stage. There are `num_stages` rows in the array.
+ * stage.
  *
  */
-typedef struct SmoothingSettings {
-  float** sos_coefficients;
-  size_t num_stages;
-} SmoothingSettings;
+struct SmoothingSettings {
+  std::vector<std::vector<float>> coefficients;
+};
 
 /**
  * @brief Second-order IIR filter stage, for use with the `IIRFilter`
@@ -69,7 +72,7 @@ class IIR2ndOrderFilter {
    * @param coefficients List of `float` coefficients for use in the IIR filter
    * stage
    */
-  explicit IIR2ndOrderFilter(float* coefficients);
+  explicit IIR2ndOrderFilter(std::vector<float> coefficients);
 
   /**
    * @brief Apply the filter to the next data sample, `x`
@@ -95,31 +98,21 @@ class IIR2ndOrderFilter {
 class IIRFilter {
  private:
   /**
-   * @brief Array of the constituent second-order filters
+   * @brief Vector of the constituent second-order filters
    *
    */
-  IIR2ndOrderFilter* filters;
-
-  /**
-   * @brief Internal count of the number of stages in use, i.e., length of
-   * `filters`
-   *
-   */
-  size_t num_stages;
+  std::vector<IIR2ndOrderFilter> filters;
 
  public:
   /**
    * @brief Construct a new `IIRFilter` object
    *
-   * Passing empty `SmoothingSettings` disbales the IIR filter. To count as
-   * empty the settings `SmoothingSettings.num_stages` field must be set to
-   * zero.
+   * Passing empty `SmoothingSettings` disbales the IIR filter.
    *
    * @param smoothing_settings `SmoothingSettings` structure
    * containing the SOS coefficients for the IIR filter
    */
   explicit IIRFilter(SmoothingSettings smoothing_settings);
-  ~IIRFilter();
 
   /**
    * @brief Apply the filter to the next data sample, `x`
