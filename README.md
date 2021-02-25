@@ -123,10 +123,10 @@ Start the application by running from the project root:
 
 ## Testing
 
-To run the unit tests:
+To build the project and run the unit tests:
 
 ```sh
-(cd build && ctest)
+./test.sh
 ```
 
 <!-- ROADMAP -->
