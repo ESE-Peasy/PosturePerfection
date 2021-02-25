@@ -2,21 +2,22 @@
 
 echo "Starting ..."
 
-## Check for cpplint
-##if ! cpplint --version >/dev/null 2>&1
-##then
-    ##echo "cpplint is not installed; please install with:"
-    ##echo "    pip3 install cpplint"
-    ##exit 1
-##fi
+if ! cpplint --version >/dev/null 2>&1
+then
+    echo "cpplint is not installed; please install with:"
+    echo "    pip3 install cpplint"
+    exit 1
+fi
 
 printf "Running cpplint ... \r"
 cpplint --filter=-build/include_subdir --recursive --quiet ./src/*
 echo "Running cpplint ... DONE"
 
-##echo "Starting build ... "
+echo "Building the project ... "
 
-##./install.sh -t || { echo "Problem building, see above for specific errors"; exit 1; }
+mkdir -p build
+cmake . -B build || exit 1
+cmake --build build || exit 1
 
 echo "Running ctest ... "
 

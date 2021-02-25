@@ -34,10 +34,6 @@ void hello_world(void);
 
 **Note** the `@file` at the top if the file to ensure this is included in the documentation.
 
-## CMake
-
-This job attempts to build the project and then runs tests as defined in the CMake configuration. See See https://cmake.org/cmake/help/latest/manual/ctest.1.html for details. If this passes, the project can be built and all unit tests will have passed.
-
 ## C++ Linting
 
 This job runs the `cpplint` python package on all code. This checks against Google code formatting guidelines, with some minor modifications. See the [project page](https://github.com/cpplint/cpplint) for details.
