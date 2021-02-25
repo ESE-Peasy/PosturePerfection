@@ -1,7 +1,6 @@
-#define BOOST_TEST_MODULE DoublerTests
 #include <boost/test/unit_test.hpp>
 
-#include "doubler.h"
+#include "../src/doubler.h"
 
 BOOST_AUTO_TEST_CASE(PassTest) {
   int in [] = {-1, 0, 2};

@@ -1,16 +1,31 @@
 find_package (Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
+
+set(libraries       ${CMAKE_THREAD_LIBS_INIT} PosturePerfection_static)
+set(test_libraries  ${libraries} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+
 include_directories ("${TEST_SOURCE_DIR}/../src"
                      ${Boost_INCLUDE_DIRS})
 
-add_definitions (-DBOOST_TEST_DYN_LINK)
-add_executable (Test test.cpp)
-add_executable (IIRTests test_iir.cpp)
-target_link_libraries (Test
-                       doubler
-                       PosturePerfection_static
-                       ${Boost_FILESYSTEM_LIBRARY}
-                       ${Boost_SYSTEM_LIBRARY}
-                       ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+# Taken from https://github.com/WillBrennan/boost-test-example
+function(create_test    test_path)
+  set(test_name ${test_path})
 
-add_test (NAME MyTest COMMAND Test)
-add_test (NAME IIRTests COMMAND IIRTests)
+  string(REPLACE "/" ";" test_name_list ${test_name})
+  list(GET test_name_list -1 test_name)
+  string(REPLACE "." ";" test_name_list ${test_name})
+  list(GET test_name_list 0 test_name)
+
+  message("-- adding test: ${test_name}")
+
+  add_executable(${test_name}         "${TEST_SOURCE_DIR}/test/${test_path}")
+  target_link_libraries(${test_name}  ${ARGN})
+
+  target_compile_definitions(${test_name} PRIVATE BOOST_TEST_MAIN BOOST_TEST_DYN_LINK BOOST_TEST_MODULE=${test_name})
+
+  add_test(${test_name} ${test_name})
+endfunction()
+
+add_definitions (-DBOOST_TEST_DYN_LINK)
+
+create_test(test_doubler ${test_libraries})
+create_test(test_iir ${test_libraries})

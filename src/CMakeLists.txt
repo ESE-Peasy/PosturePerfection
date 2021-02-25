@@ -4,8 +4,9 @@ project(PosturePerfection VERSION 0.1.0)
 
 
 set(LIBSRC
-  inference_core.cpp
+  doubler.cpp
   iir.cpp
+  inference_core.cpp
   post_processor.cpp)
 
 
@@ -25,9 +26,7 @@ add_subdirectory(
   "${TENSORFLOW_SOURCE_DIR}/tensorflow/lite"
   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
 
-add_library(doubler doubler.cpp)
-
 add_library(PosturePerfection_static STATIC ${LIBSRC})
 
-add_executable(PosturePerfection inference_core.cpp main.cpp)
+add_executable(PosturePerfection ${LIBSRC} main.cpp)
 target_link_libraries(PosturePerfection tensorflow-lite doubler ${CMAKE_DL_LIBS})

@@ -11,7 +11,7 @@ then
 fi
 
 printf "Running cpplint ... \r"
-cpplint --filter=-build/include_subdir --recursive --quiet ./src/*
+cpplint --filter=-build/include_subdir --recursive --quiet ./src/* || exit 1
 echo "Running cpplint ... DONE"
 
 echo "Building the project ... "
