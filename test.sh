@@ -22,6 +22,6 @@ cmake --build build || exit 1
 echo "Running ctest ... "
 
 cd build
-ctest --verbose || { cd ..; exit 1; }
+ctest -VV  || { cd ..; exit 1; }
 
 cd ..

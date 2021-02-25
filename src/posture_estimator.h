@@ -60,12 +60,12 @@ struct ConnectedJoint {
  *  the expected `ConnectedJoint`
  */
 struct Pose {
-  ConnectedJoint head;
-  ConnectedJoint neck;
-  ConnectedJoint shoulder;
-  ConnectedJoint hip;
-  ConnectedJoint knee;
-  ConnectedJoint foot;
+  ConnectedJoint* head;
+  ConnectedJoint* neck;
+  ConnectedJoint* shoulder;
+  ConnectedJoint* hip;
+  ConnectedJoint* knee;
+  ConnectedJoint* foot;
 };
 
 /**
