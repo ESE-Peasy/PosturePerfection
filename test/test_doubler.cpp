@@ -1,4 +1,3 @@
-#define BOOST_TEST_MODULE DoublerTests
 #include <boost/test/unit_test.hpp>
 
 #include "../src/doubler.h"

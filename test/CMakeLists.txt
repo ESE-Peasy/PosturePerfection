@@ -3,6 +3,16 @@ find_package (Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 set(libraries       ${CMAKE_THREAD_LIBS_INIT} PosturePerfection_static)
 set(test_libraries  ${libraries} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
+if(NOT TENSORFLOW_SOURCE_DIR)
+get_filename_component(TENSORFLOW_SOURCE_DIR
+"${CMAKE_CURRENT_BINARY_DIR}/../../../tensorflow_src" ABSOLUTE)
+endif()
+
+# Ensure all necessary libraries are included
+include_directories("${TENSORFLOW_SOURCE_DIR}")
+include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
+include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
+
 include_directories ("${TEST_SOURCE_DIR}/../src"
                      ${Boost_INCLUDE_DIRS})
 
