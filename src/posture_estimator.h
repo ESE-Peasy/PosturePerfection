@@ -198,6 +198,6 @@ class PostureEstimator {
    */
   bool updateCurrentPoseAndCheckPosture(
       PostProcessing::ProcessedResults results);
-}
+};
 }  // namespace PostureEstimating
 #endif  // SRC_POSTURE_ESTIMATOR_H_

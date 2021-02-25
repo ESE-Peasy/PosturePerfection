@@ -119,7 +119,7 @@ class PostProcessor {
    * @return false If the new threshold value is invalid
    */
   bool set_confidence_threshold(float confidence_threshold);
-}
+};
 
 }  // namespace PostProcessing
 #endif  // SRC_POST_PROCESSOR_H_
