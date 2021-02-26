@@ -35,38 +35,38 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QRect>
+#include <QDialog>
+
 
 
 
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { 
+  class MainWindow; 
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow{
   Q_OBJECT
 
  public:
-  explicit MainWindow(QWidget *parent = 0);
+  MainWindow(QWidget *parent = 0);
+  
+  
 
 
  private:
-  /*
-  QWidget *centralWidget;
-  QVBoxLayout *verticalLayout;
-  QFrame *frame_2;
-  QVBoxLayout *verticalLayout_3;
-  QCustomPlot *customPlot;
-  QFrame *frame;
-  QVBoxLayout *verticalLayout_2;
-  QLabel *label;
-  QMenuBar *menuBar;
-  QStatusBar *statusBar;
-  */   
-  QPushButton *m_button;
+  QLineEdit *nameLine;
+  QTextEdit *addressText;
+  QGroupBox *createFirstExclusiveGroup();
+  QGroupBox *createSecondExclusiveGroup();
+  QGroupBox *createNonExclusiveGroup();
+  QGroupBox *createPushButtonGroup();
+  
 
  private slots:
-  void handleButton();
+  
 
   
 
