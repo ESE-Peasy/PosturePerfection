@@ -50,6 +50,10 @@ ProcessedResults PostProcessor::run(
     body_part_index++;
   }
 
+  /* Go through all of the body parts and apply the two IIR filters to the
+   * respective x and y components of the body part position. This results in
+   * iterating through filters at twice the rate of iterating through body
+   * parts; there are two filters per body part.*/
   body_part_index = BodyPartMin;
   for (auto& body_part : results.body_parts) {
     body_part.x = this->iir_filters.at(body_part_index).run(body_part.x);

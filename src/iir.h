@@ -105,7 +105,7 @@ class IIRFilter {
   /**
    * @brief Construct a new `IIRFilter` object
    *
-   * Passing empty `SmoothingSettings` disbales the IIR filter.
+   * Passing empty `SmoothingSettings` disables the IIR filter.
    *
    * @param smoothing_settings `SmoothingSettings` structure
    * containing the SOS coefficients for the IIR filter

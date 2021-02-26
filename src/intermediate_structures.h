@@ -25,6 +25,15 @@
 
 #include <array>
 
+/**
+ * @brief Defines the order of body parts in the `body_parts` arrays
+ *
+ * The `Inference::InferenceResults` and `PostProcessing::ProcessedResults` each
+ * have a `body_parts` field. The order of body parts is defined by this enum.
+ * The minimum and maximum body part "value" is given by `BodyPartMin` and
+ * `BodyPartMax`, respectively.
+ *
+ */
 enum BodyPart {
   head_top,
   BodyPartMin = head_top,
@@ -48,8 +57,19 @@ enum BodyPart {
 
 namespace PostProcessing {
 
+/**
+ * @brief A `PostProcessing::Coordinate`'s position can be either
+ * `Untrustworthy` or `Trustworthy`
+ *
+ * This is derived from the confidence in predictions from the model.
+ *
+ */
 enum Status { Untrustworthy, Trustworthy };
 
+/**
+ * @brief Indicates position and trustworthyness of a body part node
+ *
+ */
 struct Coordinate {
   float x;
   float y;
@@ -71,12 +91,21 @@ struct ProcessedResults {
 }  // namespace PostProcessing
 
 namespace Inference {
+
+/**
+ * @brief Indicates position and confidence in positioning of a body part node
+ *
+ */
 struct Coordinate {
   float x;
   float y;
   float confidence;
 };
 
+/**
+ * @brief Results of running the model for all body parts
+ *
+ */
 struct InferenceResults {
   std::array<Coordinate, BodyPartMax + 1> body_parts;
 };
