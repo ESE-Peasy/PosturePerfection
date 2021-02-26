@@ -25,8 +25,6 @@
 
 #include <vector>
 
-#define COEFFS_PER_IIR2ndOrderFilter 6  //  Coefficients per filter stage
-
 namespace IIR {
 
 /**
