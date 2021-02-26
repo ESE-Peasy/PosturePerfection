@@ -16,7 +16,9 @@
  *
  */
 
+#include "iir.h"
 #include "inference_core.h"
+#include "post_processor.h"
 #include "posture_in.h"  // Hardcoded image for testing
 
 #define MODEL_INPUT_X 224
@@ -39,10 +41,20 @@ int main(int argc, char const *argv[]) {
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
 
+  // Empty settings to disable IIR filtering
+  IIR::SmoothingSettings smoothing_settings =
+      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
+  PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
+
   Inference::InferenceResults results =
       core.run(PreProcessing::PreProcessedImage{preprocessed_image});
 
-  for (auto body_part : results.body_parts) {
-    printf("%f, %f\n", body_part.x, body_part.y);
+  PostProcessing::ProcessedResults processed_results =
+      post_processor.run(results);
+
+  for (auto body_part : processed_results.body_parts) {
+    printf("%f, %f: %s\n", body_part.x, body_part.y,
+           (body_part.status == PostProcessing::Trustworthy) ? "Trustworthy"
+                                                             : "Untrustworthy");
   }
 }
