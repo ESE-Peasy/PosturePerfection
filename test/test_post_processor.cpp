@@ -22,7 +22,8 @@ BOOST_AUTO_TEST_CASE(LowConfidenceLabelledAsUntrustWorthy) {
   PostProcessing::PostProcessor post_proc =
       PostProcessing::PostProcessor(1.0, settings);
 
-  Inference::InferenceResults dummy_input = Inference::InferenceResults{
+  Inference::InferenceResults dummy_input;
+  dummy_input.body_parts = {
       Inference::Coordinate{0, 0, 0.0}, Inference::Coordinate{0, 0, 0.1},
       Inference::Coordinate{0, 0, 0.2}, Inference::Coordinate{0, 0, 0.3},
       Inference::Coordinate{0, 0, 0.4}, Inference::Coordinate{0, 0, 0.5},
@@ -34,23 +35,9 @@ BOOST_AUTO_TEST_CASE(LowConfidenceLabelledAsUntrustWorthy) {
   };
 
   PostProcessing::ProcessedResults output = post_proc.run(dummy_input);
-
-  BOOST_TEST(check_untrustworthy(output.head_top));
-  BOOST_TEST(check_untrustworthy(output.upper_neck));
-  BOOST_TEST(check_untrustworthy(output.right_shoulder));
-  BOOST_TEST(check_untrustworthy(output.right_elbow));
-  BOOST_TEST(check_untrustworthy(output.right_wrist));
-  BOOST_TEST(check_untrustworthy(output.thorax));
-  BOOST_TEST(check_untrustworthy(output.left_shoulder));
-  BOOST_TEST(check_untrustworthy(output.left_elbow));
-  BOOST_TEST(check_untrustworthy(output.left_wrist));
-  BOOST_TEST(check_untrustworthy(output.pelvis));
-  BOOST_TEST(check_untrustworthy(output.right_hip));
-  BOOST_TEST(check_untrustworthy(output.right_knee));
-  BOOST_TEST(check_untrustworthy(output.right_ankle));
-  BOOST_TEST(check_untrustworthy(output.left_hip));
-  BOOST_TEST(check_untrustworthy(output.left_knee));
-  BOOST_TEST(check_untrustworthy(output.left_ankle));
+  for (auto body_part : output.body_parts) {
+    BOOST_TEST(check_untrustworthy(body_part));
+  }
 }
 
 BOOST_AUTO_TEST_CASE(HighConfidenceLabelledAsTrustWorthy) {
@@ -59,7 +46,8 @@ BOOST_AUTO_TEST_CASE(HighConfidenceLabelledAsTrustWorthy) {
   PostProcessing::PostProcessor post_proc =
       PostProcessing::PostProcessor(0.0, settings);
 
-  Inference::InferenceResults dummy_input = Inference::InferenceResults{
+  Inference::InferenceResults dummy_input;
+  dummy_input.body_parts = {
       Inference::Coordinate{0, 0, 0.1}, Inference::Coordinate{0, 0, 0.1},
       Inference::Coordinate{0, 0, 0.2}, Inference::Coordinate{0, 0, 0.3},
       Inference::Coordinate{0, 0, 0.4}, Inference::Coordinate{0, 0, 0.5},
@@ -72,22 +60,9 @@ BOOST_AUTO_TEST_CASE(HighConfidenceLabelledAsTrustWorthy) {
 
   PostProcessing::ProcessedResults output = post_proc.run(dummy_input);
 
-  BOOST_TEST(check_trustworthy(output.head_top));
-  BOOST_TEST(check_trustworthy(output.upper_neck));
-  BOOST_TEST(check_trustworthy(output.right_shoulder));
-  BOOST_TEST(check_trustworthy(output.right_elbow));
-  BOOST_TEST(check_trustworthy(output.right_wrist));
-  BOOST_TEST(check_trustworthy(output.thorax));
-  BOOST_TEST(check_trustworthy(output.left_shoulder));
-  BOOST_TEST(check_trustworthy(output.left_elbow));
-  BOOST_TEST(check_trustworthy(output.left_wrist));
-  BOOST_TEST(check_trustworthy(output.pelvis));
-  BOOST_TEST(check_trustworthy(output.right_hip));
-  BOOST_TEST(check_trustworthy(output.right_knee));
-  BOOST_TEST(check_trustworthy(output.right_ankle));
-  BOOST_TEST(check_trustworthy(output.left_hip));
-  BOOST_TEST(check_trustworthy(output.left_knee));
-  BOOST_TEST(check_trustworthy(output.left_ankle));
+  for (auto body_part : output.body_parts) {
+    BOOST_TEST(check_trustworthy(body_part));
+  }
 }
 
 BOOST_AUTO_TEST_CASE(CoordinatesPassedThroughWhenNotFiltered) {
@@ -96,7 +71,8 @@ BOOST_AUTO_TEST_CASE(CoordinatesPassedThroughWhenNotFiltered) {
   PostProcessing::PostProcessor post_proc =
       PostProcessing::PostProcessor(0.0, settings);
 
-  Inference::InferenceResults dummy_input = Inference::InferenceResults{
+  Inference::InferenceResults dummy_input;
+  dummy_input.body_parts = {
       Inference::Coordinate{0.1, 0.2, 0},
       Inference::Coordinate{0.17, 0.18, 0},
       Inference::Coordinate{0.3, 0.4, 0},
@@ -117,22 +93,10 @@ BOOST_AUTO_TEST_CASE(CoordinatesPassedThroughWhenNotFiltered) {
 
   PostProcessing::ProcessedResults output = post_proc.run(dummy_input);
 
-  BOOST_TEST(check_coords_match(output.head_top, dummy_input.head_top));
-  BOOST_TEST(check_coords_match(output.upper_neck, dummy_input.upper_neck));
-  BOOST_TEST(
-      check_coords_match(output.right_shoulder, dummy_input.right_shoulder));
-  BOOST_TEST(check_coords_match(output.right_elbow, dummy_input.right_elbow));
-  BOOST_TEST(check_coords_match(output.right_wrist, dummy_input.right_wrist));
-  BOOST_TEST(check_coords_match(output.thorax, dummy_input.thorax));
-  BOOST_TEST(
-      check_coords_match(output.left_shoulder, dummy_input.left_shoulder));
-  BOOST_TEST(check_coords_match(output.left_elbow, dummy_input.left_elbow));
-  BOOST_TEST(check_coords_match(output.left_wrist, dummy_input.left_wrist));
-  BOOST_TEST(check_coords_match(output.pelvis, dummy_input.pelvis));
-  BOOST_TEST(check_coords_match(output.right_hip, dummy_input.right_hip));
-  BOOST_TEST(check_coords_match(output.right_knee, dummy_input.right_knee));
-  BOOST_TEST(check_coords_match(output.right_ankle, dummy_input.right_ankle));
-  BOOST_TEST(check_coords_match(output.left_hip, dummy_input.left_hip));
-  BOOST_TEST(check_coords_match(output.left_knee, dummy_input.left_knee));
-  BOOST_TEST(check_coords_match(output.left_ankle, dummy_input.left_ankle));
+  int body_part_index = BodyPartMin;
+  for (auto body_part : output.body_parts) {
+    BOOST_TEST(
+        check_coords_match(body_part, dummy_input.body_parts[body_part_index]));
+    body_part_index++;
+  }
 }

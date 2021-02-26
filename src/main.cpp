@@ -42,20 +42,7 @@ int main(int argc, char const *argv[]) {
   Inference::InferenceResults results =
       core.run(PreProcessing::PreProcessedImage{preprocessed_image});
 
-  printf("%f, %f\n", results.head_top.x, results.head_top.y);
-  printf("%f, %f\n", results.upper_neck.x, results.upper_neck.y);
-  printf("%f, %f\n", results.right_shoulder.x, results.right_shoulder.y);
-  printf("%f, %f\n", results.right_elbow.x, results.right_elbow.y);
-  printf("%f, %f\n", results.right_wrist.x, results.right_wrist.y);
-  printf("%f, %f\n", results.thorax.x, results.thorax.y);
-  printf("%f, %f\n", results.left_shoulder.x, results.left_shoulder.y);
-  printf("%f, %f\n", results.left_elbow.x, results.left_elbow.y);
-  printf("%f, %f\n", results.left_wrist.x, results.left_wrist.y);
-  printf("%f, %f\n", results.pelvis.x, results.pelvis.y);
-  printf("%f, %f\n", results.right_hip.x, results.right_hip.y);
-  printf("%f, %f\n", results.right_knee.x, results.right_knee.y);
-  printf("%f, %f\n", results.right_ankle.x, results.right_ankle.y);
-  printf("%f, %f\n", results.left_hip.x, results.left_hip.y);
-  printf("%f, %f\n", results.left_knee.x, results.left_knee.y);
-  printf("%f, %f\n", results.left_ankle.x, results.left_ankle.y);
+  for (auto body_part : results.body_parts) {
+    printf("%f, %f\n", body_part.x, body_part.y);
+  }
 }

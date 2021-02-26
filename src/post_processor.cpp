@@ -19,6 +19,7 @@
 #include "post_processor.h"
 
 #include "iir.h"
+#include "intermediate_structures.h"
 
 #define MIN_CONF_THRESH 0.0  // Minimum value a confidence threshold can be
 #define MAX_CONF_THRESH 1.0  // Maximum value a confidence threshold can be
@@ -27,52 +28,34 @@ namespace PostProcessing {
 
 PostProcessor::PostProcessor(float confidence_threshold,
                              IIR::SmoothingSettings smoothing_settings)
-    : confidence_threshold(confidence_threshold),
-      iir_filter(IIR::IIRFilter(smoothing_settings)) {}
-
-Coordinate PostProcessor::inference_results_processed_results(
-    Inference::Coordinate coord_in) {
-  return Coordinate{coord_in.x, coord_in.y,
-                    (coord_in.confidence > this->confidence_threshold)
-                        ? Status::Trustworthy
-                        : Status::Untrustworthy};
+    : confidence_threshold(confidence_threshold) {
+  // Initialise filters for x and y component of each body part position
+  for (int i = 0; i < (BodyPartMax + 1) * 2; i++) {
+    this->iir_filters.push_back(IIR::IIRFilter(smoothing_settings));
+  }
 }
 
 ProcessedResults PostProcessor::run(
     Inference::InferenceResults inference_core_output) {
   ProcessedResults results;
-  results.head_top =
-      inference_results_processed_results(inference_core_output.head_top);
-  results.left_ankle =
-      inference_results_processed_results(inference_core_output.left_ankle);
-  results.left_elbow =
-      inference_results_processed_results(inference_core_output.left_elbow);
-  results.left_hip =
-      inference_results_processed_results(inference_core_output.left_hip);
-  results.left_knee =
-      inference_results_processed_results(inference_core_output.left_knee);
-  results.left_shoulder =
-      inference_results_processed_results(inference_core_output.left_shoulder);
-  results.left_wrist =
-      inference_results_processed_results(inference_core_output.left_wrist);
-  results.pelvis =
-      inference_results_processed_results(inference_core_output.pelvis);
-  results.right_ankle =
-      inference_results_processed_results(inference_core_output.right_ankle);
-  results.right_elbow =
-      inference_results_processed_results(inference_core_output.right_elbow);
-  results.right_hip =
-      inference_results_processed_results(inference_core_output.right_hip);
-  results.right_knee =
-      inference_results_processed_results(inference_core_output.right_knee);
-  results.right_shoulder =
-      inference_results_processed_results(inference_core_output.right_shoulder);
-  results.right_wrist =
-      inference_results_processed_results(inference_core_output.right_wrist);
-  results.thorax =
-      inference_results_processed_results(inference_core_output.thorax);
-  results.upper_neck =
-      inference_results_processed_results(inference_core_output.upper_neck);
+
+  // Convert to `Inference::Coordinate`
+  int body_part_index = BodyPartMin;
+  for (auto body_part : inference_core_output.body_parts) {
+    results.body_parts[body_part_index] =
+        Coordinate{body_part.x, body_part.y,
+                   (body_part.confidence > this->confidence_threshold)
+                       ? Status::Trustworthy
+                       : Status::Untrustworthy};
+    body_part_index++;
+  }
+
+  body_part_index = BodyPartMin;
+  for (auto& body_part : results.body_parts) {
+    body_part.x = this->iir_filters.at(body_part_index).run(body_part.x);
+    body_part.y = this->iir_filters.at(body_part_index + 1).run(body_part.y);
+    body_part_index += 2;
+  }
 
   return results;
 }
