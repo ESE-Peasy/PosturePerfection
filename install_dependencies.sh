@@ -46,7 +46,6 @@ cd ..
 # cmake --build .
 
 ## Download OpenCV code
-cd ..
 echo "Downloading OpenCV ..."
 if [ ! -d "opencv_src" ]; then
   git clone https://github.com/opencv/opencv.git opencv_src

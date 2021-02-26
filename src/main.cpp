@@ -30,24 +30,25 @@ void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
   cv::Scalar blue(255, 0, 0);
 
   cv::circle(originalImage,
-             cv::Point((int)(results.head_top.x * imageWidth),
-                       (int)(results.head_top.y * imageHeight)),
+             cv::Point(static_cast<int>(results.head_top.x * imageWidth),
+                       static_cast<int>(results.head_top.y * imageHeight)),
              circleRadius, blue, -1);
   cv::circle(originalImage,
-             cv::Point((int)(results.upper_neck.x * imageWidth),
-                       (int)(results.upper_neck.y * imageHeight)),
+             cv::Point(static_cast<int>(results.upper_neck.x * imageWidth),
+                       static_cast<int>(results.upper_neck.y * imageHeight)),
+             circleRadius, blue, -1);
+  cv::circle(
+      originalImage,
+      cv::Point(static_cast<int>(results.right_shoulder.x * imageWidth),
+                static_cast<int>(results.right_shoulder.y * imageHeight)),
+      circleRadius, blue, -1);
+  cv::circle(originalImage,
+             cv::Point(static_cast<int>(results.pelvis.x * imageWidth),
+                       static_cast<int>(results.pelvis.y * imageHeight)),
              circleRadius, blue, -1);
   cv::circle(originalImage,
-             cv::Point((int)(results.right_shoulder.x * imageWidth),
-                       (int)(results.right_shoulder.y * imageHeight)),
-             circleRadius, blue, -1);
-  cv::circle(originalImage,
-             cv::Point((int)(results.pelvis.x * imageWidth),
-                       (int)(results.pelvis.y * imageHeight)),
-             circleRadius, blue, -1);
-  cv::circle(originalImage,
-             cv::Point((int)(results.right_knee.x * imageWidth),
-                       (int)(results.right_knee.y * imageHeight)),
+             cv::Point(static_cast<int>(results.right_knee.x * imageWidth),
+                       static_cast<int>(results.right_knee.y * imageHeight)),
              circleRadius, blue, -1);
 
   // Save the image with detected points
