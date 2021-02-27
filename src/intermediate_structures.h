@@ -67,7 +67,13 @@ namespace PostProcessing {
 enum Status { Untrustworthy, Trustworthy };
 
 /**
- * @brief Indicates position and trustworthyness of a body part node
+ * @brief Indicates position and trustworthiness of a body part node
+ *
+ * This type of `PostProcessing::Coordinate` is to be used after post processing
+ * has been applied as it contains a generalised indication of how "useable" the
+ * prediction is. This abstracts away the specific underlying model that was
+ * used to generate the results and should be seen as a better representation of
+ * the user's current pose than a `Inference::Coordinate`.
  *
  */
 struct Coordinate {
@@ -94,6 +100,11 @@ namespace Inference {
 
 /**
  * @brief Indicates position and confidence in positioning of a body part node
+ *
+ * This type of `Inference::Coordinate` is to be used to represent the raw
+ * output of the pose estimation model. Results using this type of coordinate
+ * are tightly bound to the specific model in use as they contain the raw
+ * confidence value for the point's predicted location.
  *
  */
 struct Coordinate {
