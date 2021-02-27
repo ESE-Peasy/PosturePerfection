@@ -30,6 +30,7 @@ PostProcessor::PostProcessor(float confidence_threshold,
                              IIR::SmoothingSettings smoothing_settings)
     : confidence_threshold(confidence_threshold) {
   // Initialise filters for x and y component of each body part position
+  // It may be interesting to add a third filter for confidence in time
   for (int i = 0; i < (BodyPartMax + 1) * 2; i++) {
     this->iir_filters.push_back(IIR::IIRFilter(smoothing_settings));
   }
@@ -37,28 +38,34 @@ PostProcessor::PostProcessor(float confidence_threshold,
 
 ProcessedResults PostProcessor::run(
     Inference::InferenceResults inference_core_output) {
+  // Initialise structure for results
   ProcessedResults results;
-
-  // Convert to `Inference::Coordinate`
-  int body_part_index = BodyPartMin;
-  for (auto body_part : inference_core_output.body_parts) {
-    results.body_parts[body_part_index] =
-        Coordinate{body_part.x, body_part.y,
-                   (body_part.confidence > this->confidence_threshold)
-                       ? Status::Trustworthy
-                       : Status::Untrustworthy};
-    body_part_index++;
-  }
 
   /* Go through all of the body parts and apply the two IIR filters to the
    * respective x and y components of the body part position. This results in
    * iterating through filters at twice the rate of iterating through body
    * parts; there are two filters per body part.*/
-  body_part_index = BodyPartMin;
-  for (auto& body_part : results.body_parts) {
-    body_part.x = this->iir_filters.at(body_part_index).run(body_part.x);
-    body_part.y = this->iir_filters.at(body_part_index + 1).run(body_part.y);
-    body_part_index += 2;
+
+  int body_part_index = BodyPartMin;
+  int filter_index = 0;
+  Inference::Coordinate body_part;
+
+  for (; body_part_index < BodyPartMax + 1;
+       body_part_index++, filter_index += 2) {
+    body_part = inference_core_output.body_parts.at(body_part_index);
+
+    // Filter the incoming position for each body part
+    // The incoming results structure is passed by value so it won't be
+    // overwritten here
+    body_part.x = this->iir_filters.at(filter_index).run(body_part.x);
+    body_part.y = this->iir_filters.at(filter_index + 1).run(body_part.y);
+
+    // Construct a `PostProcessing::Coordinate` with the filtered data
+    results.body_parts.at(body_part_index) =
+        Coordinate{body_part.x, body_part.y,
+                   (body_part.confidence > this->confidence_threshold)
+                       ? Status::Trustworthy
+                       : Status::Untrustworthy};
   }
 
   return results;
