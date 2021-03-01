@@ -28,7 +28,16 @@ namespace PostureEstimating {
 /**
  * @brief An enum for each important pose body part
  */
-enum Joint { Head = 0, Neck = 1, Shoulder = 2, Hip = 3, Knee = 4, Foot = 5 };
+enum Joint {
+  Head = 0,
+  JointMin = Head,
+  Neck = 1,
+  Shoulder = 2,
+  Hip = 3,
+  Knee = 4,
+  Foot = 5,
+  JointMax = Foot
+};
 
 /**
  * @brief A representation of a body part
@@ -59,12 +68,7 @@ struct ConnectedJoint {
  *  the expected `ConnectedJoint`
  */
 struct Pose {
-  ConnectedJoint* head;
-  ConnectedJoint* neck;
-  ConnectedJoint* shoulder;
-  ConnectedJoint* hip;
-  ConnectedJoint* knee;
-  ConnectedJoint* foot;
+  std::array<ConnectedJoint*, JointMax + 1> joints;
 };
 
 /**
