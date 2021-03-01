@@ -43,7 +43,7 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-/*
+/**
  * @brief This class allows for navigation around the application from the main
  * page.
  *
@@ -61,7 +61,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  /*
+  /**
    * @brief Initialises the main page.
    *
    * @param *parent Pointer to the parent interface.
@@ -74,7 +74,7 @@ class MainWindow : public QMainWindow {
   QGroupBox *groupBoxButtons = new QGroupBox();
 
  private slots:
-  /*
+  /**
    * @brief Displays the current date and time.
    */
   void showDateTime();
