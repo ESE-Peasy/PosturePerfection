@@ -8,6 +8,56 @@
 #undef private
 #include <cmath>
 
+PostureEstimating::Pose helper_ideal() {
+  PostureEstimating::ConnectedJoint head = {
+      PostureEstimating::Head,
+      PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy}};
+  PostureEstimating::ConnectedJoint neck = {
+      PostureEstimating::Neck,
+      PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy}};
+  PostureEstimating::ConnectedJoint shoulder = {
+      PostureEstimating::Shoulder,
+      PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy}};
+  PostureEstimating::ConnectedJoint hip = {
+      PostureEstimating::Hip,
+      PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy}};
+  PostureEstimating::ConnectedJoint knee = {
+      PostureEstimating::Knee,
+      PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy}};
+  PostureEstimating::ConnectedJoint foot = {
+      PostureEstimating::Foot,
+      PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy}};
+
+  head.lower_connected_joint = &neck;
+  head.lower_angle = M_PI / 2;
+
+  neck.upper_angle = M_PI / 2;
+  neck.upper_connected_joint = &head;
+  neck.lower_connected_joint = &shoulder;
+  neck.lower_angle = M_PI / 2;
+
+  shoulder.upper_angle = M_PI / 2;
+  shoulder.upper_connected_joint = &shoulder;
+  shoulder.lower_connected_joint = &hip;
+  shoulder.lower_angle = M_PI / 2;
+
+  hip.upper_angle = M_PI / 2;
+  hip.upper_connected_joint = &shoulder;
+  hip.lower_connected_joint = &knee;
+  hip.lower_angle = M_PI / 2;
+
+  knee.upper_angle = M_PI / 2;
+  knee.upper_connected_joint = &hip;
+  knee.lower_connected_joint = &foot;
+  knee.lower_angle = M_PI / 2;
+
+  foot.upper_angle = M_PI / 2;
+  foot.upper_connected_joint = &knee;
+
+  PostureEstimating::Pose ideal = {&head, &neck, &shoulder, &hip, &knee, &foot};
+  return ideal;
+}
+
 BOOST_AUTO_TEST_CASE(LinesAngleCorrect) {
   PostProcessing::Coordinate p = {1, 1, PostProcessing::Trustworthy};
   PostProcessing::Coordinate p1 = {3, 4, PostProcessing::Trustworthy};
@@ -56,3 +106,10 @@ BOOST_AUTO_TEST_CASE(LinesAngleSlopeZero) {
                     0.00001);  // Rounding due to using float
   BOOST_CHECK_CLOSE(e.getLineAngle(p, v_n), -M_PI, 0.00001);
 };
+
+BOOST_AUTO_TEST_CASE(EmptyWorkingPoseChanges) {
+  PostureEstimating::PostureEstimator e;
+  PostureEstimating::Pose ideal = helper_ideal();
+  BOOST_CHECK_EQUAL(ideal.neck->joint,
+                    ideal.head->lower_connected_joint->joint);
+}

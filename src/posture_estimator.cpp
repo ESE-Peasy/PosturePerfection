@@ -43,5 +43,5 @@ float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
     return (x_dif > 0) ? (M_PI + atan(slope)) : -(M_PI - atan(slope));
   }
 }
-// void Posture::Estimator::createPose((PostProcessing::ProcessedResults
+// Pose Posture::Estimator::calculatePoseChanges() { return this.ideal_pose; }
 }  // namespace PostureEstimating

@@ -28,7 +28,7 @@ namespace PostureEstimating {
 /**
  * @brief An enum for each important pose body part
  */
-enum Joint { Head, Neck, Shoulder, Hip, Knee, Foot };
+enum Joint { Head = 0, Neck = 1, Shoulder = 2, Hip = 3, Knee = 4, Foot = 5 };
 
 /**
  * @brief A representation of a body part
