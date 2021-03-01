@@ -36,16 +36,11 @@
 #include <QRect>
 #include <QDialog>
 
-
-
-
-
 QT_BEGIN_NAMESPACE
 namespace GUi {
 class MainWindow;
 }
 QT_END_NAMESPACE
-
 
 /*
  * @brief This class allows for navigation around the application from the main page.
@@ -74,8 +69,6 @@ class MainWindow : public QMainWindow{
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
-
-
 
  private slots:
   /*

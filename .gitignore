@@ -56,3 +56,8 @@ docs/_site/*
 
 # Mac
 *.DS_Store
+
+
+#  ignore QT autogen files
+src/gui/postureperfection_autogen
+
