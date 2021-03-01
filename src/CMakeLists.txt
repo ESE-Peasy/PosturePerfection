@@ -4,8 +4,9 @@ project(PosturePerfection VERSION 0.1.0)
 
 
 set(LIBSRC
-  doubler.cpp
+  iir.cpp
   inference_core.cpp
+  post_processor.cpp
   posture_estimator.cpp)
 
 
@@ -29,4 +30,3 @@ add_library(PosturePerfection_static STATIC ${LIBSRC})
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
 target_link_libraries(PosturePerfection tensorflow-lite ${CMAKE_DL_LIBS})
-

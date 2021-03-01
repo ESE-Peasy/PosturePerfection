@@ -3,6 +3,8 @@ find_package (Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 set(libraries       ${CMAKE_THREAD_LIBS_INIT} PosturePerfection_static)
 set(test_libraries  ${libraries} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
+
+# Set up TFL path
 if(NOT TENSORFLOW_SOURCE_DIR)
 get_filename_component(TENSORFLOW_SOURCE_DIR
 "${CMAKE_CURRENT_BINARY_DIR}/../../../tensorflow_src" ABSOLUTE)
@@ -12,9 +14,6 @@ endif()
 include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
 include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
-
-include_directories ("${TEST_SOURCE_DIR}/../src"
-                     ${Boost_INCLUDE_DIRS})
 
 # Taken from https://github.com/WillBrennan/boost-test-example
 function(create_test    test_path)
@@ -37,6 +36,6 @@ endfunction()
 
 add_definitions (-DBOOST_TEST_DYN_LINK)
 
-create_test(test_doubler ${test_libraries})
+create_test(test_iir ${test_libraries})
+create_test(test_post_processor ${test_libraries})
 create_test(test_posture_estimator ${test_libraries})
-

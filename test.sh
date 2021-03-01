@@ -10,7 +10,7 @@ then
 fi
 
 printf "Running cpplint ... \r"
-cpplint --filter=-build/include_subdir --recursive --quiet ./src/*
+cpplint --filter=-build/include_subdir --recursive --quiet ./src/* || exit 1
 echo "Running cpplint ... DONE"
 
 echo "Building the project ... "
@@ -22,6 +22,6 @@ cmake --build build || exit 1
 echo "Running ctest ... "
 
 cd build
-ctest -VV  || { cd ..; exit 1; }
+ctest --verbose || { cd ..; exit 1; }
 
 cd ..
