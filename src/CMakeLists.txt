@@ -16,7 +16,7 @@ find_package(OpenCV REQUIRED)
 # Set up TFL path
 if(NOT TENSORFLOW_SOURCE_DIR)
 get_filename_component(TENSORFLOW_SOURCE_DIR
-"${CMAKE_CURRENT_BINARY_DIR}/../../../tensorflow_src" ABSOLUTE)
+"${CMAKE_CURRENT_BINARY_DIR}/../../tensorflow_src" ABSOLUTE)
 endif()
 
 # Ensure all necessary libraries are included

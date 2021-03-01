@@ -49,8 +49,10 @@ class PreProcessor {
   size_t model_height;
 
   /**
-   * @brief Resize the input image to the desired dimensions
+   * @brief Normalise the input image to the required interval [-1..1]
    *
+   * @param resized_image Array of pixels of the resized input image
+   * @param normalised_image Memory allocated for the normalised image
    */
   void normalise(uint8_t* resized_image, float* normalised_image);
 

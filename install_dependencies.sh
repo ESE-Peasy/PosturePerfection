@@ -31,31 +31,24 @@ fi
 echo "Downloading TensorFlow ..."
 cd ..
 if [ ! -d "tensorflow_src" ]; then
-  git clone https://github.com/tensorflow/tensorflow.git tensorflow_src
+  git clone https://github.com/tensorflow/tensorflow.git tensorflow_src || exit 1
 fi
 cd tensorflow_src
 git fetch
 git checkout $TF_VERSION
 cd ..
 
-## Build TFL
-# echo "Installing TensorFlow Lite ..."
-# mkdir -p tflite_build
-# cd tflite_build
-# cmake ../tensorflow_src/tensorflow/lite
-# cmake --build .
-
 ## Download OpenCV code
 echo "Downloading OpenCV ..."
 if [ ! -d "opencv_src" ]; then
-  git clone https://github.com/opencv/opencv.git opencv_src
+  git clone https://github.com/opencv/opencv.git opencv_src || exit 1
 fi
 
 ## Build OpenCV
 mkdir -p opencv_build
 cd opencv_build
-cmake -DCMAKE_BUILD_TYPE=Release ../opencv_src
-make -j7
+cmake -DCMAKE_BUILD_TYPE=Release ../opencv_src || exit 1
+make || exit 1
 
 ## Download OpenCV code
 cd ..

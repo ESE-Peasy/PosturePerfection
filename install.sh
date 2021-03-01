@@ -27,8 +27,10 @@ cmake --build build || exit 1
 
 cd ..
 
+mv ./build/src/PosturePerfection .
+
 echo ""
 echo ""
 echo "PosturePerfection has been installed!"
 echo "To start the application run:"
-echo "    ./build/PosturePerfection"
+echo "    ./PosturePerfection"
