@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['set_5fconfidence_5fthreshold_23',['set_confidence_threshold',['../classPostProcessing_1_1PostProcessor.html#acfd7f824e696fae2ceab20d8b6f91c0a',1,'PostProcessing::PostProcessor']]],
-  ['smoothingsettings_24',['SmoothingSettings',['../structPostProcessing_1_1SmoothingSettings.html',1,'PostProcessing::SmoothingSettings'],['../post__processor_8h.html#aa7883c93afcfb515b4dbf7286f0d44a0',1,'PostProcessing::SmoothingSettings()']]]
+  ['result_27',['Result',['../structResult.html',1,'']]],
+  ['run_28',['run',['../classIIR_1_1IIR2ndOrderFilter.html#a9500fcdaf9d6923057461c1a0ef623d2',1,'IIR::IIR2ndOrderFilter::run()'],['../classIIR_1_1IIRFilter.html#a1f0009b3f0107d00cd5cb230c028a023',1,'IIR::IIRFilter::run()'],['../classInference_1_1InferenceCore.html#ab622367f2d9a518e89401fe0ee710188',1,'Inference::InferenceCore::run()'],['../classPostProcessing_1_1PostProcessor.html#a2a8ce854324720f34d9c4f10c2b37e4d',1,'PostProcessing::PostProcessor::run()'],['../classPreProcessing_1_1PreProcessor.html#a735a3734062345e6f99dba3862ae9bc8',1,'PreProcessing::PreProcessor::run()']]]
 ];

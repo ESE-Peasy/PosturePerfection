@@ -1,8 +1,13 @@
 <map id="post_processor.h" name="post_processor.h">
-<area shape="rect" id="node1" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="227,5,348,32"/>
-<area shape="rect" id="node2" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="229,80,346,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,155,140,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="165,155,229,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="253,155,321,181"/>
-<area shape="rect" id="node6" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="346,155,461,181"/>
+<area shape="rect" id="node1" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="227,5,349,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,64,181"/>
+<area shape="rect" id="node3" href="$iir_8h.html" title="Very simple IIR filter." alt="" coords="99,80,141,107"/>
+<area shape="rect" id="node5" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="399,80,516,107"/>
+<area shape="rect" id="node9" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="655,155,823,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="89,155,151,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="175,155,310,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="335,155,399,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="423,155,491,181"/>
+<area shape="rect" id="node11" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="516,155,631,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="713,229,764,256"/>
 </map>
