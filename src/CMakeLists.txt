@@ -2,6 +2,7 @@ set(CMAKE_CXX_STANDARD 11)
 cmake_minimum_required(VERSION 3.16) # Required by TFL
 project(PosturePerfection VERSION 0.1.0)
 
+set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -latomic")
 
 set(LIBSRC
   iir.cpp
