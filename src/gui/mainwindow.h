@@ -28,7 +28,6 @@
 #include <QApplication>
 #include <QFrame>
 #include <QLabel>
-#include <QMainWindow>
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QVBoxLayout>
@@ -42,34 +41,47 @@
 
 
 QT_BEGIN_NAMESPACE
-namespace Ui { 
-  class MainWindow; 
+namespace GUi {
+class MainWindow;
 }
 QT_END_NAMESPACE
 
+
+/*
+ * @brief This class allows for navigation around the application from the main page.
+ *
+ * This class lets the user navigate to the data page, settings page and fullscreen page from the main window.
+ *
+ * This class handles:
+ * Navigating to the data page.
+ * Navigating to the settings page.
+ * Navigating to the full screen.
+ * Triggering posture reseting functionality
+ *
+ */
 class MainWindow : public QMainWindow{
   Q_OBJECT
 
  public:
+   /*
+      * @brief Initialises the main page.
+      * 
+      * @param *parent Pointer to the parent interface.
+      */
   MainWindow(QWidget *parent = 0);
-  
-  
-
 
  private:
-  QLineEdit *nameLine;
-  QTextEdit *addressText;
-  QGroupBox *createFirstExclusiveGroup();
-  QGroupBox *createSecondExclusiveGroup();
-  QGroupBox *createNonExclusiveGroup();
-  QGroupBox *createPushButtonGroup();
-  
+  QGridLayout *mainLayout = new QGridLayout;
+  QWidget *central = new QWidget;
+  QGroupBox *groupBoxButtons = new QGroupBox();
+
+
 
  private slots:
-  
-
-  
-
+  /*
+    * @brief Displays the current date and time.
+    */
+  void showDateTime();
 };
 
 #endif  // SRC_GUI_MAINWINDOW_H_
