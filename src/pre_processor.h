@@ -27,20 +27,10 @@
 
 #include <memory>
 
+#include "intermediate_structures.h"
 #include "opencv2/opencv.hpp"
 
 namespace PreProcessing {
-
-/**
- * @brief A structure of the pre processed image
- *
- * After pre processing, the image will be resized and normalised before
- * being passed to the `Inference::InferenceCore` as a `PreProcessedImage`
- *
- */
-struct PreProcessedImage {
-  float* image;
-};
 
 /**
  * @brief PreProcess the input image before passing to

@@ -26,30 +26,27 @@
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
 
-void displayImage(cv::Mat originalImage, Inference::InferenceResults results) {
+void displayImage(cv::Mat originalImage,
+                  PostProcessing::ProcessedResults processed_results) {
   cv::Scalar blue(255, 0, 0);
+  cv::Scalar red(0, 0, 255);
+  int imageWidth = originalImage.cols;
+  int imageHeight = originalImage.rows;
+  int circleRadius = 5;
 
-  cv::circle(originalImage,
-             cv::Point(static_cast<int>(results.head_top.x * imageWidth),
-                       static_cast<int>(results.head_top.y * imageHeight)),
-             circleRadius, blue, -1);
-  cv::circle(originalImage,
-             cv::Point(static_cast<int>(results.upper_neck.x * imageWidth),
-                       static_cast<int>(results.upper_neck.y * imageHeight)),
-             circleRadius, blue, -1);
-  cv::circle(
-      originalImage,
-      cv::Point(static_cast<int>(results.right_shoulder.x * imageWidth),
-                static_cast<int>(results.right_shoulder.y * imageHeight)),
-      circleRadius, blue, -1);
-  cv::circle(originalImage,
-             cv::Point(static_cast<int>(results.pelvis.x * imageWidth),
-                       static_cast<int>(results.pelvis.y * imageHeight)),
-             circleRadius, blue, -1);
-  cv::circle(originalImage,
-             cv::Point(static_cast<int>(results.right_knee.x * imageWidth),
-                       static_cast<int>(results.right_knee.y * imageHeight)),
-             circleRadius, blue, -1);
+  for (auto body_part : processed_results.body_parts) {
+    if (body_part.status == PostProcessing::Trustworthy) {
+      cv::circle(originalImage,
+                 cv::Point(static_cast<int>(body_part.x * imageWidth),
+                           static_cast<int>(body_part.y * imageHeight)),
+                 circleRadius, blue, -1);
+    } else {
+      cv::circle(originalImage,
+                 cv::Point(static_cast<int>(body_part.x * imageWidth),
+                           static_cast<int>(body_part.y * imageHeight)),
+                 circleRadius, red, -1);
+    }
+  }
 
   // Save the image with detected points
   cv::imwrite("./testimg.jpg", originalImage);
@@ -61,9 +58,14 @@ int main(int argc, char const *argv[]) {
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
+
+  // Empty settings to disable IIR filtering
+  IIR::SmoothingSettings smoothing_settings =
+      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
   PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
 
-  PreProcessing::PreProcessedImage preprocessed_image = preprocessor.run(frame);
+  PreProcessing::PreProcessedImage preprocessed_image =
+      preprocessor.run(loadedImage);
 
   Inference::InferenceResults results = core.run(preprocessed_image);
 
@@ -76,5 +78,5 @@ int main(int argc, char const *argv[]) {
                                                              : "Untrustworthy");
   }
   // Display image with detected points
-  // displayImage(loadedImage, results);
+  displayImage(loadedImage, processed_results);
 }

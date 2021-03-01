@@ -6,16 +6,12 @@ project(PosturePerfection VERSION 0.1.0)
 set(LIBSRC
   iir.cpp
   inference_core.cpp
-  post_processor.cpp)
+  post_processor.cpp
+  pre_processor.cpp)
 
 # Set up OpenCV package
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../../opencv_build")
 find_package(OpenCV REQUIRED)
-
-set(LIBSRC
-  pre_processor.cpp
-  doubler.cpp
-  inference_core.cpp)
 
 # Set up TFL path
 if(NOT TENSORFLOW_SOURCE_DIR)

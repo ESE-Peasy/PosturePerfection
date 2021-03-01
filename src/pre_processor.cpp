@@ -19,6 +19,8 @@
 
 #include <memory>
 
+#include "intermediate_structures.h"
+
 namespace PreProcessing {
 
 PreProcessor::PreProcessor(size_t model_width, size_t model_height)

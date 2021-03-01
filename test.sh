@@ -26,3 +26,5 @@ cd build
 ctest --verbose || { cd ..; exit 1; }
 
 cd ..
+
+mv ./build/src/PosturePerfection .
