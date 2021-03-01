@@ -18,14 +18,15 @@ endif()
 # Ensure all necessary libraries are included
 include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
-include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
 
 # Add and build TFL
 add_subdirectory(
   "${TENSORFLOW_SOURCE_DIR}/tensorflow/lite"
   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
 
+  
 add_library(PosturePerfection_static STATIC ${LIBSRC})
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
 target_link_libraries(PosturePerfection tensorflow-lite ${CMAKE_DL_LIBS})
+target_include_directories(PosturePerfection PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
