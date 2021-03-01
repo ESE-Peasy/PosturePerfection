@@ -9,21 +9,6 @@
 
 bool check_normalised(float value) { return value <= 1.0 && value >= -1.0; }
 
-BOOST_AUTO_TEST_CASE(ImageResized) {
-  cv::Mat image = cv::imread("../../person2.jpeg");
-  BOOST_TEST(image.cols != MODEL_INPUT_X);
-  BOOST_TEST(image.rows != MODEL_INPUT_Y);
-
-  PreProcessing::PreProcessor pre_proc =
-      PreProcessing::PreProcessor(MODEL_INPUT_X, MODEL_INPUT_Y);
-
-  PreProcessing::PreProcessedImage pre_proc_img = pre_proc.run(image);
-
-  int size = sizeof(pre_proc_img.image) / sizeof(pre_proc_img.image[0]);
-
-  BOOST_TEST(size, MODEL_INPUT_X * MODEL_INPUT_Y * MODEL_NUM_CHANNELS);
-}
-
 BOOST_AUTO_TEST_CASE(ImageNormalised) {
   cv::Mat image = cv::imread("../../person.jpg");
 
