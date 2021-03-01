@@ -119,9 +119,8 @@ class PostureEstimator {
    * object, with the angles of the `ConnectedJoint` representing the change
    * needed for each one to return current pose to ideal pose.
    *
-   * @return `Pose`
    */
-  Pose calculatePoseChanges();
+  void calculatePoseChanges();
 
   /**
    * @brief Checks the current pose_changes_needed and sees if they are still

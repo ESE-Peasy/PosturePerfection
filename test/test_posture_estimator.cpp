@@ -31,40 +31,40 @@ PostureEstimating::Pose helper_create_pose() {
   head->joint = PostureEstimating::Head;
   head->coord = PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
   head->lower_connected_joint = neck;
-  head->lower_angle = M_PI / 2;
+  head->lower_angle = -M_PI;
 
   neck->joint = PostureEstimating::Neck;
   neck->coord = PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
-  neck->upper_angle = M_PI / 2;
+  neck->upper_angle = 0;
   neck->upper_connected_joint = head;
   neck->lower_connected_joint = shoulder;
-  neck->lower_angle = M_PI / 2;
+  neck->lower_angle = -M_PI;
 
   shoulder->joint = PostureEstimating::Shoulder;
   shoulder->coord =
       PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
-  shoulder->upper_angle = M_PI / 2;
-  shoulder->upper_connected_joint = shoulder;
+  shoulder->upper_angle = 0;
+  shoulder->upper_connected_joint = neck;
   shoulder->lower_connected_joint = hip;
-  shoulder->lower_angle = M_PI / 2;
+  shoulder->lower_angle = -M_PI;
 
   hip->joint = PostureEstimating::Hip;
   hip->coord = PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
-  hip->upper_angle = M_PI / 2;
+  hip->upper_angle = 0;
   hip->upper_connected_joint = shoulder;
   hip->lower_connected_joint = knee;
-  hip->lower_angle = M_PI / 2;
+  hip->lower_angle = -M_PI;
 
   knee->joint = PostureEstimating::Knee;
   knee->coord = PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
-  knee->upper_angle = M_PI / 2;
+  knee->upper_angle = 0;
   knee->upper_connected_joint = hip;
   knee->lower_connected_joint = foot;
-  knee->lower_angle = M_PI / 2;
+  knee->lower_angle = -M_PI;
 
   foot->joint = PostureEstimating::Foot;
   foot->coord = PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
-  foot->upper_angle = M_PI / 2;
+  foot->upper_angle = 0;
   foot->upper_connected_joint = knee;
 
   PostureEstimating::Pose ideal = {head, neck, shoulder, hip, knee, foot};
@@ -131,8 +131,24 @@ BOOST_AUTO_TEST_CASE(LinesAngleSlopeZero) {
 
 BOOST_AUTO_TEST_CASE(EmptyWorkingPoseChanges) {
   PostureEstimating::PostureEstimator e;
-  PostureEstimating::Pose ideal = helper_create_pose();
-  BOOST_CHECK_EQUAL(ideal.neck->joint,
-                    ideal.head->lower_connected_joint->joint);
-  helper_destroy_pose(ideal);
+  e.ideal_pose = helper_create_pose();
+  e.current_pose = helper_create_pose();
+
+  e.current_pose.head->lower_angle = -M_PI / 2;
+  e.current_pose.neck->upper_angle = M_PI / 2;
+
+  e.calculatePoseChanges();
+
+  BOOST_CHECK_EQUAL(e.pose_changes.foot->upper_angle, 0);
+  BOOST_CHECK_CLOSE(e.pose_changes.head->lower_angle, M_PI / 2, 0.00001);
+  BOOST_CHECK_CLOSE(e.pose_changes.neck->upper_angle, -M_PI / 2, 0.00001);
+  BOOST_CHECK_EQUAL(e.pose_changes.neck->lower_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.shoulder->upper_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.shoulder->lower_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.hip->upper_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.hip->lower_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.knee->upper_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.knee->lower_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.foot->upper_angle, 0);
+  BOOST_CHECK_EQUAL(e.pose_changes.foot->lower_angle, 0);
 }
