@@ -38,6 +38,12 @@ git fetch
 git checkout $TF_VERSION
 cd ..
 
+# Install QT5 and libcustoplot for the User Interface
+echo "Installing qt5-default and libqcustomplot-dev"
+sudo apt install -y qt5-default libqcustomplot-dev
+
+
+
 ## Build TFL
 # echo "Installing TensorFlow Lite ..."
 # mkdir -p tflite_build
