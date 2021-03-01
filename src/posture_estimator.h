@@ -22,8 +22,7 @@
 #ifndef SRC_POSTURE_ESTIMATOR_H_
 #define SRC_POSTURE_ESTIMATOR_H_
 
-#include "post_processor.h"
-
+#include "intermediate_structures.h"
 namespace PostureEstimating {
 
 /**

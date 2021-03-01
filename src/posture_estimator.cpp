@@ -32,10 +32,16 @@ float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
                                      PostProcessing::Coordinate coord2) {
   float x_dif = coord2.x - coord1.x;
   float y_dif = coord2.y - coord1.y;
-  if (x_dif == 0 || y_dif == 0) {
-    return M_PI / 2;
+
+  if (y_dif == 0) {
+    return (x_dif > 0) ? M_PI / 2 : -M_PI / 2;
   }
-  float slope = y_dif / x_dif;
-  return M_PI / 2 - atan(slope);
+  float slope = (x_dif / y_dif);
+  if (y_dif > 0) {
+    return atan(slope);
+  } else {
+    return (x_dif > 0) ? (M_PI + atan(slope)) : -(M_PI - atan(slope));
+  }
 }
+// void Posture::Estimator::createPose((PostProcessing::ProcessedResults
 }  // namespace PostureEstimating
