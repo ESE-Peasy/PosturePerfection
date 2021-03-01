@@ -58,6 +58,6 @@ docs/_site/*
 *.DS_Store
 
 
-#  ignore QT autogen files
+#  ignore QT autogen files and UI binary file
 src/gui/postureperfection_autogen
-
+src/gui/postureperfection
