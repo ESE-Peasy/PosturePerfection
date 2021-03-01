@@ -16,7 +16,9 @@
  *
  */
 
+#include "iir.h"
 #include "inference_core.h"
+#include "post_processor.h"
 #include "posture_in.h"  // Hardcoded image for testing
 
 #define MODEL_INPUT_X 224
@@ -39,23 +41,20 @@ int main(int argc, char const *argv[]) {
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
 
+  // Empty settings to disable IIR filtering
+  IIR::SmoothingSettings smoothing_settings =
+      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
+  PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
+
   Inference::InferenceResults results =
       core.run(PreProcessing::PreProcessedImage{preprocessed_image});
 
-  printf("%f, %f\n", results.head_top.x, results.head_top.y);
-  printf("%f, %f\n", results.upper_neck.x, results.upper_neck.y);
-  printf("%f, %f\n", results.right_shoulder.x, results.right_shoulder.y);
-  printf("%f, %f\n", results.right_elbow.x, results.right_elbow.y);
-  printf("%f, %f\n", results.right_wrist.x, results.right_wrist.y);
-  printf("%f, %f\n", results.thorax.x, results.thorax.y);
-  printf("%f, %f\n", results.left_shoulder.x, results.left_shoulder.y);
-  printf("%f, %f\n", results.left_elbow.x, results.left_elbow.y);
-  printf("%f, %f\n", results.left_wrist.x, results.left_wrist.y);
-  printf("%f, %f\n", results.pelvis.x, results.pelvis.y);
-  printf("%f, %f\n", results.right_hip.x, results.right_hip.y);
-  printf("%f, %f\n", results.right_knee.x, results.right_knee.y);
-  printf("%f, %f\n", results.right_ankle.x, results.right_ankle.y);
-  printf("%f, %f\n", results.left_hip.x, results.left_hip.y);
-  printf("%f, %f\n", results.left_knee.x, results.left_knee.y);
-  printf("%f, %f\n", results.left_ankle.x, results.left_ankle.y);
+  PostProcessing::ProcessedResults processed_results =
+      post_processor.run(results);
+
+  for (auto body_part : processed_results.body_parts) {
+    printf("%f, %f: %s\n", body_part.x, body_part.y,
+           (body_part.status == PostProcessing::Trustworthy) ? "Trustworthy"
+                                                             : "Untrustworthy");
+  }
 }

@@ -1,13 +1,44 @@
 find_package (Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
-include_directories (${TEST_SOURCE_DIR}/src
+
+set(libraries       ${CMAKE_THREAD_LIBS_INIT} PosturePerfection_static)
+set(test_libraries  ${libraries} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+
+
+# Set up TFL path
+if(NOT TENSORFLOW_SOURCE_DIR)
+get_filename_component(TENSORFLOW_SOURCE_DIR
+"${CMAKE_CURRENT_BINARY_DIR}/../../../tensorflow_src" ABSOLUTE)
+endif()
+
+# Ensure all necessary libraries are included
+include_directories("${TENSORFLOW_SOURCE_DIR}")
+include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
+include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
+
+
+include_directories ("${TEST_SOURCE_DIR}/../src"
                      ${Boost_INCLUDE_DIRS})
 
-add_definitions (-DBOOST_TEST_DYN_LINK)
-add_executable (Test test.cpp)
-target_link_libraries (Test
-                       doubler
-                       ${Boost_FILESYSTEM_LIBRARY}
-                       ${Boost_SYSTEM_LIBRARY}
-                       ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+# Taken from https://github.com/WillBrennan/boost-test-example
+function(create_test    test_path)
+  set(test_name ${test_path})
 
-add_test (NAME MyTest COMMAND Test)
+  string(REPLACE "/" ";" test_name_list ${test_name})
+  list(GET test_name_list -1 test_name)
+  string(REPLACE "." ";" test_name_list ${test_name})
+  list(GET test_name_list 0 test_name)
+
+  message("-- adding test: ${test_name}")
+
+  add_executable(${test_name}         "${TEST_SOURCE_DIR}/test/${test_path}")
+  target_link_libraries(${test_name}  ${ARGN})
+
+  target_compile_definitions(${test_name} PRIVATE BOOST_TEST_MAIN BOOST_TEST_DYN_LINK BOOST_TEST_MODULE=${test_name})
+
+  add_test(${test_name} ${test_name})
+endfunction()
+
+add_definitions (-DBOOST_TEST_DYN_LINK)
+
+create_test(test_iir ${test_libraries})
+create_test(test_post_processor ${test_libraries})

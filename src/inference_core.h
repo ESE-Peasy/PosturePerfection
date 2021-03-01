@@ -27,34 +27,10 @@
 
 #include <memory>
 
+#include "intermediate_structures.h"
 #include "pre_processor.h"
 
 namespace Inference {
-
-typedef struct Coordinate {
-  float x;
-  float y;
-  float confidence;
-} Coordinate;
-
-typedef struct InferenceResults {
-  Coordinate head_top;
-  Coordinate upper_neck;
-  Coordinate right_shoulder;
-  Coordinate right_elbow;
-  Coordinate right_wrist;
-  Coordinate thorax;
-  Coordinate left_shoulder;
-  Coordinate left_elbow;
-  Coordinate left_wrist;
-  Coordinate pelvis;
-  Coordinate right_hip;
-  Coordinate right_knee;
-  Coordinate right_ankle;
-  Coordinate left_hip;
-  Coordinate left_knee;
-  Coordinate left_ankle;
-} InferenceResults;
 
 /**
  * @brief A wrapper to make running inference easier
