@@ -55,6 +55,19 @@ enum BodyPart {
   BodyPartMax = left_ankle
 };
 
+namespace PreProcessing {
+/**
+ * @brief A structure of the pre processed image
+ *
+ * After pre processing, the image will be resized and normalised before
+ * being passed to the `Inference::InferenceCore` as a `PreProcessedImage`
+ *
+ */
+struct PreProcessedImage {
+  float* image;
+};
+};  // namespace PreProcessing
+
 namespace PostProcessing {
 
 /**
