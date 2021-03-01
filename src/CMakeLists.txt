@@ -1,7 +1,8 @@
 set(CMAKE_CXX_STANDARD 11)
-# set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -latomic")
 cmake_minimum_required(VERSION 3.16) # Required by TFL
 project(PosturePerfection VERSION 0.1.0)
+
+set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -latomic")
 
 set(LIBSRC
   iir.cpp
@@ -22,7 +23,6 @@ endif()
 # Ensure all necessary libraries are included
 include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
-include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
 include_directories("${OpenCV_INCLUDE_DIRS}")
 
 # Add and build TFL
@@ -30,8 +30,11 @@ add_subdirectory(
   "${TENSORFLOW_SOURCE_DIR}/tensorflow/lite"
   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
 
+  
 add_library(PosturePerfection_static STATIC ${LIBSRC})
+target_include_directories(PosturePerfection_static PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
 target_link_libraries(PosturePerfection tensorflow-lite ${CMAKE_DL_LIBS})
 target_link_libraries(PosturePerfection ${OpenCV_LIBS})
+target_include_directories(PosturePerfection PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")

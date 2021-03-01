@@ -50,6 +50,10 @@ cd opencv_build
 cmake -DCMAKE_BUILD_TYPE=Release ../opencv_src || exit 1
 make || exit 1
 
+# Install QT5 and libcustoplot for the User Interface
+echo "Installing qt5-default and libqcustomplot-dev"
+sudo apt install -y qt5-default libqcustomplot-dev
+
 ## Reset directory to project root
 cd $PP_ROOT
 
