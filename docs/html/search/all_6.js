@@ -9,6 +9,7 @@ var searchData=
   ['postureestimator_22',['PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html',1,'PostureEstimating::PostureEstimator'],['../classPostureEstimating_1_1PostureEstimator.html#ab86561e9c3706a2c4ae7a934ffc1ad04',1,'PostureEstimating::PostureEstimator::PostureEstimator()']]],
   ['pre_5fprocessor_2eh_23',['pre_processor.h',['../pre__processor_8h.html',1,'']]],
   ['preprocessedimage_24',['PreProcessedImage',['../structPreProcessing_1_1PreProcessedImage.html',1,'PreProcessing']]],
-  ['preprocessor_25',['PreProcessor',['../classPreProcessing_1_1PreProcessor.html',1,'PreProcessing::PreProcessor'],['../classPreProcessing_1_1PreProcessor.html#a15567bdf158646f4ff3067cd43c16ad1',1,'PreProcessing::PreProcessor::PreProcessor()']]],
-  ['processedresults_26',['ProcessedResults',['../structPostProcessing_1_1ProcessedResults.html',1,'PostProcessing']]]
+  ['preprocessing_25',['PreProcessing',['../namespacePreProcessing.html',1,'']]],
+  ['preprocessor_26',['PreProcessor',['../classPreProcessing_1_1PreProcessor.html',1,'PreProcessing::PreProcessor'],['../classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c',1,'PreProcessing::PreProcessor::PreProcessor()']]],
+  ['processedresults_27',['ProcessedResults',['../structPostProcessing_1_1ProcessedResults.html',1,'PostProcessing']]]
 ];
