@@ -118,7 +118,7 @@ To download dependencies needed for unit testing run `install` with the `-t` fla
 Start the application by running from the project root:
 
 ```sh
-./build/PosturePerfection
+./PosturePerfection
 ```
 
 ## Testing
