@@ -4,7 +4,6 @@ project(PosturePerfection VERSION 0.1.0)
 
 
 set(LIBSRC
-  doubler.cpp
   iir.cpp
   inference_core.cpp
   post_processor.cpp)
