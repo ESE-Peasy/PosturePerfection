@@ -26,6 +26,7 @@ add_subdirectory(
 
   
 add_library(PosturePerfection_static STATIC ${LIBSRC})
+target_include_directories(PosturePerfection_static PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
 target_link_libraries(PosturePerfection tensorflow-lite ${CMAKE_DL_LIBS})
