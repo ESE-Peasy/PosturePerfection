@@ -137,5 +137,16 @@ void PostureEstimator::calculatePoseChanges() {
   }
 }
 
-void PostureEstimator::checkGoodPosture() { this->good_posture = NULL; }
+void PostureEstimator::checkGoodPosture() {
+  for (int i = JointMin; i <= JointMax; i++) {
+    if ((this->pose_changes.joints[i]->lower_angle >=
+         this->pose_change_threshold) ||
+        this->pose_changes.joints[i]->lower_angle <=
+            -this->pose_change_threshold) {
+      this->good_posture = false;
+      return;
+    }
+  }
+  this->good_posture = true;
+}
 }  // namespace PostureEstimating
