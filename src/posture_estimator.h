@@ -61,6 +61,7 @@ struct ConnectedJoint {
   float upper_angle;
   ConnectedJoint* lower_connected_joint;
   float lower_angle;
+  bool present;
 };
 
 /**
@@ -70,6 +71,19 @@ struct ConnectedJoint {
 struct Pose {
   std::array<ConnectedJoint*, JointMax + 1> joints;
 };
+
+/**
+ *  @brief Creates an empty Pose object
+ */
+Pose createPose();
+
+/**
+ *  @brief Frees all pointers in a  Pose object
+ *
+ * @param `Pose`
+ */
+
+void destroyPose(PostureEstimating::Pose p);
 
 /**
  * @brief This class handles representations of the user's pose and
@@ -101,14 +115,14 @@ class PostureEstimator {
                      PostProcessing::Coordinate coord2);
 
   /**
-   * @brief Converts `PostProcessing::ProcessedResults` to a Pose.
+   * @brief Converts `PostProcessing::ProcessedResults` to a `Pose`.
    *
    * @param results The `PostProcessing::ProccessedResults` struct
    * from `PostProcessing::PostProcessor` being run.
    *
    * @return `Pose`
    */
-  Pose createPose(PostProcessing::ProcessedResults results);
+  Pose createPoseFromResult(PostProcessing::ProcessedResults results);
 
   /**
    * @brief Update the user's pose based on the results from inference

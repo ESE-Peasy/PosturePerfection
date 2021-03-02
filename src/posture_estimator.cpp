@@ -26,7 +26,73 @@
 #include <cmath>
 
 namespace PostureEstimating {
-PostureEstimator::PostureEstimator() {}
+
+Pose createPose() {
+  Pose p;
+  p.joints[Head] =
+      reinterpret_cast<ConnectedJoint *>(malloc(sizeof(ConnectedJoint)));
+  p.joints[Neck] =
+      reinterpret_cast<ConnectedJoint *>(malloc(sizeof(ConnectedJoint)));
+  p.joints[Shoulder] =
+      reinterpret_cast<ConnectedJoint *>(malloc(sizeof(ConnectedJoint)));
+  p.joints[Hip] =
+      reinterpret_cast<ConnectedJoint *>(malloc(sizeof(ConnectedJoint)));
+
+  p.joints[Knee] =
+      reinterpret_cast<ConnectedJoint *>(malloc(sizeof(ConnectedJoint)));
+  p.joints[Foot] =
+      reinterpret_cast<ConnectedJoint *>(malloc(sizeof(ConnectedJoint)));
+
+  p.joints[Head]->joint = Head;
+  p.joints[Head]->upper_connected_joint = nullptr;
+  p.joints[Head]->lower_connected_joint = p.joints[Neck];
+  p.joints[Head]->present = false;
+
+  p.joints[Neck]->joint = Neck;
+  p.joints[Neck]->upper_connected_joint = p.joints[Head];
+  p.joints[Neck]->lower_connected_joint = p.joints[Shoulder];
+  p.joints[Neck]->present = false;
+
+  p.joints[Shoulder]->joint = Shoulder;
+  p.joints[Shoulder]->upper_connected_joint = p.joints[Neck];
+  p.joints[Shoulder]->lower_connected_joint = p.joints[Hip];
+  p.joints[Shoulder]->present = false;
+
+  p.joints[Hip]->joint = Hip;
+  p.joints[Hip]->upper_connected_joint = p.joints[Shoulder];
+  p.joints[Hip]->lower_connected_joint = p.joints[Knee];
+  p.joints[Hip]->present = false;
+
+  p.joints[Knee]->joint = Knee;
+  p.joints[Knee]->upper_connected_joint = p.joints[Hip];
+  p.joints[Knee]->lower_connected_joint = p.joints[Foot];
+  p.joints[Knee]->present = false;
+
+  p.joints[Foot]->joint = Foot;
+  p.joints[Foot]->upper_connected_joint = p.joints[Knee];
+  p.joints[Foot]->lower_connected_joint = nullptr;
+  p.joints[Foot]->present = false;
+
+  for (int i = 0; i <= JointMax; i++) {
+    p.joints[i]->coord = {0, 0, PostProcessing::Untrustworthy};
+    p.joints[i]->upper_angle = 0;
+    p.joints[i]->lower_angle = 0;
+  }
+
+  return p;
+}
+
+void destroyPose(Pose p) {
+  for (int i = 0; i < JointMax; i++) {
+    free(p.joints[i]);
+  }
+}
+
+PostureEstimator::PostureEstimator() {
+  this->ideal_pose = createPose();
+  this->current_pose = createPose();
+  this->pose_changes = createPose();
+}
 
 float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
                                      PostProcessing::Coordinate coord2) {
@@ -43,5 +109,25 @@ float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
     return (x_dif > 0) ? (M_PI + atan(slope)) : -(M_PI - atan(slope));
   }
 }
-void PostureEstimator::calculatePoseChanges() {}
+void PostureEstimator::calculatePoseChanges() {
+  for (int i = 0; i <= JointMax; i++) {
+    if (this->ideal_pose.joints[i]->present == true ||
+        this->current_pose.joints[i]->present == true) {
+      continue;
+    } else {
+      if (this->ideal_pose.joints[i]->upper_connected_joint != nullptr &&
+          this->current_pose.joints[i]->upper_connected_joint != nullptr) {
+        this->pose_changes.joints[i]->upper_angle =
+            this->ideal_pose.joints[i]->upper_angle -
+            this->current_pose.joints[i]->upper_angle;
+      }
+      if (this->ideal_pose.joints[i]->lower_connected_joint != nullptr &&
+          this->current_pose.joints[i]->lower_connected_joint != nullptr) {
+        this->pose_changes.joints[i]->lower_angle =
+            this->ideal_pose.joints[i]->lower_angle -
+            this->current_pose.joints[i]->lower_angle;
+      }
+    }
+  }
+}
 }  // namespace PostureEstimating
