@@ -146,19 +146,15 @@ class PostureEstimator {
    * calculate pose_changes. WARNING Does not calculate posture
    * changes.
    *
-   * @return `true` if user's posture is good
-   * @return `false` if user's posture is bad
    */
-  bool checkGoodPosture();
+  void checkGoodPosture();
 
   /**
    * @brief Calculates current posture and ideal posture difference and decides
    * if a good posture has been adopted based on threshold values.
    *
-   * @return `true` if user's posture is good
-   * @return `false` if user's posture is bad
    */
-  bool calculateChangesAndCheckPosture();
+  void calculateChangesAndCheckPosture();
 
  public:
   /**
@@ -197,7 +193,7 @@ class PostureEstimator {
   /**
    * @brief Whether the user is in a good pose (true) or bad pose (false).
    */
-  bool good_pose;
+  bool good_posture;
 
   /**
    * @brief Calibrate the user's ideal pose using

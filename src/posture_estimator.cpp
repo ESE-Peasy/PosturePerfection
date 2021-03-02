@@ -136,4 +136,6 @@ void PostureEstimator::calculatePoseChanges() {
     }
   }
 }
+
+void PostureEstimator::checkGoodPosture() { this->good_posture = NULL; }
 }  // namespace PostureEstimating
