@@ -117,8 +117,8 @@ float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
 }
 void PostureEstimator::calculatePoseChanges() {
   for (int i = 0; i <= JointMax; i++) {
-    if (this->ideal_pose.joints[i]->present == true ||
-        this->current_pose.joints[i]->present == true) {
+    if (this->ideal_pose.joints[i]->present == false ||
+        this->current_pose.joints[i]->present == false) {
       continue;
     } else {
       if (this->ideal_pose.joints[i]->upper_connected_joint != nullptr &&
