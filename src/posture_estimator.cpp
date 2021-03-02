@@ -115,6 +115,11 @@ float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
     return (x_dif > 0) ? (M_PI + atan(slope)) : -(M_PI - atan(slope));
   }
 }
+Pose PostureEstimator::createPoseFromResult(
+    PostProcessing::ProcessedResults results) {
+  Pose p;
+  return p;
+}
 void PostureEstimator::calculatePoseChanges() {
   for (int i = 0; i <= JointMax; i++) {
     if (this->ideal_pose.joints[i]->present == false ||
@@ -149,4 +154,10 @@ void PostureEstimator::checkGoodPosture() {
   }
   this->good_posture = true;
 }
+
+void PostureEstimator::calculateChangesAndCheckPosture() {
+  calculatePoseChanges();
+  checkGoodPosture();
+}
+
 }  // namespace PostureEstimating
