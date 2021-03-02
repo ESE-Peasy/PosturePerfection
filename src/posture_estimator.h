@@ -167,6 +167,11 @@ class PostureEstimator {
   PostureEstimator();
 
   /**
+   * @brief Destroy a Posture Estimator object
+   */
+  ~PostureEstimator();
+
+  /**
    * @brief The user's current pose from most recent data provided.
    */
   Pose current_pose;

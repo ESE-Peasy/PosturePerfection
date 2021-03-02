@@ -37,15 +37,6 @@ PostureEstimating::Pose helper_create_pose() {
   return p;
 }
 
-void helper_destroy_pose(PostureEstimating::Pose p) {
-  free(p.joints[PostureEstimating::Head]);
-  free(p.joints[PostureEstimating::Neck]);
-  free(p.joints[PostureEstimating::Shoulder]);
-  free(p.joints[PostureEstimating::Hip]);
-  free(p.joints[PostureEstimating::Knee]);
-  free(p.joints[PostureEstimating::Foot]);
-}
-
 BOOST_AUTO_TEST_CASE(LinesAngleCorrect) {
   PostProcessing::Coordinate p = {1, 1, PostProcessing::Trustworthy};
   PostProcessing::Coordinate p1 = {3, 4, PostProcessing::Trustworthy};
@@ -129,6 +120,4 @@ BOOST_AUTO_TEST_CASE(EmptyWorkingPoseChanges) {
                     0);
   BOOST_CHECK_EQUAL(e.pose_changes.joints[PostureEstimating::Foot]->lower_angle,
                     0);
-  helper_destroy_pose(e.current_pose);
-  helper_destroy_pose(e.ideal_pose);
 }

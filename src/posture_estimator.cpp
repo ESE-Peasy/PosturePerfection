@@ -94,6 +94,12 @@ PostureEstimator::PostureEstimator() {
   this->pose_changes = createPose();
 }
 
+PostureEstimator::~PostureEstimator() {
+  destroyPose(this->ideal_pose);
+  destroyPose(this->current_pose);
+  destroyPose(this->pose_changes);
+}
+
 float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
                                      PostProcessing::Coordinate coord2) {
   float x_dif = coord2.x - coord1.x;
