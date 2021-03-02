@@ -219,7 +219,35 @@ BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
   BOOST_TEST(e.good_posture == true);
 }
 
-BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
+BOOST_AUTO_TEST_CASE(GoodPostureWithinThresholdUpper) {
+  PostureEstimating::PostureEstimator e;
+  e.pose_changes.joints[PostureEstimating::Neck]->upper_angle = -M_PI / 6;
+  e.pose_change_threshold = M_PI / 4;
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.good_posture == true);
+}
+
+BOOST_AUTO_TEST_CASE(GoodPostureWithinThresholdLower) {
+  PostureEstimating::PostureEstimator e;
+  e.pose_changes.joints[PostureEstimating::Head]->lower_angle = M_PI / 6;
+  e.pose_change_threshold = M_PI / 4;
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.good_posture == true);
+}
+
+BOOST_AUTO_TEST_CASE(GoodPostureOnThresholdUpper) {
+  PostureEstimating::PostureEstimator e;
+  e.pose_changes.joints[PostureEstimating::Head]->lower_angle = M_PI / 4;
+  e.pose_changes.joints[PostureEstimating::Neck]->upper_angle = -M_PI / 4;
+  e.pose_change_threshold = M_PI / 4;
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.good_posture == true);
+}
+
+BOOST_AUTO_TEST_CASE(GoodPostureWithinThresholdUpperLower) {
   PostureEstimating::PostureEstimator e;
   e.pose_changes.joints[PostureEstimating::Head]->lower_angle = M_PI / 6;
   e.pose_changes.joints[PostureEstimating::Neck]->upper_angle = -M_PI / 6;
@@ -229,10 +257,17 @@ BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
   BOOST_TEST(e.good_posture == true);
 }
 
-BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
+BOOST_AUTO_TEST_CASE(GoodPostureOnThresholdLower) {
   PostureEstimating::PostureEstimator e;
-  PostureEstimating::destroyPose(e.ideal_pose);
-  PostureEstimating::destroyPose(e.current_pose);
+  e.pose_changes.joints[PostureEstimating::Head]->lower_angle = M_PI / 4;
+  e.pose_change_threshold = M_PI / 4;
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.good_posture == true);
+}
+
+BOOST_AUTO_TEST_CASE(GoodPostureOnThresholdUpperLower) {
+  PostureEstimating::PostureEstimator e;
   e.pose_changes.joints[PostureEstimating::Head]->lower_angle = M_PI / 4;
   e.pose_changes.joints[PostureEstimating::Neck]->upper_angle = -M_PI / 4;
   e.pose_change_threshold = M_PI / 4;
@@ -241,7 +276,24 @@ BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
   BOOST_TEST(e.good_posture == true);
 }
 
-BOOST_AUTO_TEST_CASE(GoodPostureOutsideThreshold) {
+BOOST_AUTO_TEST_CASE(GoodPostureOutsideThresholdUpper) {
+  PostureEstimating::PostureEstimator e;
+  e.pose_changes.joints[PostureEstimating::Neck]->upper_angle = -M_PI / 4;
+  e.pose_change_threshold = M_PI / 6;
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.good_posture == false);
+}
+
+BOOST_AUTO_TEST_CASE(GoodPostureOutsideThresholdLower) {
+  PostureEstimating::PostureEstimator e;
+  e.pose_changes.joints[PostureEstimating::Head]->lower_angle = M_PI / 4;
+  e.pose_change_threshold = M_PI / 6;
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.good_posture == false);
+}
+BOOST_AUTO_TEST_CASE(GoodPostureOutsideThresholdUpperLower) {
   PostureEstimating::PostureEstimator e;
   e.pose_changes.joints[PostureEstimating::Head]->lower_angle = M_PI / 4;
   e.pose_changes.joints[PostureEstimating::Neck]->upper_angle = -M_PI / 4;
