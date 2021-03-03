@@ -1,0 +1,5 @@
+<map id="iir.h" name="iir.h">
+<area shape="rect" id="node1" title="Very simple IIR filter." alt="" coords="52,5,95,32"/>
+<area shape="rect" id="node2" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="13,80,134,107"/>
+<area shape="rect" id="node3" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="5,155,141,181"/>
+</map>

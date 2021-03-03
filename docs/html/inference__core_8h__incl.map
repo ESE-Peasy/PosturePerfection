@@ -1,7 +1,10 @@
 <map id="inference_core.h" name="inference_core.h">
-<area shape="rect" id="node1" title="Wrapper API for the TensorFlow Lite model." alt="" coords="229,5,346,32"/>
+<area shape="rect" id="node1" title="Wrapper API for the TensorFlow Lite model." alt="" coords="170,5,287,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,140,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="165,80,229,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="253,80,321,107"/>
-<area shape="rect" id="node5" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="346,80,461,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="106,155,170,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="195,155,263,181"/>
+<area shape="rect" id="node5" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="451,155,619,181"/>
+<area shape="rect" id="node7" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="266,80,381,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="510,229,561,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="286,155,427,181"/>
 </map>

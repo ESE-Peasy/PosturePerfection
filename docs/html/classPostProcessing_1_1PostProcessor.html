@@ -20,7 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.svg"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">PosturePerfection
    </div>
@@ -80,9 +80,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afaa6a4701a861567d75611336f9c683e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostProcessing_1_1PostProcessor.html#afaa6a4701a861567d75611336f9c683e">PostProcessor</a> (float confidence_threshold, <a class="el" href="structPostProcessing_1_1SmoothingSettings.html">SmoothingSettings</a> smoothing_settings)</td></tr>
-<tr class="memdesc:afaa6a4701a861567d75611336f9c683e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Post Processor object.  <a href="classPostProcessing_1_1PostProcessor.html#afaa6a4701a861567d75611336f9c683e">More...</a><br /></td></tr>
-<tr class="separator:afaa6a4701a861567d75611336f9c683e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08e86bb5b38024d22acc0dd69c757b7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostProcessing_1_1PostProcessor.html#a08e86bb5b38024d22acc0dd69c757b7b">PostProcessor</a> (float confidence_threshold, <a class="el" href="structIIR_1_1SmoothingSettings.html">IIR::SmoothingSettings</a> smoothing_settings)</td></tr>
+<tr class="memdesc:a08e86bb5b38024d22acc0dd69c757b7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Post Processor object.  <a href="classPostProcessing_1_1PostProcessor.html#a08e86bb5b38024d22acc0dd69c757b7b">More...</a><br /></td></tr>
+<tr class="separator:a08e86bb5b38024d22acc0dd69c757b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a8ce854324720f34d9c4f10c2b37e4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPostProcessing_1_1ProcessedResults.html">ProcessedResults</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostProcessing_1_1PostProcessor.html#a2a8ce854324720f34d9c4f10c2b37e4d">run</a> (<a class="el" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a> inference_core_output)</td></tr>
 <tr class="memdesc:a2a8ce854324720f34d9c4f10c2b37e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply post processing to the given <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code> output.  <a href="classPostProcessing_1_1PostProcessor.html#a2a8ce854324720f34d9c4f10c2b37e4d">More...</a><br /></td></tr>
 <tr class="separator:a2a8ce854324720f34d9c4f10c2b37e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -97,8 +97,8 @@ Public Member Functions</h2></td></tr>
 <li>Smoothing location predictions in time </li>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afaa6a4701a861567d75611336f9c683e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afaa6a4701a861567d75611336f9c683e">&#9670;&nbsp;</a></span>PostProcessor()</h2>
+<a id="a08e86bb5b38024d22acc0dd69c757b7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08e86bb5b38024d22acc0dd69c757b7b">&#9670;&nbsp;</a></span>PostProcessor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -112,7 +112,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structPostProcessing_1_1SmoothingSettings.html">SmoothingSettings</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structIIR_1_1SmoothingSettings.html">IIR::SmoothingSettings</a>&#160;</td>
           <td class="paramname"><em>smoothing_settings</em>&#160;</td>
         </tr>
         <tr>
@@ -127,7 +127,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">confidence_threshold</td><td>Confidence value that must be exceeded for a prediction for a given body part to be useable </td></tr>
-    <tr><td class="paramname">smoothing_settings</td><td></td></tr>
+    <tr><td class="paramname">smoothing_settings</td><td>settings for the <a class="el" href="namespaceIIR.html">IIR</a> filter </td></tr>
   </table>
   </dd>
 </dl>
@@ -191,8 +191,9 @@ false If the new threshold value is invalid </dd></dl>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="post__processor_8h_source.html">post_processor.h</a></li>
+<li>post_processor.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -18,26 +18,44 @@
 
 #include "iir.h"
 #include "inference_core.h"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 #include "post_processor.h"
-#include "posture_in.h"  // Hardcoded image for testing
+#include "pre_processor.h"
 
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
 
-int main(int argc, char const *argv[]) {
-  float preprocessed_image[224 * 224 * 3 + 1];
+void displayImage(cv::Mat originalImage,
+                  PostProcessing::ProcessedResults processed_results) {
+  cv::Scalar blue(255, 0, 0);
+  cv::Scalar red(0, 0, 255);
+  int imageWidth = originalImage.cols;
+  int imageHeight = originalImage.rows;
+  int circleRadius = 5;
 
-  int size = MODEL_INPUT_X * MODEL_INPUT_Y;
-  int step = 3;
-
-  for (int i = 0; i < size * step; i += step) {
-    const uint8_t *img = &(image.pixel_data[i]);
-    // Scale to [-1..1]
-    preprocessed_image[i + 0] = img[0] / 127.5 - 1;
-    preprocessed_image[i + 1] = img[1] / 127.5 - 1;
-    preprocessed_image[i + 2] = img[2] / 127.5 - 1;
+  for (auto body_part : processed_results.body_parts) {
+    if (body_part.status == PostProcessing::Trustworthy) {
+      cv::circle(originalImage,
+                 cv::Point(static_cast<int>(body_part.x * imageWidth),
+                           static_cast<int>(body_part.y * imageHeight)),
+                 circleRadius, blue, -1);
+    } else {
+      cv::circle(originalImage,
+                 cv::Point(static_cast<int>(body_part.x * imageWidth),
+                           static_cast<int>(body_part.y * imageHeight)),
+                 circleRadius, red, -1);
+    }
   }
 
+  // Save the image with detected points
+  cv::imwrite("./testimg.jpg", originalImage);
+}
+
+int main(int argc, char const *argv[]) {
+  cv::Mat loadedImage = cv::imread("./person.jpg");
+
+  PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                 MODEL_INPUT_X, MODEL_INPUT_Y);
 
@@ -46,8 +64,10 @@ int main(int argc, char const *argv[]) {
       IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
   PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
 
-  Inference::InferenceResults results =
-      core.run(PreProcessing::PreProcessedImage{preprocessed_image});
+  PreProcessing::PreProcessedImage preprocessed_image =
+      preprocessor.run(loadedImage);
+
+  Inference::InferenceResults results = core.run(preprocessed_image);
 
   PostProcessing::ProcessedResults processed_results =
       post_processor.run(results);
@@ -57,4 +77,6 @@ int main(int argc, char const *argv[]) {
            (body_part.status == PostProcessing::Trustworthy) ? "Trustworthy"
                                                              : "Untrustworthy");
   }
+  // Display image with detected points
+  displayImage(loadedImage, processed_results);
 }

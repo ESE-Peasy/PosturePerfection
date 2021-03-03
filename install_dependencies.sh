@@ -31,19 +31,28 @@ fi
 echo "Downloading TensorFlow ..."
 cd ..
 if [ ! -d "tensorflow_src" ]; then
-  git clone https://github.com/tensorflow/tensorflow.git tensorflow_src
+  git clone https://github.com/tensorflow/tensorflow.git tensorflow_src || exit 1
 fi
 cd tensorflow_src
 git fetch
 git checkout $TF_VERSION
 cd ..
 
-## Build TFL
-# echo "Installing TensorFlow Lite ..."
-# mkdir -p tflite_build
-# cd tflite_build
-# cmake ../tensorflow_src/tensorflow/lite
-# cmake --build .
+## Download OpenCV code
+echo "Downloading OpenCV ..."
+if [ ! -d "opencv_src" ]; then
+  git clone https://github.com/opencv/opencv.git opencv_src || exit 1
+fi
+
+## Build OpenCV
+mkdir -p opencv_build
+cd opencv_build
+cmake -DCMAKE_BUILD_TYPE=Release ../opencv_src || exit 1
+make || exit 1
+
+# Install QT5 and libcustoplot for the User Interface
+echo "Installing qt5-default and libqcustomplot-dev"
+sudo apt install -y qt5-default libqcustomplot-dev
 
 ## Reset directory to project root
 cd $PP_ROOT
