@@ -161,3 +161,44 @@ BOOST_AUTO_TEST_CASE(AverageCoordinatesWhenBothTrustworthy) {
   BOOST_CHECK_CLOSE(x, output.body_parts[Hip].x, 0.1);
   BOOST_CHECK_CLOSE(y, output.body_parts[Hip].y, 0.1);
 }
+
+BOOST_AUTO_TEST_CASE(DontAverageCoordinatesWhenNotBothTrustworthy) {
+  IIR::SmoothingSettings settings =
+      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
+  PostProcessing::PostProcessor post_proc =
+      PostProcessing::PostProcessor(0.0, settings);
+
+  Inference::InferenceResults dummy_input;
+  dummy_input.body_parts = {
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 1.0},  // Right shoulder
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{1, 1, 0.0},  // Left shoulder
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 0.0},  // Pelvis
+      Inference::Coordinate{0, 0, 0.0},  // Right hip
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0.5, 0.5, 1.0},  // Left hip
+      Inference::Coordinate{0, 0, 1.0},
+      Inference::Coordinate{0, 0, 1.0},
+  };
+
+  PostProcessing::ProcessedResults output = post_proc.run(dummy_input);
+
+  // Check shoulder mean works
+  BOOST_CHECK_CLOSE(dummy_input.body_parts[right_shoulder].x,
+                    output.body_parts[Shoulder].x, 0.1);
+  BOOST_CHECK_CLOSE(dummy_input.body_parts[right_shoulder].y,
+                    output.body_parts[Shoulder].y, 0.1);
+
+  // Check hip mean works
+  BOOST_CHECK_CLOSE(dummy_input.body_parts[left_hip].x,
+                    output.body_parts[Hip].x, 0.1);
+  BOOST_CHECK_CLOSE(dummy_input.body_parts[left_hip].y,
+                    output.body_parts[Hip].y, 0.1);
+}
