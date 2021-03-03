@@ -55,6 +55,24 @@ enum BodyPart {
   BodyPartMax = left_ankle
 };
 
+/**
+ * @brief Defines order of joints in any body part arrays
+ *
+ * This is to be used where the pose is represented as a profile view to define
+ * the posture. As a result there are no left and right versions
+ *
+ */
+enum Joint {
+  Head = 0,
+  JointMin = Head,
+  Neck = 1,
+  Shoulder = 2,
+  Hip = 3,
+  Knee = 4,
+  Foot = 5,
+  JointMax = Foot
+};
+
 namespace PreProcessing {
 /**
  * @brief A structure of the pre processed image
@@ -66,7 +84,7 @@ namespace PreProcessing {
 struct PreProcessedImage {
   float* image;
 };
-};  // namespace PreProcessing
+}  // namespace PreProcessing
 
 namespace PostProcessing {
 
@@ -103,9 +121,11 @@ struct Coordinate {
  * is not necessarily the same as the output of the pose estimation model for
  * a given frame.
  *
+ * Iterate over this using the `Joint` enum
+ *
  */
 struct ProcessedResults {
-  std::array<Coordinate, BodyPartMax + 1> body_parts;
+  std::array<Coordinate, JointMax + 1> body_parts;
 };
 }  // namespace PostProcessing
 

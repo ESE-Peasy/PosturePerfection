@@ -39,6 +39,8 @@ namespace PostProcessing {
  * performed to process the raw data:
  * - Disregarding of any predictions below a given confidence threshold
  * - Smoothing location predictions in time
+ * - Averaging location of left and right body parts if both exceed the
+ * confidence threshold
  *
  */
 class PostProcessor {
