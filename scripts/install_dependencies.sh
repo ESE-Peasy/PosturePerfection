@@ -6,12 +6,6 @@ PP_ROOT=$(pwd)
 MIN_CMAKE="3.16"
 TF_VERSION="f32b4d37cc059771198484d453d5cf288cf7803b"
 
-while getopts ":t" opt; do
-  case ${opt} in
-    t) TESTING=1
-  esac
-done
-
 ## Check for correct version of CMake
 if ! cmake --version >/dev/null 2>&1
 then
@@ -54,15 +48,12 @@ make || exit 1
 echo "Installing qt5-default and libqcustomplot-dev"
 sudo apt install -y qt5-default libqcustomplot-dev
 
+## For unit testing
+echo "Installing unit testing dependencies"
+sudo apt install libboost-dev libboost-all-dev -y
+
 ## Reset directory to project root
 cd $PP_ROOT
 
 echo ""
 echo "Successfully installed dependencies"
-
-if [ $TESTING ]
-then
-  ## For unit testing
-  sudo apt install libboost-dev libboost-all-dev -y
-  echo "Installed unit testing dependencies"
-fi
