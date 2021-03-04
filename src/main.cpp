@@ -23,6 +23,8 @@
 #include "post_processor.h"
 #include "posture_estimator.h"
 #include "pre_processor.h"
+#include <QApplication>
+#include "mainwindow.h"
 
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
@@ -53,8 +55,14 @@ void displayImage(cv::Mat originalImage,
   cv::imwrite("./testimg.jpg", originalImage);
 }
 
+<<<<<<< HEAD
 PostProcessing::ProcessedResults pipeline(std::string image) {
   cv::Mat loadedImage = cv::imread(image);
+=======
+int main(int argc, char *argv[]) {
+
+  cv::Mat loadedImage = cv::imread("./person.jpg");
+>>>>>>> Combinded frontend and backend Make Files
 
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
@@ -82,6 +90,7 @@ PostProcessing::ProcessedResults pipeline(std::string image) {
   // Display image with detected points
   displayImage(loadedImage, processed_results);
 
+<<<<<<< HEAD
   return processed_results;
 }
 
@@ -109,4 +118,11 @@ int main(int argc, char const *argv[]) {
              e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
     }
   }
+=======
+  QApplication a(argc, argv);
+  MainWindow w;
+  w.showMaximized();
+
+  return a.exec();
+>>>>>>> Combinded frontend and backend Make Files
 }
