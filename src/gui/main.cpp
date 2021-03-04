@@ -18,6 +18,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+
 #include <QApplication>
 
 #include "mainwindow.h"
@@ -25,6 +26,7 @@
 /**
  * @brief Initialise and run the user interface
  */
+
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
   MainWindow w;
@@ -32,3 +34,4 @@ int main(int argc, char *argv[]) {
 
   return a.exec();
 }
+

@@ -67,6 +67,7 @@ class MainWindow : public QMainWindow {
    * @param *parent Pointer to the parent interface.
    */
   MainWindow(QWidget *parent = 0);  // NOLINT (Purposely not using explicit)
+  ~MainWindow();
 
  private:
   QGridLayout *mainLayout = new QGridLayout;

@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
   title->setScaledContents(true);
-  QPixmap pix("posture-logo.png");
+  QPixmap pix("src/gui/posture-logo.png");
   title->setPixmap(pix);
   title->setMinimumSize(10, 10);
   title->setMaximumSize(250, 125);
@@ -106,4 +106,9 @@ void MainWindow::showDateTime() {
   // output the current date/time and clear the previous outputted value
   mainLayout->addWidget(groupDateTime, 0, 1);
   mainLayout->itemAt(3)->widget()->deleteLater();
+}
+
+MainWindow::~MainWindow()
+{
+    delete mainLayout;
 }
