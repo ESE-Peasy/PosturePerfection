@@ -29,6 +29,10 @@ case $OS  in
         wget "https://github.com/ESE-Peasy/PosturePerfection/releases/download/v0.1.0/PosturePerfection_0.1.0_x86_64"
         chmod u+x PosturePerfection_0.1.0_x86_64
         ;;
+    *)
+        echo -e "${RED}Unfortunately PosturePerfection is not yet supported on your system.${NO_COLOUR}"
+        rm -rf models
+        exit 1
 esac
 
 sudo ldconfig
