@@ -15,14 +15,10 @@ endif()
 # Ensure all necessary libraries are included
 include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
-<<<<<<< HEAD
 include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
-=======
 include_directories("${OpenCV_INCLUDE_DIRS}")
-
 include_directories ("${TEST_SOURCE_DIR}/../src"
                      ${Boost_INCLUDE_DIRS})
->>>>>>> 64-posture_estimating_and_post_processor
 
 # Taken from https://github.com/WillBrennan/boost-test-example
 function(create_test    test_path)
@@ -47,8 +43,5 @@ add_definitions (-DBOOST_TEST_DYN_LINK)
 
 create_test(test_iir ${test_libraries})
 create_test(test_post_processor ${test_libraries})
-<<<<<<< HEAD
-create_test(test_posture_estimator ${test_libraries})
-=======
 create_test(test_pre_processor ${test_libraries} ${OpenCV_LIBS})
->>>>>>> 64-posture_estimating_and_post_processor
+create_test(test_posture_estimator ${test_libraries})

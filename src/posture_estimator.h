@@ -61,7 +61,6 @@ struct ConnectedJoint {
   float upper_angle;
   ConnectedJoint* lower_connected_joint;
   float lower_angle;
-  bool present;
 };
 
 /**

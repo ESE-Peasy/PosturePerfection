@@ -14,31 +14,25 @@ PostureEstimating::Pose helper_create_pose() {
   p.joints[PostureEstimating::Head]->coord =
       PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
   p.joints[PostureEstimating::Head]->lower_angle = -M_PI;
-  p.joints[PostureEstimating::Head]->present = true;
 
   p.joints[PostureEstimating::Neck]->coord =
       PostProcessing::Coordinate{2, 1, PostProcessing::Trustworthy};
   p.joints[PostureEstimating::Neck]->lower_angle = -M_PI;
-  p.joints[PostureEstimating::Neck]->present = true;
 
   p.joints[PostureEstimating::Shoulder]->coord =
       PostProcessing::Coordinate{3, 1, PostProcessing::Trustworthy};
   p.joints[PostureEstimating::Shoulder]->lower_angle = -M_PI;
-  p.joints[PostureEstimating::Shoulder]->present = true;
 
   p.joints[PostureEstimating::Hip]->coord =
       PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
   p.joints[PostureEstimating::Hip]->lower_angle = -M_PI;
-  p.joints[PostureEstimating::Hip]->present = true;
 
   p.joints[PostureEstimating::Knee]->coord =
       PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
   p.joints[PostureEstimating::Knee]->lower_angle = -M_PI;
-  p.joints[PostureEstimating::Knee]->present = true;
 
   p.joints[PostureEstimating::Foot]->coord =
       PostProcessing::Coordinate{1, 1, PostProcessing::Trustworthy};
-  p.joints[PostureEstimating::Foot]->present = true;
 
   return p;
 }
@@ -179,24 +173,24 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesNullPointers) {
   }
 }
 
-BOOST_AUTO_TEST_CASE(ChangesHandlesPresentFlag) {
+BOOST_AUTO_TEST_CASE(ChangesHandlesUntrustworthy) {
   PostureEstimating::PostureEstimator e;
   PostureEstimating::destroyPose(e.ideal_pose);
   PostureEstimating::destroyPose(e.current_pose);
   e.ideal_pose = helper_create_pose();
   e.current_pose = helper_create_pose();
 
-  for (int i = PostureEstimating::JointMin; i < PostureEstimating::Shoulder;
-       i++) {
-    e.ideal_pose.joints[i]->present = false;
-    e.current_pose.joints[i]->present = false;
+  e.ideal_pose.joints[PostureEstimating::Head]->coord.status =
+      PostProcessing::Untrustworthy;
+  e.current_pose.joints[PostureEstimating::Head]->coord.status =
+      PostProcessing::Untrustworthy;
+  for (int i = PostureEstimating::Neck; i <= PostureEstimating::Shoulder; i++) {
+    e.ideal_pose.joints[i]->coord.status = PostProcessing::Untrustworthy;
   }
-  for (int i = PostureEstimating::Shoulder; i < PostureEstimating::Knee; i++) {
-    e.ideal_pose.joints[i]->present = false;
+  for (int i = PostureEstimating::Hip; i <= PostureEstimating::Knee; i++) {
+    e.current_pose.joints[i]->coord.status = PostProcessing::Untrustworthy;
   }
-  for (int i = PostureEstimating::Knee; i <= PostureEstimating::JointMax; i++) {
-    e.current_pose.joints[i]->present = false;
-  }
+
   for (int i = PostureEstimating::JointMin; i <= PostureEstimating::JointMax;
        i++) {
     e.current_pose.joints[i]->upper_angle = 3 * M_PI / 2;
@@ -204,11 +198,14 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesPresentFlag) {
   }
 
   e.calculatePoseChanges();
-  for (int i = PostureEstimating::Shoulder; i <= PostureEstimating::JointMax;
-       i++) {
+  for (int i = PostureEstimating::Head; i <= PostureEstimating::Knee; i++) {
     BOOST_CHECK_EQUAL(e.pose_changes.joints[i]->upper_angle, 0);
     BOOST_CHECK_EQUAL(e.pose_changes.joints[i]->lower_angle, 0);
   }
+  BOOST_CHECK_CLOSE(e.pose_changes.joints[PostureEstimating::Foot]->upper_angle,
+                    -3 * M_PI / 2, 0.00001);
+  BOOST_CHECK_EQUAL(e.pose_changes.joints[PostureEstimating::Foot]->lower_angle,
+                    0);
 }
 
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
@@ -302,3 +299,9 @@ BOOST_AUTO_TEST_CASE(GoodPostureOutsideThresholdUpperLower) {
 
   BOOST_TEST(e.good_posture == false);
 }
+
+BOOST_AUTO_TEST_CASE(AllTrustWorthyResults) {}
+
+BOOST_AUTO_TEST_CASE(SomeTrustWorthyResults) {}
+
+BOOST_AUTO_TEST_CASE(NoTrustWorthyResults) {}
