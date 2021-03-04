@@ -26,20 +26,6 @@
 namespace PostureEstimating {
 
 /**
- * @brief An enum for each important pose body part
- */
-enum Joint {
-  Head = 0,
-  JointMin = Head,
-  Neck = 1,
-  Shoulder = 2,
-  Hip = 3,
-  Knee = 4,
-  Foot = 5,
-  JointMax = Foot
-};
-
-/**
  * @brief A representation of a body part
  *
  * Each body part is represented as a `ConnectedJoint` to record the joints
@@ -215,6 +201,5 @@ class PostureEstimator {
   bool updateCurrentPoseAndCheckPosture(
       PostProcessing::ProcessedResults results);
 };
-
 }  // namespace PostureEstimating
 #endif  // SRC_POSTURE_ESTIMATOR_H_
