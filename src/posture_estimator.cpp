@@ -110,6 +110,12 @@ Pose PostureEstimator::createPoseFromResult(
   return p;
 }
 
+void PostureEstimator::update_current_pose(
+    PostProcessing::ProcessedResults results) {
+  destroyPose(this->current_pose);
+  this->current_pose = createPoseFromResult(results);
+}
+
 void PostureEstimator::calculatePoseChanges() {
   for (int i = JointMin; i <= JointMax; i++) {
     if (this->ideal_pose.joints[i]->coord.status ==
@@ -147,9 +153,22 @@ void PostureEstimator::checkGoodPosture() {
   this->good_posture = true;
 }
 
+void PostureEstimator::update_ideal_pose(
+    PostProcessing::ProcessedResults results) {
+  destroyPose(this->ideal_pose);
+  this->ideal_pose = createPoseFromResult(results);
+}
+
 void PostureEstimator::calculateChangesAndCheckPosture() {
   calculatePoseChanges();
   checkGoodPosture();
+}
+
+bool PostureEstimator::updateCurrentPoseAndCheckPosture(
+    PostProcessing::ProcessedResults results) {
+  update_current_pose(results);
+  calculateChangesAndCheckPosture();
+  return this->good_posture;
 }
 
 }  // namespace PostureEstimating
