@@ -100,11 +100,11 @@ Pose PostureEstimator::createPoseFromResult(
   for (int i = JointMin + 1; i < JointMax; i++) {
     p.joints[i]->upper_angle =
         getLineAngle(p.joints[i]->coord, p.joints[i - 1]->coord);
-    p.joints[i]->upper_angle =
+    p.joints[i]->lower_angle =
         getLineAngle(p.joints[i]->coord, p.joints[i + 1]->coord);
   }
 
-  p.joints[JointMax]->lower_angle =
+  p.joints[JointMax]->upper_angle =
       getLineAngle(p.joints[JointMax]->coord, p.joints[JointMax - 1]->coord);
 
   return p;
