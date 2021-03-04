@@ -39,29 +39,22 @@ Pose createPose() {
     p.joints[i]->lower_angle = 0;
   }
 
-  p.joints[Head]->upper_connected_joint = nullptr;
-  p.joints[Head]->lower_connected_joint = p.joints[Neck];
+  p.joints[JointMin]->upper_connected_joint = nullptr;
+  p.joints[JointMin]->lower_connected_joint = p.joints[JointMin + 1];
 
-  p.joints[Neck]->upper_connected_joint = p.joints[Head];
-  p.joints[Neck]->lower_connected_joint = p.joints[Shoulder];
+  for (int i = JointMin + 1; i <= JointMax; i++) {
+    p.joints[i]->upper_connected_joint = p.joints[i - 1];
+    p.joints[i]->lower_connected_joint = p.joints[i + 1];
+  }
 
-  p.joints[Shoulder]->upper_connected_joint = p.joints[Neck];
-  p.joints[Shoulder]->lower_connected_joint = p.joints[Hip];
-
-  p.joints[Hip]->upper_connected_joint = p.joints[Shoulder];
-  p.joints[Hip]->lower_connected_joint = p.joints[Knee];
-
-  p.joints[Knee]->upper_connected_joint = p.joints[Hip];
-  p.joints[Knee]->lower_connected_joint = p.joints[Foot];
-
-  p.joints[Foot]->upper_connected_joint = p.joints[Knee];
-  p.joints[Foot]->lower_connected_joint = nullptr;
+  p.joints[JointMax]->upper_connected_joint = p.joints[JointMax - 1];
+  p.joints[JointMax]->lower_connected_joint = nullptr;
 
   return p;
 }
 
 void destroyPose(Pose p) {
-  for (int i = 0; i < JointMax; i++) {
+  for (int i = JointMin; i < JointMax; i++) {
     free(p.joints[i]);
   }
 }
@@ -95,10 +88,30 @@ float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
 }
 Pose PostureEstimator::createPoseFromResult(
     PostProcessing::ProcessedResults results) {
-  return this->pose_changes;
+  PostureEstimating::Pose p = createPose();
+
+  for (int i = JointMin; i <= JointMax; i++) {
+    p.joints[i]->coord = results.body_parts[i];
+  }
+
+  p.joints[JointMin]->lower_angle =
+      getLineAngle(p.joints[JointMin]->coord, p.joints[JointMin + 1]->coord);
+
+  for (int i = JointMin + 1; i < JointMax; i++) {
+    p.joints[i]->upper_angle =
+        getLineAngle(p.joints[i]->coord, p.joints[i - 1]->coord);
+    p.joints[i]->upper_angle =
+        getLineAngle(p.joints[i]->coord, p.joints[i + 1]->coord);
+  }
+
+  p.joints[JointMax]->lower_angle =
+      getLineAngle(p.joints[JointMax]->coord, p.joints[JointMax - 1]->coord);
+
+  return p;
 }
+
 void PostureEstimator::calculatePoseChanges() {
-  for (int i = 0; i <= JointMax; i++) {
+  for (int i = JointMin; i <= JointMax; i++) {
     if (this->ideal_pose.joints[i]->coord.status ==
             PostProcessing::Untrustworthy ||
         this->current_pose.joints[i]->coord.status ==
