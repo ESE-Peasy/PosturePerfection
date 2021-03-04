@@ -95,8 +95,7 @@ float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
 }
 Pose PostureEstimator::createPoseFromResult(
     PostProcessing::ProcessedResults results) {
-  Pose p;
-  return p;
+  return this->pose_changes;
 }
 void PostureEstimator::calculatePoseChanges() {
   for (int i = 0; i <= JointMax; i++) {

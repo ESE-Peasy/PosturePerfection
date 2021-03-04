@@ -36,6 +36,28 @@ PostureEstimating::Pose helper_create_pose() {
 
   return p;
 }
+PostProcessing::ProcessedResults helper_create_result() {
+  PostProcessing::ProcessedResults r;
+  for (int i = JointMin; i <= JointMax; i++) {
+    r.body_parts[i] =
+        PostProcessing::Coordinate{static_cast<float>(i), static_cast<float>(i),
+                                   PostProcessing::Trustworthy};
+  }
+  return r;
+}
+
+void helper_check_result(PostureEstimating::Pose p,
+                         PostProcessing::ProcessedResults r) {
+  for (int i = PostureEstimating::JointMin; i <= PostureEstimating::JointMax;
+       i++) {
+    BOOST_CHECK_EQUAL(p.joints[i]->joint, static_cast<Joint>(i));
+    BOOST_CHECK_EQUAL(p.joints[i]->coord.status, r.body_parts[i].status);
+    BOOST_CHECK_EQUAL(p.joints[i]->coord.y, r.body_parts[i].x);
+    BOOST_CHECK_EQUAL(p.joints[i]->coord.y, r.body_parts[i].y);
+    BOOST_CHECK_CLOSE(p.joints[i]->upper_angle, -M_PI / 4, 0.00001);
+    BOOST_CHECK_CLOSE(p.joints[i]->lower_angle, M_PI / 4, 0.00001);
+  }
+}
 
 BOOST_AUTO_TEST_CASE(LinesAngleCorrect) {
   PostProcessing::Coordinate p = {1, 1, PostProcessing::Trustworthy};
@@ -300,8 +322,36 @@ BOOST_AUTO_TEST_CASE(GoodPostureOutsideThresholdUpperLower) {
   BOOST_TEST(e.good_posture == false);
 }
 
-BOOST_AUTO_TEST_CASE(AllTrustWorthyResults) {}
+BOOST_AUTO_TEST_CASE(CreatePoseFromTrustworthyResults) {
+  PostProcessing::ProcessedResults r = helper_create_result();
+  PostureEstimating::PostureEstimator e;
+  PostureEstimating::Pose p = e.createPoseFromResult(r);
 
-BOOST_AUTO_TEST_CASE(SomeTrustWorthyResults) {}
+  helper_check_result(p, r);
+}
 
-BOOST_AUTO_TEST_CASE(NoTrustWorthyResults) {}
+BOOST_AUTO_TEST_CASE(CreatePoseFromSomeTrustWorthyResults) {
+  PostProcessing::ProcessedResults r = helper_create_result();
+  PostureEstimating::PostureEstimator e;
+  PostureEstimating::Pose p = e.createPoseFromResult(r);
+
+  r.body_parts[PostureEstimating::Head].status = PostProcessing::Untrustworthy;
+  r.body_parts[PostureEstimating::Knee].status = PostProcessing::Untrustworthy;
+  r.body_parts[PostureEstimating::Foot].status = PostProcessing::Untrustworthy;
+
+  helper_check_result(p, r);
+}
+
+BOOST_AUTO_TEST_CASE(CreatePoseFromNoTrustWorthyResults) {
+  PostProcessing::ProcessedResults r = helper_create_result();
+  PostureEstimating::PostureEstimator e;
+
+  for (int i = PostureEstimating::JointMin; i <= PostureEstimating::JointMax;
+       i++) {
+    r.body_parts[i].status = PostProcessing::Untrustworthy;
+  }
+
+  PostureEstimating::Pose p = e.createPoseFromResult(r);
+
+  helper_check_result(p, r);
+}
