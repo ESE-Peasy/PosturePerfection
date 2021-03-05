@@ -56,9 +56,12 @@ void displayImage(cv::Mat originalImage,
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 PostProcessing::ProcessedResults pipeline(std::string image) {
   cv::Mat loadedImage = cv::imread(image);
 =======
+=======
+>>>>>>> 53bc364bfd343d55659579cb1578dc3d2c74685b
 int main(int argc, char *argv[]) {
 
   cv::Mat loadedImage = cv::imread("./person.jpg");
@@ -91,6 +94,7 @@ int main(int argc, char *argv[]) {
   displayImage(loadedImage, processed_results);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   return processed_results;
 }
 
@@ -119,10 +123,15 @@ int main(int argc, char const *argv[]) {
     }
   }
 =======
+=======
+>>>>>>> 53bc364bfd343d55659579cb1578dc3d2c74685b
   QApplication a(argc, argv);
   MainWindow w;
   w.showMaximized();
 
   return a.exec();
+<<<<<<< HEAD
 >>>>>>> Combinded frontend and backend Make Files
+=======
+>>>>>>> 53bc364bfd343d55659579cb1578dc3d2c74685b
 }
