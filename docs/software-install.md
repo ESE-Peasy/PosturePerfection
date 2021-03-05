@@ -14,5 +14,5 @@ git clone https://github.com/ESE-Peasy/PosturePerfection.git
 
 **Install software**
 ```sh
-cd PosturePerfection && ./install.sh
+cd PosturePerfection && ./scripts/build.sh
 ```

@@ -12,10 +12,10 @@ It can sometimes be useful to add a screenshot or animated gif to demonstrate ne
 
 ## Code
 - [ ] I have added some tests
-- [ ] I have run the tests locally to ensure they all pass by running `./test.sh`
+- [ ] I have run the tests locally to ensure they all pass by running `.scripts/build.sh -enable-testing`
 
 ## Documentation
 - [ ] I have updated documentation appropriately (GitHub Pages)
 - [ ] I have tested the updated GitHub Pages locally to ensure the changes to documentation render correctly (see this [Guidance](https://ese-peasy.github.io/PosturePerfection/guidance.html) page)
 
-Closes Issue #
+Closes #
