@@ -106,7 +106,7 @@ int main(int argc, char const *argv[]) {
              PostureEstimating::stringJoint(e.pose_changes.joints[i]->joint)
                  .c_str(),
              e.pose_changes.joints[i]->lower_angle,
-             e.pose_changes.joints[i]->lower_angle * 360 / 2 * M_PI);
+             e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
     }
   }
 }
