@@ -61,3 +61,6 @@ docs/_site/*
 #  ignore QT autogen files and UI binary file
 src/gui/postureperfection_autogen
 src/gui/postureperfection
+src/gui/postureperfection_gui_autogen
+src/gui/GUI_autogen
+src/gui/gui_autogen
