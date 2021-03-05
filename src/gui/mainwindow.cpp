@@ -19,6 +19,7 @@
  *
  */
 #include "mainwindow.h"
+#include "../posture_estimator.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
@@ -112,3 +113,5 @@ MainWindow::~MainWindow()
 {
     delete mainLayout;
 }
+
+
