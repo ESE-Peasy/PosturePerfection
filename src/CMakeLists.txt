@@ -8,7 +8,8 @@ set(LIBSRC
   iir.cpp
   inference_core.cpp
   post_processor.cpp
-  pre_processor.cpp)
+  pre_processor.cpp
+  posture_estimator.cpp)
 
 # Set up OpenCV package
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../../opencv_build")

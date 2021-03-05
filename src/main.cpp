@@ -21,6 +21,7 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "post_processor.h"
+#include "posture_estimator.h"
 #include "pre_processor.h"
 
 #define MODEL_INPUT_X 224
@@ -52,8 +53,8 @@ void displayImage(cv::Mat originalImage,
   cv::imwrite("./testimg.jpg", originalImage);
 }
 
-int main(int argc, char const *argv[]) {
-  cv::Mat loadedImage = cv::imread("./person.jpg");
+PostProcessing::ProcessedResults pipeline(std::string image) {
+  cv::Mat loadedImage = cv::imread(image);
 
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
@@ -77,6 +78,35 @@ int main(int argc, char const *argv[]) {
            (body_part.status == PostProcessing::Trustworthy) ? "Trustworthy"
                                                              : "Untrustworthy");
   }
+
   // Display image with detected points
   displayImage(loadedImage, processed_results);
+
+  return processed_results;
+}
+
+int main(int argc, char const *argv[]) {
+  printf("Initial Pose Points \n");
+  PostProcessing::ProcessedResults ideal_results = pipeline("./person.jpg");
+  printf("Current Pose Points \n");
+  PostProcessing::ProcessedResults current_results = pipeline("./person2.jpeg");
+
+  PostureEstimating::PostureEstimator e;
+  e.update_ideal_pose(ideal_results);
+  e.pose_change_threshold = 0;
+  bool posture = e.updateCurrentPoseAndCheckPosture(current_results);
+
+  printf("User's posture is %s\n", (posture == true) ? "good" : "bad");
+
+  for (int i = JointMin; i <= JointMax; i++) {
+    if (e.pose_changes.joints[i]->upper_angle != 0) {
+      printf("Please move your %s -> %s by %f radians or %f degrees\n",
+             PostureEstimating::stringJoint(e.pose_changes.joints[i - 1]->joint)
+                 .c_str(),
+             PostureEstimating::stringJoint(e.pose_changes.joints[i]->joint)
+                 .c_str(),
+             e.pose_changes.joints[i]->lower_angle,
+             e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
+    }
+  }
 }

@@ -75,13 +75,26 @@ We are a group of 5th Year Electronics & Software Engineering students at the Un
 
 <!-- GETTING STARTED -->
 
-## Getting Started
+## Quickstart
 
-To get PosturePerfection running by yourself you will need to follow these steps. The installation currently only works on Linux and OSX machines. In particular, we test the software on the following:
+If you would like to download and run our project without any interest in development, simply use our provided script:
+
+```sh
+wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PosturePerfection_install.sh
+sh PosturePerfection_0.1.0_xxx
+```
+
+This script will provide you with more information about usage.
+
+The installation currently only works on Linux machines. In particular, we test the software on the following:
 
 - Intel x86 running Ubuntu 20.04 LTS
 - Raspberry Pi 4B running Raspberry Pi OS
-- Intel Core i5 running MacOS Big Sur
+
+
+## Getting Started
+
+To get PosturePerfection running by yourself you will need to follow these steps. 
 
 ### Prerequisites
 
@@ -91,6 +104,8 @@ PosturePerfection uses the following tools and libraries:
 
 - TensorFlow Lite
 - OpenCV
+- QT
+- Boost Testing
 
 ### Installation
 
@@ -98,18 +113,14 @@ PosturePerfection uses the following tools and libraries:
    ```sh
    git clone https://github.com/ESE-Peasy/PosturePerfection.git
    ```
-1. Run the installation script
+1. Run the install dependencies script (Note this may be a time consuming process as OpenCV must be built from source)
    ```sh
-   cd PosturePerfection && ./install.sh
+   cd PosturePerfection && ./scripts/install_dependencies.sh
    ```
-
-This builds the binary in the `build` directory.
-
-To download dependencies needed for unit testing run `install` with the `-t` flag:
-
-```sh
-./install.sh -t
-```
+1. Run the build script
+   ```sh
+   ./scripts/build.sh
+   ```
 
 <!-- USAGE EXAMPLES -->
 
@@ -123,10 +134,10 @@ Start the application by running from the project root:
 
 ## Testing
 
-To build the project and run the unit tests:
+To build the project and run linting checks and the unit tests:
 
 ```sh
-./test.sh
+./scripts/build.sh -enable-testing
 ```
 
 <!-- ROADMAP -->
