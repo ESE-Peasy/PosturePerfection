@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.16) # Required by TFL
 project (TEST)
 add_subdirectory(src)
 
-include(CTest)
-enable_testing()
-add_subdirectory(test)
+if (ENABLE_TESTING)
+    include(CTest)
+    enable_testing()
+    add_subdirectory(test)
+endif()
