@@ -87,7 +87,7 @@ PostProcessing::ProcessedResults pipeline(std::string image) {
 
 int main(int argc, char const *argv[]) {
   PostProcessing::ProcessedResults ideal_results = pipeline("./person.jpg");
-  PostProcessing::ProcessedResults current_results = pipeline("./persion2.jpg");
+  PostProcessing::ProcessedResults current_results = pipeline("./person2.jpeg");
 
   PostureEstimating::PostureEstimator e;
   e.update_ideal_pose(ideal_results);
