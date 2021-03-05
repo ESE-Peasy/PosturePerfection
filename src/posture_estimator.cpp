@@ -21,11 +21,28 @@
 
 #include "posture_estimator.h"
 
-#include <stdio.h>
-
 #include <cmath>
 
 namespace PostureEstimating {
+
+std::string stringJoint(Joint j) {
+  switch (j) {
+    case Head:
+      return "head";
+    case Neck:
+      return "neck";
+    case Shoulder:
+      return "shoulder";
+    case Hip:
+      return "hip";
+    case Knee:
+      return "knee";
+    case Foot:
+      return "foot";
+    default:
+      return "unknown";
+  }
+}
 
 Pose createPose() {
   Pose p;
@@ -60,6 +77,7 @@ void destroyPose(Pose p) {
 }
 
 PostureEstimator::PostureEstimator() {
+  this->pose_change_threshold = 0;
   this->ideal_pose = createPose();
   this->current_pose = createPose();
   this->pose_changes = createPose();

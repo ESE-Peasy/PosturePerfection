@@ -86,7 +86,9 @@ PostProcessing::ProcessedResults pipeline(std::string image) {
 }
 
 int main(int argc, char const *argv[]) {
+  printf("Initial Pose Points \n");
   PostProcessing::ProcessedResults ideal_results = pipeline("./person.jpg");
+  printf("Current Pose Points \n");
   PostProcessing::ProcessedResults current_results = pipeline("./person2.jpeg");
 
   PostureEstimating::PostureEstimator e;
@@ -94,11 +96,17 @@ int main(int argc, char const *argv[]) {
   e.pose_change_threshold = 0;
   bool posture = e.updateCurrentPoseAndCheckPosture(current_results);
 
-  printf("User's posture is %s", (posture == true) ? "good" : "bad");
+  printf("User's posture is %s\n", (posture == true) ? "good" : "bad");
 
-  // if (posture = false) {
-  //   printf("Changes Needed");
-  //    for (auto joint : e->pose_changes.joints) {
-
-  // }
+  for (int i = JointMin; i <= JointMax; i++) {
+    if (e.pose_changes.joints[i]->upper_angle != 0) {
+      printf("Please move your %s -> %s by %f radians or %f degrees\n",
+             PostureEstimating::stringJoint(e.pose_changes.joints[i - 1]->joint)
+                 .c_str(),
+             PostureEstimating::stringJoint(e.pose_changes.joints[i]->joint)
+                 .c_str(),
+             e.pose_changes.joints[i]->lower_angle,
+             e.pose_changes.joints[i]->lower_angle * 360 / 2 * M_PI);
+    }
+  }
 }

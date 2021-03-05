@@ -22,6 +22,8 @@
 #ifndef SRC_POSTURE_ESTIMATOR_H_
 #define SRC_POSTURE_ESTIMATOR_H_
 
+#include <stdio.h>
+
 #include "intermediate_structures.h"
 namespace PostureEstimating {
 
@@ -48,6 +50,11 @@ struct ConnectedJoint {
   ConnectedJoint* lower_connected_joint;
   float lower_angle;
 };
+
+/**
+ * @brief Prints human readable string for enum `Joint`
+ */
+std::string stringJoint(Joint j);
 
 /**
  *  @brief The representation of a human's pose, containing  all
