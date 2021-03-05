@@ -15,7 +15,6 @@ endif()
 # Ensure all necessary libraries are included
 include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
-include_directories("${TENSORFLOW_SOURCE_DIR}/../tflite_build/flatbuffers/include/")
 include_directories("${OpenCV_INCLUDE_DIRS}")
 include_directories ("${TEST_SOURCE_DIR}/../src"
                      ${Boost_INCLUDE_DIRS})
