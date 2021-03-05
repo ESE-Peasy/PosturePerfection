@@ -68,7 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">posture_estimator.h File Reference</div>  </div>
 </div><!--header-->
@@ -76,25 +76,17 @@ $(function() {
 
 <p>Interface for representation of user's pose.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="post__processor_8h_source.html">post_processor.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="intermediate__structures_8h_source.html">intermediate_structures.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for posture_estimator.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="posture__estimator_8h__incl.png" border="0" usemap="#aposture__estimator_8h" alt=""/></div>
 <map name="aposture__estimator_8h" id="aposture__estimator_8h">
-<area shape="rect" title="Interface for representation of user&#39;s pose." alt="" coords="87,5,223,32"/>
-<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="94,80,215,107"/>
-<area shape="rect" title=" " alt="" coords="5,229,64,256"/>
-<area shape="rect" href="iir_8h.html" title="Very simple IIR filter." alt="" coords="99,155,141,181"/>
-<area shape="rect" href="inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="367,155,484,181"/>
-<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="207,304,375,331"/>
-<area shape="rect" title=" " alt="" coords="89,229,151,256"/>
-<area shape="rect" title=" " alt="" coords="227,229,362,256"/>
-<area shape="rect" title=" " alt="" coords="656,304,720,331"/>
-<area shape="rect" title=" " alt="" coords="399,304,467,331"/>
-<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="488,229,603,256"/>
-<area shape="rect" title=" " alt="" coords="265,379,316,405"/>
-<area shape="rect" title=" " alt="" coords="491,304,632,331"/>
+<area shape="rect" title="Interface for representation of user&#39;s pose." alt="" coords="37,5,173,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,65,107"/>
+<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="90,80,258,107"/>
+<area shape="rect" title=" " alt="" coords="149,155,199,181"/>
 </map>
 </div>
 </div>
@@ -112,20 +104,19 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class handles representations of the user's pose and calculates any updates to their pose that is required.  <a href="classPostureEstimating_1_1PostureEstimator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:aeaa4db9e526e9d39c2a3ee57445317e9"><td class="memItemLeft" align="right" valign="top"><a id="aeaa4db9e526e9d39c2a3ee57445317e9"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8h.html#aeaa4db9e526e9d39c2a3ee57445317e9">PostureEstimating::Joint</a> { <br />
-&#160;&#160;<b>Head</b>
-, <b>Neck</b>
-, <b>Shoulder</b>
-, <b>Hip</b>
-, <br />
-&#160;&#160;<b>Knee</b>
-, <b>Foot</b>
-<br />
- }</td></tr>
-<tr class="memdesc:aeaa4db9e526e9d39c2a3ee57445317e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum for each important pose body part. <br /></td></tr>
-<tr class="separator:aeaa4db9e526e9d39c2a3ee57445317e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a2667217a57e923ec593f52e6396353e3"><td class="memItemLeft" align="right" valign="top"><a id="a2667217a57e923ec593f52e6396353e3"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>PostureEstimating::stringJoint</b> (<a class="el" href="intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5">Joint</a> j)</td></tr>
+<tr class="memdesc:a2667217a57e923ec593f52e6396353e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints human readable string for enum <code>Joint</code> <br /></td></tr>
+<tr class="separator:a2667217a57e923ec593f52e6396353e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="memItemLeft" align="right" valign="top"><a id="a2deac6e18a1012d21d7d1cd72e22e28a"></a>
+Pose&#160;</td><td class="memItemRight" valign="bottom"><b>PostureEstimating::createPose</b> ()</td></tr>
+<tr class="memdesc:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">Pose</a> object. <br /></td></tr>
+<tr class="separator:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f543f918178c629f64badc590c9715d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><b>PostureEstimating::destroyPose</b> (<a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> p)</td></tr>
+<tr class="memdesc:a5f543f918178c629f64badc590c9715d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees all pointers in a <a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">Pose</a> object.  <a href="posture__estimator_8cpp.html#a5f543f918178c629f64badc590c9715d">More...</a><br /></td></tr>
+<tr class="separator:a5f543f918178c629f64badc590c9715d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for representation of user's pose. </p>
@@ -133,7 +124,34 @@ Enumerations</h2></td></tr>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a5f543f918178c629f64badc590c9715d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f543f918178c629f64badc590c9715d">&#9670;&nbsp;</a></span>destroyPose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PostureEstimating::destroyPose </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a>&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees all pointers in a Pose object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">&lt;tt&gt;Pose&lt;/tt&gt;</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1

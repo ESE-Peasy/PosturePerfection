@@ -97,49 +97,61 @@ $(function() {
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  BodyPartMax = left_ankle</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespacePreProcessing.html">   58</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePreProcessing.html">PreProcessing</a> {</div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structPreProcessing_1_1PreProcessedImage.html">   66</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPreProcessing_1_1PreProcessedImage.html">PreProcessedImage</a> {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordtype">float</span>* image;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};  <span class="comment">// namespace PreProcessing</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">namespace </span>PostProcessing {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">   80</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">Status</a> { Untrustworthy, Trustworthy };</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="structPostProcessing_1_1Coordinate.html">   92</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPostProcessing_1_1Coordinate.html">Coordinate</a> {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">float</span> x;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">float</span> y;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <a class="code" href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">Status</a> status;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="structPostProcessing_1_1ProcessedResults.html">  107</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPostProcessing_1_1ProcessedResults.html">ProcessedResults</a> {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  std::array&lt;Coordinate, BodyPartMax + 1&gt; body_parts;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;};</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}  <span class="comment">// namespace PostProcessing</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">namespace </span>Inference {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="structInference_1_1Coordinate.html">  123</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structInference_1_1Coordinate.html">Coordinate</a> {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="keywordtype">float</span> x;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordtype">float</span> y;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="keywordtype">float</span> confidence;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;};</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="structInference_1_1InferenceResults.html">  133</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structInference_1_1InferenceResults.html">InferenceResults</a> {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  std::array&lt;Coordinate, BodyPartMax + 1&gt; body_parts;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}  <span class="comment">// namespace Inference</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_INTERMEDIATE_STRUCTURES_H_</span></div>
-<div class="ttc" id="aintermediate__structures_8h_html_a53661a4eef283c5bbd9fa9ddc39f9b57"><div class="ttname"><a href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">PostProcessing::Status</a></div><div class="ttdeci">Status</div><div class="ttdoc">A PostProcessing::Coordinate's position can be either Untrustworthy or Trustworthy</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:80</div></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5">   65</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5">Joint</a> {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  Head = 0,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  JointMin = Head,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  Neck = 1,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  Shoulder = 2,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  Hip = 3,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  Knee = 4,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  Foot = 5,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  JointMax = Foot</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="namespacePreProcessing.html">   76</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePreProcessing.html">PreProcessing</a> {</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structPreProcessing_1_1PreProcessedImage.html">   84</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPreProcessing_1_1PreProcessedImage.html">PreProcessedImage</a> {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordtype">float</span>* image;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}  <span class="comment">// namespace PreProcessing</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">namespace </span>PostProcessing {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">   98</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">Status</a> { Untrustworthy, Trustworthy };</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="structPostProcessing_1_1Coordinate.html">  110</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPostProcessing_1_1Coordinate.html">Coordinate</a> {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordtype">float</span> x;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordtype">float</span> y;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <a class="code" href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">Status</a> status;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;};</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="structPostProcessing_1_1ProcessedResults.html">  127</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPostProcessing_1_1ProcessedResults.html">ProcessedResults</a> {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  std::array&lt;Coordinate, JointMax + 1&gt; body_parts;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}  <span class="comment">// namespace PostProcessing</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keyword">namespace </span>Inference {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="structInference_1_1Coordinate.html">  143</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structInference_1_1Coordinate.html">Coordinate</a> {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <span class="keywordtype">float</span> x;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <span class="keywordtype">float</span> y;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="keywordtype">float</span> confidence;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;};</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="structInference_1_1InferenceResults.html">  153</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structInference_1_1InferenceResults.html">InferenceResults</a> {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  std::array&lt;Coordinate, BodyPartMax + 1&gt; body_parts;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;};</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}  <span class="comment">// namespace Inference</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_INTERMEDIATE_STRUCTURES_H_</span></div>
+<div class="ttc" id="aintermediate__structures_8h_html_a53661a4eef283c5bbd9fa9ddc39f9b57"><div class="ttname"><a href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">PostProcessing::Status</a></div><div class="ttdeci">Status</div><div class="ttdoc">A PostProcessing::Coordinate's position can be either Untrustworthy or Trustworthy</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:98</div></div>
 <div class="ttc" id="aintermediate__structures_8h_html_a7a4875f2b53773a016c13bcfc2a55ac3"><div class="ttname"><a href="intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3">BodyPart</a></div><div class="ttdeci">BodyPart</div><div class="ttdoc">Defines the order of body parts in the body_parts arrays.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:37</div></div>
-<div class="ttc" id="anamespacePreProcessing_html"><div class="ttname"><a href="namespacePreProcessing.html">PreProcessing</a></div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:58</div></div>
-<div class="ttc" id="astructInference_1_1Coordinate_html"><div class="ttname"><a href="structInference_1_1Coordinate.html">Inference::Coordinate</a></div><div class="ttdoc">Indicates position and confidence in positioning of a body part node.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:123</div></div>
-<div class="ttc" id="astructInference_1_1InferenceResults_html"><div class="ttname"><a href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a></div><div class="ttdoc">Results of running the model for all body parts.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:133</div></div>
-<div class="ttc" id="astructPostProcessing_1_1Coordinate_html"><div class="ttname"><a href="structPostProcessing_1_1Coordinate.html">PostProcessing::Coordinate</a></div><div class="ttdoc">Indicates position and trustworthiness of a body part node.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:92</div></div>
-<div class="ttc" id="astructPostProcessing_1_1ProcessedResults_html"><div class="ttname"><a href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a></div><div class="ttdoc">The PostProcessing::Coordinate of each body part.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:107</div></div>
-<div class="ttc" id="astructPreProcessing_1_1PreProcessedImage_html"><div class="ttname"><a href="structPreProcessing_1_1PreProcessedImage.html">PreProcessing::PreProcessedImage</a></div><div class="ttdoc">A structure of the pre processed image.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:66</div></div>
+<div class="ttc" id="aintermediate__structures_8h_html_ac59007d612b1e2624efd27182f4362f5"><div class="ttname"><a href="intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5">Joint</a></div><div class="ttdeci">Joint</div><div class="ttdoc">Defines order of joints in any body part arrays.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:65</div></div>
+<div class="ttc" id="anamespacePreProcessing_html"><div class="ttname"><a href="namespacePreProcessing.html">PreProcessing</a></div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:76</div></div>
+<div class="ttc" id="astructInference_1_1Coordinate_html"><div class="ttname"><a href="structInference_1_1Coordinate.html">Inference::Coordinate</a></div><div class="ttdoc">Indicates position and confidence in positioning of a body part node.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:143</div></div>
+<div class="ttc" id="astructInference_1_1InferenceResults_html"><div class="ttname"><a href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a></div><div class="ttdoc">Results of running the model for all body parts.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:153</div></div>
+<div class="ttc" id="astructPostProcessing_1_1Coordinate_html"><div class="ttname"><a href="structPostProcessing_1_1Coordinate.html">PostProcessing::Coordinate</a></div><div class="ttdoc">Indicates position and trustworthiness of a body part node.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:110</div></div>
+<div class="ttc" id="astructPostProcessing_1_1ProcessedResults_html"><div class="ttname"><a href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a></div><div class="ttdoc">The PostProcessing::Coordinate of each body part.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:127</div></div>
+<div class="ttc" id="astructPreProcessing_1_1PreProcessedImage_html"><div class="ttname"><a href="structPreProcessing_1_1PreProcessedImage.html">PreProcessing::PreProcessedImage</a></div><div class="ttdoc">A structure of the pre processed image.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:84</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

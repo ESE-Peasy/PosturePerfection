@@ -94,7 +94,8 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Process the output of an <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code> </p>
 <p>This class contains some processing steps to make the output of the <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code> more useful. The following operations are performed to process the raw data:</p><ul>
 <li>Disregarding of any predictions below a given confidence threshold</li>
-<li>Smoothing location predictions in time </li>
+<li>Smoothing location predictions in time</li>
+<li>Averaging location of left and right body parts if both exceed the confidence threshold </li>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a08e86bb5b38024d22acc0dd69c757b7b"></a>

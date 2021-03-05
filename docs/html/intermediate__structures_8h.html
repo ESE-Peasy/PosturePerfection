@@ -92,11 +92,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="intermediate__structures_8h__dep__incl.png" border="0" usemap="#aintermediate__structures_8hdep" alt=""/></div>
 <map name="aintermediate__structures_8hdep" id="aintermediate__structures_8hdep">
-<area shape="rect" title="Data structures used in communicating between different parts of the system." alt="" coords="5,5,173,32"/>
-<area shape="rect" href="inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="29,155,147,181"/>
-<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="75,229,197,256"/>
-<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="32,80,147,107"/>
-<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="68,304,204,331"/>
+<area shape="rect" title="Data structures used in communicating between different parts of the system." alt="" coords="37,5,205,32"/>
+<area shape="rect" href="inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="55,155,173,181"/>
+<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="5,229,127,256"/>
+<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="106,80,242,107"/>
+<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="266,80,381,107"/>
 </map>
 </div>
 </div>
@@ -154,6 +154,20 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a7a4875f2b53773a016c13bcfc2a55ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the order of body parts in the <code>body_parts</code> arrays.  <a href="intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3">More...</a><br /></td></tr>
 <tr class="separator:a7a4875f2b53773a016c13bcfc2a55ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac59007d612b1e2624efd27182f4362f5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5">Joint</a> { <br />
+&#160;&#160;<b>Head</b> = 0
+, <b>JointMin</b> = Head
+, <b>Neck</b> = 1
+, <b>Shoulder</b> = 2
+, <br />
+&#160;&#160;<b>Hip</b> = 3
+, <b>Knee</b> = 4
+, <b>Foot</b> = 5
+, <b>JointMax</b> = Foot
+<br />
+ }</td></tr>
+<tr class="memdesc:ac59007d612b1e2624efd27182f4362f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines order of joints in any body part arrays.  <a href="intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5">More...</a><br /></td></tr>
+<tr class="separator:ac59007d612b1e2624efd27182f4362f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53661a4eef283c5bbd9fa9ddc39f9b57"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">PostProcessing::Status</a> { <b>Untrustworthy</b>
 , <b>Trustworthy</b>
  }</td></tr>
@@ -181,6 +195,23 @@ Enumerations</h2></td></tr>
 
 <p>Defines the order of body parts in the <code>body_parts</code> arrays. </p>
 <p>The <code><a class="el" href="structInference_1_1InferenceResults.html" title="Results of running the model for all body parts.">Inference::InferenceResults</a></code> and <code><a class="el" href="structPostProcessing_1_1ProcessedResults.html" title="The PostProcessing::Coordinate of each body part.">PostProcessing::ProcessedResults</a></code> each have a <code>body_parts</code> field. The order of body parts is defined by this enum. The minimum and maximum body part "value" is given by <code>BodyPartMin</code> and <code>BodyPartMax</code>, respectively. </p>
+
+</div>
+</div>
+<a id="ac59007d612b1e2624efd27182f4362f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac59007d612b1e2624efd27182f4362f5">&#9670;&nbsp;</a></span>Joint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5">Joint</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines order of joints in any body part arrays. </p>
+<p>This is to be used where the pose is represented as a profile view to define the posture. As a result there are no left and right versions </p>
 
 </div>
 </div>
