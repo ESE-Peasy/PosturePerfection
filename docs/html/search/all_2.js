@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['good_5fpose_4',['good_pose',['../classPostureEstimating_1_1PostureEstimator.html#a6e775a2536caf399af28116ac8fbb258',1,'PostureEstimating::PostureEstimator']]]
+  ['good_5fposture_4',['good_posture',['../classPostureEstimating_1_1PostureEstimator.html#a5a925e9492bf416a7409c53761772fbb',1,'PostureEstimating::PostureEstimator']]]
 ];

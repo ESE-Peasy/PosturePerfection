@@ -83,10 +83,8 @@ Collaboration diagram for PostureEstimating::PostureEstimator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPostureEstimating_1_1PostureEstimator__coll__graph.png" border="0" usemap="#aPostureEstimating_1_1PostureEstimator_coll__map" alt="Collaboration graph"/></div>
 <map name="aPostureEstimating_1_1PostureEstimator_coll__map" id="aPostureEstimating_1_1PostureEstimator_coll__map">
-<area shape="rect" title="This class handles representations of the user&#39;s pose and calculates any updates to their pose that i..." alt="" coords="29,391,164,432"/>
-<area shape="rect" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint" alt="" coords="15,272,179,299"/>
-<area shape="rect" href="structPostureEstimating_1_1ConnectedJoint.html" title="A representation of a body part." alt="" coords="29,95,164,136"/>
-<area shape="rect" href="structPostProcessing_1_1Coordinate.html" title="Indicates position and trustworthiness of a body part node." alt="" coords="5,5,188,32"/>
+<area shape="rect" title="This class handles representations of the user&#39;s pose and calculates any updates to their pose that i..." alt="" coords="20,124,155,165"/>
+<area shape="rect" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint" alt="" coords="5,5,169,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -96,6 +94,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ab86561e9c3706a2c4ae7a934ffc1ad04">PostureEstimator</a> ()</td></tr>
 <tr class="memdesc:ab86561e9c3706a2c4ae7a934ffc1ad04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Posture Estimator object. <br /></td></tr>
 <tr class="separator:ab86561e9c3706a2c4ae7a934ffc1ad04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae067ecb8f608b149771b95927e904818"><td class="memItemLeft" align="right" valign="top"><a id="ae067ecb8f608b149771b95927e904818"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ae067ecb8f608b149771b95927e904818">~PostureEstimator</a> ()</td></tr>
+<tr class="memdesc:ae067ecb8f608b149771b95927e904818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a Posture Estimator object. <br /></td></tr>
+<tr class="separator:ae067ecb8f608b149771b95927e904818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96da35b970e17452e9a5b9e5d32561dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc">update_ideal_pose</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
 <tr class="memdesc:a96da35b970e17452e9a5b9e5d32561dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the user's ideal pose using.  <a href="classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc">More...</a><br /></td></tr>
 <tr class="separator:a96da35b970e17452e9a5b9e5d32561dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,10 +123,10 @@ Data Fields</h2></td></tr>
 float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a590dcd4c72bd9219f2cdf3f4e7296bf2">pose_change_threshold</a></td></tr>
 <tr class="memdesc:a590dcd4c72bd9219f2cdf3f4e7296bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A representation of what absolute value changes for a pose is acceptably still a good pose. <br /></td></tr>
 <tr class="separator:a590dcd4c72bd9219f2cdf3f4e7296bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e775a2536caf399af28116ac8fbb258"><td class="memItemLeft" align="right" valign="top"><a id="a6e775a2536caf399af28116ac8fbb258"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a6e775a2536caf399af28116ac8fbb258">good_pose</a></td></tr>
-<tr class="memdesc:a6e775a2536caf399af28116ac8fbb258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the user is in a good pose (true) or bad pose (false). <br /></td></tr>
-<tr class="separator:a6e775a2536caf399af28116ac8fbb258"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a925e9492bf416a7409c53761772fbb"><td class="memItemLeft" align="right" valign="top"><a id="a5a925e9492bf416a7409c53761772fbb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a5a925e9492bf416a7409c53761772fbb">good_posture</a></td></tr>
+<tr class="memdesc:a5a925e9492bf416a7409c53761772fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the user is in a good pose (true) or bad pose (false). <br /></td></tr>
+<tr class="separator:a5a925e9492bf416a7409c53761772fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class handles representations of the user's pose and calculates any updates to their pose that is required. </p>
@@ -191,8 +193,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="posture__estimator_8h_source.html">posture_estimator.h</a></li>
+<li>posture_estimator.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
