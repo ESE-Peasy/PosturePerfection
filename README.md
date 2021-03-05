@@ -80,8 +80,8 @@ We are a group of 5th Year Electronics & Software Engineering students at the Un
 If you would like to download and run our project without any interest in development, simply use our provided script:
 
 ```sh
-wget https://github.com/ESE-Peasy/PosturePerfection/blob/3b6ea157db8185f020541f9b9f46c70a0a744588/PosturePerfection_install.sh
-./PosturePerfection_0.1.0_xxx
+wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PosturePerfection_install.sh
+sh PosturePerfection_0.1.0_xxx
 ```
 
 This script will provide you with more information about usage.
