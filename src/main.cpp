@@ -55,17 +55,8 @@ void displayImage(cv::Mat originalImage,
   cv::imwrite("./testimg.jpg", originalImage);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 PostProcessing::ProcessedResults pipeline(std::string image) {
   cv::Mat loadedImage = cv::imread(image);
-=======
-=======
->>>>>>> 53bc364bfd343d55659579cb1578dc3d2c74685b
-int main(int argc, char *argv[]) {
-
-  cv::Mat loadedImage = cv::imread("./person.jpg");
->>>>>>> Combinded frontend and backend Make Files
 
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
   Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
@@ -93,12 +84,10 @@ int main(int argc, char *argv[]) {
   // Display image with detected points
   displayImage(loadedImage, processed_results);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   return processed_results;
 }
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
   printf("Initial Pose Points \n");
   PostProcessing::ProcessedResults ideal_results = pipeline("./person.jpg");
   printf("Current Pose Points \n");
@@ -122,16 +111,9 @@ int main(int argc, char const *argv[]) {
              e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
     }
   }
-=======
-=======
->>>>>>> 53bc364bfd343d55659579cb1578dc3d2c74685b
   QApplication a(argc, argv);
   MainWindow w;
   w.showMaximized();
-
   return a.exec();
-<<<<<<< HEAD
->>>>>>> Combinded frontend and backend Make Files
-=======
->>>>>>> 53bc364bfd343d55659579cb1578dc3d2c74685b
+
 }
