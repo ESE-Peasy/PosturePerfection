@@ -36,6 +36,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QtCore/QVariant>
+#include "../posture_estimator.h"
 
 QT_BEGIN_NAMESPACE
 namespace GUi {
@@ -68,11 +69,14 @@ class MainWindow : public QMainWindow {
    */
   MainWindow(QWidget *parent = 0);  // NOLINT (Purposely not using explicit)
   ~MainWindow();
+  int getData(PostureEstimating::PostureEstimator e);
 
  private:
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
+  QStandardItemModel *model = new QStandardItemModel();
+  //PostureEstimating::PostureEstimator currentPose;
 
  private slots:
   /**

@@ -25,6 +25,8 @@
 #include "pre_processor.h"
 #include <QApplication>
 #include "mainwindow.h"
+#include <iostream>
+
 
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
@@ -111,8 +113,12 @@ int main(int argc, char *argv[]) {
              e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
     }
   }
+  //printf("this is the value %f \n this is the value", current_results.body_parts[0].x);
+
   QApplication a(argc, argv);
   MainWindow w;
+  w.getData(e);
+  QCoreApplication::processEvents();
   w.showMaximized();
   return a.exec();
 

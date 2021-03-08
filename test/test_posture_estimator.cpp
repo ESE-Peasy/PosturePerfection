@@ -32,7 +32,7 @@ void helper_check_result(PostureEstimating::Pose p,
   for (int i = JointMin; i <= JointMax; i++) {
     BOOST_CHECK_EQUAL(p.joints[i]->joint, static_cast<Joint>(i));
     BOOST_CHECK_EQUAL(p.joints[i]->coord.status, r.body_parts[i].status);
-    BOOST_CHECK_EQUAL(p.joints[i]->coord.y, r.body_parts[i].x);
+    BOOST_CHECK_EQUAL(p.joints[i]->coord.x, r.body_parts[i].x);
     BOOST_CHECK_EQUAL(p.joints[i]->coord.y, r.body_parts[i].y);
     if (i > JointMin) {
       BOOST_CHECK_CLOSE(p.joints[i]->upper_angle, -3 * M_PI / 4, 0.00001);

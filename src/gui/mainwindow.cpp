@@ -20,6 +20,7 @@
  */
 #include "mainwindow.h"
 #include "../posture_estimator.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
@@ -59,16 +60,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   // Create dummy labels to allow for the cleaning of old widgets
   QLabel *updateLabel = new QLabel();
   QLabel *deleteLabel = new QLabel();
-
   // Create a placement liveFeed widget
+  /*
   QTextEdit *liveFeed = new QTextEdit;
   liveFeed->setPlainText(tr(
       "This widget will display a live feed of the user's posture position."));
+   */
+  
+  //model->setHeaderData(1, Qt::Horizontal, QObject::tr("Name"));
+  //model->setHeaderData(2, Qt::Horizontal, QObject::tr("City"));
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
   mainLayout->addWidget(groupBoxButtons, 1, 1);
-  mainLayout->addWidget(liveFeed, 1, 0);
   mainLayout->addWidget(deleteLabel, 3, 1);
   mainLayout->addWidget(updateLabel, 3, 0);
 
@@ -115,3 +119,28 @@ MainWindow::~MainWindow()
 }
 
 
+int MainWindow::getData(PostureEstimating::PostureEstimator e)
+{
+    printf("testing stirng HEAD %f \n This is the value of coord x", e.current_pose.joints[Head]->coord.x);
+
+    for (int i = JointMin; i <= JointMax; i++) {
+    if (true) {
+        printf("testing stirng %f \n This is the value of coord x", e.current_pose.joints[i]->coord.x);
+        printf("testing stirng %f \n This is the value of coord x", e.current_pose.joints[i]->joint);
+        printf("testing stirng %f \n This is the value of coord x", e.current_pose.joints[i]->coord.status);
+        }
+    }
+    QTableView *view = new QTableView;
+    model = new QStandardItemModel(5,4);
+    view->setModel(model);
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Position"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("X coordinate"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("X coordinate"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Trust Worthy"));
+
+
+    mainLayout->addWidget(view, 1, 0);
+
+
+    return 0;
+}

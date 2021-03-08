@@ -67,3 +67,6 @@ PosturePerfection
 src/gui/postureperfection_gui_autogen
 src/gui/GUI_autogen
 src/gui/gui_autogen
+src/gui/gui
+src/gui/postureperfection_gui_autogen
+
