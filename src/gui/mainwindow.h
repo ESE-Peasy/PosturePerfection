@@ -71,6 +71,12 @@ class MainWindow : public QMainWindow {
    */
   MainWindow(QWidget *parent = 0);  // NOLINT (Purposely not using explicit)
   ~MainWindow();
+
+  /**
+   * @brief Extract data from the posture estimator.
+   *
+   * @param PostureEstimator object.
+   */
   int getData(PostureEstimating::PostureEstimator e);
 
  private:
@@ -78,7 +84,6 @@ class MainWindow : public QMainWindow {
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
-  // PostureEstimating::PostureEstimator currentPose;
 
  private slots:
   /**
