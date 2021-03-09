@@ -16,21 +16,21 @@
  *
  */
 
+#include <stdio.h>
 #include <time.h>
 
+#include <chrono>
 #include <deque>
 #include <future>
-#include <utility>
-
-#include <opencv2/core.hpp>
-#include <opencv2/videoio.hpp>
 #include <iostream>
-#include <stdio.h>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/videoio.hpp>
+#include <utility>
 
 #include "iir.h"
 #include "inference_core.h"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
 #include "post_processor.h"
 #include "posture_estimator.h"
 #include "pre_processor.h"
@@ -71,61 +71,8 @@ bool displayImage(cv::Mat originalImage,
   }
 }
 
-clock_t pipeline_threaded(std::string image) {
-  // Set up pipeline
-  PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
-  Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
-                                MODEL_INPUT_X, MODEL_INPUT_Y);
-  // Empty settings to disable IIR filtering
-  IIR::SmoothingSettings smoothing_settings =
-      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
-  PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
-
-  std::deque<std::future<PostProcessing::ProcessedResults>> output_futures;
-
-  clock_t t_start = clock();
-
-  // Read input in loop
-  for (int i = 0; i < 50; i++) {
-    // Get input image
-    cv::Mat loadedImage = cv::imread(image);
-    std::promise<cv::Mat> loadedImage_promise;
-    auto loadedImage_future = loadedImage_promise.get_future();
-    loadedImage_promise.set_value(loadedImage);
-
-    std::future<PreProcessing::PreProcessedImage> preprocessed_image_future =
-        std::async(std::launch::async, &PreProcessing::PreProcessor::run_async,
-                   &preprocessor, std::move(loadedImage_future));
-
-    std::future<Inference::InferenceResults> results_future =
-        std::async(std::launch::async, &Inference::InferenceCore::run_async,
-                   &core, std::move(preprocessed_image_future));
-
-    std::future<PostProcessing::ProcessedResults> processed_results_future =
-        std::async(std::launch::async,
-                   &PostProcessing::PostProcessor::run_async, &post_processor,
-                   std::move(results_future));
-
-    // auto processed_results = processed_results_future.get();
-    // output_futures.push_back(std::move(processed_results_future));
-    // processed_results_future.get();
-
-    // if (output_futures.size() > 10) {
-    //   output_futures.pop_front();
-    // }
-  }
-  // for (auto& future : output_futures) {
-  //   future.get();
-  // }
-  auto time = clock() - t_start;
-  return time;
-}
-
 void generate_input_frames_fn(std::string image,
                               std::deque<cv::Mat>* input_frames) {
-  // for (int i = 0; i < 500; i++) {
-  //   input_frames->push_back(cv::imread(image));
-  // }
   cv::VideoCapture cap(0);
   if (!cap.isOpened()) {
     printf("Can't access camera\n");
@@ -139,6 +86,7 @@ void generate_input_frames_fn(std::string image,
       return;
     }
     input_frames->push_back(frame);
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
 
@@ -243,19 +191,6 @@ void pipeline_threaded2(std::string image) {
     processed_results.pop_front();
   }
 
-  // while (processed_results.size() < 500) {
-  //   if (processed_results.empty()) {
-  //     continue;
-  //   }
-
-  //   for (auto body_part : processed_results.back().body_parts) {
-  //     printf("%f, %f: %s\n", body_part.x, body_part.y,
-  //            (body_part.status == PostProcessing::Trustworthy)
-  //                ? "Trustworthy"
-  //                : "Untrustworthy");
-  //   }
-  // };
-
   run_flag = false;
   generate_input_frames.join();
   generate_preprocessed_images.join();
@@ -289,57 +224,7 @@ void pipeline(std::string image) {
 }
 
 int main(int argc, char const* argv[]) {
-  // printf("Initial Pose Points \n");
-
-  // Run each twice in case timing differs due to caching
-  // auto tx = clock();
-  // pipeline("./person.jpg");
-  // auto t1 = clock() - tx;
-
-  // tx = clock();
-  // pipeline("./person.jpg");
-  // pipeline("./person.jpg");
-  // pipeline("./person.jpg");
-  // auto t2 = clock() - tx;
-
-  // tx = clock();
-  // auto t3 = clock() - tx;
-
-  // tx = clock();
   printf("start\n");
+  // pipeline("./person.jpg");
   pipeline_threaded2("./person.jpg");
-  // printf("done 1\n");
-  // pipeline_threaded2("./person.jpg");
-  // printf("done 2\n");
-  // pipeline_threaded2("./person.jpg");
-  // printf("done 3\n");
-  // auto t4 = clock() - tx;
-
-  // printf("Single-threaded approach: t1=%.2fs; t2=%.2fs\n",
-  //        t1 / (float)CLOCKS_PER_SEC, t2 / (float)CLOCKS_PER_SEC);
-  // printf("Multi-threaded approach: t3=%.2fs; t4=%.2fs\n",
-  //        t3 / (float)CLOCKS_PER_SEC, t4 / (float)CLOCKS_PER_SEC);
-
-  // printf("Current Pose Points \n");
-  // pipeline("./person2.jpeg");
-
-  // PostureEstimating::PostureEstimator e;
-  // e.update_ideal_pose(ideal_results);
-  // e.pose_change_threshold = 0;
-  // bool posture = e.updateCurrentPoseAndCheckPosture(current_results);
-
-  // // printf("User's posture is %s\n", (posture == true) ? "good" : "bad");
-
-  // for (int i = JointMin; i <= JointMax; i++) {
-  //   if (e.pose_changes.joints[i]->upper_angle != 0) {
-  //     printf("Please move your %s -> %s by %f radians or %f degrees\n",
-  //            PostureEstimating::stringJoint(e.pose_changes.joints[i -
-  //            1]->joint)
-  //                .c_str(),
-  //            PostureEstimating::stringJoint(e.pose_changes.joints[i]->joint)
-  //                .c_str(),
-  //            e.pose_changes.joints[i]->lower_angle,
-  //            e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
-  //   }
-  // }
 }
