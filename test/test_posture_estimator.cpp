@@ -20,9 +20,9 @@ PostureEstimating::Pose helper_create_pose() {
 PostProcessing::ProcessedResults helper_create_result() {
   PostProcessing::ProcessedResults r;
   for (int i = JointMin; i <= JointMax; i++) {
-    r.body_parts[i] =
-        PostProcessing::Coordinate{static_cast<float>(i), static_cast<float>(i),
-                                   PostProcessing::Trustworthy};
+    r.body_parts[i] = PostProcessing::Coordinate{static_cast<float>(i * 1),
+                                                 static_cast<float>(i * -1),
+                                                 PostProcessing::Trustworthy};
   }
   return r;
 }
@@ -32,13 +32,13 @@ void helper_check_result(PostureEstimating::Pose p,
   for (int i = JointMin; i <= JointMax; i++) {
     BOOST_CHECK_EQUAL(p.joints[i]->joint, static_cast<Joint>(i));
     BOOST_CHECK_EQUAL(p.joints[i]->coord.status, r.body_parts[i].status);
-    BOOST_CHECK_EQUAL(p.joints[i]->coord.y, r.body_parts[i].x);
+    BOOST_CHECK_EQUAL(p.joints[i]->coord.x, r.body_parts[i].x);
     BOOST_CHECK_EQUAL(p.joints[i]->coord.y, r.body_parts[i].y);
     if (i > JointMin) {
-      BOOST_CHECK_CLOSE(p.joints[i]->upper_angle, -3 * M_PI / 4, 0.00001);
+      BOOST_CHECK_CLOSE(p.joints[i]->upper_angle, -M_PI / 4, 0.00001);
     }
     if (i < JointMax) {
-      BOOST_CHECK_CLOSE(p.joints[i]->lower_angle, M_PI / 4, 0.00001);
+      BOOST_CHECK_CLOSE(p.joints[i]->lower_angle, 3 * M_PI / 4, 0.00001);
     }
   }
 }

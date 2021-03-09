@@ -24,6 +24,8 @@
 
 #include <stdio.h>
 
+#include <string>
+
 #include "intermediate_structures.h"
 namespace PostureEstimating {
 
