@@ -57,6 +57,8 @@ class NotifyServer {
    */
   int client_fd;
 
+  char buffer[1024];
+
  public:
   /**
    * @brief Constructor for notify server
@@ -69,7 +71,7 @@ class NotifyServer {
   /**
    * @brief Sets the server to start listening
    */
-  int run();
+  void run();
 };
 }  // namespace Notify
 #endif  // SRC_NOTIFICATIONS_SERVER_H_
