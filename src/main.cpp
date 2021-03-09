@@ -38,6 +38,8 @@
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
 
+#define NUM_LOOPS 500
+
 bool run_flag = true;
 
 bool displayImage(cv::Mat originalImage,
@@ -71,41 +73,29 @@ bool displayImage(cv::Mat originalImage,
   }
 }
 
-void generate_input_frames_fn(std::string image,
-                              std::deque<cv::Mat>* input_frames) {
+void input_fn(std::string image,
+              std::deque<std::pair<cv::Mat, PreProcessing::PreProcessedImage>>*
+                  preprocessed_images,
+              PreProcessing::PreProcessor* preprocessor) {
   cv::VideoCapture cap(0);
   if (!cap.isOpened()) {
     printf("Can't access camera\n");
     return;
   }
-  cv::Mat frame;
+
   while (run_flag) {
+    cv::Mat frame;
     cap.read(frame);
     if (frame.empty()) {
       printf("Empty frame\n");
       return;
     }
-    input_frames->push_back(frame);
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
-  }
-}
-
-void preprocessed_images_fn(
-    std::deque<cv::Mat>* input_frames,
-    std::deque<std::pair<cv::Mat, PreProcessing::PreProcessedImage>>*
-        preprocessed_images,
-    PreProcessing::PreProcessor* preprocessor) {
-  while (run_flag) {
-    if (input_frames->empty()) {
-      continue;
-    }
-    auto input_frame = input_frames->front();
 
     preprocessed_images->push_back(
         std::pair<cv::Mat, PreProcessing::PreProcessedImage>(
-            input_frame, preprocessor->run(input_frame)));
+            frame, preprocessor->run(frame)));
 
-    input_frames->pop_front();
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
 
@@ -164,13 +154,7 @@ void pipeline_threaded2(std::string image) {
   std::deque<std::pair<cv::Mat, PostProcessing::ProcessedResults>>
       processed_results;
 
-  // Read input in loop
-  std::thread generate_input_frames(&generate_input_frames_fn, image,
-                                    &input_frames);
-
-  std::thread generate_preprocessed_images(&preprocessed_images_fn,
-                                           &input_frames, &preprocessed_images,
-                                           &preprocessor);
+  std::thread input(&input_fn, image, &preprocessed_images, &preprocessor);
 
   std::thread process_frames(&process_frames_fn, &preprocessed_images,
                              &core_results, &core);
@@ -178,6 +162,7 @@ void pipeline_threaded2(std::string image) {
   std::thread post_process(&post_processing_fn, &core_results,
                            &processed_results, &post_processor);
 
+  int i = 0;
   bool flag = true;
   while (flag) {
     if (processed_results.empty()) {
@@ -189,11 +174,12 @@ void pipeline_threaded2(std::string image) {
     flag = displayImage(next_frame.first, next_frame.second);
 
     processed_results.pop_front();
+    // i++;
+    // if (i >= NUM_LOOPS) break;
   }
 
   run_flag = false;
-  generate_input_frames.join();
-  generate_preprocessed_images.join();
+  input.join();
   process_frames.join();
   post_process.join();
 }
@@ -208,18 +194,32 @@ void pipeline(std::string image) {
       IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
   PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
 
+  cv::VideoCapture cap(0);
+  if (!cap.isOpened()) {
+    printf("Can't access camera\n");
+    return;
+  }
+
   // Read input in loop
-  for (int i = 0; i < 500; i++) {
-    // Get input image
-    cv::Mat loadedImage = cv::imread(image);
+  for (int i = 0; i < NUM_LOOPS; i++) {
+    cv::Mat frame;
+    cap.read(frame);
+    if (frame.empty()) {
+      printf("Empty frame\n");
+      return;
+    }
+
+    auto now = std::chrono::system_clock::now();
 
     PreProcessing::PreProcessedImage preprocessed_image =
-        preprocessor.run(loadedImage);
+        preprocessor.run(frame);
 
     Inference::InferenceResults results = core.run(preprocessed_image);
 
     PostProcessing::ProcessedResults processed_results =
         post_processor.run(results);
+
+    std::this_thread::sleep_until(now + std::chrono::milliseconds(200));
   }
 }
 
