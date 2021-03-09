@@ -23,6 +23,7 @@
 #ifndef SRC_POST_PROCESSOR_H_
 #define SRC_POST_PROCESSOR_H_
 
+#include <future>
 #include <vector>
 
 #include "iir.h"
@@ -67,6 +68,8 @@ class PostProcessor {
    * @return ProcessedResults
    */
   ProcessedResults run(Inference::InferenceResults inference_core_output);
+  ProcessedResults run_async(
+      std::future<Inference::InferenceResults> inference_core_output_future);
 
   /**
    * @brief Set the confidence threshold

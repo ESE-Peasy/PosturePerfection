@@ -24,6 +24,7 @@
 #include <stderr_reporter.h>
 #include <stdio.h>
 
+#include <future>
 #include <memory>
 
 #include "intermediate_structures.h"
@@ -120,5 +121,10 @@ InferenceResults InferenceCore::run(
   }
 
   return results_out;
+}
+
+InferenceResults InferenceCore::run_async(
+    std::future<PreProcessing::PreProcessedImage> preprocessed_image_future) {
+  return this->run(preprocessed_image_future.get());
 }
 }  // namespace Inference
