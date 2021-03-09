@@ -24,6 +24,7 @@
 #define SRC_INTERMEDIATE_STRUCTURES_H_
 
 #include <array>
+#include <string>
 
 /**
  * @brief Defines the order of body parts in the `body_parts` arrays

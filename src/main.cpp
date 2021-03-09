@@ -16,17 +16,17 @@
  *
  */
 
+#include <QApplication>
+#include <iostream>
+
 #include "iir.h"
 #include "inference_core.h"
+#include "mainwindow.h"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "post_processor.h"
 #include "posture_estimator.h"
 #include "pre_processor.h"
-#include <QApplication>
-#include "mainwindow.h"
-#include <iostream>
-
 
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
@@ -113,7 +113,8 @@ int main(int argc, char *argv[]) {
              e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
     }
   }
-  //printf("this is the value %f \n this is the value", current_results.body_parts[0].x);
+  // printf("this is the value %f \n this is the value",
+  // current_results.body_parts[0].x);
 
   QApplication a(argc, argv);
   MainWindow w;
@@ -121,5 +122,4 @@ int main(int argc, char *argv[]) {
   QCoreApplication::processEvents();
   w.showMaximized();
   return a.exec();
-
 }

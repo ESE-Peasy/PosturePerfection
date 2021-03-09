@@ -19,10 +19,11 @@
  *
  */
 #include "mainwindow.h"
+#include <iostream>
+#include <string>
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
