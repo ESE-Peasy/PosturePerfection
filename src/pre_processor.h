@@ -25,7 +25,6 @@
 
 #include <stdint.h>
 
-#include <future>
 #include <memory>
 
 #include "intermediate_structures.h"
@@ -76,7 +75,6 @@ class PreProcessor {
    * @return PreprocessedImage after resizing and normalising
    */
   PreProcessedImage run(cv::Mat cv_image);
-  PreProcessedImage run_async(std::future<cv::Mat> cv_image_future);
 };
 
 }  // namespace PreProcessing

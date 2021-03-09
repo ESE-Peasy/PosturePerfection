@@ -25,7 +25,6 @@
 #include <interpreter_builder.h>
 #include <stdint.h>
 
-#include <future>
 #include <memory>
 
 #include "intermediate_structures.h"
@@ -76,8 +75,6 @@ class InferenceCore {
    * @return InferenceResults
    */
   InferenceResults run(PreProcessing::PreProcessedImage preprocessed_image);
-  InferenceResults run_async(
-      std::future<PreProcessing::PreProcessedImage> preprocessed_image);
 };
 }  // namespace Inference
 

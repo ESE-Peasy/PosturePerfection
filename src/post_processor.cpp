@@ -18,8 +18,6 @@
 
 #include "post_processor.h"
 
-#include <future>
-
 #include "iir.h"
 #include "intermediate_structures.h"
 
@@ -139,11 +137,6 @@ ProcessedResults PostProcessor::run(
   results.body_parts.at(Foot) = mean_ankle;
 
   return results;
-}
-
-ProcessedResults PostProcessor::run_async(
-    std::future<Inference::InferenceResults> inference_core_output_future) {
-  return this->run(inference_core_output_future.get());
 }
 
 bool PostProcessor::set_confidence_threshold(float confidence_threshold) {

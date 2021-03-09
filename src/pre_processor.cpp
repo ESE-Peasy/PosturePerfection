@@ -17,7 +17,6 @@
  */
 #include "pre_processor.h"
 
-#include <future>
 #include <memory>
 
 #include "intermediate_structures.h"
@@ -52,10 +51,6 @@ PreProcessedImage PreProcessor::run(cv::Mat cv_image) {
   normalise(resized_image, normalised_image);
 
   return PreProcessedImage{normalised_image};
-}
-PreProcessedImage PreProcessor::run_async(
-    std::future<cv::Mat> cv_image_future) {
-  return this->run(cv_image_future.get());
 }
 
 }  // namespace PreProcessing
