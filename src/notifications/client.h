@@ -1,5 +1,5 @@
 /**
- * @file server.h
+ * @file client.h
  * @brief Local server for receiving notifications from the Raspberry Pi. Only
  * runs on Linux
  *
@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef SRC_NOTIFICATIONS_SERVER_H_
-#define SRC_NOTIFICATIONS_SERVER_H_
+#ifndef SRC_NOTIFICATIONS_CLIENT_H_
+#define SRC_NOTIFICATIONS_CLIENT_H_
 
 #include <stdio.h>
 
@@ -29,50 +29,34 @@
 
 namespace Notify {
 /**
- * @brief A server which receives notifications about Posture from the Raspberry
- * Pi and updates the user accordingly
+ * @brief A client which sends notifications about Posture to a server
  *
  */
-class NotifyServer {
+class NotifyClient {
  private:
   /**
-   * @brief Sends a posture message using notify-send
-   */
-  void sendDesktopNotification();
-  /**
-   * @brief Checks for incoming message
-   */
-  bool checkIncoming();
-
-  /**
-   * @brief Returns string of message from client to server
-   */
-  std::string getMessage();
-
-  /**
-   * @brief General purpose socket for creating other sockets
-   */
-  int server_fd;
-
-  /**
-   * @brief Specific socket to connect to Pi and listen for incoming
-   * messages
+   * @brief socket client is bound to
    */
   int client_fd;
 
  public:
   /**
-   * @brief Constructor for notify server
+   * @brief Constructor for notify client
    *
    * @param port port number to listen on (default is 8080)
+   * @param string hostname (default is raspberrypi.local)
+   * @param ip address of raspberry pi (if set to any value,
+   * hostname string is ignored)
    */
-  NotifyServer(int port = 8080, );
-  ~NotifyServer();
+  NotifyClient(std::string hostname = "raspberrypi.local", int port = 8080,
+               char* ip = nullptr);
+  ~NotifyClient();
 
   /**
-   * @brief Sets the server to start listening
+   * @brief Sends message from client to server
+   * @param message the message to be sent
    */
-  int run();
+  void sendMessage(std::string message);
 };
 }  // namespace Notify
-#endif  // SRC_NOTIFICATIONS_SERVER_H_
+#endif  // SRC_NOTIFICATIONS_CLIENT_H_
