@@ -22,10 +22,7 @@
 
 #ifndef SRC_NOTIFICATIONS_CLIENT_H_
 #define SRC_NOTIFICATIONS_CLIENT_H_
-
-#include <stdio.h>
-
-#include <string>
+#include "notify.h"
 
 namespace Notify {
 /**

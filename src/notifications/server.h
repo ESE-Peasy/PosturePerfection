@@ -23,10 +23,7 @@
 #ifndef SRC_NOTIFICATIONS_SERVER_H_
 #define SRC_NOTIFICATIONS_SERVER_H_
 
-#include <stdio.h>
-
-#include <string>
-
+#include "notify.h"
 namespace Notify {
 /**
  * @brief A server which receives notifications about Posture from the Raspberry
@@ -66,7 +63,7 @@ class NotifyServer {
    *
    * @param port port number to listen on (default is 8080)
    */
-  NotifyServer(int port = 8080, );
+  NotifyServer(int port = 8080);
   ~NotifyServer();
 
   /**
