@@ -37,6 +37,7 @@
 #include <QWidget>
 #include <QtCore/QVariant>
 #include "../posture_estimator.h"
+#include "../intermediate_structures.h"
 
 QT_BEGIN_NAMESPACE
 namespace GUi {

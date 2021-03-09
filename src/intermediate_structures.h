@@ -98,6 +98,12 @@ namespace PostProcessing {
 enum Status { Untrustworthy, Trustworthy };
 
 /**
+ * @brief Converts the Untrustworthy/Trustworthy status to a string.
+ *
+ */
+std::string stringTrustworthy(Status s);
+
+/**
  * @brief Indicates position and trustworthiness of a body part node
  *
  * This type of `PostProcessing::Coordinate` is to be used after post processing
