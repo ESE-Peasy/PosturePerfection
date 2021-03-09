@@ -19,6 +19,9 @@
  *
  */
 #include "mainwindow.h"
+#include "../intermediate_structures.h"
+#include "../posture_estimator.h"
+
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
@@ -103,46 +106,46 @@ void MainWindow::showDateTime() {
   mainLayout->itemAt(3)->widget()->deleteLater();
 }
 
-MainWindow::~MainWindow()
-{
-    delete mainLayout;
+MainWindow::~MainWindow() { delete mainLayout; }
+
+int MainWindow::getData(PostureEstimating::PostureEstimator e) {
+  // Create table with appropriate headers
+  QTableView *view = new QTableView;
+  model = new QStandardItemModel(0, 4);
+  view->setModel(model);
+  model->setHeaderData(0, Qt::Horizontal, QObject::tr("Position"));
+  model->setHeaderData(1, Qt::Horizontal, QObject::tr("X coordinate"));
+  model->setHeaderData(2, Qt::Horizontal, QObject::tr("Y coordinate"));
+  model->setHeaderData(3, Qt::Horizontal, QObject::tr("Trustworthy"));
+
+  // Populate the table
+  for (int i = JointMin; i <= JointMax; i++) {
+    QList<QStandardItem *> newRow;
+    QStandardItem *itm1 = new QStandardItem(
+        PostureEstimating::stringJoint(e.current_pose.joints[i]->joint)
+            .c_str());
+    QStandardItem *itm2 =
+        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.x));
+    QStandardItem *itm3 =
+        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.y));
+    QStandardItem *itm4 =
+        new QStandardItem(PostProcessing::stringTrustworthy(
+                              e.current_pose.joints[i]->coord.status)
+                              .c_str());
+
+    itm1->setForeground(QColor(Qt::white));
+    itm2->setForeground(QColor(Qt::white));
+    itm3->setForeground(QColor(Qt::white));
+    itm4->setForeground(QColor(Qt::white));
+
+    newRow.append(itm1);
+    newRow.append(itm2);
+    newRow.append(itm3);
+    newRow.append(itm4);
+    model->insertRow(i, newRow);
+  }
+
+  // Add the table to the GUI
+  mainLayout->addWidget(view, 1, 0);
+  return 0;
 }
-
-
-int MainWindow::getData(PostureEstimating::PostureEstimator e)
-{
-    //Create table with appropriate headers 
-    QTableView *view = new QTableView;
-    model = new QStandardItemModel(0,4);
-    view->setModel(model);
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Position"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("X coordinate"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Y coordinate"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Trustworthy"));
-    
-    //Populate the table
-    for (int i = JointMin; i <= JointMax; i++) {
-        QList<QStandardItem*> newRow;
-        QStandardItem* itm1 = new QStandardItem(PostureEstimating::stringJoint(e.current_pose.joints[i]->joint).c_str());
-        QStandardItem* itm2 = new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.x));
-        QStandardItem* itm3 = new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.y));
-        QStandardItem* itm4 = new QStandardItem(PostProcessing::stringTrustworthy(e.current_pose.joints[i]->coord.status).c_str());
-
-        itm1->setForeground(QColor(Qt::white));
-        itm2->setForeground(QColor(Qt::white));
-        itm3->setForeground(QColor(Qt::white));
-        itm4->setForeground(QColor(Qt::white));
-
-        newRow.append(itm1);
-        newRow.append(itm2);
-        newRow.append(itm3);
-        newRow.append(itm4);
-        model->insertRow(i, newRow);
-    }
-
-    //Add the table to the GUI
-    mainLayout->addWidget(view, 1, 0);
-    return 0;
-}
-
-

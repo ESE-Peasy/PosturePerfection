@@ -21,7 +21,7 @@
 
 
 #include "intermediate_structures.h"
-
+#include <string>
 
 std::string PostProcessing::stringTrustworthy(Status s) {
   switch (s) {
@@ -30,6 +30,6 @@ std::string PostProcessing::stringTrustworthy(Status s) {
     case Untrustworthy:
       return "No";
     default:
-      return "unknown";
+      return "Unknown";
   }
 }

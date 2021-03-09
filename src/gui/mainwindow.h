@@ -36,8 +36,9 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QtCore/QVariant>
-#include "../posture_estimator.h"
+
 #include "../intermediate_structures.h"
+#include "../posture_estimator.h"
 
 QT_BEGIN_NAMESPACE
 namespace GUi {
@@ -77,7 +78,7 @@ class MainWindow : public QMainWindow {
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
-  //PostureEstimating::PostureEstimator currentPose;
+  // PostureEstimating::PostureEstimator currentPose;
 
  private slots:
   /**
