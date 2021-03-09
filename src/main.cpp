@@ -19,17 +19,18 @@
 #include <stdio.h>
 #include <time.h>
 
-#include <chrono>
+#include <chrono>  // NOLINT [build/c++11]
 #include <deque>
 #include <iostream>
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/videoio.hpp>
+#include <thread>  //NOLINT [build/c++11]
 #include <utility>
 
 #include "iir.h"
 #include "inference_core.h"
+#include "opencv2/core.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
 #include "post_processor.h"
 #include "posture_estimator.h"
 #include "pre_processor.h"
