@@ -127,7 +127,7 @@ void input_fn2(std::string image, PreprocessedDeque* preprocessed_images,
         std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage>{
             id++, frame, preprocessor->run(frame)});
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(145));
+    std::this_thread::sleep_for(std::chrono::milliseconds(105));
   }
 }
 
@@ -161,17 +161,22 @@ class CoreResultsDeque {
   }
 };
 
-void process_frames_fn2(const char* name,
-                        PreprocessedDeque* preprocessed_images,
+void process_frames_fn2(int name, PreprocessedDeque* preprocessed_images,
                         CoreResultsDeque* core_results,
-                        Inference::InferenceCore* core) {
+                        Inference::InferenceCore core) {
   while (run_flag) {
+    // printf("%d: about to start\n", name);
     auto next_frame = preprocessed_images->pop_front();
+    // printf("%d: got next frame\n", name);
+
+    // printf("%d: running core\n", name);
+    auto core_result = core.run(std::get<2>(next_frame));
+    // printf("%d: core returned\n", name);
 
     core_results->push_back(
         std::tuple<uint8_t, cv::Mat, Inference::InferenceResults>{
-            std::get<0>(next_frame), std::get<1>(next_frame),
-            core->run(std::get<2>(next_frame))});
+            std::get<0>(next_frame), std::get<1>(next_frame), core_result});
+    // printf("%d: done\n", name);
   }
 }
 
@@ -184,6 +189,7 @@ void post_processing_fn2(
     if (core_results->empty()) {
       continue;
     }
+    // printf("post processing\n");
     auto next_frame = core_results->front();
 
     processed_results->push_back(
@@ -197,33 +203,33 @@ void post_processing_fn2(
 void pipeline_threaded2(std::string image) {
   run_flag = true;
   // Set up pipeline
+  std::vector<std::thread> threads;
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
-  Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
-                                MODEL_INPUT_X, MODEL_INPUT_Y);
-  Inference::InferenceCore core2("models/EfficientPoseRT_LITE.tflite",
-                                 MODEL_INPUT_X, MODEL_INPUT_Y);
-  // Empty settings to disable IIR filtering
   IIR::SmoothingSettings smoothing_settings =
       IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
   PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
 
   // Queues
-  // std::deque<cv::Mat> input_frames;
   PreprocessedDeque preprocessed_images;
   CoreResultsDeque core_results;
   std::deque<std::tuple<uint8_t, cv::Mat, PostProcessing::ProcessedResults>>
       processed_results;
 
   std::thread input(&input_fn2, image, &preprocessed_images, &preprocessor);
+  threads.push_back(std::move(input));
 
-  std::thread process_frames(&process_frames_fn2, "t1", &preprocessed_images,
-                             &core_results, &core);
+  for (int i = 0; i < 4; i++) {
+    Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
+                                  MODEL_INPUT_X, MODEL_INPUT_Y);
 
-  std::thread process_frames2(&process_frames_fn2, "t2", &preprocessed_images,
-                              &core_results, &core2);
+    std::thread process_frames(&process_frames_fn2, i, &preprocessed_images,
+                               &core_results, std::move(core));
+    threads.push_back(std::move(process_frames));
+  }
 
   std::thread post_process(&post_processing_fn2, &core_results,
                            &processed_results, &post_processor);
+  threads.push_back(std::move(post_process));
 
   int i = 0;
   bool flag = true;
@@ -241,11 +247,12 @@ void pipeline_threaded2(std::string image) {
     if (i >= NUM_LOOPS) break;
   }
 
+  printf("DONE\n");
+
   run_flag = false;
-  input.join();
-  process_frames.join();
-  process_frames2.join();
-  post_process.join();
+  for (auto& t : threads) {
+    t.join();
+  }
 }
 
 // ============================================================================
