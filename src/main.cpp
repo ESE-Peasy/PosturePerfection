@@ -22,6 +22,7 @@
 #include <chrono>  // NOLINT [build/c++11]
 #include <deque>
 #include <iostream>
+#include <mutex>
 #include <thread>  //NOLINT [build/c++11]
 #include <utility>
 
@@ -72,6 +73,193 @@ bool displayImage(cv::Mat originalImage,
     return true;
   }
 }
+
+// ============================================================================
+
+class PreprocessedDeque {
+ private:
+  std::mutex lock;
+  std::deque<std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage>>
+      queue;
+
+ public:
+  void push_back(
+      std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage> frame) {
+    this->queue.push_back(frame);
+  }
+
+  // TODO use ID of next image to determine whether thread gets next image
+
+  std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage> pop_front(
+      void) {
+    std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage> front;
+    while (run_flag) {
+      lock.lock();
+      if (!this->queue.empty()) {
+        front = this->queue.front();
+        this->queue.pop_front();
+        lock.unlock();
+        break;
+      }
+      lock.unlock();
+    }
+    return front;
+  }
+
+  // bool empty(void) { return this->queue.empty(); }
+
+  // std::tuple<uint8_t, cv::Mat, Inference::InferenceResults> front(void) {
+  //   return this->queue.front();
+  // }
+};
+
+void input_fn2(std::string image, PreprocessedDeque* preprocessed_images,
+               PreProcessing::PreProcessor* preprocessor) {
+  cv::VideoCapture cap(0);
+  if (!cap.isOpened()) {
+    printf("Can't access camera\n");
+    return;
+  }
+
+  uint8_t id = 0;
+
+  while (run_flag) {
+    cv::Mat frame;
+    cap.read(frame);
+    if (frame.empty()) {
+      printf("Empty frame\n");
+      return;
+    }
+
+    preprocessed_images->push_back(
+        std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage>{
+            id++, frame, preprocessor->run(frame)});
+
+    // std::this_thread::sleep_for(std::chrono::milliseconds(200));
+  }
+}
+
+class CoreResultsDeque {
+ private:
+  std::mutex lock;
+  std::deque<std::tuple<uint8_t, cv::Mat, Inference::InferenceResults>> queue;
+  uint8_t id = -1;
+
+ public:
+  void push_back(
+      std::tuple<uint8_t, cv::Mat, Inference::InferenceResults> next_frame) {
+    while (run_flag) {
+      this->lock.lock();
+      if ((uint8_t)(this->id + 1) == std::get<0>(next_frame)) {
+        this->queue.push_back(next_frame);
+        this->id++;
+        this->lock.unlock();
+        break;
+      }
+      this->lock.unlock();
+    }
+  }
+
+  void pop_front(void) { this->queue.pop_front(); }
+
+  bool empty(void) { return this->queue.empty(); }
+
+  std::tuple<uint8_t, cv::Mat, Inference::InferenceResults> front(void) {
+    return this->queue.front();
+  }
+};
+
+void process_frames_fn2(const char* name,
+                        PreprocessedDeque* preprocessed_images,
+                        CoreResultsDeque* core_results,
+                        Inference::InferenceCore* core) {
+  while (run_flag) {
+    printf("%s: getting next frame\n", name);
+    auto next_frame = preprocessed_images->pop_front();
+
+    core_results->push_back(
+        std::tuple<uint8_t, cv::Mat, Inference::InferenceResults>{
+            std::get<0>(next_frame), std::get<1>(next_frame),
+            core->run(std::get<2>(next_frame))});
+    printf("%s: processed and enqueued frame %d\n", name, std::get<0>(next_frame));
+  }
+}
+
+void post_processing_fn2(
+    CoreResultsDeque* core_results,
+    std::deque<std::tuple<uint8_t, cv::Mat, PostProcessing::ProcessedResults>>*
+        processed_results,
+    PostProcessing::PostProcessor* post_processor) {
+  while (run_flag) {
+    if (core_results->empty()) {
+      continue;
+    }
+    auto next_frame = core_results->front();
+
+    processed_results->push_back(
+        std::tuple<uint8_t, cv::Mat, PostProcessing::ProcessedResults>{
+            std::get<0>(next_frame), std::get<1>(next_frame),
+            post_processor->run(std::get<2>(next_frame))});
+    printf("about to pop after frame %d\n", std::get<0>(next_frame));
+    core_results->pop_front();
+  }
+}
+
+void pipeline_threaded2(std::string image) {
+  run_flag = true;
+  // Set up pipeline
+  PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
+  Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
+                                MODEL_INPUT_X, MODEL_INPUT_Y);
+  Inference::InferenceCore core2("models/EfficientPoseRT_LITE.tflite",
+                                 MODEL_INPUT_X, MODEL_INPUT_Y);
+  // Empty settings to disable IIR filtering
+  IIR::SmoothingSettings smoothing_settings =
+      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
+  PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
+
+  // Queues
+  // std::deque<cv::Mat> input_frames;
+  PreprocessedDeque preprocessed_images;
+  CoreResultsDeque core_results;
+  std::deque<std::tuple<uint8_t, cv::Mat, PostProcessing::ProcessedResults>>
+      processed_results;
+
+  std::thread input(&input_fn2, image, &preprocessed_images, &preprocessor);
+
+  std::thread process_frames(&process_frames_fn2, "t1", &preprocessed_images,
+                             &core_results, &core);
+
+  std::thread process_frames2(&process_frames_fn2, "t2", &preprocessed_images,
+                              &core_results, &core2);
+
+  std::thread post_process(&post_processing_fn2, &core_results,
+                           &processed_results, &post_processor);
+
+  int i = 0;
+  bool flag = true;
+  while (flag) {
+    if (processed_results.empty()) {
+      continue;
+    }
+
+    auto next_frame = processed_results.front();
+
+    // flag = displayImage(std::get<1>(next_frame), std::get<2>(next_frame));
+
+    processed_results.pop_front();
+    i++;
+    if (i >= NUM_LOOPS) break;
+  }
+
+  run_flag = false;
+  input.join();
+  process_frames.join();
+  process_frames2.join();
+  post_process.join();
+}
+
+// ============================================================================
 
 void input_fn(std::string image,
               std::deque<std::pair<cv::Mat, PreProcessing::PreProcessedImage>>*
@@ -135,7 +323,7 @@ void post_processing_fn(
   }
 }
 
-void pipeline_threaded2(std::string image) {
+void pipeline_threaded(std::string image) {
   run_flag = true;
   // Set up pipeline
   PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
@@ -147,7 +335,7 @@ void pipeline_threaded2(std::string image) {
   PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
 
   // Queues
-  std::deque<cv::Mat> input_frames;
+  // std::deque<cv::Mat> input_frames;
   std::deque<std::pair<cv::Mat, PreProcessing::PreProcessedImage>>
       preprocessed_images;
   std::deque<std::pair<cv::Mat, Inference::InferenceResults>> core_results;
@@ -171,11 +359,11 @@ void pipeline_threaded2(std::string image) {
 
     auto next_frame = processed_results.front();
 
-    flag = displayImage(next_frame.first, next_frame.second);
+    // flag = displayImage(next_frame.first, next_frame.second);
 
     processed_results.pop_front();
-    // i++;
-    // if (i >= NUM_LOOPS) break;
+    i++;
+    if (i >= NUM_LOOPS) break;
   }
 
   run_flag = false;
@@ -183,6 +371,8 @@ void pipeline_threaded2(std::string image) {
   process_frames.join();
   post_process.join();
 }
+
+// ============================================================================
 
 void pipeline(std::string image) {
   // Set up pipeline
@@ -226,5 +416,6 @@ void pipeline(std::string image) {
 int main(int argc, char const* argv[]) {
   printf("start\n");
   // pipeline("./person.jpg");
+  // pipeline_threaded("./person.jpg");
   pipeline_threaded2("./person.jpg");
 }
