@@ -33,39 +33,24 @@ namespace Notify {
 class NotifyServer {
  private:
   /**
-   * @brief Sends a posture message using notify-send
-   */
-  void sendDesktopNotification();
-  /**
-   * @brief Checks for incoming message
-   */
-  bool checkIncoming();
-
-  /**
-   * @brief Returns string of message from client to server
-   */
-  std::string getMessage();
-
-  /**
    * @brief General purpose socket for creating other sockets
    */
   int server_fd;
 
   /**
-   * @brief Specific socket to connect to Pi and listen for incoming
-   * messages
+   * @brief Specific address details for bound socket
    */
-  int client_fd;
-
+  struct sockaddr_in address;
+  int addrlen;
   char buffer[1024];
 
  public:
   /**
    * @brief Constructor for notify server
    *
-   * @param port port number to listen on (default is 8080)
+   * @param port port number to listen on
    */
-  NotifyServer(int port = 8080);
+  NotifyServer(int port);
   ~NotifyServer();
 
   /**
