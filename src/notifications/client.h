@@ -36,6 +36,9 @@ class NotifyClient {
    */
   int client_fd;
 
+  struct sockaddr_in address;
+  char* server_ip;
+
  public:
   /**
    * @brief Constructor for notify client
@@ -45,15 +48,14 @@ class NotifyClient {
    * @param ip address of raspberry pi (if set to any value,
    * hostname string is ignored)
    */
-  NotifyClient(std::string hostname = "raspberrypi.local", int port = 8080,
-               char* ip = nullptr);
+  NotifyClient(char* ip, int port = 8080);
   ~NotifyClient();
 
   /**
    * @brief Sends message from client to server
-   * @param message the message to be sent
+   * @param msg the message to be sent
    */
-  void sendMessage(std::string message);
+  void sendMessage(std::string msg);
 };
 }  // namespace Notify
 #endif  // SRC_NOTIFICATIONS_CLIENT_H_

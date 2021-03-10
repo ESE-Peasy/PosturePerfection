@@ -50,7 +50,7 @@ class NotifyServer {
    *
    * @param port port number to listen on
    */
-  NotifyServer(int port);
+  NotifyServer(int port = 8080);
   ~NotifyServer();
 
   /**
