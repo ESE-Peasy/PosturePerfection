@@ -1,3 +1,4 @@
+
 #include <arpa/inet.h>
 #include <errno.h>
 #include <netinet/in.h>
@@ -6,6 +7,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <cstring>
 #include <iostream>
 #include <string>
 
@@ -27,9 +29,11 @@ int main(int argc, char *argv[]) {
 
   char buffer[1024];
   while (1) {
+    std::memset(buffer, 0, sizeof(buffer));
     int listening = listen(server_fd, 5);
     int pi_fd =
         accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen);
+
     int posture_value = read(pi_fd, buffer, 1024);
     std::string buff(buffer);
     std::string start("notify-send \"Posture Perfection\" \"");
@@ -40,9 +44,9 @@ int main(int argc, char *argv[]) {
     std::string out = start + buff + end;
     system(out.c_str());
     std::cout << buff;
-    // shutdown(pi_fd, SHUT_RDWR);
-    // close(pi_fd);
   }
+  // shutdown(pi_fd, SHUT_RDWR);
+  // close(pi_fd);
   shutdown(server_fd, SHUT_RDWR);
   close(server_fd);
   return 0;
