@@ -88,8 +88,6 @@ class PreprocessedDeque {
     this->queue.push_back(frame);
   }
 
-  // TODO use ID of next image to determine whether thread gets next image
-
   std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage> pop_front(
       void) {
     std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage> front;
@@ -105,12 +103,6 @@ class PreprocessedDeque {
     }
     return front;
   }
-
-  // bool empty(void) { return this->queue.empty(); }
-
-  // std::tuple<uint8_t, cv::Mat, Inference::InferenceResults> front(void) {
-  //   return this->queue.front();
-  // }
 };
 
 void input_fn2(std::string image, PreprocessedDeque* preprocessed_images,
@@ -135,7 +127,7 @@ void input_fn2(std::string image, PreprocessedDeque* preprocessed_images,
         std::tuple<uint8_t, cv::Mat, PreProcessing::PreProcessedImage>{
             id++, frame, preprocessor->run(frame)});
 
-    // std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(145));
   }
 }
 
@@ -174,14 +166,12 @@ void process_frames_fn2(const char* name,
                         CoreResultsDeque* core_results,
                         Inference::InferenceCore* core) {
   while (run_flag) {
-    printf("%s: getting next frame\n", name);
     auto next_frame = preprocessed_images->pop_front();
 
     core_results->push_back(
         std::tuple<uint8_t, cv::Mat, Inference::InferenceResults>{
             std::get<0>(next_frame), std::get<1>(next_frame),
             core->run(std::get<2>(next_frame))});
-    printf("%s: processed and enqueued frame %d\n", name, std::get<0>(next_frame));
   }
 }
 
@@ -200,7 +190,6 @@ void post_processing_fn2(
         std::tuple<uint8_t, cv::Mat, PostProcessing::ProcessedResults>{
             std::get<0>(next_frame), std::get<1>(next_frame),
             post_processor->run(std::get<2>(next_frame))});
-    printf("about to pop after frame %d\n", std::get<0>(next_frame));
     core_results->pop_front();
   }
 }
@@ -245,7 +234,7 @@ void pipeline_threaded2(std::string image) {
 
     auto next_frame = processed_results.front();
 
-    // flag = displayImage(std::get<1>(next_frame), std::get<2>(next_frame));
+    flag = displayImage(std::get<1>(next_frame), std::get<2>(next_frame));
 
     processed_results.pop_front();
     i++;
