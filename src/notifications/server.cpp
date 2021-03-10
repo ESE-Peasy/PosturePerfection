@@ -32,12 +32,16 @@ void NotifyServer::run() {
   int read_value = read(pi_fd, buffer, 1024);
   Notify::err_msg(read_value, "socket_reading");
   std::string buff(buffer);
+  char current_d[1000];
+  getcwd(current_d, sizeof(current_d));
+  std::string cwd(current_d);
   std::string start("notify-send \"Posture Perfection\" \"");
+  std::string middle("\" -u critical --icon ");
   std::string end(
-      "\" -u critical --icon "
-      "/$HOME/code/Uni/Posture/PosturePerfection/docs/images/"
+      "/docs/images/"
       "posture-logo-no-text.png");
-  std::string out = start + buff + end;
+  std::string out = start + buff + middle + cwd + end;
+  std::cout << out;
   system(out.c_str());
 }
 // shutdown(pi_fd, SHUT_RDWR);
