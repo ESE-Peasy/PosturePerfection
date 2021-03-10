@@ -19,11 +19,13 @@
  *
  */
 
-
 #include "intermediate_structures.h"
+
 #include <string>
 
-std::string PostProcessing::stringTrustworthy(Status s) {
+namespace PostProcessing {
+
+std::string stringStatus(Status s) {
   switch (s) {
     case Trustworthy:
       return "Yes";
@@ -33,3 +35,4 @@ std::string PostProcessing::stringTrustworthy(Status s) {
       return "Unknown";
   }
 }
+}  // namespace PostProcessing

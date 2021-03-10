@@ -130,7 +130,7 @@ int MainWindow::getData(PostureEstimating::PostureEstimator e) {
     QStandardItem *itm3 =
         new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.y));
     QStandardItem *itm4 =
-        new QStandardItem(PostProcessing::stringTrustworthy(
+        new QStandardItem(PostProcessing::stringStatus(
                               e.current_pose.joints[i]->coord.status)
                               .c_str());
 
