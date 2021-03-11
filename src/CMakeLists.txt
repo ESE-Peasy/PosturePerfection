@@ -4,12 +4,21 @@ project(PosturePerfection VERSION 0.1.0)
 
 set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -latomic")
 
+set(NTFYSRC
+    notifications/notify.cpp
+    notifications/client.cpp
+    notifications/server.cpp
+    )
+
 set(LIBSRC
   iir.cpp
   inference_core.cpp
   post_processor.cpp
   pre_processor.cpp
   posture_estimator.cpp)
+
+#add_subdirectory(notifications ENABLE_EXPORTS)
+#include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/notifications")
 
 # Set up OpenCV package
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../../opencv_build")
@@ -33,6 +42,7 @@ add_subdirectory(
 
   
 add_library(PosturePerfection_static STATIC ${LIBSRC})
+add_library(PosturePerfection_notify STATIC ${NTFYSRC})
 target_include_directories(PosturePerfection_static PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)

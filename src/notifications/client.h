@@ -22,6 +22,8 @@
 
 #ifndef SRC_NOTIFICATIONS_CLIENT_H_
 #define SRC_NOTIFICATIONS_CLIENT_H_
+#include <string>
+
 #include "notify.h"
 
 namespace Notify {
@@ -53,7 +55,7 @@ class NotifyClient {
    * @param port port number to listen on (default is 8080)
    * @param ip address of server to connect to
    */
-  NotifyClient(char* ip, int port = 8080);
+  explicit NotifyClient(char* ip, int port = 8080);
   ~NotifyClient();
 
   /**

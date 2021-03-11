@@ -26,6 +26,12 @@
 #include "notify.h"
 namespace Notify {
 /**
+ * @brief Exception for when user tries to run server in wrong directory
+ */
+struct IncorrectDirectory : public std::exception {
+  const char *what() const throw() { return "Not in Correct Directory"; }
+};
+/**
  * @brief A server which receives notifications about Posture from the Raspberry
  * Pi and updates the user accordingly
  *
@@ -44,18 +50,19 @@ class NotifyServer {
    * Length of address structure
    */
   int addrlen;
+
+ public:
   /**
    * Returned result from client message
    */
   char buffer[1024];
-
- public:
   /**
    * @brief Constructor for notify server
    *
    * @param port port number to listen on
+   * @param ignore boolean to ignore location where server is running
    */
-  NotifyServer(int port = 8080);
+  explicit NotifyServer(int port = 8080, bool ignore = false);
   ~NotifyServer();
 
   /**

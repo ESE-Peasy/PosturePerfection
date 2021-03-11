@@ -1,8 +1,41 @@
+/**
+ * @file server.cpp
+ * @brief Local server for receiving notifications from the Raspberry Pi. Only
+ * runs on Linux
+ *
+ * @copyright Copyright (C) 2021  Conor Begley
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
 #include "server.h"
+
+#include <exception>
+#include <string>
 
 namespace Notify {
 
-NotifyServer::NotifyServer(int port) {
+NotifyServer::NotifyServer(int port, bool ignore) {
+  if (!ignore) {
+    if (Notify::GetStringFromCommand("pwd | grep -o '[^/]*$'") !=
+        "PosturePerfection\n") {
+      std::cout
+          << "Please run this in the root PosturePerfection Directory and not "
+          << GetStringFromCommand("pwd");
+      throw IncorrectDirectory();
+    }
+  }
   std::cout << "The IP for this device is: \n"
             << Notify::GetStringFromCommand("hostname -I | grep -Eo '^[^ ]+'");
   this->server_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -26,14 +59,14 @@ NotifyServer::~NotifyServer() {
 }
 
 void NotifyServer::run() {
-  std::memset(buffer, 0, sizeof(buffer));
+  std::memset(this->buffer, 0, sizeof(this->buffer));
 
   int pi_fd = accept(this->server_fd, (struct sockaddr *)&(this->address),
-                     (socklen_t *)&(this->addrlen));
+                     reinterpret_cast<socklen_t *>(&(this->addrlen)));
 
-  int read_value = read(pi_fd, buffer, 1024);
+  int read_value = read(pi_fd, this->buffer, 1024);
   Notify::err_msg(read_value, "socket_reading");
-  std::string buff(buffer);
+  std::string buff(this->buffer);
   char current_d[1000];
   getcwd(current_d, sizeof(current_d));
   std::string cwd(current_d);
