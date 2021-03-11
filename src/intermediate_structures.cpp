@@ -1,6 +1,6 @@
 /**
- * @file main.cpp
- * @brief Main file for the user interface
+ * @file intermediate_structures.cpp
+ * @brief Support functions for the intermediate structures
  *
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
@@ -19,18 +19,20 @@
  *
  */
 
-#include <QApplication>
+#include "intermediate_structures.h"
 
-#include "mainwindow.h"
+#include <string>
 
-/**
- * @brief Initialise and run the user interface
- */
+namespace PostProcessing {
 
-int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.showMaximized();
-
-  return a.exec();
+std::string stringStatus(Status s) {
+  switch (s) {
+    case Trustworthy:
+      return "Yes";
+    case Untrustworthy:
+      return "No";
+    default:
+      return "Unknown";
+  }
 }
+}  // namespace PostProcessing

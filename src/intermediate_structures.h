@@ -3,7 +3,7 @@
  * @brief Data structures used in communicating between different parts of the
  * system
  *
- * @copyright Copyright (C) 2021  Miklas Riechmann
+ * @copyright Copyright (C) 2021  Miklas Riechmann, Andrew Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #define SRC_INTERMEDIATE_STRUCTURES_H_
 
 #include <array>
+#include <string>
 
 /**
  * @brief Defines the order of body parts in the `body_parts` arrays
@@ -96,6 +97,12 @@ namespace PostProcessing {
  *
  */
 enum Status { Untrustworthy, Trustworthy };
+
+/**
+ * @brief Converts the Untrustworthy/Trustworthy status to a string.
+ *
+ */
+std::string stringStatus(Status s);
 
 /**
  * @brief Indicates position and trustworthiness of a body part node

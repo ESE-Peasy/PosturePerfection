@@ -16,8 +16,12 @@
  *
  */
 
+#include <QApplication>
+#include <iostream>
+
 #include "iir.h"
 #include "inference_core.h"
+#include "mainwindow.h"
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include "post_processor.h"
@@ -85,7 +89,7 @@ PostProcessing::ProcessedResults pipeline(std::string image) {
   return processed_results;
 }
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
   printf("Initial Pose Points \n");
   PostProcessing::ProcessedResults ideal_results = pipeline("./person.jpg");
   printf("Current Pose Points \n");
@@ -109,4 +113,13 @@ int main(int argc, char const *argv[]) {
              e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
     }
   }
+  // printf("this is the value %f \n this is the value",
+  // current_results.body_parts[0].x);
+
+  QApplication a(argc, argv);
+  MainWindow w;
+  w.getData(e);
+  QCoreApplication::processEvents();
+  w.showMaximized();
+  return a.exec();
 }
