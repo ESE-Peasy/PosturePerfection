@@ -40,36 +40,28 @@ void Pipeline::input_thread_body() {
       return;
     }
 
-    // printf("pushing a new frame\n");
-
     preprocessed_frames.push(
         PreprocessedFrame{id++, frame, preprocessor.run(frame)});
 
-    // printf("new frame pushed\n");
-
+    // Set the time to something appropriate for the system. This dictates the
+    // frame-rate at which the system operates.
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
 
 void Pipeline::core_thread_body(Inference::InferenceCore core) {
   while (running) {
-    // printf("core about to pop on frame %d\n", preprocessed_frames.id);
     auto next_frame = preprocessed_frames.pop();
-    // printf("got next frame\n");
 
-    // printf("running core\n");
     auto core_result = core.run(next_frame.preprocessed_image);
-    // printf("core returned\n");
 
     core_results.push(
         CoreResults{next_frame.id, next_frame.raw_image, core_result});
-    // printf("core results pushed\n");
   }
 }
 
 void Pipeline::post_processing_thread_body() {
   while (running) {
-    // printf("post processing about to pop\n");
     auto next_frame = core_results.pop();
 
     processed_results.push(
@@ -91,6 +83,7 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads)
   std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
   threads.push_back(std::move(input_thread));
 
+  // Create multiple inference core threads to improve performance
   for (; num_inference_core_threads > 0; num_inference_core_threads--) {
     Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
                                   MODEL_INPUT_X, MODEL_INPUT_Y);

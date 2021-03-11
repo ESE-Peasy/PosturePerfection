@@ -37,17 +37,76 @@
 
 namespace Pipeline {
 
+/**
+ * @brief A synchronising buffer to be used as a communication mechanism between
+ * threads
+ *
+ * The buffer ensures that elements are in order based on the element's `id`
+ * field. Attempting to `push` an element that is not next in line will block
+ * until the missing element has been pushed by a different thread. An object of
+ * this class may therefore be used to share the load at any stage in a pipeline
+ * between multiple threads without needing to worry about issues in the order
+ * of elements.
+ *
+ * @tparam T The type for elements in the buffer. This must provide an `id`
+ * field that is a `uint8_t`.
+ */
 template <typename T>
 class Buffer {
  private:
+  /**
+   * @brief `std::mutex` for input to the object
+   *
+   */
   std::mutex lock_in;
+
+  /**
+   * @brief `std::mutex` for output of the object
+   *
+   */
   std::mutex lock_out;
+
+  /**
+   * @brief Underlying queueing mechanism
+   *
+   */
   std::deque<T> queue;
+
+  /**
+   * @brief Flag to indicate if the pipeline is running
+   *
+   * When this becomes `false` any blocked threads should be allowed to quit,
+   * i.e., infinite loops should exit
+   *
+   */
   bool* running;
 
- public:
+  /**
+   * @brief ID number for the newest frame on the queue
+   *
+   * The next frame that will be added to the queue will therefore be `id + 1`.
+   * An ID of `255` is defined to be followed by an ID of `0`, meaning there are
+   * no problems due to an integer overflow.
+   *
+   */
   uint8_t id = -1;
+
+ public:
+  /**
+   * @brief Construct a new Buffer object
+   *
+   * @param running_ptr Pointer to the `Pipeline::Pipeline::running` flag
+   */
   Buffer(bool* running_ptr) { this->running = running_ptr; }
+
+  /**
+   * @brief Push a frame to the queue
+   *
+   * This blocks if the frame's ID is not the next in the series, until the
+   * missing frame has been pushed by another thread.
+   *
+   * @param frame Frame to be pushed to the queue
+   */
   void push(T frame) {
     while (*running) {
       this->lock_in.lock();
@@ -60,6 +119,12 @@ class Buffer {
       this->lock_in.unlock();
     }
   }
+
+  /**
+   * @brief Pop the oldest element in the queue and return it
+   *
+   * @return T Oldest frame on the queue
+   */
   T pop() {
     T front;
     while (*running) {
@@ -94,9 +159,31 @@ struct ProcessedResults {
   PostProcessing::ProcessedResults processed_results;
 };
 
+/**
+ * @brief Frame-by-frame pipeline to process video
+ *
+ * The pipeline for performing all frame-by-frame processing steps, including
+ * the pose estimation model. The pipeline incorporates the video capturing
+ * stage.
+ *
+ */
 class Pipeline {
  private:
+  /**
+   * @brief Vector of all threads created in the pipeline
+   *
+   * The de-constructor iterates through this and calls `join()` an each thread
+   * to ensure a clean exit.
+   *
+   */
   std::vector<std::thread> threads;
+
+  /**
+   * @brief Flag to indicate the pipeline is running
+   *
+   * Setting this to `false` causes threads to terminate
+   *
+   */
   bool running;
 
   PreProcessing::PreProcessor preprocessor;
@@ -105,13 +192,43 @@ class Pipeline {
   Buffer<PreprocessedFrame> preprocessed_frames;
   Buffer<CoreResults> core_results;
 
+  /**
+   * @brief Function that provides the body for the input thread
+   *
+   */
   void input_thread_body(void);
+
+  /**
+   * @brief Function that provides the body for the inference core thread
+   *
+   */
   void core_thread_body(Inference::InferenceCore);
+
+  /**
+   * @brief Function that provides the body for the post processing thread
+   *
+   */
   void post_processing_thread_body(void);
 
  public:
   Buffer<ProcessedResults> processed_results;
+
+  /**
+   * @brief Construct a new Pipeline object
+   *
+   * The pipeline starts upon construction and starts producing output
+   *
+   * @param num_inference_core_threads The number of threads to use for the
+   * inference core stage
+   */
   Pipeline(uint8_t num_inference_core_threads);
+
+  /**
+   * @brief Destroy the Pipeline object
+   *
+   * Stops threads and waits for them to complete
+   *
+   */
   ~Pipeline();
 };
 }  // namespace Pipeline
