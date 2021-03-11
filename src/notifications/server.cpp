@@ -3,6 +3,8 @@
 namespace Notify {
 
 NotifyServer::NotifyServer(int port) {
+  std::cout << "The IP for this device is: \n"
+            << Notify::GetStringFromCommand("hostname -I | grep -Eo '^[^ ]+'");
   this->server_fd = socket(AF_INET, SOCK_STREAM, 0);
   this->address.sin_family = AF_INET;
   this->address.sin_addr.s_addr = INADDR_ANY;

@@ -36,12 +36,17 @@ class NotifyServer {
    * @brief General purpose socket for creating other sockets
    */
   int server_fd;
-
   /**
    * @brief Specific address details for bound socket
    */
   struct sockaddr_in address;
+  /**
+   * Length of address structure
+   */
   int addrlen;
+  /**
+   * Returned result from client message
+   */
   char buffer[1024];
 
  public:

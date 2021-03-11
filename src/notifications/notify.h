@@ -36,6 +36,18 @@
 #include <string>
 
 namespace Notify {
+/**
+ * @brief Error handler for socket connections
+ *
+ * @param num the result of socket function
+ * @param msg message to be printed also default error message
+ */
 int err_msg(int num, std::string msg);
+
+/**
+ * @brief Return result from system command as a string
+ * @param cmd the system command
+ */
+std::string GetStringFromCommand(std::string cmd);
 };      // namespace Notify
 #endif  // SRC_NOTIFICATIONS_NOTIFY_H_

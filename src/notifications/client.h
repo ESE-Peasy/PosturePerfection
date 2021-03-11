@@ -36,7 +36,14 @@ class NotifyClient {
    */
   int client_fd;
 
+  /**
+   * @brief client address structure
+   */
   struct sockaddr_in address;
+
+  /**
+   * @brief IP address of server to connect client too
+   */
   char* server_ip;
 
  public:
@@ -44,9 +51,7 @@ class NotifyClient {
    * @brief Constructor for notify client
    *
    * @param port port number to listen on (default is 8080)
-   * @param string hostname (default is raspberrypi.local)
-   * @param ip address of raspberry pi (if set to any value,
-   * hostname string is ignored)
+   * @param ip address of server to connect to
    */
   NotifyClient(char* ip, int port = 8080);
   ~NotifyClient();
