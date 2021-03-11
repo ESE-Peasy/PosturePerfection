@@ -1,7 +1,8 @@
 <map id="intermediate_structures.h" name="intermediate_structures.h">
-<area shape="rect" id="node1" title="Data structures used in communicating between different parts of the system." alt="" coords="37,5,205,32"/>
+<area shape="rect" id="node1" title="Data structures used in communicating between different parts of the system." alt="" coords="114,5,282,32"/>
 <area shape="rect" id="node2" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="55,155,173,181"/>
 <area shape="rect" id="node3" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="5,229,127,256"/>
-<area shape="rect" id="node4" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="106,80,242,107"/>
-<area shape="rect" id="node5" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="266,80,381,107"/>
+<area shape="rect" id="node4" href="$intermediate__structures_8cpp.html" title="Support functions for the intermediate structures." alt="" coords="107,80,289,107"/>
+<area shape="rect" id="node5" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="314,80,450,107"/>
+<area shape="rect" id="node6" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="474,80,589,107"/>
 </map>
