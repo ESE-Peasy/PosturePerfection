@@ -69,7 +69,8 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">intermediate_structures.h File Reference</div>  </div>
 </div><!--header-->
@@ -78,13 +79,15 @@ $(function() {
 <p>Data structures used in communicating between different parts of the system.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for intermediate_structures.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="intermediate__structures_8h__incl.png" border="0" usemap="#aintermediate__structures_8h" alt=""/></div>
 <map name="aintermediate__structures_8h" id="aintermediate__structures_8h">
 <area shape="rect" title="Data structures used in communicating between different parts of the system." alt="" coords="5,5,173,32"/>
-<area shape="rect" title=" " alt="" coords="64,80,115,107"/>
+<area shape="rect" title=" " alt="" coords="25,80,76,107"/>
+<area shape="rect" title=" " alt="" coords="101,80,155,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -92,11 +95,12 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="intermediate__structures_8h__dep__incl.png" border="0" usemap="#aintermediate__structures_8hdep" alt=""/></div>
 <map name="aintermediate__structures_8hdep" id="aintermediate__structures_8hdep">
-<area shape="rect" title="Data structures used in communicating between different parts of the system." alt="" coords="37,5,205,32"/>
+<area shape="rect" title="Data structures used in communicating between different parts of the system." alt="" coords="114,5,282,32"/>
 <area shape="rect" href="inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="55,155,173,181"/>
 <area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="5,229,127,256"/>
-<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="106,80,242,107"/>
-<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="266,80,381,107"/>
+<area shape="rect" href="intermediate__structures_8cpp.html" title="Support functions for the intermediate structures." alt="" coords="107,80,289,107"/>
+<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="314,80,450,107"/>
+<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="474,80,589,107"/>
 </map>
 </div>
 </div>
@@ -173,10 +177,17 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a53661a4eef283c5bbd9fa9ddc39f9b57"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <code><a class="el" href="structPostProcessing_1_1Coordinate.html" title="Indicates position and trustworthiness of a body part node.">PostProcessing::Coordinate</a></code>'s position can be either <code>Untrustworthy</code> or <code>Trustworthy</code>  <a href="intermediate__structures_8h.html#a53661a4eef283c5bbd9fa9ddc39f9b57">More...</a><br /></td></tr>
 <tr class="separator:a53661a4eef283c5bbd9fa9ddc39f9b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6e9842a582098e89f3855632c670cc83"><td class="memItemLeft" align="right" valign="top"><a id="a6e9842a582098e89f3855632c670cc83"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="intermediate__structures_8cpp.html#a6e9842a582098e89f3855632c670cc83">PostProcessing::stringStatus</a> (Status s)</td></tr>
+<tr class="memdesc:a6e9842a582098e89f3855632c670cc83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the Untrustworthy/Trustworthy status to a string. <br /></td></tr>
+<tr class="separator:a6e9842a582098e89f3855632c670cc83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Data structures used in communicating between different parts of the system. </p>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2021 Miklas Riechmann</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2021 Miklas Riechmann, Andrew Ritchie</dd></dl>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>

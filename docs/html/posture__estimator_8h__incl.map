@@ -1,6 +1,7 @@
 <map id="posture_estimator.h" name="posture_estimator.h">
-<area shape="rect" id="node1" title="Interface for representation of user&#39;s pose." alt="" coords="37,5,173,32"/>
+<area shape="rect" id="node1" title="Interface for representation of user&#39;s pose." alt="" coords="35,5,171,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,65,107"/>
-<area shape="rect" id="node3" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="90,80,258,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="149,155,199,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="99,155,153,181"/>
+<area shape="rect" id="node4" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="141,80,309,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="199,155,250,181"/>
 </map>

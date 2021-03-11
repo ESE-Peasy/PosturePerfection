@@ -20,7 +20,7 @@
  */
 
 #include "posture_estimator.h"
-
+#include <string>
 #include <cmath>
 
 namespace PostureEstimating {
