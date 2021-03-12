@@ -55,18 +55,6 @@ Pose createPose() {
     p.joints[i]->upper_angle = 0;
     p.joints[i]->lower_angle = 0;
   }
-
-  p.joints[JointMin]->upper_connected_joint = nullptr;
-  p.joints[JointMin]->lower_connected_joint = p.joints[JointMin + 1];
-
-  for (int i = JointMin + 1; i <= JointMax; i++) {
-    p.joints[i]->upper_connected_joint = p.joints[i - 1];
-    p.joints[i]->lower_connected_joint = p.joints[i + 1];
-  }
-
-  p.joints[JointMax]->upper_connected_joint = p.joints[JointMax - 1];
-  p.joints[JointMax]->lower_connected_joint = nullptr;
-
   return p;
 }
 
@@ -142,17 +130,25 @@ void PostureEstimator::calculatePoseChanges() {
             PostProcessing::Untrustworthy) {
       continue;
     } else {
-      if (this->ideal_pose.joints[i]->upper_connected_joint != nullptr &&
-          this->current_pose.joints[i]->upper_connected_joint != nullptr) {
-        this->pose_changes.joints[i]->upper_angle =
-            this->ideal_pose.joints[i]->upper_angle -
-            this->current_pose.joints[i]->upper_angle;
+      if (i > JointMin) {
+        if (this->ideal_pose.joints[i - 1]->coord.status ==
+                PostProcessing::Trustworthy &&
+            this->current_pose.joints[i - 1]->coord.status ==
+                PostProcessing::Trustworthy) {
+          this->pose_changes.joints[i]->upper_angle =
+              this->ideal_pose.joints[i]->upper_angle -
+              this->current_pose.joints[i]->upper_angle;
+        }
       }
-      if (this->ideal_pose.joints[i]->lower_connected_joint != nullptr &&
-          this->current_pose.joints[i]->lower_connected_joint != nullptr) {
-        this->pose_changes.joints[i]->lower_angle =
-            this->ideal_pose.joints[i]->lower_angle -
-            this->current_pose.joints[i]->lower_angle;
+      if (i < JointMax) {
+        if (this->ideal_pose.joints[i + 1]->coord.status ==
+                PostProcessing::Trustworthy &&
+            this->current_pose.joints[i + 1]->coord.status ==
+                PostProcessing::Trustworthy) {
+          this->pose_changes.joints[i]->lower_angle =
+              this->ideal_pose.joints[i]->lower_angle -
+              this->current_pose.joints[i]->lower_angle;
+        }
       }
     }
   }

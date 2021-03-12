@@ -47,9 +47,7 @@ namespace PostureEstimating {
 struct ConnectedJoint {
   Joint joint;
   PostProcessing::Coordinate coord;
-  ConnectedJoint* upper_connected_joint;
   float upper_angle;
-  ConnectedJoint* lower_connected_joint;
   float lower_angle;
 };
 
@@ -80,6 +78,16 @@ Pose createPose();
 void destroyPose(PostureEstimating::Pose p);
 
 /**
+ * @brief representation of user's pose for use by the pipeline processing
+ */
+struct PoseStatus {
+  Pose ideal_pose;
+  Pose current_pose;
+  Pose pose_changes;
+  bool bool_good_posture;
+};
+
+/**
  * @brief This class handles representations of the user's pose and
  * calculates any updates to their pose that is required.
  *
@@ -94,13 +102,6 @@ void destroyPose(PostureEstimating::Pose p);
  * General use should just consist of `updateCurrentPoseAndCheckPosture`.
  *
  */
-
-struct PoseStatus {
-  Pose ideal_pose;
-  Pose current_pose;
-  Pose pose_changes;
-  bool bool_good_posture;
-};
 class PostureEstimator {
  private:
   /**

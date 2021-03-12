@@ -138,34 +138,27 @@ BOOST_AUTO_TEST_CASE(WorkingPoseChanges) {
   }
 }
 
-BOOST_AUTO_TEST_CASE(ChangesHandlesNullPointers) {
+BOOST_AUTO_TEST_CASE(ChangesHandlesUnTrustWorthy) {
   PostureEstimating::PostureEstimator e;
   PostureEstimating::destroyPose(e.ideal_pose);
   PostureEstimating::destroyPose(e.current_pose);
   e.ideal_pose = helper_create_pose();
   e.current_pose = helper_create_pose();
 
-  for (int i = JointMin; i < JointMin + 2; i++) {
-    e.ideal_pose.joints[i]->upper_connected_joint = nullptr;
-    e.ideal_pose.joints[i]->lower_connected_joint = nullptr;
-    e.current_pose.joints[i]->upper_connected_joint = nullptr;
-    e.current_pose.joints[i]->lower_connected_joint = nullptr;
-  }
-  for (int i = JointMin + 2; i < JointMin + 4; i++) {
-    e.ideal_pose.joints[i]->upper_connected_joint = nullptr;
-    e.ideal_pose.joints[i]->lower_connected_joint = nullptr;
-  }
-  for (int i = JointMin + 4; i <= JointMax; i++) {
-    e.current_pose.joints[i]->upper_connected_joint = nullptr;
-    e.current_pose.joints[i]->lower_connected_joint = nullptr;
-  }
+  e.ideal_pose.joints[JointMin]->coord.status = PostProcessing::Untrustworthy;
+  e.current_pose.joints[JointMin]->coord.status = PostProcessing::Untrustworthy;
+  e.ideal_pose.joints[JointMin + 2]->coord.status =
+      PostProcessing::Untrustworthy;
+  e.current_pose.joints[JointMin + 4]->coord.status =
+      PostProcessing::Untrustworthy;
+
   for (int i = JointMin; i <= JointMax; i++) {
     e.current_pose.joints[i]->upper_angle = 3 * M_PI / 2;
     e.current_pose.joints[i]->lower_angle = -3 * M_PI / 2;
   }
 
   e.calculatePoseChanges();
-  for (int i = Shoulder; i <= JointMax; i++) {
+  for (int i = JointMin; i <= JointMax; i++) {
     BOOST_CHECK_EQUAL(e.pose_changes.joints[i]->upper_angle, 0);
     BOOST_CHECK_EQUAL(e.pose_changes.joints[i]->lower_angle, 0);
   }
@@ -193,13 +186,10 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesUntrustworthy) {
   }
 
   e.calculatePoseChanges();
-  for (int i = JointMin; i < JointMax; i++) {
+  for (int i = JointMin; i <= JointMax; i++) {
     BOOST_CHECK_EQUAL(e.pose_changes.joints[i]->upper_angle, 0);
     BOOST_CHECK_EQUAL(e.pose_changes.joints[i]->lower_angle, 0);
   }
-  BOOST_CHECK_CLOSE(e.pose_changes.joints[JointMax]->upper_angle, -3 * M_PI / 2,
-                    0.00001);
-  BOOST_CHECK_EQUAL(e.pose_changes.joints[JointMax]->lower_angle, 0);
 }
 
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
@@ -259,6 +249,19 @@ BOOST_AUTO_TEST_CASE(CreatePoseFromSomeTrustWorthyResults) {
 }
 
 BOOST_AUTO_TEST_CASE(CreatePoseFromNoTrustWorthyResults) {
+  PostProcessing::ProcessedResults r = helper_create_result();
+  PostureEstimating::PostureEstimator e;
+
+  for (int i = JointMin; i <= JointMax; i++) {
+    r.body_parts[i].status = PostProcessing::Untrustworthy;
+  }
+
+  PostureEstimating::Pose p = e.createPoseFromResult(r);
+
+  helper_check_result(p, r);
+}
+
+BOOST_AUTO_TEST_CASE(CreateProducedPoseStatusStructure) {
   PostProcessing::ProcessedResults r = helper_create_result();
   PostureEstimating::PostureEstimator e;
 
