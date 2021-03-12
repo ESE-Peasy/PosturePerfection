@@ -30,6 +30,11 @@
 #include "intermediate_structures.h"
 #include "pre_processor.h"
 
+/**
+ * @brief Uses TensorFlow Lite to perform pose estimation on a given image frame
+ * to detect noteworthy joints
+ *
+ */
 namespace Inference {
 
 /**

@@ -25,6 +25,10 @@
 
 #include <vector>
 
+/**
+ * @brief Perform IIR filtering to smoothen the output results
+ *
+ */
 namespace IIR {
 
 /**

@@ -30,6 +30,11 @@
 #include "intermediate_structures.h"
 #include "opencv2/opencv.hpp"
 
+/**
+ * @brief Responsible for resizing and normalising
+ * the input image to a structure suitable for TensorFlow Lite
+ *
+ */
 namespace PreProcessing {
 
 /**

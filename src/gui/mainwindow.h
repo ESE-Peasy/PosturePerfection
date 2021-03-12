@@ -41,10 +41,13 @@
 #include "../posture_estimator.h"
 
 QT_BEGIN_NAMESPACE
-namespace GUi {
-class MainWindow;
-}
-QT_END_NAMESPACE
+
+/**
+ * @brief All code related to the graphical user interface for
+ * PosturePerfection
+ *
+ */
+namespace GUI {
 
 /**
  * @brief This class allows for navigation around the application from the main
@@ -92,5 +95,6 @@ class MainWindow : public QMainWindow {
    */
   void showDateTime();
 };
-
+}  // namespace GUI
+QT_END_NAMESPACE
 #endif  // SRC_GUI_MAINWINDOW_H_

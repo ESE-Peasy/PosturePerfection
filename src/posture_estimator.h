@@ -27,6 +27,12 @@
 #include <string>
 
 #include "intermediate_structures.h"
+
+/**
+ * @brief Responsible for analysing the results of pose estimation to determine
+ * any posture changes which must be relayed to the user
+ *
+ */
 namespace PostureEstimating {
 
 /**
