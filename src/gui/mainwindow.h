@@ -50,17 +50,15 @@ QT_BEGIN_NAMESPACE
 namespace GUI {
 
 /**
- * @brief This class allows for navigation around the application from the main
- * page.
- *
- * This class lets the user navigate to the data page, settings page and
+ * @brief Allows for navigation around the application from the main
+ * page by letting the user navigate to the data page, settings page and
  * fullscreen page from the main window.
  *
  * This class handles:
- * Navigating to the data page.
- * Navigating to the settings page.
- * Navigating to the full screen.
- * Triggering posture reseting functionality
+ *  - Navigating to the data page.
+ *  - Navigating to the settings page.
+ *  - Navigating to the full screen.
+ *  - Triggering posture reseting functionality
  *
  */
 class MainWindow : public QMainWindow {
