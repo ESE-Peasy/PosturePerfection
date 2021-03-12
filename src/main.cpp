@@ -98,9 +98,9 @@ int main(int argc, char *argv[]) {
   PostureEstimating::PostureEstimator e;
   e.update_ideal_pose(ideal_results);
   e.pose_change_threshold = 0;
-  bool posture = e.updateCurrentPoseAndCheckPosture(current_results);
+  e.runEstimator(current_results);
 
-  printf("User's posture is %s\n", (posture == true) ? "good" : "bad");
+  printf("User's posture is %s\n", (e.good_posture == true) ? "good" : "bad");
 
   for (int i = JointMin; i <= JointMax; i++) {
     if (e.pose_changes.joints[i]->upper_angle != 0) {

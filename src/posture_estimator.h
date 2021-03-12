@@ -100,7 +100,8 @@ struct PoseStatus {
   Pose current_pose;
   Pose pose_changes;
   bool bool_good_posture;
-} class PostureEstimator {
+};
+class PostureEstimator {
  private:
   /**
    * @brief Calculates the angle(in degrees) between two points, clockwise
