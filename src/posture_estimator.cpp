@@ -194,6 +194,7 @@ PoseStatus PostureEstimator::runEstimator(
   this->updateCurrentPoseAndCheckPosture(results);
   PoseStatus p = {this->ideal_pose, this->current_pose, this->pose_changes,
                   this->good_posture};
+  return p;
 }  // namespace PostureEstimating
 
 }  // namespace PostureEstimating
