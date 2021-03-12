@@ -189,7 +189,7 @@ void PostureEstimator::update_ideal_pose(
   this->ideal_pose = createPoseFromResult(results);
 }
 
-PoseStatus PostureEstimator::run_estimator(
+PoseStatus PostureEstimator::runEstimator(
     PostProcessing::ProcessedResults results) {
   this->updateCurrentPoseAndCheckPosture(results);
   PoseStatus p = {this->ideal_pose, this->current_pose, this->pose_changes,
