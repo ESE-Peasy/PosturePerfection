@@ -35,6 +35,13 @@
 #include "post_processor.h"
 #include "pre_processor.h"
 
+/**
+ * @brief Components of the pipeline at the core of the system
+ *
+ * To use the pipeline one simply needs to initialise a `Pipeline::Pipeline` and
+ * it will start to run.
+ *
+ */
 namespace Pipeline {
 
 /**
@@ -91,7 +98,14 @@ class Buffer {
    */
   uint8_t id = -1;
 
-  size_t max_size = 4;
+  /**
+   * @brief The maximum size of the queue to build up
+   *
+   * The queue's size cannot be expanded past this limit and this is enforced by
+   * the push methods.
+   *
+   */
+  size_t max_size;
 
  public:
   /**
@@ -99,36 +113,61 @@ class Buffer {
    *
    * @param running_ptr Pointer to the `Pipeline::Pipeline::running` flag
    */
-  explicit Buffer(bool* running_ptr) { this->running = running_ptr; }
+  explicit Buffer(bool* running_ptr, size_t max_size)
+      : running(running_ptr), max_size(max_size) {}
 
   /**
    * @brief Push a frame to the queue
    *
    * This blocks if the frame's ID is not the next in the series, until the
-   * missing frame has been pushed by another thread.
+   * missing frame has been pushed by another thread. Also blocks if the maximum
+   * size is reached, until elements are popped.
    *
    * @param frame Frame to be pushed to the queue
    */
   void push(T frame) {
     while (*running) {
-      this->lock_in.lock();
-      if ((uint8_t)(this->id + 1) == frame.id) {
-        this->queue.push_back(frame);
-        this->id++;
-        this->lock_in.unlock();
-
-        lock_out.lock();
-        size_t size = queue.size();
-        if (size > max_size) {
-          printf("Trimming queue\n");
-          queue.erase(queue.begin(), queue.begin() + queue.size() - max_size);
-        }
-        lock_out.unlock();
-
+      lock_in.lock();
+      if ((uint8_t)(id + 1) == frame.id && queue.size() + 1 <= max_size) {
+        queue.push_back(frame);
+        id++;
+        lock_in.unlock();
         break;
       }
-      this->lock_in.unlock();
+      lock_in.unlock();
     }
+  }
+
+  /**
+   * @brief Push a frame to the queue (doesn't block if queue is full)
+   *
+   * This blocks if the frame's ID is not the next in the series, until the
+   * missing frame has been pushed by another thread. It returns if the queue is
+   * full.
+   *
+   * @param frame Frame to be pushed to the queue
+   * @return true If pushing was successful
+   * @return false If the frame was not pushed, i.e., the queue was full; or the
+   * pipeline is halting
+   */
+  bool try_push(T frame) {
+    while (*running) {
+      // Immediately return if the queue is full
+      lock_in.lock();
+      if (queue.size() + 1 > max_size) {
+        lock_in.unlock();
+        return false;
+      }
+
+      if ((uint8_t)(id + 1) == frame.id) {
+        queue.push_back(frame);
+        id++;
+        lock_in.unlock();
+        return true;
+      }
+      lock_in.unlock();
+    }
+    return false;
   }
 
   /**

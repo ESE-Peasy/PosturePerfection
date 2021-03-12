@@ -42,12 +42,14 @@ void Pipeline::input_thread_body() {
       return;
     }
 
-    preprocessed_frames.push(
-        PreprocessedFrame{id++, frame, preprocessor.run(frame)});
+    if (preprocessed_frames.try_push(
+            PreprocessedFrame{id, frame, preprocessor.run(frame)})) {
+      id++;
+    }
 
     // Set the time to something appropriate for the system. This dictates the
     // frame-rate at which the system operates.
-    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 }
 
@@ -78,9 +80,9 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads)
       // Disable smoothing with empty settings
       post_processor(0.1,
                      IIR::SmoothingSettings{std::vector<std::vector<float>>{}}),
-      preprocessed_frames(&this->running),
-      core_results(&this->running),
-      processed_results(&this->running) {
+      preprocessed_frames(&this->running, num_inference_core_threads),
+      core_results(&this->running, num_inference_core_threads),
+      processed_results(&this->running, num_inference_core_threads) {
   this->running = true;
 
   std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
