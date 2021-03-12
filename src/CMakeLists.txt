@@ -21,9 +21,6 @@ set(LIBSRC
   pre_processor.cpp
   posture_estimator.cpp)
 
-#add_subdirectory(notifications ENABLE_EXPORTS)
-#include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/notifications")
-
 # Set up OpenCV package
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../../opencv_build")
 find_package(OpenCV REQUIRED)

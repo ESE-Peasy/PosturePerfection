@@ -76,9 +76,8 @@ void NotifyServer::run() {
       "/docs/images/"
       "posture-logo-no-text.png");
   std::string out = start + buff + middle + cwd + end;
-  std::cout << out;
   system(out.c_str());
+  shutdown(pi_fd, SHUT_RDWR);
+  close(pi_fd);
 }
-// shutdown(pi_fd, SHUT_RDWR);
-// close(pi_fd);
 };  // namespace Notify
