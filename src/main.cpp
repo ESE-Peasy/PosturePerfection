@@ -17,28 +17,11 @@
  */
 
 #include <stdio.h>
-#include <time.h>
 
-#include <chrono>  // NOLINT [build/c++11]
-#include <deque>
-#include <iostream>
-#include <mutex>
-#include <thread>  //NOLINT [build/c++11]
-#include <utility>
-
-#include "iir.h"
-#include "inference_core.h"
-#include "opencv2/core.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/videoio.hpp"
 #include "pipeline.h"
 #include "post_processor.h"
 #include "posture_estimator.h"
-#include "pre_processor.h"
 
-#define MODEL_INPUT_X 224
-#define MODEL_INPUT_Y 224
 
 #define NUM_LOOPS 500
 
@@ -88,5 +71,6 @@ int main(int argc, char const* argv[]) {
 
     // i++;
     // if (i >= NUM_LOOPS) break;
+    printf("%d\n", i++);
   }
 }

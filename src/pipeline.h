@@ -23,7 +23,7 @@
 #define SRC_PIPELINE_H_
 
 #include <deque>
-#include <mutex>
+#include <mutex>   //NOLINT [build/c++11]
 #include <thread>  //NOLINT [build/c++11]
 #include <vector>
 
@@ -91,13 +91,15 @@ class Buffer {
    */
   uint8_t id = -1;
 
+  size_t max_size = 4;
+
  public:
   /**
    * @brief Construct a new Buffer object
    *
    * @param running_ptr Pointer to the `Pipeline::Pipeline::running` flag
    */
-  Buffer(bool* running_ptr) { this->running = running_ptr; }
+  explicit Buffer(bool* running_ptr) { this->running = running_ptr; }
 
   /**
    * @brief Push a frame to the queue
@@ -114,6 +116,15 @@ class Buffer {
         this->queue.push_back(frame);
         this->id++;
         this->lock_in.unlock();
+
+        lock_out.lock();
+        size_t size = queue.size();
+        if (size > max_size) {
+          printf("Trimming queue\n");
+          queue.erase(queue.begin(), queue.begin() + queue.size() - max_size);
+        }
+        lock_out.unlock();
+
         break;
       }
       this->lock_in.unlock();
@@ -221,7 +232,7 @@ class Pipeline {
    * @param num_inference_core_threads The number of threads to use for the
    * inference core stage
    */
-  Pipeline(uint8_t num_inference_core_threads);
+  explicit Pipeline(uint8_t num_inference_core_threads);
 
   /**
    * @brief Destroy the Pipeline object
@@ -232,4 +243,4 @@ class Pipeline {
   ~Pipeline();
 };
 }  // namespace Pipeline
-#endif
+#endif  // SRC_PIPELINE_H_

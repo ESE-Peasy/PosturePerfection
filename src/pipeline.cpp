@@ -18,6 +18,8 @@
 
 #include "pipeline.h"
 
+#include <utility>
+
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
 
@@ -26,7 +28,7 @@ namespace Pipeline {
 void Pipeline::input_thread_body() {
   cv::VideoCapture cap(0);
   if (!cap.isOpened()) {
-    printf("Can't access camera\n");
+    fprintf(stderr, "Can't access camera\n");
     return;
   }
 
@@ -36,7 +38,7 @@ void Pipeline::input_thread_body() {
     cv::Mat frame;
     cap.read(frame);
     if (frame.empty()) {
-      printf("Empty frame\n");
+      fprintf(stderr, "Empty frame\n");
       return;
     }
 
@@ -45,7 +47,7 @@ void Pipeline::input_thread_body() {
 
     // Set the time to something appropriate for the system. This dictates the
     // frame-rate at which the system operates.
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
   }
 }
 
@@ -70,6 +72,7 @@ void Pipeline::post_processing_thread_body() {
   }
 }
 
+// Pipeline::Pipeline(uint8_t num_inference_core_threads, void(*callback)())
 Pipeline::Pipeline(uint8_t num_inference_core_threads)
     : preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y),
       // Disable smoothing with empty settings
