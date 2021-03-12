@@ -29,6 +29,11 @@
 #include "inference_core.h"
 #include "intermediate_structures.h"
 
+/**
+ * @brief Smoothen the results of inference and average body parts since the
+ * system assumes a side-on profile
+ *
+ */
 namespace PostProcessing {
 
 /**

@@ -59,11 +59,6 @@ PostProcessing::Coordinate intelligent_mean_body_parts(
   }
 }
 
-/**
- * @brief Smoothen the results of inference and average body parts since the
- * system assumes a side-on profile
- *
- */
 namespace PostProcessing {
 
 PostProcessor::PostProcessor(float confidence_threshold,

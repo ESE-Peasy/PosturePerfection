@@ -1,7 +1,4 @@
 /**
- * @file posture_estimator.h
- * @brief Interface for representation of user's pose
- *
  * @copyright Copyright (C) 2021  Conor Begley
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -22,6 +19,7 @@
 #include "posture_estimator.h"
 
 #include <cmath>
+#include <string>
 
 namespace PostureEstimating {
 

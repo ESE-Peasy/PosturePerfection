@@ -36,6 +36,7 @@
 namespace PostureEstimating {
 
 /**
+ * @struct
  * @brief A representation of a body part
  *
  * Each body part is represented as a `ConnectedJoint` to record the joints
