@@ -71,6 +71,5 @@ int main(int argc, char const* argv[]) {
 
     // i++;
     // if (i >= NUM_LOOPS) break;
-    printf("%d\n", i++);
   }
 }
