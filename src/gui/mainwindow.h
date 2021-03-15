@@ -69,21 +69,22 @@ class MainWindow : public QMainWindow {
    *
    * @param *parent Pointer to the parent interface.
    */
-  MainWindow(QWidget *parent = 0);  // NOLINT (Purposely not using explicit)
+  MainWindow(QWidget *parent = 0);  // NOLINT [runtime/explicit]
   ~MainWindow();
 
   /**
-   * @brief Extract data from the posture estimator.
+   * @brief Refresh the contents of the data table with the most recent data
    *
-   * @param PostureEstimator object.
+   * @param pose_status a `PostureEstimating::PoseStatus` structure
    */
-  int getData(PostureEstimating::PostureEstimator e);
+  void updateTable(PostureEstimating::PoseStatus pose_status);
 
  private:
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
+  void generateTable();
 
  private slots:
   /**

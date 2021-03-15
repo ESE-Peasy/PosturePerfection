@@ -17,43 +17,38 @@
  */
 
 #include <stdio.h>
+
 #include <QApplication>
 
+#include "gui/mainwindow.h"
 #include "intermediate_structures.h"
 #include "pipeline.h"
 #include "post_processor.h"
 #include "posture_estimator.h"
-#include "gui/mainwindow.h"
 
 #define NUM_LOOPS 500
-#define NUM_INF_CORE_THREADS 4
+#define NUM_INF_CORE_THREADS 8
 
 bool run_flag = true;
 
-void new_frame_callback(PostureEstimating::PoseStatus pose_status,
-                        cv::Mat input_image) {
-  printf("%s   ", (pose_status.bool_good_posture) ? "good" : "bad ");
-  for (auto current_pose_joint : pose_status.current_pose) {
-    printf("%.1f %.1f  ", current_pose_joint);
-  }
-  printf("\r");
+MainWindow* main_window_ptr;
+
+void frame_callback(PostureEstimating::PoseStatus pose_status,
+                    cv::Mat input_image) {
+  main_window_ptr->updateTable(pose_status);
 }
 
-int main(int argc, char const* argv[]) {
+int main(int argc, char* argv[]) {
   printf("start\n");
-
-  pritnf("      ---------------------- Current Pose -------------------\n");
-  printf("Pose | Head     Neck     Shoulder Hip      Knee     Foot     |\n");
-
-  Pipeline::Pipeline p(NUM_INF_CORE_THREADS, &new_frame_callback);
-
-  while (getchar() != 'q') {
-  }
 
   QApplication a(argc, argv);
   MainWindow w;
-  w.getData(e);
   QCoreApplication::processEvents();
   w.showMaximized();
+
+  main_window_ptr = &w;
+
+  Pipeline::Pipeline p(NUM_INF_CORE_THREADS, &frame_callback);
+
   return a.exec();
 }
