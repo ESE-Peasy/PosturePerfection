@@ -62,23 +62,9 @@ namespace Pipeline {
 template <typename T>
 class Buffer {
  private:
-  /**
-   * @brief `std::mutex` for input to the object
-   *
-   */
-  std::mutex lock_in;
-
-  /**
-   * @brief `std::mutex` for output of the object
-   *
-   */
-  std::mutex lock_out;
-
-  /**
-   * @brief Underlying queueing mechanism
-   *
-   */
-  std::deque<T> queue;
+  std::mutex lock_in;   ///< `std::mutex` for input to the object
+  std::mutex lock_out;  ///< `std::mutex` for output of the object
+  std::deque<T> queue;  ///< Underlying queueing mechanism
 
   /**
    * @brief Flag to indicate if the pipeline is running
@@ -110,9 +96,10 @@ class Buffer {
 
  public:
   /**
-   * @brief Construct a new Buffer object
+   * @brief Construct a new `Buffer` object
    *
    * @param running_ptr Pointer to the `Pipeline::Pipeline::running` flag
+   * @param size_t The maximum size of the `Buffer`
    */
   explicit Buffer(bool* running_ptr, size_t max_size)
       : running(running_ptr), max_size(max_size) {}
@@ -124,7 +111,7 @@ class Buffer {
    * missing frame has been pushed by another thread. Also blocks if the maximum
    * size is reached, until elements are popped.
    *
-   * @param frame Frame to be pushed to the queue
+   * @tparam frame Frame to be pushed to the queue
    */
   void push(T frame) {
     while (*running) {
@@ -147,9 +134,9 @@ class Buffer {
    * full.
    *
    * @param frame Frame to be pushed to the queue
-   * @return true If pushing was successful
-   * @return false If the frame was not pushed, i.e., the queue was full; or the
-   * pipeline is halting
+   * @return `true` If pushing was successful
+   * @return `false` If the frame was not pushed, i.e., the queue was full; or
+   * the pipeline is halting
    */
   bool try_push(T frame) {
     while (*running) {
@@ -192,13 +179,36 @@ class Buffer {
   }
 };
 
+/**
+ * @brief Contains the id of the frame within the pipeline, as well as the raw
+ * image and the preprocessed_image. A struct of this type is created for every
+ * input image after it has been passed through the
+ * `PreProcessing::PreProcessor`, before being sent to the
+ * `Inference::InferenceCore`
+ */
 struct PreprocessedFrame {
+  /**
+   * @brief Every frame is assigned a unique id to ensure in-order post
+   * processing. This id must be passed through the entire pipeline.
+   *
+   */
   uint8_t id;
   cv::Mat raw_image;
   PreProcessing::PreProcessedImage preprocessed_image;
 };
 
+/**
+ * @brief Contains the id of the frame within the pipeline, as well as the raw
+ * image and the results of running inference on that image. A struct of this
+ * type is created for every input image after it has been passed through the
+ * `InferenceCore`, before being sent to the `PostProcessor`
+ */
 struct CoreResults {
+  /**
+   * @brief Every frame is assigned a unique id to ensure in-order post
+   * processing. This id must be passed through the entire pipeline.
+   *
+   */
   uint8_t id;
   cv::Mat raw_image;
   Inference::InferenceResults image_results;
