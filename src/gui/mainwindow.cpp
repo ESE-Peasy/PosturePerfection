@@ -19,11 +19,12 @@
  *
  */
 #include "mainwindow.h"
+
 #include <iostream>
 #include <string>
+
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
-
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
@@ -123,16 +124,14 @@ int MainWindow::getData(PostureEstimating::PostureEstimator e) {
   for (int i = JointMin; i <= JointMax; i++) {
     QList<QStandardItem *> newRow;
     QStandardItem *itm1 = new QStandardItem(
-        PostureEstimating::stringJoint(e.current_pose.joints[i]->joint)
-            .c_str());
+        PostureEstimating::stringJoint(e.current_pose.joints[i].joint).c_str());
     QStandardItem *itm2 =
-        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.x));
+        new QStandardItem(QString("%1").arg(e.current_pose.joints[i].coord.x));
     QStandardItem *itm3 =
-        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.y));
-    QStandardItem *itm4 =
-        new QStandardItem(PostProcessing::stringStatus(
-                              e.current_pose.joints[i]->coord.status)
-                              .c_str());
+        new QStandardItem(QString("%1").arg(e.current_pose.joints[i].coord.y));
+    QStandardItem *itm4 = new QStandardItem(
+        PostProcessing::stringStatus(e.current_pose.joints[i].coord.status)
+            .c_str());
 
     itm1->setForeground(QColor(Qt::white));
     itm2->setForeground(QColor(Qt::white));
