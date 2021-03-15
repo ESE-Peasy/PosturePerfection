@@ -33,6 +33,7 @@
 #include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 #include "post_processor.h"
+#include "posture_estimator.h"
 #include "pre_processor.h"
 
 /**
@@ -203,18 +204,13 @@ struct CoreResults {
   Inference::InferenceResults image_results;
 };
 
-struct ProcessedResults {
-  uint8_t id;
-  cv::Mat raw_image;
-  PostProcessing::ProcessedResults processed_results;
-};
-
 /**
  * @brief Frame-by-frame pipeline to process video
  *
  * The pipeline for performing all frame-by-frame processing steps, including
  * the pose estimation model. The pipeline incorporates the video capturing
- * stage.
+ * stage. The pipeline generates output in the form of a callback, which is
+ * called once per frame that passes through the pipeline.
  *
  */
 class Pipeline {
@@ -238,6 +234,7 @@ class Pipeline {
 
   PreProcessing::PreProcessor preprocessor;
   PostProcessing::PostProcessor post_processor;
+  PostureEstimating::PostureEstimator posture_estimator;
 
   Buffer<PreprocessedFrame> preprocessed_frames;
   Buffer<CoreResults> core_results;
@@ -260,9 +257,20 @@ class Pipeline {
    */
   void post_processing_thread_body(void);
 
- public:
-  Buffer<ProcessedResults> processed_results;
+  /**
+   * @brief A callback handler called for every frame coming out of the pipeline
+   *
+   * This function is called once for every frame that passes out of the
+   * pipeline and provides a `PostureEstimating::PoseStatus` structure as well
+   * as the original image that led to these results. It is then up to the
+   * callback to handle the output. As this is a callback, the body of the
+   * function should not include compute-heavy code as this will slow down the
+   * output frame rate.
+   *
+   */
+  void (*callback)(PostureEstimating::PoseStatus, cv::Mat);
 
+ public:
   /**
    * @brief Construct a new Pipeline object
    *
@@ -270,8 +278,10 @@ class Pipeline {
    *
    * @param num_inference_core_threads The number of threads to use for the
    * inference core stage
+   * @param callback Function to call for every frame output by the pipeline
    */
-  explicit Pipeline(uint8_t num_inference_core_threads);
+  explicit Pipeline(uint8_t num_inference_core_threads,
+                    void (*callback)(PostureEstimating::PoseStatus, cv::Mat));
 
   /**
    * @brief Destroy the Pipeline object

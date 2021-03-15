@@ -18,58 +18,33 @@
 
 #include <stdio.h>
 
+#include "intermediate_structures.h"
 #include "pipeline.h"
 #include "post_processor.h"
 #include "posture_estimator.h"
 
-
 #define NUM_LOOPS 500
+#define NUM_INF_CORE_THREADS 4
 
 bool run_flag = true;
 
-bool displayImage(cv::Mat originalImage,
-                  PostProcessing::ProcessedResults processed_results) {
-  cv::Scalar blue(255, 0, 0);
-  cv::Scalar red(0, 0, 255);
-  int imageWidth = originalImage.cols;
-  int imageHeight = originalImage.rows;
-  int circleRadius = 5;
-
-  for (auto body_part : processed_results.body_parts) {
-    if (body_part.status == PostProcessing::Trustworthy) {
-      cv::circle(originalImage,
-                 cv::Point(static_cast<int>(body_part.x * imageWidth),
-                           static_cast<int>(body_part.y * imageHeight)),
-                 circleRadius, blue, -1);
-    } else {
-      cv::circle(originalImage,
-                 cv::Point(static_cast<int>(body_part.x * imageWidth),
-                           static_cast<int>(body_part.y * imageHeight)),
-                 circleRadius, red, -1);
-    }
+void new_frame_callback(PostureEstimating::PoseStatus pose_status,
+                        cv::Mat input_image) {
+  printf("%s   ", (pose_status.bool_good_posture) ? "good" : "bad ");
+  for (auto current_pose_joint : pose_status.current_pose) {
+    printf("%.1f %.1f  ", current_pose_joint);
   }
-
-  cv::imshow("Live", originalImage);
-  if (cv::waitKey(5) >= 0) {
-    return false;
-  } else {
-    return true;
-  }
+  printf("\r");
 }
 
 int main(int argc, char const* argv[]) {
   printf("start\n");
 
-  Pipeline::Pipeline p(4);
+  pritnf("      ---------------------- Current Pose -------------------\n");
+  printf("Pose | Head     Neck     Shoulder Hip      Knee     Foot     |\n");
 
-  int i = 0;
-  bool flag = true;
-  while (flag) {
-    auto next_frame = p.processed_results.pop();
+  Pipeline::Pipeline p(NUM_INF_CORE_THREADS, &new_frame_callback);
 
-    flag = displayImage(next_frame.raw_image, next_frame.processed_results);
-
-    // i++;
-    // if (i >= NUM_LOOPS) break;
+  while (getchar() != 'q') {
   }
 }

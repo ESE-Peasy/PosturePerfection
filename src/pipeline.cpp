@@ -68,21 +68,22 @@ void Pipeline::post_processing_thread_body() {
   while (running) {
     auto next_frame = core_results.pop();
 
-    processed_results.push(
-        ProcessedResults{next_frame.id, next_frame.raw_image,
-                         post_processor.run(next_frame.image_results)});
+    auto pose_result = posture_estimator.runEstimator(
+        post_processor.run(next_frame.image_results));
+    callback(pose_result, next_frame.raw_image);
   }
 }
 
-// Pipeline::Pipeline(uint8_t num_inference_core_threads, void(*callback)())
-Pipeline::Pipeline(uint8_t num_inference_core_threads)
+Pipeline::Pipeline(uint8_t num_inference_core_threads,
+                   void (*callback)(PostureEstimating::PoseStatus, cv::Mat))
     : preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y),
       // Disable smoothing with empty settings
       post_processor(0.1,
                      IIR::SmoothingSettings{std::vector<std::vector<float>>{}}),
+      posture_estimator(),
       preprocessed_frames(&this->running, num_inference_core_threads),
       core_results(&this->running, num_inference_core_threads),
-      processed_results(&this->running, num_inference_core_threads) {
+      callback(callback) {
   this->running = true;
 
   std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
