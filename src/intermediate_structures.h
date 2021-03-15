@@ -137,6 +137,13 @@ struct Coordinate {
  *
  */
 struct ProcessedResults {
+  /**
+   * @brief Each element of this array corresponds to a body part with
+   * a defined `PostProcessing::Coordinate` which specifies the confidence of
+   * the body part as well as the *relative* position of the body part in the
+   * image frame
+   *
+   */
   std::array<Coordinate, JointMax + 1> body_parts;
 };
 }  // namespace PostProcessing

@@ -59,7 +59,7 @@ class PostProcessor {
    *
    * @param confidence_threshold Confidence value that must be exceeded for a
    * prediction for a given body part to be useable
-   * @param smoothing_settings settings for the IIR filter
+   * @param smoothing_settings Settings for the IIR filter
    */
   PostProcessor(float confidence_threshold,
                 IIR::SmoothingSettings smoothing_settings);
@@ -69,17 +69,18 @@ class PostProcessor {
    *
    * @param inference_core_output Output from an `Inference::InferenceCore`
    * being run
-   * @return ProcessedResults
+   * @return `ProcessedResults`
    */
   ProcessedResults run(Inference::InferenceResults inference_core_output);
 
   /**
-   * @brief Set the confidence threshold
+   * @brief Dynamically update the confidence threshold to allow better
+   * calibration
    *
    * @param confidence_threshold The updated confidence threshold in the range
    * [0, 1]
-   * @return true If updating threshold was successful
-   * @return false If the new threshold value is invalid
+   * @return `true` If updating threshold was successful
+   * @return `false` If the new threshold value is invalid
    */
   bool set_confidence_threshold(float confidence_threshold);
 };

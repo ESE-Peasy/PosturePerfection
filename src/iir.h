@@ -47,15 +47,17 @@ struct Nodes {
 };
 
 /**
- * @brief Settings for an IIR filter
- *
- * Wraps the second-order section coefficients for an IIR filter. The
- * `sos_coefficients` are a 2D vector, where the rows correspond to each of the
- * second order stages, and the columns correspond to coefficients for each
- * stage.
+ * @brief Settings for an IIR filter. Wraps the second-order section
+ * coefficients for an IIR filter.
  *
  */
 struct SmoothingSettings {
+  /**
+   * @brief The `sos_coefficients` are a 2D vector, where the rows correspond to
+   * each of the second order stages, and the columns correspond to coefficients
+   * for each stage.
+   *
+   */
   std::vector<std::vector<float>> coefficients;
 };
 
@@ -82,7 +84,7 @@ class IIR2ndOrderFilter {
    * Every call to this method constitutes a time step in the IIR filter
    *
    * @param x The next data sample
-   * @return float Filtered data sample
+   * @return `float` Filtered data sample
    */
   float run(float x);
 };
@@ -122,7 +124,7 @@ class IIRFilter {
    * Every call to this method constitutes a time step in the IIR filter
    *
    * @param x The next data sample
-   * @return float Filtered data sample
+   * @return `float` Filtered data sample
    */
   float run(float x);
 };
