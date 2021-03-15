@@ -17,11 +17,13 @@
  */
 
 #include <stdio.h>
+#include <QApplication>
 
 #include "intermediate_structures.h"
 #include "pipeline.h"
 #include "post_processor.h"
 #include "posture_estimator.h"
+#include "gui/mainwindow.h"
 
 #define NUM_LOOPS 500
 #define NUM_INF_CORE_THREADS 4
@@ -47,8 +49,6 @@ int main(int argc, char const* argv[]) {
 
   while (getchar() != 'q') {
   }
-  // printf("this is the value %f \n this is the value",
-  // current_results.body_parts[0].x);
 
   QApplication a(argc, argv);
   MainWindow w;

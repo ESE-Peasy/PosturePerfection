@@ -23,7 +23,6 @@
 #define SRC_POSTURE_ESTIMATOR_H_
 
 #include <stdio.h>
-#include <string>
 
 #include <string>
 
