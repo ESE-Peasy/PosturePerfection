@@ -84,7 +84,7 @@ struct PoseStatus {
   Pose ideal_pose;
   Pose current_pose;
   Pose pose_changes;
-  bool bool_good_posture;
+  bool good_posture;
 };
 
 /**
