@@ -33,34 +33,23 @@ namespace Notify {
  */
 class NotifyClient {
  private:
-  /**
-   * @brief socket client is bound to
-   */
-  int client_fd;
-
-  /**
-   * @brief client address structure
-   */
-  struct sockaddr_in address;
-
-  /**
-   * @brief IP address of server to connect client too
-   */
-  char* server_ip;
+  int client_fd;               ///< Socket which the client is bound to
+  struct sockaddr_in address;  ///< Client address structure
+  char* server_ip;             ///< IP address of server to connect client too
 
  public:
   /**
    * @brief Constructor for notify client
    *
-   * @param port port number to listen on (default is 8080)
-   * @param ip address of server to connect to
+   * @param port Port number to listen on (default is 8080)
+   * @param ip Address of server to connect to
    */
   explicit NotifyClient(char* ip, int port = 8080);
   ~NotifyClient();
 
   /**
    * @brief Sends message from client to server
-   * @param msg the message to be sent
+   * @param msg The message to be sent
    */
   void sendMessage(std::string msg);
 };

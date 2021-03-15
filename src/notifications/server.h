@@ -24,6 +24,7 @@
 #define SRC_NOTIFICATIONS_SERVER_H_
 
 #include "notify.h"
+
 namespace Notify {
 /**
  * @brief Exception for when user tries to run server in wrong directory
@@ -38,29 +39,17 @@ struct IncorrectDirectory : public std::exception {
  */
 class NotifyServer {
  private:
-  /**
-   * @brief General purpose socket for creating other sockets
-   */
-  int server_fd;
-  /**
-   * @brief Specific address details for bound socket
-   */
-  struct sockaddr_in address;
-  /**
-   * Length of address structure
-   */
-  int addrlen;
+  int server_fd;  ///< General purpose socket for creating other sockets
+  struct sockaddr_in address;  ///< Specific address details for bound socket
+  int addrlen;                 ///< Length of address structure
 
  public:
-  /**
-   * Returned result from client message
-   */
-  char buffer[1024];
+  char buffer[1024];  ///< Returned result from client message
   /**
    * @brief Constructor for notify server
    *
-   * @param port port number to listen on
-   * @param ignore boolean to ignore location where server is running
+   * @param port Port number to listen on
+   * @param ignore Boolean to ignore location where server is running
    */
   explicit NotifyServer(int port = 8080, bool ignore = false);
   ~NotifyServer();

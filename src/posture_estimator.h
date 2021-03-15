@@ -103,7 +103,7 @@ struct PoseStatus {
  * - Calculating the angle between `ConnectedJoint`
  * - Comparing the current user's pose and ideal user's pose.
  *
- * General use should just consist of `updateCurrentPoseAndCheckPosture`.
+ * General use should just consist of `runEstimator`.
  *
  */
 class PostureEstimator {

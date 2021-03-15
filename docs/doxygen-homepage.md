@@ -19,6 +19,9 @@ The stages are as follows:
   - [PostureEstimator](@ref PostureEstimating::PostureEstimator)
 - GUI
   - [MainWindow](@ref GUI::MainWindow)
+- Notify
+  - [NotifyClient](@ref Notify::NotifyClient)
+  - [NotifyServer](@ref Notify::NotifyServer)
 
 \section additional_resources Additional Resources
 

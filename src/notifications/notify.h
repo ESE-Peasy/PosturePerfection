@@ -35,18 +35,23 @@
 #include <iostream>
 #include <string>
 
+/**
+ * @brief Responsible for enabling the sending of notifications from the
+ * Raspberry Pi to a secondary device.
+ *
+ */
 namespace Notify {
 /**
  * @brief Error handler for socket connections
  *
- * @param num the result of socket function
- * @param msg message to be printed also default error message
+ * @param num The result of socket function
+ * @param msg Message to be printed also default error message
  */
 int err_msg(int num, std::string msg);
 
 /**
  * @brief Return result from system command as a string
- * @param cmd the system command
+ * @param cmd The system command
  */
 std::string GetStringFromCommand(std::string cmd);
 };      // namespace Notify
