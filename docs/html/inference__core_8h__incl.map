@@ -4,8 +4,7 @@
 <area shape="rect" id="node3" title=" " alt="" coords="106,155,170,181"/>
 <area shape="rect" id="node4" title=" " alt="" coords="195,155,263,181"/>
 <area shape="rect" id="node5" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="451,155,619,181"/>
-<area shape="rect" id="node8" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="266,80,381,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="471,229,522,256"/>
-<area shape="rect" id="node7" title=" " alt="" coords="547,229,601,256"/>
-<area shape="rect" id="node9" title=" " alt="" coords="286,155,427,181"/>
+<area shape="rect" id="node7" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="266,80,381,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="510,229,561,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="286,155,427,181"/>
 </map>

@@ -121,4 +121,5 @@ InferenceResults InferenceCore::run(
 
   return results_out;
 }
+
 }  // namespace Inference

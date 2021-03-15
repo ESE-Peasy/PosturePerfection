@@ -16,110 +16,39 @@
  *
  */
 
-#include <QApplication>
-#include <iostream>
+#include <stdio.h>
 
-#include "iir.h"
-#include "inference_core.h"
-#include "mainwindow.h"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
+#include <QApplication>
+
+#include "gui/mainwindow.h"
+#include "intermediate_structures.h"
+#include "pipeline.h"
 #include "post_processor.h"
 #include "posture_estimator.h"
-#include "pre_processor.h"
 
-#define MODEL_INPUT_X 224
-#define MODEL_INPUT_Y 224
+#define NUM_LOOPS 500
+#define NUM_INF_CORE_THREADS 8
 
-void displayImage(cv::Mat originalImage,
-                  PostProcessing::ProcessedResults processed_results) {
-  cv::Scalar blue(255, 0, 0);
-  cv::Scalar red(0, 0, 255);
-  int imageWidth = originalImage.cols;
-  int imageHeight = originalImage.rows;
-  int circleRadius = 5;
+bool run_flag = true;
 
-  for (auto body_part : processed_results.body_parts) {
-    if (body_part.status == PostProcessing::Trustworthy) {
-      cv::circle(originalImage,
-                 cv::Point(static_cast<int>(body_part.x * imageWidth),
-                           static_cast<int>(body_part.y * imageHeight)),
-                 circleRadius, blue, -1);
-    } else {
-      cv::circle(originalImage,
-                 cv::Point(static_cast<int>(body_part.x * imageWidth),
-                           static_cast<int>(body_part.y * imageHeight)),
-                 circleRadius, red, -1);
-    }
-  }
+MainWindow* main_window_ptr;
 
-  // Save the image with detected points
-  cv::imwrite("./testimg.jpg", originalImage);
+void frame_callback(PostureEstimating::PoseStatus pose_status,
+                    cv::Mat input_image) {
+  main_window_ptr->updateTable(pose_status);
 }
 
-PostProcessing::ProcessedResults pipeline(std::string image) {
-  cv::Mat loadedImage = cv::imread(image);
-
-  PreProcessing::PreProcessor preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y);
-  Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
-                                MODEL_INPUT_X, MODEL_INPUT_Y);
-
-  // Empty settings to disable IIR filtering
-  IIR::SmoothingSettings smoothing_settings =
-      IIR::SmoothingSettings{std::vector<std::vector<float>>{}};
-  PostProcessing::PostProcessor post_processor(0.1, smoothing_settings);
-
-  PreProcessing::PreProcessedImage preprocessed_image =
-      preprocessor.run(loadedImage);
-
-  Inference::InferenceResults results = core.run(preprocessed_image);
-
-  PostProcessing::ProcessedResults processed_results =
-      post_processor.run(results);
-
-  for (auto body_part : processed_results.body_parts) {
-    printf("%f, %f: %s\n", body_part.x, body_part.y,
-           (body_part.status == PostProcessing::Trustworthy) ? "Trustworthy"
-                                                             : "Untrustworthy");
-  }
-
-  // Display image with detected points
-  displayImage(loadedImage, processed_results);
-
-  return processed_results;
-}
-
-int main(int argc, char *argv[]) {
-  printf("Initial Pose Points \n");
-  PostProcessing::ProcessedResults ideal_results = pipeline("./person.jpg");
-  printf("Current Pose Points \n");
-  PostProcessing::ProcessedResults current_results = pipeline("./person2.jpeg");
-
-  PostureEstimating::PostureEstimator e;
-  e.update_ideal_pose(ideal_results);
-  e.pose_change_threshold = 0;
-  e.runEstimator(current_results);
-
-  printf("User's posture is %s\n", (e.good_posture == true) ? "good" : "bad");
-
-  for (int i = JointMin; i <= JointMax; i++) {
-    if (e.pose_changes.joints[i].upper_angle != 0) {
-      printf("Please move your %s -> %s by %f radians or %f degrees\n",
-             PostureEstimating::stringJoint(e.pose_changes.joints[i - 1].joint)
-                 .c_str(),
-             PostureEstimating::stringJoint(e.pose_changes.joints[i].joint)
-                 .c_str(),
-             e.pose_changes.joints[i].lower_angle,
-             e.pose_changes.joints[i].lower_angle * 360 / (2 * M_PI));
-    }
-  }
-  // printf("this is the value %f \n this is the value",
-  // current_results.body_parts[0].x);
+int main(int argc, char* argv[]) {
+  printf("start\n");
 
   QApplication a(argc, argv);
   MainWindow w;
-  w.getData(e);
   QCoreApplication::processEvents();
   w.showMaximized();
+
+  main_window_ptr = &w;
+
+  Pipeline::Pipeline p(NUM_INF_CORE_THREADS, &frame_callback);
+
   return a.exec();
 }

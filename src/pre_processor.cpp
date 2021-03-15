@@ -52,4 +52,5 @@ PreProcessedImage PreProcessor::run(cv::Mat cv_image) {
 
   return PreProcessedImage{normalised_image};
 }
+
 }  // namespace PreProcessing
