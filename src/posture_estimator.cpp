@@ -23,8 +23,8 @@
 
 namespace PostureEstimating {
 
-std::string stringJoint(Joint j) {
-  switch (j) {
+std::string stringJoint(Joint joint) {
+  switch (joint) {
     case Head:
       return "head";
     case Neck:
