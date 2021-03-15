@@ -1,8 +1,8 @@
 /**
- * @file main.cpp
- * @brief Main file for the user interface
+ * @file server_main.cpp
+ * @brief Program for running a notification server, only runs on Linux
  *
- * @copyright Copyright (C) 2021  Andrew Ritchie
+ * @copyright Copyright (C) 2021  Conor Begley
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,19 +18,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-
-#include <QApplication>
-
-#include "mainwindow.h"
-
-/**
- * @brief Initialise and run the user interface
- */
+#include "server.h"
 
 int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.showMaximized();
-
-  return a.exec();
+  Notify::NotifyServer serv(8080);
+  while (1) {
+    serv.run();
+  }
+  return 1;
 }

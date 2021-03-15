@@ -37,6 +37,9 @@
 #include <QWidget>
 #include <QtCore/QVariant>
 
+#include "../intermediate_structures.h"
+#include "../posture_estimator.h"
+
 QT_BEGIN_NAMESPACE
 namespace GUi {
 class MainWindow;
@@ -67,11 +70,20 @@ class MainWindow : public QMainWindow {
    * @param *parent Pointer to the parent interface.
    */
   MainWindow(QWidget *parent = 0);  // NOLINT (Purposely not using explicit)
+  ~MainWindow();
+
+  /**
+   * @brief Extract data from the posture estimator.
+   *
+   * @param PostureEstimator object.
+   */
+  int getData(PostureEstimating::PostureEstimator e);
 
  private:
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
+  QStandardItemModel *model = new QStandardItemModel();
 
  private slots:
   /**

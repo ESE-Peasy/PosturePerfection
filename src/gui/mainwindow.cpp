@@ -19,6 +19,11 @@
  *
  */
 #include "mainwindow.h"
+#include <iostream>
+#include <string>
+#include "../intermediate_structures.h"
+#include "../posture_estimator.h"
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
@@ -45,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
   title->setScaledContents(true);
-  QPixmap pix("posture-logo.png");
+  QPixmap pix("src/gui/posture-logo.png");
   title->setPixmap(pix);
   title->setMinimumSize(10, 10);
   title->setMaximumSize(250, 125);
@@ -59,15 +64,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   QLabel *updateLabel = new QLabel();
   QLabel *deleteLabel = new QLabel();
 
-  // Create a placement liveFeed widget
-  QTextEdit *liveFeed = new QTextEdit;
-  liveFeed->setPlainText(tr(
-      "This widget will display a live feed of the user's posture position."));
-
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
   mainLayout->addWidget(groupBoxButtons, 1, 1);
-  mainLayout->addWidget(liveFeed, 1, 0);
   mainLayout->addWidget(deleteLabel, 3, 1);
   mainLayout->addWidget(updateLabel, 3, 0);
 
@@ -106,4 +105,48 @@ void MainWindow::showDateTime() {
   // output the current date/time and clear the previous outputted value
   mainLayout->addWidget(groupDateTime, 0, 1);
   mainLayout->itemAt(3)->widget()->deleteLater();
+}
+
+MainWindow::~MainWindow() { delete mainLayout; }
+
+int MainWindow::getData(PostureEstimating::PostureEstimator e) {
+  // Create table with appropriate headers
+  QTableView *view = new QTableView;
+  model = new QStandardItemModel(0, 4);
+  view->setModel(model);
+  model->setHeaderData(0, Qt::Horizontal, QObject::tr("Position"));
+  model->setHeaderData(1, Qt::Horizontal, QObject::tr("X coordinate"));
+  model->setHeaderData(2, Qt::Horizontal, QObject::tr("Y coordinate"));
+  model->setHeaderData(3, Qt::Horizontal, QObject::tr("Trustworthy"));
+
+  // Populate the table
+  for (int i = JointMin; i <= JointMax; i++) {
+    QList<QStandardItem *> newRow;
+    QStandardItem *itm1 = new QStandardItem(
+        PostureEstimating::stringJoint(e.current_pose.joints[i]->joint)
+            .c_str());
+    QStandardItem *itm2 =
+        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.x));
+    QStandardItem *itm3 =
+        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.y));
+    QStandardItem *itm4 =
+        new QStandardItem(PostProcessing::stringStatus(
+                              e.current_pose.joints[i]->coord.status)
+                              .c_str());
+
+    itm1->setForeground(QColor(Qt::white));
+    itm2->setForeground(QColor(Qt::white));
+    itm3->setForeground(QColor(Qt::white));
+    itm4->setForeground(QColor(Qt::white));
+
+    newRow.append(itm1);
+    newRow.append(itm2);
+    newRow.append(itm3);
+    newRow.append(itm4);
+    model->insertRow(i, newRow);
+  }
+
+  // Add the table to the GUI
+  mainLayout->addWidget(view, 1, 0);
+  return 0;
 }

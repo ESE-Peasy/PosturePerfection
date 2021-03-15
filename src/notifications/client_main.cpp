@@ -1,8 +1,9 @@
 /**
- * @file main.cpp
- * @brief Main file for the user interface
+ * @file client_main.cpp
+ * @brief Program for running a notification client, only runs on Linux
  *
- * @copyright Copyright (C) 2021  Andrew Ritchie
+ *
+ * @copyright Copyright (C) 2021  Conor Begley
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,19 +19,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-
-#include <QApplication>
-
-#include "mainwindow.h"
-
-/**
- * @brief Initialise and run the user interface
- */
+#include "client.h"
 
 int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
-  MainWindow w;
-  w.showMaximized();
-
-  return a.exec();
+  char *ip = const_cast<char *>("127.0.0.1");
+  Notify::NotifyClient client(ip, 8080);
+  std::string msg = "Hello World";
+  client.sendMessage(msg);
+  return 1;
 }
