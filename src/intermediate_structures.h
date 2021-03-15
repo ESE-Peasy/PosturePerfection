@@ -160,8 +160,6 @@ namespace Inference {
  *
  */
 struct Result {
-  size_t x;  ///< The *absolute* X co-ordinate of the body part detected
-  size_t y;  ///< The *absolute* Y co-ordinate of the body part detected
   /**
    * @brief The confidence in this body part being the one determined from
    * inference. Values are in the range [0.0..1.0] with 1.0 indicating 100%
@@ -169,6 +167,8 @@ struct Result {
    *
    */
   float confidence;
+  size_t x;  ///< The *absolute* X co-ordinate of the body part detected
+  size_t y;  ///< The *absolute* Y co-ordinate of the body part detected
 };
 
 /**
@@ -181,6 +181,8 @@ struct Result {
  *
  */
 struct Coordinate {
+  float x;  ///< The *relative* X co-ordinate of the body part detected
+  float y;  ///< The *relative* X co-ordinate of the body part detected
   /**
    * @brief The confidence in this body part being the one determined from
    * inference. Values are in the range [0.0..1.0] with 1.0 indicating 100%
@@ -188,8 +190,6 @@ struct Coordinate {
    *
    */
   float confidence;
-  float x;  ///< The *relative* X co-ordinate of the body part detected
-  float y;  ///< The *relative* X co-ordinate of the body part detected
 };
 
 /**

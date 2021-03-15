@@ -2,7 +2,7 @@
 
 This is a project completed as part of the 5th Year Engineering course, Real Time Embedded Programming, at The University of Glasgow.
 
-Code documentation can be found here, however more general information regarding the project can be found on our [website](../system/system.html).
+Code documentation can be found here, however more general information regarding the project can be found on our [website](../).
 
 \section breakdown Project Breakdown
 
