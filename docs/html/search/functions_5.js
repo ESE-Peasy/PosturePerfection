@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_7epostureestimator_75',['~PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ae067ecb8f608b149771b95927e904818',1,'PostureEstimating::PostureEstimator']]]
+  ['try_5fpush_97',['try_push',['../classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6',1,'Pipeline::Buffer']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['smoothingsettings_54',['SmoothingSettings',['../structIIR_1_1SmoothingSettings.html',1,'IIR']]]
+  ['result_70',['Result',['../structResult.html',1,'']]]
 ];

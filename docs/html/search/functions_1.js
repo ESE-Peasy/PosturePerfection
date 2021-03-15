@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['postprocessor_67',['PostProcessor',['../classPostProcessing_1_1PostProcessor.html#a08e86bb5b38024d22acc0dd69c757b7b',1,'PostProcessing::PostProcessor']]],
-  ['postureestimator_68',['PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ab86561e9c3706a2c4ae7a934ffc1ad04',1,'PostureEstimating::PostureEstimator']]],
-  ['preprocessor_69',['PreProcessor',['../classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c',1,'PreProcessing::PreProcessor']]]
+  ['iir2ndorderfilter_84',['IIR2ndOrderFilter',['../classIIR_1_1IIR2ndOrderFilter.html#af4038e98512af1404520cf4cb7439a45',1,'IIR::IIR2ndOrderFilter']]],
+  ['iirfilter_85',['IIRFilter',['../classIIR_1_1IIRFilter.html#a573b000f3c54ec42c358444cbc995b5f',1,'IIR::IIRFilter']]],
+  ['inferencecore_86',['InferenceCore',['../classInference_1_1InferenceCore.html#a6d0465cab368c842b3ae33b1b9eebeec',1,'Inference::InferenceCore']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['update_5fideal_5fpose_37',['update_ideal_pose',['../classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc',1,'PostureEstimating::PostureEstimator']]]
+  ['try_5fpush_46',['try_push',['../classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6',1,'Pipeline::Buffer']]]
 ];

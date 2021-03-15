@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['run_70',['run',['../classIIR_1_1IIR2ndOrderFilter.html#a9500fcdaf9d6923057461c1a0ef623d2',1,'IIR::IIR2ndOrderFilter::run()'],['../classIIR_1_1IIRFilter.html#a1f0009b3f0107d00cd5cb230c028a023',1,'IIR::IIRFilter::run()'],['../classInference_1_1InferenceCore.html#ab622367f2d9a518e89401fe0ee710188',1,'Inference::InferenceCore::run()'],['../classPostProcessing_1_1PostProcessor.html#a2a8ce854324720f34d9c4f10c2b37e4d',1,'PostProcessing::PostProcessor::run()'],['../classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9',1,'PreProcessing::PreProcessor::run()']]],
-  ['runestimator_71',['runEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b',1,'PostureEstimating::PostureEstimator']]]
+  ['pipeline_87',['Pipeline',['../classPipeline_1_1Pipeline.html#a42acbc67045f64819cd962e2b5746091',1,'Pipeline::Pipeline']]],
+  ['pop_88',['pop',['../classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622',1,'Pipeline::Buffer']]],
+  ['postprocessor_89',['PostProcessor',['../classPostProcessing_1_1PostProcessor.html#a08e86bb5b38024d22acc0dd69c757b7b',1,'PostProcessing::PostProcessor']]],
+  ['postureestimator_90',['PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ab86561e9c3706a2c4ae7a934ffc1ad04',1,'PostureEstimating::PostureEstimator']]],
+  ['preprocessor_91',['PreProcessor',['../classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c',1,'PreProcessing::PreProcessor']]],
+  ['push_92',['push',['../classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344',1,'Pipeline::Buffer']]]
 ];

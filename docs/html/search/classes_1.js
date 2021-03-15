@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['iir2ndorderfilter_41',['IIR2ndOrderFilter',['../classIIR_1_1IIR2ndOrderFilter.html',1,'IIR']]],
-  ['iirfilter_42',['IIRFilter',['../classIIR_1_1IIRFilter.html',1,'IIR']]],
-  ['inferencecore_43',['InferenceCore',['../classInference_1_1InferenceCore.html',1,'Inference']]],
-  ['inferenceresults_44',['InferenceResults',['../structInference_1_1InferenceResults.html',1,'Inference']]]
+  ['connectedjoint_53',['ConnectedJoint',['../structPostureEstimating_1_1ConnectedJoint.html',1,'PostureEstimating']]],
+  ['coordinate_54',['Coordinate',['../structInference_1_1Coordinate.html',1,'Inference::Coordinate'],['../structPostProcessing_1_1Coordinate.html',1,'PostProcessing::Coordinate']]],
+  ['coreresults_55',['CoreResults',['../structPipeline_1_1CoreResults.html',1,'Pipeline']]]
 ];

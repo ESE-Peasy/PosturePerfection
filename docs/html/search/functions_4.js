@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['update_5fideal_5fpose_74',['update_ideal_pose',['../classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc',1,'PostureEstimating::PostureEstimator']]]
+  ['set_5fconfidence_5fthreshold_95',['set_confidence_threshold',['../classPostProcessing_1_1PostProcessor.html#acfd7f824e696fae2ceab20d8b6f91c0a',1,'PostProcessing::PostProcessor']]],
+  ['stringstatus_96',['stringStatus',['../intermediate__structures_8cpp.html#a6e9842a582098e89f3855632c670cc83',1,'PostProcessing']]]
 ];
