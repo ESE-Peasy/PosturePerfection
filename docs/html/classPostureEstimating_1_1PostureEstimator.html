@@ -101,9 +101,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a96da35b970e17452e9a5b9e5d32561dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc">update_ideal_pose</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
 <tr class="memdesc:a96da35b970e17452e9a5b9e5d32561dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the user's ideal pose using.  <a href="classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc">More...</a><br /></td></tr>
 <tr class="separator:a96da35b970e17452e9a5b9e5d32561dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09f372e363f41b6b88216c244538aa96"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a09f372e363f41b6b88216c244538aa96">updateCurrentPoseAndCheckPosture</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
-<tr class="memdesc:a09f372e363f41b6b88216c244538aa96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the user's current pose from <code>PostProcessing::ProcessingResults</code>, Calculates pose change needed. Checks if pose change needed is outside threshold.  <a href="classPostureEstimating_1_1PostureEstimator.html#a09f372e363f41b6b88216c244538aa96">More...</a><br /></td></tr>
-<tr class="separator:a09f372e363f41b6b88216c244538aa96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PoseStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">runEstimator</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
+<tr class="memdesc:ac6f12c5c80b96860c57a989c92b28d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PoseStatus</a></code> of the user's pose.  <a href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">More...</a><br /></td></tr>
+<tr class="separator:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
@@ -138,6 +138,32 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </ul>
 <p>General use should just consist of <code>updateCurrentPoseAndCheckPosture</code>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac6f12c5c80b96860c57a989c92b28d2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6f12c5c80b96860c57a989c92b28d2b">&#9670;&nbsp;</a></span>runEstimator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PoseStatus</a> PostureEstimating::PostureEstimator::runEstimator </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a>&#160;</td>
+          <td class="paramname"><em>results</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PoseStatus</a></code> of the user's pose. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">results</td><td><code><a class="el" href="structPostProcessing_1_1ProcessedResults.html" title="The PostProcessing::Coordinate of each body part.">PostProcessing::ProcessedResults</a></code> struct containing user's pose data. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a96da35b970e17452e9a5b9e5d32561dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a96da35b970e17452e9a5b9e5d32561dc">&#9670;&nbsp;</a></span>update_ideal_pose()</h2>
 
@@ -161,35 +187,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a09f372e363f41b6b88216c244538aa96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09f372e363f41b6b88216c244538aa96">&#9670;&nbsp;</a></span>updateCurrentPoseAndCheckPosture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PostureEstimating::PostureEstimator::updateCurrentPoseAndCheckPosture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a>&#160;</td>
-          <td class="paramname"><em>results</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the user's current pose from <code>PostProcessing::ProcessingResults</code>, Calculates pose change needed. Checks if pose change needed is outside threshold. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">results</td><td><code>PostProcessing::ProcessingResults</code> struct containing user's pose data. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if user's posture is good </dd>
-<dd>
-<code>false</code> if user's posture is bad </dd></dl>
 
 </div>
 </div>

@@ -1,0 +1,4 @@
+<map id="PostureEstimating::PoseStatus" name="PostureEstimating::PoseStatus">
+<area shape="rect" id="node1" title="representation of user&#39;s pose for use by the pipeline processing" alt="" coords="20,124,155,165"/>
+<area shape="rect" id="node2" href="$structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint" alt="" coords="5,5,169,32"/>
+</map>

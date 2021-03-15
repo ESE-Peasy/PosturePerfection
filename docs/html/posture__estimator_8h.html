@@ -102,6 +102,9 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The representation of a human's pose, containing all the expected <code><a class="el" href="structPostureEstimating_1_1ConnectedJoint.html" title="A representation of a body part.">ConnectedJoint</a></code>  <a href="structPostureEstimating_1_1Pose.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">representation of user's pose for use by the pipeline processing  <a href="structPostureEstimating_1_1PoseStatus.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimating::PostureEstimator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class handles representations of the user's pose and calculates any updates to their pose that is required.  <a href="classPostureEstimating_1_1PostureEstimator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,9 +119,6 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>PostureEstimat
 Pose&#160;</td><td class="memItemRight" valign="bottom"><b>PostureEstimating::createPose</b> ()</td></tr>
 <tr class="memdesc:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">Pose</a> object. <br /></td></tr>
 <tr class="separator:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f543f918178c629f64badc590c9715d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><b>PostureEstimating::destroyPose</b> (<a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> p)</td></tr>
-<tr class="memdesc:a5f543f918178c629f64badc590c9715d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees all pointers in a <a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">Pose</a> object.  <a href="posture__estimator_8cpp.html#a5f543f918178c629f64badc590c9715d">More...</a><br /></td></tr>
-<tr class="separator:a5f543f918178c629f64badc590c9715d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for representation of user's pose. </p>
@@ -126,34 +126,7 @@ Pose&#160;</td><td class="memItemRight" valign="bottom"><b>PostureEstimating::cr
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a5f543f918178c629f64badc590c9715d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f543f918178c629f64badc590c9715d">&#9670;&nbsp;</a></span>destroyPose()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void PostureEstimating::destroyPose </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Frees all pointers in a Pose object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">&lt;tt&gt;Pose&lt;/tt&gt;</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
