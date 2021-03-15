@@ -103,14 +103,14 @@ int main(int argc, char *argv[]) {
   printf("User's posture is %s\n", (e.good_posture == true) ? "good" : "bad");
 
   for (int i = JointMin; i <= JointMax; i++) {
-    if (e.pose_changes.joints[i]->upper_angle != 0) {
+    if (e.pose_changes.joints[i].upper_angle != 0) {
       printf("Please move your %s -> %s by %f radians or %f degrees\n",
-             PostureEstimating::stringJoint(e.pose_changes.joints[i - 1]->joint)
+             PostureEstimating::stringJoint(e.pose_changes.joints[i - 1].joint)
                  .c_str(),
-             PostureEstimating::stringJoint(e.pose_changes.joints[i]->joint)
+             PostureEstimating::stringJoint(e.pose_changes.joints[i].joint)
                  .c_str(),
-             e.pose_changes.joints[i]->lower_angle,
-             e.pose_changes.joints[i]->lower_angle * 360 / (2 * M_PI));
+             e.pose_changes.joints[i].lower_angle,
+             e.pose_changes.joints[i].lower_angle * 360 / (2 * M_PI));
     }
   }
   // printf("this is the value %f \n this is the value",

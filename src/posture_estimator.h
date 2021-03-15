@@ -61,21 +61,13 @@ std::string stringJoint(Joint j);
  * the expected `ConnectedJoint`
  */
 struct Pose {
-  std::array<ConnectedJoint*, JointMax + 1> joints;
+  std::array<ConnectedJoint, JointMax + 1> joints;
 };
 
 /**
  * @brief Creates an empty Pose object
  */
 Pose createPose();
-
-/**
- * @brief Frees all pointers in a Pose object
- *
- * @param `Pose`
- */
-
-void destroyPose(PostureEstimating::Pose p);
 
 /**
  * @brief representation of user's pose for use by the pipeline processing
@@ -180,7 +172,7 @@ class PostureEstimator {
   /**
    * @brief Destroy a Posture Estimator object
    */
-  ~PostureEstimator();
+  ~PostureEstimator() {}
 
   /**
    * @brief The user's current pose from most recent data provided.
