@@ -31,7 +31,7 @@
 
 bool run_flag = true;
 
-MainWindow* main_window_ptr;
+GUI::MainWindow* main_window_ptr;
 
 void frame_callback(PostureEstimating::PoseStatus pose_status,
                     cv::Mat input_image) {
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
   printf("start\n");
 
   QApplication a(argc, argv);
-  MainWindow w;
+  GUI::MainWindow w;
   QCoreApplication::processEvents();
   w.showMaximized();
 

@@ -41,23 +41,24 @@
 #include "../posture_estimator.h"
 
 QT_BEGIN_NAMESPACE
-namespace GUi {
-class MainWindow;
-}
-QT_END_NAMESPACE
 
 /**
- * @brief This class allows for navigation around the application from the main
- * page.
+ * @brief All code related to the graphical user interface for
+ * PosturePerfection
  *
- * This class lets the user navigate to the data page, settings page and
+ */
+namespace GUI {
+
+/**
+ * @brief Allows for navigation around the application from the main
+ * page by letting the user navigate to the data page, settings page and
  * fullscreen page from the main window.
  *
  * This class handles:
- * Navigating to the data page.
- * Navigating to the settings page.
- * Navigating to the full screen.
- * Triggering posture reseting functionality
+ *  - Navigating to the data page.
+ *  - Navigating to the settings page.
+ *  - Navigating to the full screen.
+ *  - Triggering posture reseting functionality
  *
  */
 class MainWindow : public QMainWindow {
@@ -92,5 +93,6 @@ class MainWindow : public QMainWindow {
    */
   void showDateTime();
 };
-
+}  // namespace GUI
+QT_END_NAMESPACE
 #endif  // SRC_GUI_MAINWINDOW_H_

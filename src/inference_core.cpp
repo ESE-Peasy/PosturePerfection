@@ -28,12 +28,6 @@
 
 #include "intermediate_structures.h"
 
-typedef struct Result {
-  float confidence;
-  size_t x;
-  size_t y;
-} Result;
-
 namespace Inference {
 
 InferenceCore::InferenceCore(const char* model_filename,
@@ -90,7 +84,7 @@ InferenceResults InferenceCore::run(
   // Get pointer to output
   auto output = this->interpreter->typed_output_tensor<float>(0);
 
-  Result results[BodyPartMax + 1];
+  Inference::Result results[BodyPartMax + 1];
   memset(results, 0, sizeof(results));
 
   size_t step = BodyPartMax + 1;

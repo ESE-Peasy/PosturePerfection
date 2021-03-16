@@ -30,6 +30,11 @@
 #include "intermediate_structures.h"
 #include "pre_processor.h"
 
+/**
+ * @brief Uses TensorFlow Lite to perform pose estimation on a given image frame
+ * to detect noteworthy joints
+ *
+ */
 namespace Inference {
 
 /**
@@ -72,7 +77,7 @@ class InferenceCore {
    * @param preprocessed_image An image that has been resized to the model input
    * dimensions and normalised from `uint8_t` values to `float`s in the interval
    * [-1..1] before being passed to this function
-   * @return InferenceResults
+   * @return `InferenceResults`
    */
   InferenceResults run(PreProcessing::PreProcessedImage preprocessed_image);
 };

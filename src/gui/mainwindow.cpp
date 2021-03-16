@@ -26,7 +26,7 @@
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
 
   // create three buttons
@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   this->generateTable();
 }
 
-void MainWindow::showDateTime() {
+void GUI::MainWindow::showDateTime() {
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
 
@@ -110,9 +110,9 @@ void MainWindow::showDateTime() {
   mainLayout->itemAt(3)->widget()->deleteLater();
 }
 
-MainWindow::~MainWindow() { delete mainLayout; }
+GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
-void MainWindow::generateTable(void) {
+void GUI::MainWindow::generateTable(void) {
   // Create table with appropriate headers
   QTableView *view = new QTableView;
   model = new QStandardItemModel(0, 4);
@@ -146,7 +146,7 @@ void MainWindow::generateTable(void) {
   mainLayout->addWidget(view, 1, 0);
 }
 
-void MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
+void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
   uint8_t i = 0;
   for (auto joint : pose_status.current_pose.joints) {
     model->item(i, 0)->setData(
