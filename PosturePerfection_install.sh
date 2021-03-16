@@ -42,7 +42,7 @@ wget "https://github.com/ESE-Peasy/PosturePerfection/raw/main/person.jpg"
 
 printf "${B_GREEN}PosturePerfection has been successfully installed!\n\n"
 
-printf "${GREEN}Run ./PosturePerfection_0.1.0_xxx to run posture estimation on the test input image 'person.jpg'. Feel free to try your own image with this file name!\n\n"
+printf "${GREEN}Run ./PosturePerfection_0.2.0_xxx to run posture estimation on the test input image 'person.jpg'. Feel free to try your own image with this file name!\n\n"
 
 printf "${NO_COLOUR}The result is an output image 'testimg.img' which displays the results of pose estimation with ${BLUE}blue circles ${NO_COLOUR}indicating joints detected with high confidence and ${RED}red circles ${NO_COLOUR}indicating low confidence.\n"
 printf "The relative co-ordinates of detected joints are also output alongside their Trustworthy/Untrustworthy status\n\n" 
