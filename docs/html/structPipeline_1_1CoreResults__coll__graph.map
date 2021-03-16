@@ -1,4 +1,4 @@
 <map id="Pipeline::CoreResults" name="Pipeline::CoreResults">
-<area shape="rect" id="node1" title=" " alt="" coords="23,95,168,121"/>
+<area shape="rect" id="node1" title="Contains the id of the frame within the pipeline, as well as the raw image and the results of running..." alt="" coords="23,95,168,121"/>
 <area shape="rect" id="node2" href="$structInference_1_1InferenceResults.html" title="Results of running the model for all body parts." alt="" coords="5,5,185,32"/>
 </map>

@@ -72,28 +72,78 @@ $(function() {
 <div class="title">Pipeline::CoreResults Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Contains the id of the frame within the pipeline, as well as the raw image and the results of running inference on that image. A struct of this type is created for every input image after it has been passed through the <code>InferenceCore</code>, before being sent to the <code>PostProcessor</code>  
+ <a href="structPipeline_1_1CoreResults.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="pipeline_8h_source.html">pipeline.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for Pipeline::CoreResults:</div>
 <div class="dyncontent">
 <div class="center"><img src="structPipeline_1_1CoreResults__coll__graph.png" border="0" usemap="#aPipeline_1_1CoreResults_coll__map" alt="Collaboration graph"/></div>
 <map name="aPipeline_1_1CoreResults_coll__map" id="aPipeline_1_1CoreResults_coll__map">
-<area shape="rect" title=" " alt="" coords="23,95,168,121"/>
+<area shape="rect" title="Contains the id of the frame within the pipeline, as well as the raw image and the results of running..." alt="" coords="23,95,168,121"/>
 <area shape="rect" href="structInference_1_1InferenceResults.html" title="Results of running the model for all body parts." alt="" coords="5,5,185,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a78b35f1f9bb281d50b30ee45bce290d3"><td class="memItemLeft" align="right" valign="top"><a id="a78b35f1f9bb281d50b30ee45bce290d3"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>id</b></td></tr>
+<tr class="memitem:a78b35f1f9bb281d50b30ee45bce290d3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">id</a></td></tr>
+<tr class="memdesc:a78b35f1f9bb281d50b30ee45bce290d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Every frame is assigned a unique id to ensure in-order post processing. This id must be passed through the entire pipeline.  <a href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">More...</a><br /></td></tr>
 <tr class="separator:a78b35f1f9bb281d50b30ee45bce290d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2d7f46f2124fd3805f644f46591d13d"><td class="memItemLeft" align="right" valign="top"><a id="ab2d7f46f2124fd3805f644f46591d13d"></a>
-cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><b>raw_image</b></td></tr>
+<tr class="memitem:ab2d7f46f2124fd3805f644f46591d13d"><td class="memItemLeft" align="right" valign="top">cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d">raw_image</a></td></tr>
 <tr class="separator:ab2d7f46f2124fd3805f644f46591d13d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4faabc9ca2d133b5dc9cde07fe5a2c5f"><td class="memItemLeft" align="right" valign="top"><a id="a4faabc9ca2d133b5dc9cde07fe5a2c5f"></a>
-<a class="el" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a>&#160;</td><td class="memItemRight" valign="bottom"><b>image_results</b></td></tr>
+<tr class="memitem:a4faabc9ca2d133b5dc9cde07fe5a2c5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f">image_results</a></td></tr>
 <tr class="separator:a4faabc9ca2d133b5dc9cde07fe5a2c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contains the id of the frame within the pipeline, as well as the raw image and the results of running inference on that image. A struct of this type is created for every input image after it has been passed through the <code>InferenceCore</code>, before being sent to the <code>PostProcessor</code> </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a78b35f1f9bb281d50b30ee45bce290d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78b35f1f9bb281d50b30ee45bce290d3">&#9670;&nbsp;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Pipeline::CoreResults::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Every frame is assigned a unique id to ensure in-order post processing. This id must be passed through the entire pipeline. </p>
+
+</div>
+</div>
+<a id="a4faabc9ca2d133b5dc9cde07fe5a2c5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4faabc9ca2d133b5dc9cde07fe5a2c5f">&#9670;&nbsp;</a></span>image_results</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a> Pipeline::CoreResults::image_results</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab2d7f46f2124fd3805f644f46591d13d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2d7f46f2124fd3805f644f46591d13d">&#9670;&nbsp;</a></span>raw_image</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cv::Mat Pipeline::CoreResults::raw_image</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="pipeline_8h_source.html">pipeline.h</a></li>
 </ul>

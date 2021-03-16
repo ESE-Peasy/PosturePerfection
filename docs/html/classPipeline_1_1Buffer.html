@@ -81,7 +81,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8c55c604454fb0b1039271a90dcabe7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">Buffer</a> (bool *running_ptr, size_t max_size)</td></tr>
-<tr class="memdesc:a8c55c604454fb0b1039271a90dcabe7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classPipeline_1_1Buffer.html" title="A synchronising buffer to be used as a communication mechanism between threads.">Buffer</a> object.  <a href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">More...</a><br /></td></tr>
+<tr class="memdesc:a8c55c604454fb0b1039271a90dcabe7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <code><a class="el" href="classPipeline_1_1Buffer.html" title="A synchronising buffer to be used as a communication mechanism between threads.">Buffer</a></code> object.  <a href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">More...</a><br /></td></tr>
 <tr class="separator:a8c55c604454fb0b1039271a90dcabe7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5e412a884a75acdf28935a1fd41a344"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">push</a> (T frame)</td></tr>
 <tr class="memdesc:af5e412a884a75acdf28935a1fd41a344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push a frame to the queue.  <a href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">More...</a><br /></td></tr>
@@ -142,10 +142,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="classPipeline_1_1Buffer.html" title="A synchronising buffer to be used as a communication mechanism between threads.">Buffer</a> object. </p>
+<p>Construct a new <code><a class="el" href="classPipeline_1_1Buffer.html" title="A synchronising buffer to be used as a communication mechanism between threads.">Buffer</a></code> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">running_ptr</td><td>Pointer to the <code>Pipeline::Pipeline::running</code> flag </td></tr>
+    <tr><td class="paramname">size_t</td><td>The maximum size of the <code><a class="el" href="classPipeline_1_1Buffer.html" title="A synchronising buffer to be used as a communication mechanism between threads.">Buffer</a></code> </td></tr>
   </table>
   </dd>
 </dl>
@@ -211,8 +212,8 @@ template&lt;typename T &gt; </div>
 
 <p>Push a frame to the queue. </p>
 <p>This blocks if the frame's ID is not the next in the series, until the missing frame has been pushed by another thread. Also blocks if the maximum size is reached, until elements are popped.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
     <tr><td class="paramname">frame</td><td>Frame to be pushed to the queue </td></tr>
   </table>
   </dd>
@@ -254,9 +255,9 @@ template&lt;typename T &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true If pushing was successful </dd>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> If pushing was successful </dd>
 <dd>
-false If the frame was not pushed, i.e., the queue was full; or the pipeline is halting </dd></dl>
+<code>false</code> If the frame was not pushed, i.e., the queue was full; or the pipeline is halting </dd></dl>
 
 </div>
 </div>

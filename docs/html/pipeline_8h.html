@@ -117,6 +117,16 @@ Include dependency graph for pipeline.h:</div>
 <area shape="rect" title=" " alt="" coords="852,304,912,331"/>
 </map>
 </div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="pipeline_8h__dep__incl.png" border="0" usemap="#apipeline_8hdep" alt=""/></div>
+<map name="apipeline_8hdep" id="apipeline_8hdep">
+<area shape="rect" title="Main pipeline for the PosturePerfection system." alt="" coords="58,5,134,32"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="5,80,80,107"/>
+<area shape="rect" href="pipeline_8cpp.html" title=" " alt="" coords="104,80,195,107"/>
+</map>
+</div>
 </div>
 <p><a href="pipeline_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -126,8 +136,10 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A synchronising buffer to be used as a communication mechanism between threads.  <a href="classPipeline_1_1Buffer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPipeline_1_1PreprocessedFrame.html">Pipeline::PreprocessedFrame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the id of the frame within the pipeline, as well as the raw image and the preprocessed_image. A struct of this type is created for every input image after it has been passed through the <code><a class="el" href="classPreProcessing_1_1PreProcessor.html" title="Pre-process the input image before passing to Inference::InferenceCore">PreProcessing::PreProcessor</a></code>, before being sent to the <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code>  <a href="structPipeline_1_1PreprocessedFrame.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPipeline_1_1CoreResults.html">Pipeline::CoreResults</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the id of the frame within the pipeline, as well as the raw image and the results of running inference on that image. A struct of this type is created for every input image after it has been passed through the <code>InferenceCore</code>, before being sent to the <code>PostProcessor</code>  <a href="structPipeline_1_1CoreResults.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html">Pipeline::Pipeline</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frame-by-frame pipeline to process video.  <a href="classPipeline_1_1Pipeline.html#details">More...</a><br /></td></tr>

@@ -81,28 +81,28 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="intermediate__structures_8h.html">intermediate_structures.h</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;opencv2/opencv.hpp&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePreProcessing.html">PreProcessing</a> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classPreProcessing_1_1PreProcessor.html">   46</a></span>&#160;<span class="keyword">class </span><a class="code" href="classPreProcessing_1_1PreProcessor.html">PreProcessor</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">size_t</span> model_width;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">size_t</span> model_height;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> normalise(uint8_t* resized_image, <span class="keywordtype">float</span>* normalised_image);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c">PreProcessor</a>(<span class="keywordtype">size_t</span> model_width, <span class="keywordtype">size_t</span> model_height);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <a class="code" href="structPreProcessing_1_1PreProcessedImage.html">PreProcessedImage</a> <a class="code" href="classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9">run</a>(cv::Mat cv_image);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}  <span class="comment">// namespace PreProcessing</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PRE_PROCESSOR_H_</span></div>
-<div class="ttc" id="aclassPreProcessing_1_1PreProcessor_html"><div class="ttname"><a href="classPreProcessing_1_1PreProcessor.html">PreProcessing::PreProcessor</a></div><div class="ttdoc">PreProcess the input image before passing to Inference::InferenceCore</div><div class="ttdef"><b>Definition:</b> pre_processor.h:46</div></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePreProcessing.html">PreProcessing</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classPreProcessing_1_1PreProcessor.html">   51</a></span>&#160;<span class="keyword">class </span><a class="code" href="classPreProcessing_1_1PreProcessor.html">PreProcessor</a> {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">size_t</span> model_width;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">size_t</span> model_height;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordtype">void</span> normalise(uint8_t* resized_image, <span class="keywordtype">float</span>* normalised_image);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c">PreProcessor</a>(<span class="keywordtype">size_t</span> model_width, <span class="keywordtype">size_t</span> model_height);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <a class="code" href="structPreProcessing_1_1PreProcessedImage.html">PreProcessedImage</a> <a class="code" href="classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9">run</a>(cv::Mat cv_image);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}  <span class="comment">// namespace PreProcessing</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PRE_PROCESSOR_H_</span></div>
+<div class="ttc" id="aclassPreProcessing_1_1PreProcessor_html"><div class="ttname"><a href="classPreProcessing_1_1PreProcessor.html">PreProcessing::PreProcessor</a></div><div class="ttdoc">Pre-process the input image before passing to Inference::InferenceCore</div><div class="ttdef"><b>Definition:</b> pre_processor.h:51</div></div>
 <div class="ttc" id="aclassPreProcessing_1_1PreProcessor_html_ac81108f758bd9d90483b5c85f1c965d9"><div class="ttname"><a href="classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9">PreProcessing::PreProcessor::run</a></div><div class="ttdeci">PreProcessedImage run(cv::Mat cv_image)</div><div class="ttdoc">Apply pre processing to the given input image.</div><div class="ttdef"><b>Definition:</b> pre_processor.cpp:44</div></div>
 <div class="ttc" id="aclassPreProcessing_1_1PreProcessor_html_afd713f3b176e5bfe59f5af63236ea72c"><div class="ttname"><a href="classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c">PreProcessing::PreProcessor::PreProcessor</a></div><div class="ttdeci">PreProcessor(size_t model_width, size_t model_height)</div><div class="ttdoc">Construct a new PreProcessor object.</div><div class="ttdef"><b>Definition:</b> pre_processor.cpp:26</div></div>
 <div class="ttc" id="aintermediate__structures_8h_html"><div class="ttname"><a href="intermediate__structures_8h.html">intermediate_structures.h</a></div><div class="ttdoc">Data structures used in communicating between different parts of the system.</div></div>
-<div class="ttc" id="anamespacePreProcessing_html"><div class="ttname"><a href="namespacePreProcessing.html">PreProcessing</a></div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:77</div></div>
+<div class="ttc" id="anamespacePreProcessing_html"><div class="ttname"><a href="namespacePreProcessing.html">PreProcessing</a></div><div class="ttdoc">Responsible for resizing and normalising the input image to a structure suitable for TensorFlow Lite.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:77</div></div>
 <div class="ttc" id="astructPreProcessing_1_1PreProcessedImage_html"><div class="ttname"><a href="structPreProcessing_1_1PreProcessedImage.html">PreProcessing::PreProcessedImage</a></div><div class="ttdoc">A structure of the pre processed image.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:85</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nodes_60',['Nodes',['../structIIR_1_1Nodes.html',1,'IIR']]]
+  ['mainwindow_190',['MainWindow',['../classGUI_1_1MainWindow.html',1,'GUI']]]
 ];

@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>PreProcess the input image before passing to <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code>  
+<p>Pre-process the input image before passing to <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code>  
  <a href="classPreProcessing_1_1PreProcessor.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="pre__processor_8h_source.html">pre_processor.h</a>&gt;</code></p>
@@ -81,14 +81,14 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afd713f3b176e5bfe59f5af63236ea72c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c">PreProcessor</a> (size_t model_width, size_t model_height)</td></tr>
-<tr class="memdesc:afd713f3b176e5bfe59f5af63236ea72c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classPreProcessing_1_1PreProcessor.html" title="PreProcess the input image before passing to Inference::InferenceCore">PreProcessor</a> object.  <a href="classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c">More...</a><br /></td></tr>
+<tr class="memdesc:afd713f3b176e5bfe59f5af63236ea72c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classPreProcessing_1_1PreProcessor.html" title="Pre-process the input image before passing to Inference::InferenceCore">PreProcessor</a> object.  <a href="classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c">More...</a><br /></td></tr>
 <tr class="separator:afd713f3b176e5bfe59f5af63236ea72c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac81108f758bd9d90483b5c85f1c965d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPreProcessing_1_1PreProcessedImage.html">PreProcessedImage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9">run</a> (cv::Mat cv_image)</td></tr>
 <tr class="memdesc:ac81108f758bd9d90483b5c85f1c965d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply pre processing to the given input image.  <a href="classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9">More...</a><br /></td></tr>
 <tr class="separator:ac81108f758bd9d90483b5c85f1c965d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>PreProcess the input image before passing to <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code> </p>
+<div class="textblock"><p>Pre-process the input image before passing to <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code> </p>
 <p>This class contains some pre processing steps to allow an input image to be passed to the <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code>. The following operations are performed to process the raw data:</p><ul>
 <li>Resize the image to fit the dimensions of the model being used</li>
 <li>Normalise the image pixels to the range [-1..1] </li>
@@ -120,7 +120,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="classPreProcessing_1_1PreProcessor.html" title="PreProcess the input image before passing to Inference::InferenceCore">PreProcessor</a> object. </p>
+<p>Construct a new <a class="el" href="classPreProcessing_1_1PreProcessor.html" title="Pre-process the input image before passing to Inference::InferenceCore">PreProcessor</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">model_width</td><td>Desired width of the resized image (should match <code>Inference::InferenceCore::model_input_width</code>) </td></tr>
@@ -156,13 +156,13 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>PreprocessedImage after resizing and normalising </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="structPreProcessing_1_1PreProcessedImage.html" title="A structure of the pre processed image.">PreProcessedImage</a></code> after resizing and normalising </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="pre__processor_8h_source.html">pre_processor.h</a></li>
-<li>pre_processor.cpp</li>
+<li><a class="el" href="pre__processor_8cpp.html">pre_processor.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

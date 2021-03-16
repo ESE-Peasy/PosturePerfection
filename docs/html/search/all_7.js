@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['result_39',['Result',['../structResult.html',1,'']]],
-  ['run_40',['run',['../classIIR_1_1IIR2ndOrderFilter.html#a9500fcdaf9d6923057461c1a0ef623d2',1,'IIR::IIR2ndOrderFilter::run()'],['../classIIR_1_1IIRFilter.html#a1f0009b3f0107d00cd5cb230c028a023',1,'IIR::IIRFilter::run()'],['../classInference_1_1InferenceCore.html#ab622367f2d9a518e89401fe0ee710188',1,'Inference::InferenceCore::run()'],['../classPostProcessing_1_1PostProcessor.html#a2a8ce854324720f34d9c4f10c2b37e4d',1,'PostProcessing::PostProcessor::run()'],['../classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9',1,'PreProcessing::PreProcessor::run()']]],
-  ['runestimator_41',['runEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b',1,'PostureEstimating::PostureEstimator']]]
+  ['head_46',['Head',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5a04a0279b5e051c6d031d5b4f656c3768',1,'intermediate_structures.h']]],
+  ['head_5ftop_47',['head_top',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3aa7b66db67d128b1876f8c4ebb9d29001',1,'intermediate_structures.h']]],
+  ['hip_48',['Hip',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5abf2d05ab6ee14e81c0c7f864d225286a',1,'intermediate_structures.h']]]
 ];

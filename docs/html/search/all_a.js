@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['update_5fideal_5fpose_47',['update_ideal_pose',['../classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc',1,'PostureEstimating::PostureEstimator']]]
+  ['knee_74',['Knee',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5a10b6f610980f95aa58821b50cdcb150f',1,'intermediate_structures.h']]]
 ];

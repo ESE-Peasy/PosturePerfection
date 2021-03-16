@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>Inference</b></li><li class="navelem"><a class="el" href="structInference_1_1Coordinate.html">Coordinate</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceInference.html">Inference</a></li><li class="navelem"><a class="el" href="structInference_1_1Coordinate.html">Coordinate</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -80,20 +80,69 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a151c87360ca77a80762ea10f2302a42b"><td class="memItemLeft" align="right" valign="top"><a id="a151c87360ca77a80762ea10f2302a42b"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>x</b></td></tr>
+<tr class="memitem:a151c87360ca77a80762ea10f2302a42b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structInference_1_1Coordinate.html#a151c87360ca77a80762ea10f2302a42b">x</a></td></tr>
+<tr class="memdesc:a151c87360ca77a80762ea10f2302a42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <em>relative</em> X co-ordinate of the body part detected.  <a href="structInference_1_1Coordinate.html#a151c87360ca77a80762ea10f2302a42b">More...</a><br /></td></tr>
 <tr class="separator:a151c87360ca77a80762ea10f2302a42b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b08fc1fa038a1c7250f1383640f5d54"><td class="memItemLeft" align="right" valign="top"><a id="a0b08fc1fa038a1c7250f1383640f5d54"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>y</b></td></tr>
+<tr class="memitem:a0b08fc1fa038a1c7250f1383640f5d54"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structInference_1_1Coordinate.html#a0b08fc1fa038a1c7250f1383640f5d54">y</a></td></tr>
+<tr class="memdesc:a0b08fc1fa038a1c7250f1383640f5d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <em>relative</em> X co-ordinate of the body part detected.  <a href="structInference_1_1Coordinate.html#a0b08fc1fa038a1c7250f1383640f5d54">More...</a><br /></td></tr>
 <tr class="separator:a0b08fc1fa038a1c7250f1383640f5d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeef5a526af4fd333ee1fe6d6f017d7a"><td class="memItemLeft" align="right" valign="top"><a id="adeef5a526af4fd333ee1fe6d6f017d7a"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>confidence</b></td></tr>
+<tr class="memitem:adeef5a526af4fd333ee1fe6d6f017d7a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structInference_1_1Coordinate.html#adeef5a526af4fd333ee1fe6d6f017d7a">confidence</a></td></tr>
+<tr class="memdesc:adeef5a526af4fd333ee1fe6d6f017d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The confidence in this body part being the one determined from inference. Values are in the range [0.0..1.0] with 1.0 indicating 100% confidence.  <a href="structInference_1_1Coordinate.html#adeef5a526af4fd333ee1fe6d6f017d7a">More...</a><br /></td></tr>
 <tr class="separator:adeef5a526af4fd333ee1fe6d6f017d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Indicates position and confidence in positioning of a body part node. </p>
 <p>This type of <code><a class="el" href="structInference_1_1Coordinate.html" title="Indicates position and confidence in positioning of a body part node.">Inference::Coordinate</a></code> is to be used to represent the raw output of the pose estimation model. Results using this type of coordinate are tightly bound to the specific model in use as they contain the raw confidence value for the point's predicted location. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="adeef5a526af4fd333ee1fe6d6f017d7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeef5a526af4fd333ee1fe6d6f017d7a">&#9670;&nbsp;</a></span>confidence</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Inference::Coordinate::confidence</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The confidence in this body part being the one determined from inference. Values are in the range [0.0..1.0] with 1.0 indicating 100% confidence. </p>
+
+</div>
+</div>
+<a id="a151c87360ca77a80762ea10f2302a42b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a151c87360ca77a80762ea10f2302a42b">&#9670;&nbsp;</a></span>x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Inference::Coordinate::x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The <em>relative</em> X co-ordinate of the body part detected. </p>
+
+</div>
+</div>
+<a id="a0b08fc1fa038a1c7250f1383640f5d54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b08fc1fa038a1c7250f1383640f5d54">&#9670;&nbsp;</a></span>y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Inference::Coordinate::y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The <em>relative</em> X co-ordinate of the body part detected. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="intermediate__structures_8h_source.html">intermediate_structures.h</a></li>
 </ul>
 </div><!-- contents -->

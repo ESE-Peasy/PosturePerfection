@@ -73,21 +73,37 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Settings for an <a class="el" href="namespaceIIR.html">IIR</a> filter.  
+<p>Settings for an <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter. Wraps the second-order section coefficients for an <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter.  
  <a href="structIIR_1_1SmoothingSettings.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="iir_8h_source.html">iir.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a30ef6d48c8ee4fb85dbc6177d133b572"><td class="memItemLeft" align="right" valign="top"><a id="a30ef6d48c8ee4fb85dbc6177d133b572"></a>
-std::vector&lt; std::vector&lt; float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>coefficients</b></td></tr>
+<tr class="memitem:a30ef6d48c8ee4fb85dbc6177d133b572"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structIIR_1_1SmoothingSettings.html#a30ef6d48c8ee4fb85dbc6177d133b572">coefficients</a></td></tr>
+<tr class="memdesc:a30ef6d48c8ee4fb85dbc6177d133b572"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <code>sos_coefficients</code> are a 2D vector, where the rows correspond to each of the second order stages, and the columns correspond to coefficients for each stage.  <a href="structIIR_1_1SmoothingSettings.html#a30ef6d48c8ee4fb85dbc6177d133b572">More...</a><br /></td></tr>
 <tr class="separator:a30ef6d48c8ee4fb85dbc6177d133b572"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Settings for an <a class="el" href="namespaceIIR.html">IIR</a> filter. </p>
-<p>Wraps the second-order section coefficients for an <a class="el" href="namespaceIIR.html">IIR</a> filter. The <code>sos_coefficients</code> are a 2D vector, where the rows correspond to each of the second order stages, and the columns correspond to coefficients for each stage. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<div class="textblock"><p>Settings for an <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter. Wraps the second-order section coefficients for an <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter. </p>
+</div><h2 class="groupheader">Field Documentation</h2>
+<a id="a30ef6d48c8ee4fb85dbc6177d133b572"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30ef6d48c8ee4fb85dbc6177d133b572">&#9670;&nbsp;</a></span>coefficients</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::vector&lt;float&gt; &gt; IIR::SmoothingSettings::coefficients</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The <code>sos_coefficients</code> are a 2D vector, where the rows correspond to each of the second order stages, and the columns correspond to coefficients for each stage. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="iir_8h_source.html">iir.h</a></li>
 </ul>
 </div><!-- contents -->

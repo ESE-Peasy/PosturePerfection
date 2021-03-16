@@ -1,0 +1,10 @@
+<map id="notify.h" name="notify.h">
+<area shape="rect" id="node1" title="Shared functions between server.h and client.h runs on Linux." alt="" coords="207,5,270,32"/>
+<area shape="rect" id="node2" href="$client_8h.html" title="Local server for receiving notifications from the Raspberry Pi. Only runs on Linux." alt="" coords="113,80,175,107"/>
+<area shape="rect" id="node5" href="$notify_8cpp.html" title="Shared functions between server.h and client.h runs on Linux." alt="" coords="200,80,277,107"/>
+<area shape="rect" id="node6" href="$server_8h.html" title="Local server for receiving notifications from the Raspberry Pi. Only runs on Linux." alt="" coords="302,80,370,107"/>
+<area shape="rect" id="node3" href="$client_8cpp.html" title="Local server for receiving notifications from the Raspberry Pi." alt="" coords="5,155,83,181"/>
+<area shape="rect" id="node4" href="$client__main_8cpp.html" title="Program for running a notification client, only runs on Linux." alt="" coords="107,155,219,181"/>
+<area shape="rect" id="node7" href="$server_8cpp.html" title="Local server for receiving notifications from the Raspberry Pi. Only runs on Linux." alt="" coords="277,155,360,181"/>
+<area shape="rect" id="node8" href="$server__main_8cpp.html" title="Program for running a notification server, only runs on Linux." alt="" coords="384,155,501,181"/>
+</map>

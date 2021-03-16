@@ -74,7 +74,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Very simple <a class="el" href="namespaceIIR.html">IIR</a> filter.  
+<p>Very simple <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -93,9 +93,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="iir_8h__dep__incl.png" border="0" usemap="#aiir_8hdep" alt=""/></div>
 <map name="aiir_8hdep" id="aiir_8hdep">
-<area shape="rect" title="Very simple IIR filter." alt="" coords="22,5,65,32"/>
-<area shape="rect" href="pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="5,155,81,181"/>
-<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="32,80,153,107"/>
+<area shape="rect" title="Very simple IIR filter." alt="" coords="129,5,172,32"/>
+<area shape="rect" href="iir_8cpp.html" title=" " alt="" coords="5,155,61,181"/>
+<area shape="rect" href="pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="86,155,162,181"/>
+<area shape="rect" href="post__processor_8cpp.html" title=" " alt="" coords="238,155,373,181"/>
+<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="139,80,261,107"/>
+<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="163,229,237,256"/>
+<area shape="rect" href="pipeline_8cpp.html" title=" " alt="" coords="48,229,139,256"/>
 </map>
 </div>
 </div>
@@ -104,25 +108,26 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structIIR_1_1Nodes.html">IIR::Nodes</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taps inside the second-order <a class="el" href="namespaceIIR.html">IIR</a> filter.  <a href="structIIR_1_1Nodes.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Taps inside the second-order <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter.  <a href="structIIR_1_1Nodes.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structIIR_1_1SmoothingSettings.html">IIR::SmoothingSettings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Settings for an <a class="el" href="namespaceIIR.html">IIR</a> filter.  <a href="structIIR_1_1SmoothingSettings.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Settings for an <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter. Wraps the second-order section coefficients for an <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter.  <a href="structIIR_1_1SmoothingSettings.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIIR_1_1IIR2ndOrderFilter.html">IIR::IIR2ndOrderFilter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second-order <a class="el" href="namespaceIIR.html">IIR</a> filter stage, for use with the <code><a class="el" href="classIIR_1_1IIRFilter.html" title="An IIR filter that can be initialised with SOS coefficients.">IIRFilter</a></code>  <a href="classIIR_1_1IIR2ndOrderFilter.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second-order <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter stage, for use with the <code><a class="el" href="classIIR_1_1IIRFilter.html" title="An IIR filter that can be initialised with SOS coefficients.">IIRFilter</a></code>  <a href="classIIR_1_1IIR2ndOrderFilter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIIR_1_1IIRFilter.html">IIR::IIRFilter</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An <a class="el" href="namespaceIIR.html">IIR</a> filter that can be initialised with SOS coefficients.  <a href="classIIR_1_1IIRFilter.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter that can be initialised with SOS coefficients.  <a href="classIIR_1_1IIRFilter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceIIR"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceIIR.html">IIR</a></td></tr>
+<tr class="memdesc:namespaceIIR"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filtering to smoothen the output results. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Very simple <a class="el" href="namespaceIIR.html">IIR</a> filter. </p>
+<div class="textblock"><p>Very simple <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter. </p>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2021 Miklas Riechmann</dd></dl>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>

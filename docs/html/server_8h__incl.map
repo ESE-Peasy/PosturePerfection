@@ -1,0 +1,14 @@
+<map id="server.h" name="server.h">
+<area shape="rect" id="node1" title="Local server for receiving notifications from the Raspberry Pi. Only runs on Linux." alt="" coords="439,5,507,32"/>
+<area shape="rect" id="node2" href="$notify_8h.html" title="Shared functions between server.h and client.h runs on Linux." alt="" coords="442,80,505,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,88,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="112,155,173,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="197,155,283,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="307,155,367,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="391,155,454,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="478,155,573,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="597,155,664,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="688,155,749,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="773,155,845,181"/>
+<area shape="rect" id="node12" title=" " alt="" coords="870,155,925,181"/>
+</map>

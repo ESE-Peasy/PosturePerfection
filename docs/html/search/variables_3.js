@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pose_5fchange_5fthreshold_104',['pose_change_threshold',['../classPostureEstimating_1_1PostureEstimator.html#a590dcd4c72bd9219f2cdf3f4e7296bf2',1,'PostureEstimating::PostureEstimator']]],
-  ['pose_5fchanges_105',['pose_changes',['../classPostureEstimating_1_1PostureEstimator.html#a4de910204215a8a086e360d2039b3124',1,'PostureEstimating::PostureEstimator']]]
+  ['good_5fposture_313',['good_posture',['../structPostureEstimating_1_1PoseStatus.html#ab00dc1d7154163d179a581b38874f426',1,'PostureEstimating::PoseStatus::good_posture()'],['../classPostureEstimating_1_1PostureEstimator.html#a5a925e9492bf416a7409c53761772fbb',1,'PostureEstimating::PostureEstimator::good_posture()']]]
 ];

@@ -78,54 +78,63 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceIIR.html">IIR</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html">   34</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structIIR_1_1Nodes.html">Nodes</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">float</span> b0;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">float</span> b1;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">float</span> b2;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">float</span> a0;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">float</span> a1;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">float</span> a2;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">float</span> tap1;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">float</span> tap2;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceIIR.html">IIR</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html">   38</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structIIR_1_1Nodes.html">Nodes</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#a4d9c56e2a002b525922b94a16f0418d8">   39</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#a4d9c56e2a002b525922b94a16f0418d8">b0</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#af13263366a4a93fcaebe6b7ebaee1995">   40</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#af13263366a4a93fcaebe6b7ebaee1995">b1</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#a2ac8192bd6a754b00af4df49507a51f5">   41</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#a2ac8192bd6a754b00af4df49507a51f5">b2</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#abed80d435c66c2c7aa25d7e75ed78eff">   42</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#abed80d435c66c2c7aa25d7e75ed78eff">a0</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#a153d24516894230174fd086dcd78fbcd">   43</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#a153d24516894230174fd086dcd78fbcd">a1</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#a9de2922230767cb70c3314dbbca0c550">   44</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#a9de2922230767cb70c3314dbbca0c550">a2</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#a850ff446084e8fc41b9406252f060596">   45</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#a850ff446084e8fc41b9406252f060596">tap1</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structIIR_1_1Nodes.html#a07857fd791e4333fc236202e04902fdd">   46</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structIIR_1_1Nodes.html#a07857fd791e4333fc236202e04902fdd">tap2</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structIIR_1_1SmoothingSettings.html">   54</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structIIR_1_1SmoothingSettings.html">SmoothingSettings</a> {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  std::vector&lt;std::vector&lt;float&gt;&gt; coefficients;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classIIR_1_1IIR2ndOrderFilter.html">   62</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIIR_1_1IIR2ndOrderFilter.html">IIR2ndOrderFilter</a> {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="structIIR_1_1Nodes.html">Nodes</a> nodes;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classIIR_1_1IIR2ndOrderFilter.html#af4038e98512af1404520cf4cb7439a45">IIR2ndOrderFilter</a>(std::vector&lt;float&gt; coefficients);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classIIR_1_1IIR2ndOrderFilter.html#a9500fcdaf9d6923057461c1a0ef623d2">run</a>(<span class="keywordtype">float</span> x);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="classIIR_1_1IIRFilter.html">   96</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIIR_1_1IIRFilter.html">IIRFilter</a> {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  std::vector&lt;IIR2ndOrderFilter&gt; filters;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classIIR_1_1IIRFilter.html#a573b000f3c54ec42c358444cbc995b5f">IIRFilter</a>(<a class="code" href="structIIR_1_1SmoothingSettings.html">SmoothingSettings</a> smoothing_settings);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classIIR_1_1IIRFilter.html#a1f0009b3f0107d00cd5cb230c028a023">run</a>(<span class="keywordtype">float</span> x);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}  <span class="comment">// namespace IIR</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_IIR_H_</span></div>
-<div class="ttc" id="aclassIIR_1_1IIR2ndOrderFilter_html"><div class="ttname"><a href="classIIR_1_1IIR2ndOrderFilter.html">IIR::IIR2ndOrderFilter</a></div><div class="ttdoc">Second-order IIR filter stage, for use with the IIRFilter</div><div class="ttdef"><b>Definition:</b> iir.h:62</div></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structIIR_1_1SmoothingSettings.html#a30ef6d48c8ee4fb85dbc6177d133b572">   61</a></span>&#160;  std::vector&lt;std::vector&lt;float&gt;&gt; <a class="code" href="structIIR_1_1SmoothingSettings.html#a30ef6d48c8ee4fb85dbc6177d133b572">coefficients</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classIIR_1_1IIR2ndOrderFilter.html">   68</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIIR_1_1IIR2ndOrderFilter.html">IIR2ndOrderFilter</a> {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="structIIR_1_1Nodes.html">Nodes</a> nodes;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classIIR_1_1IIR2ndOrderFilter.html#af4038e98512af1404520cf4cb7439a45">IIR2ndOrderFilter</a>(std::vector&lt;float&gt; coefficients);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classIIR_1_1IIR2ndOrderFilter.html#a9500fcdaf9d6923057461c1a0ef623d2">run</a>(<span class="keywordtype">float</span> x);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classIIR_1_1IIRFilter.html">  102</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIIR_1_1IIRFilter.html">IIRFilter</a> {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  std::vector&lt;IIR2ndOrderFilter&gt; filters;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classIIR_1_1IIRFilter.html#a573b000f3c54ec42c358444cbc995b5f">IIRFilter</a>(<a class="code" href="structIIR_1_1SmoothingSettings.html">SmoothingSettings</a> smoothing_settings);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classIIR_1_1IIRFilter.html#a1f0009b3f0107d00cd5cb230c028a023">run</a>(<span class="keywordtype">float</span> x);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;};</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}  <span class="comment">// namespace IIR</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_IIR_H_</span></div>
+<div class="ttc" id="aclassIIR_1_1IIR2ndOrderFilter_html"><div class="ttname"><a href="classIIR_1_1IIR2ndOrderFilter.html">IIR::IIR2ndOrderFilter</a></div><div class="ttdoc">Second-order IIR filter stage, for use with the IIRFilter</div><div class="ttdef"><b>Definition:</b> iir.h:68</div></div>
 <div class="ttc" id="aclassIIR_1_1IIR2ndOrderFilter_html_a9500fcdaf9d6923057461c1a0ef623d2"><div class="ttname"><a href="classIIR_1_1IIR2ndOrderFilter.html#a9500fcdaf9d6923057461c1a0ef623d2">IIR::IIR2ndOrderFilter::run</a></div><div class="ttdeci">float run(float x)</div><div class="ttdoc">Apply the filter to the next data sample, x</div><div class="ttdef"><b>Definition:</b> iir.cpp:37</div></div>
 <div class="ttc" id="aclassIIR_1_1IIR2ndOrderFilter_html_af4038e98512af1404520cf4cb7439a45"><div class="ttname"><a href="classIIR_1_1IIR2ndOrderFilter.html#af4038e98512af1404520cf4cb7439a45">IIR::IIR2ndOrderFilter::IIR2ndOrderFilter</a></div><div class="ttdeci">IIR2ndOrderFilter(std::vector&lt; float &gt; coefficients)</div><div class="ttdoc">Construct a new IIR2ndOrderFilter object.</div><div class="ttdef"><b>Definition:</b> iir.cpp:24</div></div>
-<div class="ttc" id="aclassIIR_1_1IIRFilter_html"><div class="ttname"><a href="classIIR_1_1IIRFilter.html">IIR::IIRFilter</a></div><div class="ttdoc">An IIR filter that can be initialised with SOS coefficients.</div><div class="ttdef"><b>Definition:</b> iir.h:96</div></div>
+<div class="ttc" id="aclassIIR_1_1IIRFilter_html"><div class="ttname"><a href="classIIR_1_1IIRFilter.html">IIR::IIRFilter</a></div><div class="ttdoc">An IIR filter that can be initialised with SOS coefficients.</div><div class="ttdef"><b>Definition:</b> iir.h:102</div></div>
 <div class="ttc" id="aclassIIR_1_1IIRFilter_html_a1f0009b3f0107d00cd5cb230c028a023"><div class="ttname"><a href="classIIR_1_1IIRFilter.html#a1f0009b3f0107d00cd5cb230c028a023">IIR::IIRFilter::run</a></div><div class="ttdeci">float run(float x)</div><div class="ttdoc">Apply the filter to the next data sample, x</div><div class="ttdef"><b>Definition:</b> iir.cpp:54</div></div>
 <div class="ttc" id="aclassIIR_1_1IIRFilter_html_a573b000f3c54ec42c358444cbc995b5f"><div class="ttname"><a href="classIIR_1_1IIRFilter.html#a573b000f3c54ec42c358444cbc995b5f">IIR::IIRFilter::IIRFilter</a></div><div class="ttdeci">IIRFilter(SmoothingSettings smoothing_settings)</div><div class="ttdoc">Construct a new IIRFilter object.</div><div class="ttdef"><b>Definition:</b> iir.cpp:48</div></div>
-<div class="ttc" id="anamespaceIIR_html"><div class="ttname"><a href="namespaceIIR.html">IIR</a></div><div class="ttdef"><b>Definition:</b> iir.cpp:23</div></div>
-<div class="ttc" id="astructIIR_1_1Nodes_html"><div class="ttname"><a href="structIIR_1_1Nodes.html">IIR::Nodes</a></div><div class="ttdoc">Taps inside the second-order IIR filter.</div><div class="ttdef"><b>Definition:</b> iir.h:34</div></div>
-<div class="ttc" id="astructIIR_1_1SmoothingSettings_html"><div class="ttname"><a href="structIIR_1_1SmoothingSettings.html">IIR::SmoothingSettings</a></div><div class="ttdoc">Settings for an IIR filter.</div><div class="ttdef"><b>Definition:</b> iir.h:54</div></div>
+<div class="ttc" id="anamespaceIIR_html"><div class="ttname"><a href="namespaceIIR.html">IIR</a></div><div class="ttdoc">Perform IIR filtering to smoothen the output results.</div><div class="ttdef"><b>Definition:</b> iir.cpp:23</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html"><div class="ttname"><a href="structIIR_1_1Nodes.html">IIR::Nodes</a></div><div class="ttdoc">Taps inside the second-order IIR filter.</div><div class="ttdef"><b>Definition:</b> iir.h:38</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_a07857fd791e4333fc236202e04902fdd"><div class="ttname"><a href="structIIR_1_1Nodes.html#a07857fd791e4333fc236202e04902fdd">IIR::Nodes::tap2</a></div><div class="ttdeci">float tap2</div><div class="ttdef"><b>Definition:</b> iir.h:46</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_a153d24516894230174fd086dcd78fbcd"><div class="ttname"><a href="structIIR_1_1Nodes.html#a153d24516894230174fd086dcd78fbcd">IIR::Nodes::a1</a></div><div class="ttdeci">float a1</div><div class="ttdef"><b>Definition:</b> iir.h:43</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_a2ac8192bd6a754b00af4df49507a51f5"><div class="ttname"><a href="structIIR_1_1Nodes.html#a2ac8192bd6a754b00af4df49507a51f5">IIR::Nodes::b2</a></div><div class="ttdeci">float b2</div><div class="ttdef"><b>Definition:</b> iir.h:41</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_a4d9c56e2a002b525922b94a16f0418d8"><div class="ttname"><a href="structIIR_1_1Nodes.html#a4d9c56e2a002b525922b94a16f0418d8">IIR::Nodes::b0</a></div><div class="ttdeci">float b0</div><div class="ttdef"><b>Definition:</b> iir.h:39</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_a850ff446084e8fc41b9406252f060596"><div class="ttname"><a href="structIIR_1_1Nodes.html#a850ff446084e8fc41b9406252f060596">IIR::Nodes::tap1</a></div><div class="ttdeci">float tap1</div><div class="ttdef"><b>Definition:</b> iir.h:45</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_a9de2922230767cb70c3314dbbca0c550"><div class="ttname"><a href="structIIR_1_1Nodes.html#a9de2922230767cb70c3314dbbca0c550">IIR::Nodes::a2</a></div><div class="ttdeci">float a2</div><div class="ttdef"><b>Definition:</b> iir.h:44</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_abed80d435c66c2c7aa25d7e75ed78eff"><div class="ttname"><a href="structIIR_1_1Nodes.html#abed80d435c66c2c7aa25d7e75ed78eff">IIR::Nodes::a0</a></div><div class="ttdeci">float a0</div><div class="ttdef"><b>Definition:</b> iir.h:42</div></div>
+<div class="ttc" id="astructIIR_1_1Nodes_html_af13263366a4a93fcaebe6b7ebaee1995"><div class="ttname"><a href="structIIR_1_1Nodes.html#af13263366a4a93fcaebe6b7ebaee1995">IIR::Nodes::b1</a></div><div class="ttdeci">float b1</div><div class="ttdef"><b>Definition:</b> iir.h:40</div></div>
+<div class="ttc" id="astructIIR_1_1SmoothingSettings_html"><div class="ttname"><a href="structIIR_1_1SmoothingSettings.html">IIR::SmoothingSettings</a></div><div class="ttdoc">Settings for an IIR filter. Wraps the second-order section coefficients for an IIR filter.</div><div class="ttdef"><b>Definition:</b> iir.h:54</div></div>
+<div class="ttc" id="astructIIR_1_1SmoothingSettings_html_a30ef6d48c8ee4fb85dbc6177d133b572"><div class="ttname"><a href="structIIR_1_1SmoothingSettings.html#a30ef6d48c8ee4fb85dbc6177d133b572">IIR::SmoothingSettings::coefficients</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; float &gt; &gt; coefficients</div><div class="ttdoc">The sos_coefficients are a 2D vector, where the rows correspond to each of the second order stages,...</div><div class="ttdef"><b>Definition:</b> iir.h:61</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['pipeline_87',['Pipeline',['../classPipeline_1_1Pipeline.html#a42acbc67045f64819cd962e2b5746091',1,'Pipeline::Pipeline']]],
-  ['pop_88',['pop',['../classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622',1,'Pipeline::Buffer']]],
-  ['postprocessor_89',['PostProcessor',['../classPostProcessing_1_1PostProcessor.html#a08e86bb5b38024d22acc0dd69c757b7b',1,'PostProcessing::PostProcessor']]],
-  ['postureestimator_90',['PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ab86561e9c3706a2c4ae7a934ffc1ad04',1,'PostureEstimating::PostureEstimator']]],
-  ['preprocessor_91',['PreProcessor',['../classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c',1,'PreProcessing::PreProcessor']]],
-  ['push_92',['push',['../classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344',1,'Pipeline::Buffer']]]
+  ['cmake_5fminimum_5frequired_262',['cmake_minimum_required',['../gui_2CMakeLists_8txt.html#a07090053e9beec19ad522c8dddb7aa29',1,'cmake_minimum_required(VERSION 3.7.0) project(gui VERSION 1.0.0 LANGUAGES CXX) if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES) set(CMAKE_BUILD_TYPE &quot;RelWithDebInfo&quot;) endif() set(CMAKE_CXX_STANDARD 11) set(CMAKE_CXX_STANDARD_REQUIRED ON) set(CMAKE_AUTOMOC ON) set(CMAKE_AUTORCC ON) set(CMAKE_AUTOUIC ON) find_package(Qt5 COMPONENTS Widgets PrintSupport REQUIRED) find_package(QCustomPlot) add_library(PosturePerfection_gui STATIC mainwindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp) target_link_libraries(PosturePerfection_gui Qt5:&#160;CMakeLists.txt'],['../notifications_2CMakeLists_8txt.html#a314a1273e21cfbc43955234cc047c2c3',1,'cmake_minimum_required(VERSION 3.10) project(Notification) set(NOTFYSRC server.cpp notify.cpp client.cpp) add_executable(NotificationServer $:&#160;CMakeLists.txt']]],
+  ['createpose_263',['createPose',['../namespacePostureEstimating.html#a2deac6e18a1012d21d7d1cd72e22e28a',1,'PostureEstimating']]]
 ];

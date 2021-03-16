@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_7epipeline_99',['~Pipeline',['../classPipeline_1_1Pipeline.html#aefed59f024a1a9acb0b98279124f079b',1,'Pipeline::Pipeline']]],
-  ['_7epostureestimator_100',['~PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ae067ecb8f608b149771b95927e904818',1,'PostureEstimating::PostureEstimator']]]
+  ['main_274',['main',['../gui_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../client__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;client_main.cpp'],['../server__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;server_main.cpp']]],
+  ['mainwindow_275',['MainWindow',['../classGUI_1_1MainWindow.html#a976fe04009d096df85d8a42a7d2e7c64',1,'GUI::MainWindow']]]
 ];

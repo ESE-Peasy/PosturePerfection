@@ -61,11 +61,64 @@ $(function() {
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
 <div class="title">PosturePerfection Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="toc"><h3>Table of Contents</h3>
+<ul><li class="level1"><a href="#breakdown">Project Breakdown</a><ul><li class="level2"><a href="#pipeline">Pipeline</a></li>
+<li class="level2"><a href="#gui">Graphical User Interface</a></li>
+<li class="level2"><a href="#notify">Notification System</a></li>
+</ul>
+</li>
+<li class="level1"><a href="#additional_resources">Additional Resources</a></li>
+</ul>
+</div>
+<div class="textblock"><p><a class="anchor" id="md_docs_doxygen_homepage"></a></p>
+<p>This is a project completed as part of the 5th Year Engineering course, Real Time Embedded Programming, at The University of Glasgow.</p>
+<p>Code documentation can be found here, however more general information regarding the project can be found on our <a href="../">website</a>.</p>
+<h1><a class="anchor" id="breakdown"></a>
+Project Breakdown</h1>
+<p>The project is separated into three main sections, each with a unique function.</p>
+<blockquote class="doxtable">
+<p>1. The <a class="el" href="namespacePipeline.html" title="Components of the pipeline at the core of the system.">Pipeline</a> is responsible for performing pose estimation to detect the user's posture and identify when it has worsened as well as the adjustments required to guide the user into a better posture.<br  />
+</p><ol type="1">
+<li>The <a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a> is responsible for displaying these results and posture adjustment suggestions to the user, as well as allowing various configuration options to be set.<br  />
+</li>
+<li>The <a class="el" href="namespaceNotify.html">Notification System</a> allows an alert to be sent to a separate device which the user is using. </li>
+</ol>
+</blockquote>
+<h2><a class="anchor" id="pipeline"></a>
+Pipeline</h2>
+<p>The system is broken down into various stages to allow us to make use of multithreading such that when one stage is processing one frame, another can simultaneously operate on an entirely different frame. In this way, a pipeline is created, with ordering only essential during the <a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a> stage which applies <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filtering to smoothen the output.</p>
+<p>The <em><a class="el" href="namespacePipeline.html" title="Components of the pipeline at the core of the system.">Pipeline</a></em> at the core of the system is configurable to run with a various number of threads. Initial testing indicated optimal performance at 8 threads, and so this is currently in use within the pipeline. The pipeline consists of the following key stages:</p>
+<ul>
+<li><a class="el" href="classPreProcessing_1_1PreProcessor.html">PreProcessor</a></li>
+<li><a class="el" href="classInference_1_1InferenceCore.html">InferenceCore</a></li>
+<li><a class="el" href="classPostProcessing_1_1PostProcessor.html">PostProcessor</a></li>
+<li><a class="el" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimator</a></li>
+</ul>
+<h2><a class="anchor" id="gui"></a>
+Graphical User Interface</h2>
+<p>The <em><a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a></em> is responsible for user interaction and displaying a live feed of the user's posture. Processing itself is completed within the <a class="el" href="namespacePipeline.html" title="Components of the pipeline at the core of the system.">Pipeline</a>, with the <code><a class="el" href="classPostureEstimating_1_1PostureEstimator.html" title="This class handles representations of the user&#39;s pose and calculates any updates to their pose that i...">PostureEstimating::PostureEstimator</a></code> responsible for continually passing a <code>PoseStatus</code> to the <a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a> indicating if a good posture is currently being adopted, and any computed changes which would improve the user's posture.</p>
+<ul>
+<li><a class="el" href="classGUI_1_1MainWindow.html">MainWindow</a></li>
+</ul>
+<h2><a class="anchor" id="notify"></a>
+Notification System</h2>
+<p>A <em><a class="el" href="namespaceNotify.html">Notification System</a></em> has been developed to allow an alert to be sent to a separate device when then system detects a poor posture. In this way, although the PosturePerfection system will be placed at the side of the user to analyse their posture profile, an alert can be sent to their laptop device which they are working on so that they are immediately notified of their poor posture.</p>
+<ul>
+<li><a class="el" href="classNotify_1_1NotifyClient.html">NotifyClient</a></li>
+<li><a class="el" href="classNotify_1_1NotifyServer.html">NotifyServer</a></li>
+</ul>
+<h1><a class="anchor" id="additional_resources"></a>
+Additional Resources</h1>
+<ul>
+<li><a href="http://github.com/ESE-Peasy/PosturePerfection">GitHub Repository</a></li>
+<li><a href="../">GitHub Pages</a> </li>
+</ul>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
