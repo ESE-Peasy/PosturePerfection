@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
   QApplication a(argc, argv);
   GUI::MainWindow w;
   QCoreApplication::processEvents();
-  w.showMaximized();
+  // w.showMaximized();
 
   main_window_ptr = &w;
 

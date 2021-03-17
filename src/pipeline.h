@@ -423,6 +423,12 @@ class Pipeline {
    */
   void (*callback)(PostureEstimating::PoseStatus, cv::Mat);
 
+  /**
+   * @brief Function to overlay a stick figure of user posture over the input image      
+   *
+   */
+  void overlay_image(PostureEstimating::PoseStatus pose_status, cv::Mat raw_image);
+
  public:
   /**
    * @brief Construct a new Pipeline object
