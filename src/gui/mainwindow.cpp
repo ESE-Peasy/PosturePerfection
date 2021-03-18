@@ -26,6 +26,9 @@
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 #include "datawindow.h"
+#include "opencv2/core.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
 
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
@@ -79,6 +82,23 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   setWindowTitle(tr("Posture Perfection"));
 
   this->generateTable();
+  /*
+  QLabel *myLabel = new QLabel();
+  cv::Mat img = cv::imread("person.jpg"); 
+  QImage imgIn= QImage((uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+  QPixmap pixmap = QPixmap::fromImage(img);
+  myLabel.setPixmap(pixmap);
+  */
+
+ /*
+  cv::Mat opencv_image = cv::imread("person.jpg"); 
+  cv::Mat dest;
+  cvtColor(opencv_image, dest,CV_BGR2RGB);
+  QImage image((uchar*)dest.data, dest.cols, dest.rows,QImage::Format_RGB888);
+  */
+
+  // QImage imgIn= QImage((uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+
 }
 
 void GUI::MainWindow::showDateTime() {
