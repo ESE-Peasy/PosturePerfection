@@ -36,15 +36,14 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QtCore/QVariant>
-
-#include "opencv2/core.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/videoio.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include <opencv2/imgcodecs.hpp> 
+#include <opencv2/imgcodecs.hpp>
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
+#include "opencv2/core.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
 
 QT_BEGIN_NAMESPACE
 
@@ -81,13 +80,18 @@ class MainWindow : public QMainWindow {
   PostureEstimating::PostureEstimator posture;
   PostureEstimating::PostureEstimator returnEstimator();
 
-
   /**
    * @brief Refresh the contents of the data table with the most recent data
    *
    * @param pose_status a `PostureEstimating::PoseStatus` structure
    */
   void updateTable(PostureEstimating::PoseStatus pose_status);
+
+  /**
+   * @brief Refresh the video feed to the most recent frame
+   *
+   * @param currentFrame a `cv::Mat` object
+   */
   void updateFrame(cv::Mat currentFrame);
 
  private:
@@ -105,8 +109,7 @@ class MainWindow : public QMainWindow {
    */
   void showDateTime();
 
-  void on_modeButton_clicked();
-
+  void on_settingsButton_clicked();
 };
 }  // namespace GUI
 QT_END_NAMESPACE

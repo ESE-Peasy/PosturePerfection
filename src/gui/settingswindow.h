@@ -1,5 +1,5 @@
 /*
- * @file fullscreen.h
+ * @file settingswindow.h
  * @brief Interface for representation of user's pose
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
@@ -18,13 +18,13 @@
  *
  */
 
-#ifndef FULLSCREEN_H
-#define FULLSCREEN_H
+#ifndef SETTINGSWINDOW_H
+#define SETTINGSWINODW_H
 
 #include <QMainWindow>
 
 namespace Ui {
-class fullscreen;
+class SettingsWindow;
 }
 
 /*
@@ -63,12 +63,12 @@ class fullscreen;
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
-class fullscreen : public QMainWindow {
+class SettingsWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  explicit fullscreen(QWidget *parent = nullptr);
-  ~fullscreen();
+  explicit SettingsWindow(QWidget *parent = nullptr);
+  ~SettingsWindow();
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
@@ -81,7 +81,9 @@ class fullscreen : public QMainWindow {
    */
   void showDateTime();
 
+  void on_mainButton_clicked();
+
  private:
 };
 
-#endif  // FULLSCREEN_H
+#endif  // SETTINGSWINDOW_H

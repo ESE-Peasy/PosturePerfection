@@ -21,7 +21,7 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Widgets PrintSupport REQUIRED)
 find_package(QCustomPlot)
 
-add_library(PosturePerfection_gui STATIC mainwindow.cpp datawindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp)
+add_library(PosturePerfection_gui STATIC mainwindow.cpp settingswindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp)
 target_link_libraries(PosturePerfection_gui
   Qt5::Widgets Qt5::PrintSupport ${QCustomPlot_LIBRARIES}
 )

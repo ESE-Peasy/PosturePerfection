@@ -25,10 +25,9 @@
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
-#include "datawindow.h"
+#include "settingswindow.h"
 
 // #include "opencv/cv.hpp"
-
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
@@ -83,6 +82,7 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   // this->generateTable();
   this->initalFrame();
 
+  connect(settingsButton, SIGNAL(clicked()), this, SLOT(on_settingsButton_clicked()));
 }
 
 void GUI::MainWindow::showDateTime() {
@@ -120,23 +120,24 @@ GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
 void GUI::MainWindow::initalFrame() {
   QLabel *frame = new QLabel();
-  cv::Mat img = cv::imread("src/gui/posture-logo.png"); 
-  QImage imgIn= QImage((uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+  cv::Mat img = cv::imread("src/gui/posture-logo.png");
+  QImage imgIn = QImage((uchar *)img.data, img.cols, img.rows, img.step,
+                        QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
   mainLayout->addWidget(frame, 1, 0);
 }
 
 void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
-  QImage imgIn= QImage((uchar*) currentFrame.data, currentFrame.cols, currentFrame.rows, currentFrame.step, QImage::Format_RGB888);
+  QImage imgIn =
+      QImage((uchar *)currentFrame.data, currentFrame.cols, currentFrame.rows,
+             currentFrame.step, QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
   mainLayout->addWidget(frame, 1, 0);
 }
 
 void GUI::MainWindow::generateTable(void) {
-  // Create table with appropriate headers
-  // posture = e;
   QTableView *view = new QTableView;
   model = new QStandardItemModel(0, 4);
   view->setModel(model);
@@ -184,18 +185,8 @@ void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
   }
 }
 
-
-void GUI::MainWindow::on_modeButton_clicked() {
-  /*
-    fullscreen *full = new fullscreen;
-    //full->getData(posture);
-    full->show();
-    QCoreApplication::processEvents();
-    hide();
-  */
+void GUI::MainWindow::on_settingsButton_clicked() {
+  SettingsWindow *full = new SettingsWindow;
+  full->showMaximized();
+  QCoreApplication::processEvents();
 }
-/*
-PostureEstimating::PostureEstimator MainWindow::returnEstimator(){
-  return posture;
-}
-*/
