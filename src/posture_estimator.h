@@ -23,11 +23,16 @@
 #define SRC_POSTURE_ESTIMATOR_H_
 
 #include <stdio.h>
-#include <string>
 
 #include <string>
 
 #include "intermediate_structures.h"
+
+/**
+ * @brief Responsible for analysing the results of pose estimation to determine
+ * any posture changes which must be relayed to the user
+ *
+ */
 namespace PostureEstimating {
 
 /**
@@ -38,47 +43,53 @@ namespace PostureEstimating {
  *
  * Angles are measured clockwise from Head
  *
- * ^HEAD
- * |
- * |/ +30 degrees
- * |
- * |__ +90 degrees
+ *      ^HEAD
+ *      |
+ *      |/ +30 degrees
+ *      |
+ *      |__ +90 degrees
  */
 
 struct ConnectedJoint {
   Joint joint;
   PostProcessing::Coordinate coord;
-  ConnectedJoint* upper_connected_joint;
   float upper_angle;
-  ConnectedJoint* lower_connected_joint;
   float lower_angle;
 };
 
 /**
  * @brief Prints human readable string for enum `Joint`
  */
-std::string stringJoint(Joint j);
+std::string stringJoint(Joint joint);
 
 /**
- *  @brief The representation of a human's pose, containing  all
- *  the expected `ConnectedJoint`
+ * @brief The representation of a human's pose, containing all
+ * the expected `ConnectedJoint`
  */
 struct Pose {
-  std::array<ConnectedJoint*, JointMax + 1> joints;
+  /**
+   * @brief Each element of this array corresponds to a body part with its
+   * connections also specifed in a `PostureEstimating::ConnectedJoint`
+   * structure
+   *
+   */
+  std::array<ConnectedJoint, JointMax + 1> joints;
 };
 
 /**
- *  @brief Creates an empty Pose object
+ * @brief Creates an empty Pose object
  */
 Pose createPose();
 
 /**
- *  @brief Frees all pointers in a  Pose object
- *
- * @param `Pose`
+ * @brief representation of user's pose for use by the pipeline processing
  */
-
-void destroyPose(PostureEstimating::Pose p);
+struct PoseStatus {
+  Pose ideal_pose;
+  Pose current_pose;
+  Pose pose_changes;
+  bool good_posture;
+};
 
 /**
  * @brief This class handles representations of the user's pose and
@@ -92,7 +103,7 @@ void destroyPose(PostureEstimating::Pose p);
  * - Calculating the angle between `ConnectedJoint`
  * - Comparing the current user's pose and ideal user's pose.
  *
- * General use should just consist of `updateCurrentPoseAndCheckPosture`.
+ * General use should just consist of `runEstimator`.
  *
  */
 class PostureEstimator {
@@ -151,53 +162,6 @@ class PostureEstimator {
    */
   void calculateChangesAndCheckPosture();
 
- public:
-  /**
-   * @brief Construct a new Posture Estimator object
-   */
-  PostureEstimator();
-
-  /**
-   * @brief Destroy a Posture Estimator object
-   */
-  ~PostureEstimator();
-
-  /**
-   * @brief The user's current pose from most recent data provided.
-   */
-  Pose current_pose;
-
-  /**
-   * @brief The user's ideal pose, expected to be generated
-   * during user calibration.
-   */
-  Pose ideal_pose;
-
-  /**
-   * @brief A representation of what changes are needed to get
-   * back to ideal pose.
-   */
-  Pose pose_changes;
-
-  /**
-   * @brief A representation of what absolute value changes for a pose
-   * is acceptably still a good pose.
-   */
-  float pose_change_threshold;
-
-  /**
-   * @brief Whether the user is in a good pose (true) or bad pose (false).
-   */
-  bool good_posture;
-
-  /**
-   * @brief Calibrate the user's ideal pose using
-   *
-   * @param results `PostProcessing::ProcessedResults` struct containing user's
-   * pose data.
-   */
-  void update_ideal_pose(PostProcessing::ProcessedResults results);
-
   /**
    * @brief Updates the user's current pose from
    * `PostProcessing::ProcessingResults`, Calculates pose change needed. Checks
@@ -210,6 +174,63 @@ class PostureEstimator {
    */
   bool updateCurrentPoseAndCheckPosture(
       PostProcessing::ProcessedResults results);
+
+ public:
+  /**
+   * @brief Construct a new `PostureEstimator` object
+   */
+  PostureEstimator();
+
+  /**
+   * @brief Destroy a `PostureEstimator` object
+   */
+  ~PostureEstimator() {}
+
+  /**
+   * @brief The user's current `Pose` from most recent data provided.
+   */
+  Pose current_pose;
+
+  /**
+   * @brief The user's ideal `Pose`, expected to be generated
+   * during user calibration.
+   */
+  Pose ideal_pose;
+
+  /**
+   * @brief A representation of what changes are needed to get
+   * back to ideal `Pose`.
+   */
+  Pose pose_changes;
+
+  /**
+   * @brief A representation of what absolute value changes for a pose
+   * is acceptably still a good pose.
+   */
+  float pose_change_threshold;
+
+  /**
+   * @brief Whether the user is currently in a good posture (true) or if they
+   * have adopted a poor posture (false).
+   */
+  bool good_posture;
+
+  /**
+   * @brief Calibrate the user's ideal pose using the results of
+   * `PostProcessing`
+   *
+   * @param results `PostProcessing::ProcessedResults` struct containing user's
+   * pose data.
+   */
+  void update_ideal_pose(PostProcessing::ProcessedResults results);
+
+  /**
+   * @brief Return a `PoseStatus` of the user's pose
+   *
+   * @param results `PostProcessing::ProcessedResults` struct containing user's
+   * pose data.
+   */
+  PoseStatus runEstimator(PostProcessing::ProcessedResults results);
 };
 }  // namespace PostureEstimating
 #endif  // SRC_POSTURE_ESTIMATOR_H_

@@ -1,0 +1,5 @@
+<map id="pipeline.h" name="pipeline.h">
+<area shape="rect" id="node1" title="Main pipeline for the PosturePerfection system." alt="" coords="58,5,134,32"/>
+<area shape="rect" id="node2" href="$main_8cpp.html" title=" " alt="" coords="5,80,80,107"/>
+<area shape="rect" id="node3" href="$pipeline_8cpp.html" title=" " alt="" coords="104,80,195,107"/>
+</map>

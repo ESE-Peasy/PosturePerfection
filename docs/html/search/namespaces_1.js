@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['preprocessing_54',['PreProcessing',['../namespacePreProcessing.html',1,'']]]
+  ['iir_206',['IIR',['../namespaceIIR.html',1,'']]],
+  ['inference_207',['Inference',['../namespaceInference.html',1,'']]]
 ];

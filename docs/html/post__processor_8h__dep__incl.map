@@ -1,4 +1,8 @@
 <map id="post_processor.h" name="post_processor.h">
-<area shape="rect" id="node1" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="13,5,134,32"/>
-<area shape="rect" id="node2" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="5,80,141,107"/>
+<area shape="rect" id="node1" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="75,5,197,32"/>
+<area shape="rect" id="node2" href="$iir_8cpp.html" title=" " alt="" coords="5,80,61,107"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="61,155,136,181"/>
+<area shape="rect" id="node4" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="137,80,213,107"/>
+<area shape="rect" id="node6" href="$post__processor_8cpp.html" title=" " alt="" coords="237,80,371,107"/>
+<area shape="rect" id="node5" href="$pipeline_8cpp.html" title=" " alt="" coords="160,155,251,181"/>
 </map>

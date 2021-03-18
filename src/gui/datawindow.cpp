@@ -86,6 +86,7 @@ void fullscreen::showDateTime() {
 fullscreen::~fullscreen() { delete mainLayout; }
 
 int fullscreen::getData() {
+  /*
   PostureEstimating::PostureEstimator e = MainWindow::returnEstimator();
   // Create table with appropriate headers
   QTableView *view = new QTableView;
@@ -125,4 +126,5 @@ int fullscreen::getData() {
   // Add the table to the GUI
   mainLayout->addWidget(view, 1, 0);
   return 0;
+  */
 }

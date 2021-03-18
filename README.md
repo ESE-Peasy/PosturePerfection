@@ -81,7 +81,7 @@ If you would like to download and run our project without any interest in develo
 
 ```sh
 wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PosturePerfection_install.sh
-sh PosturePerfection_0.1.0_xxx
+sh PosturePerfection_X.X.X_xxx
 ```
 
 This script will provide you with more information about usage.

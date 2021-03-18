@@ -30,10 +30,15 @@
 #include "intermediate_structures.h"
 #include "opencv2/opencv.hpp"
 
+/**
+ * @brief Responsible for resizing and normalising
+ * the input image to a structure suitable for TensorFlow Lite
+ *
+ */
 namespace PreProcessing {
 
 /**
- * @brief PreProcess the input image before passing to
+ * @brief Pre-process the input image before passing to
  * `Inference::InferenceCore`
  *
  * This class contains some pre processing steps to allow an input image to be
@@ -72,7 +77,7 @@ class PreProcessor {
    * @brief Apply pre processing to the given input image
    *
    * @param cv_image The OpenCV image to be preprocessed
-   * @return PreprocessedImage after resizing and normalising
+   * @return `PreProcessedImage` after resizing and normalising
    */
   PreProcessedImage run(cv::Mat cv_image);
 };

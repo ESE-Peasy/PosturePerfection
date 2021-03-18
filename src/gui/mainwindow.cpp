@@ -2,7 +2,7 @@
  * @file mainwindow.cpp
  * @brief Main user interface file
  *
- * @copyright Copyright (C) 2021  Andrew Ritchie
+ * @copyright Copyright (C) 2021  Andrew Ritchie, Miklas Riechmann
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,15 +19,16 @@
  *
  */
 #include "mainwindow.h"
+
 #include <iostream>
 #include <string>
+
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 #include "datawindow.h"
 
 
-
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
 
   // create three buttons
@@ -77,11 +78,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
 
-  connect(modeButton, SIGNAL(clicked()), this, SLOT(on_modeButton_clicked()));
-
+  this->generateTable();
 }
 
-void MainWindow::showDateTime() {
+void GUI::MainWindow::showDateTime() {
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
 
@@ -112,11 +112,11 @@ void MainWindow::showDateTime() {
   mainLayout->itemAt(3)->widget()->deleteLater();
 }
 
-MainWindow::~MainWindow() { delete mainLayout; }
+GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
-int MainWindow::getData(PostureEstimating::PostureEstimator e) {
+void GUI::MainWindow::generateTable(void) {
   // Create table with appropriate headers
-  posture = e;
+  // posture = e;
   QTableView *view = new QTableView;
   model = new QStandardItemModel(0, 4);
   view->setModel(model);
@@ -128,44 +128,54 @@ int MainWindow::getData(PostureEstimating::PostureEstimator e) {
   // Populate the table
   for (int i = JointMin; i <= JointMax; i++) {
     QList<QStandardItem *> newRow;
-    QStandardItem *itm1 = new QStandardItem(
-        PostureEstimating::stringJoint(e.current_pose.joints[i]->joint)
-            .c_str());
-    QStandardItem *itm2 =
-        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.x));
-    QStandardItem *itm3 =
-        new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.y));
-    QStandardItem *itm4 =
-        new QStandardItem(PostProcessing::stringStatus(
-                              e.current_pose.joints[i]->coord.status)
-                              .c_str());
+    QStandardItem *joint = new QStandardItem(QString(""));
+    QStandardItem *x = new QStandardItem(QString(""));
+    QStandardItem *y = new QStandardItem(QString(""));
+    QStandardItem *status = new QStandardItem(QString(""));
 
-    itm1->setForeground(QColor(Qt::white));
-    itm2->setForeground(QColor(Qt::white));
-    itm3->setForeground(QColor(Qt::white));
-    itm4->setForeground(QColor(Qt::white));
+    joint->setForeground(QColor(Qt::white));
+    x->setForeground(QColor(Qt::white));
+    y->setForeground(QColor(Qt::white));
+    status->setForeground(QColor(Qt::white));
 
-    newRow.append(itm1);
-    newRow.append(itm2);
-    newRow.append(itm3);
-    newRow.append(itm4);
+    newRow.append(joint);
+    newRow.append(x);
+    newRow.append(y);
+    newRow.append(status);
     model->insertRow(i, newRow);
   }
 
   // Add the table to the GUI
   mainLayout->addWidget(view, 1, 0);
-  return 0;
 }
 
-void MainWindow::on_modeButton_clicked() {
+void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
+  uint8_t i = 0;
+  for (auto joint : pose_status.current_pose.joints) {
+    model->item(i, 0)->setData(
+        PostureEstimating::stringJoint(joint.joint).c_str(), Qt::DisplayRole);
+    model->item(i, 1)->setData(QString("%1").arg(joint.coord.x),
+                               Qt::DisplayRole);
+    model->item(i, 2)->setData(QString("%1").arg(joint.coord.y),
+                               Qt::DisplayRole);
+    model->item(i, 3)->setData(QString("%1").arg(joint.coord.status),
+                               Qt::DisplayRole);
+    i++;
+  }
+}
+
+
+void GUI::MainWindow::on_modeButton_clicked() {
+  /*
     fullscreen *full = new fullscreen;
     //full->getData(posture);
     full->show();
     QCoreApplication::processEvents();
     hide();
+  */
 }
-
-
+/*
 PostureEstimating::PostureEstimator MainWindow::returnEstimator(){
   return posture;
 }
+*/

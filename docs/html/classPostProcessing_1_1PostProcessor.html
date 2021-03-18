@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>PostProcessing</b></li><li class="navelem"><a class="el" href="classPostProcessing_1_1PostProcessor.html">PostProcessor</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacePostProcessing.html">PostProcessing</a></li><li class="navelem"><a class="el" href="classPostProcessing_1_1PostProcessor.html">PostProcessor</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -87,7 +87,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2a8ce854324720f34d9c4f10c2b37e4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply post processing to the given <code><a class="el" href="classInference_1_1InferenceCore.html" title="A wrapper to make running inference easier.">Inference::InferenceCore</a></code> output.  <a href="classPostProcessing_1_1PostProcessor.html#a2a8ce854324720f34d9c4f10c2b37e4d">More...</a><br /></td></tr>
 <tr class="separator:a2a8ce854324720f34d9c4f10c2b37e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfd7f824e696fae2ceab20d8b6f91c0a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostProcessing_1_1PostProcessor.html#acfd7f824e696fae2ceab20d8b6f91c0a">set_confidence_threshold</a> (float confidence_threshold)</td></tr>
-<tr class="memdesc:acfd7f824e696fae2ceab20d8b6f91c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the confidence threshold.  <a href="classPostProcessing_1_1PostProcessor.html#acfd7f824e696fae2ceab20d8b6f91c0a">More...</a><br /></td></tr>
+<tr class="memdesc:acfd7f824e696fae2ceab20d8b6f91c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dynamically update the confidence threshold to allow better calibration.  <a href="classPostProcessing_1_1PostProcessor.html#acfd7f824e696fae2ceab20d8b6f91c0a">More...</a><br /></td></tr>
 <tr class="separator:acfd7f824e696fae2ceab20d8b6f91c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -128,7 +128,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">confidence_threshold</td><td>Confidence value that must be exceeded for a prediction for a given body part to be useable </td></tr>
-    <tr><td class="paramname">smoothing_settings</td><td>settings for the <a class="el" href="namespaceIIR.html">IIR</a> filter </td></tr>
+    <tr><td class="paramname">smoothing_settings</td><td>Settings for the <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filter </td></tr>
   </table>
   </dd>
 </dl>
@@ -159,7 +159,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structPostProcessing_1_1ProcessedResults.html" title="The PostProcessing::Coordinate of each body part.">ProcessedResults</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="structPostProcessing_1_1ProcessedResults.html" title="The PostProcessing::Coordinate of each body part.">ProcessedResults</a></code> </dd></dl>
 
 </div>
 </div>
@@ -179,22 +179,22 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Set the confidence threshold. </p>
+<p>Dynamically update the confidence threshold to allow better calibration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">confidence_threshold</td><td>The updated confidence threshold in the range [0, 1] </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true If updating threshold was successful </dd>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> If updating threshold was successful </dd>
 <dd>
-false If the new threshold value is invalid </dd></dl>
+<code>false</code> If the new threshold value is invalid </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="post__processor_8h_source.html">post_processor.h</a></li>
-<li>post_processor.cpp</li>
+<li><a class="el" href="post__processor_8cpp.html">post_processor.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

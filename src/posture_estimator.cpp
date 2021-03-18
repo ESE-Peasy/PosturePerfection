@@ -1,7 +1,4 @@
 /**
- * @file posture_estimator.h
- * @brief Interface for representation of user's pose
- *
  * @copyright Copyright (C) 2021  Conor Begley
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -20,13 +17,14 @@
  */
 
 #include "posture_estimator.h"
-#include <string>
+
 #include <cmath>
+#include <string>
 
 namespace PostureEstimating {
 
-std::string stringJoint(Joint j) {
-  switch (j) {
+std::string stringJoint(Joint joint) {
+  switch (joint) {
     case Head:
       return "head";
     case Neck:
@@ -48,32 +46,10 @@ Pose createPose() {
   Pose p;
 
   for (int i = JointMin; i <= JointMax; i++) {
-    p.joints[i] =
-        reinterpret_cast<ConnectedJoint *>(malloc(sizeof(ConnectedJoint)));
-    p.joints[i]->joint = static_cast<Joint>(i);
-    p.joints[i]->coord = {0, 0, PostProcessing::Untrustworthy};
-    p.joints[i]->upper_angle = 0;
-    p.joints[i]->lower_angle = 0;
+    p.joints[i] = {
+        static_cast<Joint>(i), {0, 0, PostProcessing::Untrustworthy}, 0, 0};
   }
-
-  p.joints[JointMin]->upper_connected_joint = nullptr;
-  p.joints[JointMin]->lower_connected_joint = p.joints[JointMin + 1];
-
-  for (int i = JointMin + 1; i <= JointMax; i++) {
-    p.joints[i]->upper_connected_joint = p.joints[i - 1];
-    p.joints[i]->lower_connected_joint = p.joints[i + 1];
-  }
-
-  p.joints[JointMax]->upper_connected_joint = p.joints[JointMax - 1];
-  p.joints[JointMax]->lower_connected_joint = nullptr;
-
   return p;
-}
-
-void destroyPose(Pose p) {
-  for (int i = JointMin; i < JointMax; i++) {
-    free(p.joints[i]);
-  }
 }
 
 PostureEstimator::PostureEstimator() {
@@ -81,12 +57,6 @@ PostureEstimator::PostureEstimator() {
   this->ideal_pose = createPose();
   this->current_pose = createPose();
   this->pose_changes = createPose();
-}
-
-PostureEstimator::~PostureEstimator() {
-  destroyPose(this->ideal_pose);
-  destroyPose(this->current_pose);
-  destroyPose(this->pose_changes);
 }
 
 float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
@@ -109,50 +79,57 @@ Pose PostureEstimator::createPoseFromResult(
   PostureEstimating::Pose p = createPose();
 
   for (int i = JointMin; i <= JointMax; i++) {
-    p.joints[i]->coord = results.body_parts[i];
+    p.joints[i].coord = results.body_parts[i];
   }
 
-  p.joints[JointMin]->lower_angle =
-      getLineAngle(p.joints[JointMin]->coord, p.joints[JointMin + 1]->coord);
+  p.joints[JointMin].lower_angle =
+      getLineAngle(p.joints[JointMin].coord, p.joints[JointMin + 1].coord);
 
   for (int i = JointMin + 1; i < JointMax; i++) {
-    p.joints[i]->upper_angle =
-        getLineAngle(p.joints[i]->coord, p.joints[i - 1]->coord);
-    p.joints[i]->lower_angle =
-        getLineAngle(p.joints[i]->coord, p.joints[i + 1]->coord);
+    p.joints[i].upper_angle =
+        getLineAngle(p.joints[i].coord, p.joints[i - 1].coord);
+    p.joints[i].lower_angle =
+        getLineAngle(p.joints[i].coord, p.joints[i + 1].coord);
   }
 
-  p.joints[JointMax]->upper_angle =
-      getLineAngle(p.joints[JointMax]->coord, p.joints[JointMax - 1]->coord);
+  p.joints[JointMax].upper_angle =
+      getLineAngle(p.joints[JointMax].coord, p.joints[JointMax - 1].coord);
 
   return p;
 }
 
 void PostureEstimator::update_current_pose(
     PostProcessing::ProcessedResults results) {
-  destroyPose(this->current_pose);
   this->current_pose = createPoseFromResult(results);
 }
 
 void PostureEstimator::calculatePoseChanges() {
   for (int i = JointMin; i <= JointMax; i++) {
-    if (this->ideal_pose.joints[i]->coord.status ==
+    if (this->ideal_pose.joints[i].coord.status ==
             PostProcessing::Untrustworthy ||
-        this->current_pose.joints[i]->coord.status ==
+        this->current_pose.joints[i].coord.status ==
             PostProcessing::Untrustworthy) {
       continue;
     } else {
-      if (this->ideal_pose.joints[i]->upper_connected_joint != nullptr &&
-          this->current_pose.joints[i]->upper_connected_joint != nullptr) {
-        this->pose_changes.joints[i]->upper_angle =
-            this->ideal_pose.joints[i]->upper_angle -
-            this->current_pose.joints[i]->upper_angle;
+      if (i > JointMin) {
+        if (this->ideal_pose.joints[i - 1].coord.status ==
+                PostProcessing::Trustworthy &&
+            this->current_pose.joints[i - 1].coord.status ==
+                PostProcessing::Trustworthy) {
+          this->pose_changes.joints[i].upper_angle =
+              this->ideal_pose.joints[i].upper_angle -
+              this->current_pose.joints[i].upper_angle;
+        }
       }
-      if (this->ideal_pose.joints[i]->lower_connected_joint != nullptr &&
-          this->current_pose.joints[i]->lower_connected_joint != nullptr) {
-        this->pose_changes.joints[i]->lower_angle =
-            this->ideal_pose.joints[i]->lower_angle -
-            this->current_pose.joints[i]->lower_angle;
+      if (i < JointMax) {
+        if (this->ideal_pose.joints[i + 1].coord.status ==
+                PostProcessing::Trustworthy &&
+            this->current_pose.joints[i + 1].coord.status ==
+                PostProcessing::Trustworthy) {
+          this->pose_changes.joints[i].lower_angle =
+              this->ideal_pose.joints[i].lower_angle -
+              this->current_pose.joints[i].lower_angle;
+        }
       }
     }
   }
@@ -160,21 +137,15 @@ void PostureEstimator::calculatePoseChanges() {
 
 void PostureEstimator::checkGoodPosture() {
   for (int i = JointMin; i <= JointMax; i++) {
-    if ((fabs(this->pose_changes.joints[i]->lower_angle) >
+    if ((fabs(this->pose_changes.joints[i].lower_angle) >
          this->pose_change_threshold) ||
-        fabs(this->pose_changes.joints[i]->upper_angle) >
+        fabs(this->pose_changes.joints[i].upper_angle) >
             this->pose_change_threshold) {
       this->good_posture = false;
       return;
     }
   }
   this->good_posture = true;
-}
-
-void PostureEstimator::update_ideal_pose(
-    PostProcessing::ProcessedResults results) {
-  destroyPose(this->ideal_pose);
-  this->ideal_pose = createPoseFromResult(results);
 }
 
 void PostureEstimator::calculateChangesAndCheckPosture() {
@@ -188,5 +159,18 @@ bool PostureEstimator::updateCurrentPoseAndCheckPosture(
   calculateChangesAndCheckPosture();
   return this->good_posture;
 }
+
+void PostureEstimator::update_ideal_pose(
+    PostProcessing::ProcessedResults results) {
+  this->ideal_pose = createPoseFromResult(results);
+}
+
+PoseStatus PostureEstimator::runEstimator(
+    PostProcessing::ProcessedResults results) {
+  this->updateCurrentPoseAndCheckPosture(results);
+  PoseStatus p = {this->ideal_pose, this->current_pose, this->pose_changes,
+                  this->good_posture};
+  return p;
+}  // namespace PostureEstimating
 
 }  // namespace PostureEstimating

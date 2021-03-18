@@ -1,15 +1,9 @@
 var searchData=
 [
-  ['pose_17',['Pose',['../structPostureEstimating_1_1Pose.html',1,'PostureEstimating']]],
-  ['pose_5fchange_5fthreshold_18',['pose_change_threshold',['../classPostureEstimating_1_1PostureEstimator.html#a590dcd4c72bd9219f2cdf3f4e7296bf2',1,'PostureEstimating::PostureEstimator']]],
-  ['pose_5fchanges_19',['pose_changes',['../classPostureEstimating_1_1PostureEstimator.html#a4de910204215a8a086e360d2039b3124',1,'PostureEstimating::PostureEstimator']]],
-  ['post_5fprocessor_2eh_20',['post_processor.h',['../post__processor_8h.html',1,'']]],
-  ['postprocessor_21',['PostProcessor',['../classPostProcessing_1_1PostProcessor.html',1,'PostProcessing::PostProcessor'],['../classPostProcessing_1_1PostProcessor.html#a08e86bb5b38024d22acc0dd69c757b7b',1,'PostProcessing::PostProcessor::PostProcessor()']]],
-  ['posture_5festimator_2eh_22',['posture_estimator.h',['../posture__estimator_8h.html',1,'']]],
-  ['postureestimator_23',['PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html',1,'PostureEstimating::PostureEstimator'],['../classPostureEstimating_1_1PostureEstimator.html#ab86561e9c3706a2c4ae7a934ffc1ad04',1,'PostureEstimating::PostureEstimator::PostureEstimator()']]],
-  ['pre_5fprocessor_2eh_24',['pre_processor.h',['../pre__processor_8h.html',1,'']]],
-  ['preprocessedimage_25',['PreProcessedImage',['../structPreProcessing_1_1PreProcessedImage.html',1,'PreProcessing']]],
-  ['preprocessing_26',['PreProcessing',['../namespacePreProcessing.html',1,'']]],
-  ['preprocessor_27',['PreProcessor',['../classPreProcessing_1_1PreProcessor.html',1,'PreProcessing::PreProcessor'],['../classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c',1,'PreProcessing::PreProcessor::PreProcessor()']]],
-  ['processedresults_28',['ProcessedResults',['../structPostProcessing_1_1ProcessedResults.html',1,'PostProcessing']]]
+  ['cmakelists_2etxt_40',['CMakeLists.txt',['../gui_2CMakeLists_8txt.html',1,'']]],
+  ['getstringfromcommand_41',['GetStringFromCommand',['../namespaceNotify.html#a368e841e7c487322b40c60877b21e6da',1,'Notify']]],
+  ['good_5fposture_42',['good_posture',['../structPostureEstimating_1_1PoseStatus.html#ab00dc1d7154163d179a581b38874f426',1,'PostureEstimating::PoseStatus::good_posture()'],['../classPostureEstimating_1_1PostureEstimator.html#a5a925e9492bf416a7409c53761772fbb',1,'PostureEstimating::PostureEstimator::good_posture()']]],
+  ['gui_43',['GUI',['../namespaceGUI.html',1,'']]],
+  ['guidance_2emd_44',['guidance.md',['../guidance_8md.html',1,'']]],
+  ['main_2ecpp_45',['main.cpp',['../gui_2main_8cpp.html',1,'']]]
 ];

@@ -1,5 +1,12 @@
 <map id="pre_processor.h" name="pre_processor.h">
-<area shape="rect" id="node1" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="9,5,123,32"/>
-<area shape="rect" id="node2" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="7,80,125,107"/>
-<area shape="rect" id="node3" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="5,155,127,181"/>
+<area shape="rect" id="node1" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="86,5,201,32"/>
+<area shape="rect" id="node2" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="85,80,202,107"/>
+<area shape="rect" id="node4" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="136,229,212,256"/>
+<area shape="rect" id="node10" href="$pre__processor_8cpp.html" title=" " alt="" coords="226,80,354,107"/>
+<area shape="rect" id="node3" href="$inference__core_8cpp.html" title=" " alt="" coords="27,155,158,181"/>
+<area shape="rect" id="node7" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="233,155,355,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="213,304,287,331"/>
+<area shape="rect" id="node6" href="$pipeline_8cpp.html" title=" " alt="" coords="98,304,189,331"/>
+<area shape="rect" id="node8" href="$iir_8cpp.html" title=" " alt="" coords="287,229,343,256"/>
+<area shape="rect" id="node9" href="$post__processor_8cpp.html" title=" " alt="" coords="368,229,503,256"/>
 </map>

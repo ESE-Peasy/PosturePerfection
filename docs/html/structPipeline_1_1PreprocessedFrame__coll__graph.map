@@ -1,0 +1,4 @@
+<map id="Pipeline::PreprocessedFrame" name="Pipeline::PreprocessedFrame">
+<area shape="rect" id="node1" title="Contains the id of the frame within the pipeline, as well as the raw image and the preprocessed_image..." alt="" coords="7,109,198,136"/>
+<area shape="rect" id="node2" href="$structPreProcessing_1_1PreProcessedImage.html" title="A structure of the pre processed image." alt="" coords="5,5,200,47"/>
+</map>

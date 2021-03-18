@@ -41,23 +41,24 @@
 #include "../posture_estimator.h"
 
 QT_BEGIN_NAMESPACE
-namespace GUi {
-class MainWindow;
-}
-QT_END_NAMESPACE
 
 /**
- * @brief This class allows for navigation around the application from the main
- * page.
+ * @brief All code related to the graphical user interface for
+ * PosturePerfection
  *
- * This class lets the user navigate to the data page, settings page and
+ */
+namespace GUI {
+
+/**
+ * @brief Allows for navigation around the application from the main
+ * page by letting the user navigate to the data page, settings page and
  * fullscreen page from the main window.
  *
  * This class handles:
- * Navigating to the data page.
- * Navigating to the settings page.
- * Navigating to the full screen.
- * Triggering posture reseting functionality
+ *  - Navigating to the data page.
+ *  - Navigating to the settings page.
+ *  - Navigating to the full screen.
+ *  - Triggering posture reseting functionality
  *
  */
 class MainWindow : public QMainWindow {
@@ -69,24 +70,25 @@ class MainWindow : public QMainWindow {
    *
    * @param *parent Pointer to the parent interface.
    */
-  MainWindow(QWidget *parent = 0);  // NOLINT (Purposely not using explicit)
+  MainWindow(QWidget *parent = 0);  // NOLINT [runtime/explicit]
   ~MainWindow();
   PostureEstimating::PostureEstimator posture;
   PostureEstimating::PostureEstimator returnEstimator();
 
 
   /**
-   * @brief Extract data from the posture estimator.
+   * @brief Refresh the contents of the data table with the most recent data
    *
-   * @param PostureEstimator object.
+   * @param pose_status a `PostureEstimating::PoseStatus` structure
    */
-  int getData(PostureEstimating::PostureEstimator e);
+  void updateTable(PostureEstimating::PoseStatus pose_status);
 
  private:
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
+  void generateTable();
 
  private slots:
   /**
@@ -97,5 +99,6 @@ class MainWindow : public QMainWindow {
   void on_modeButton_clicked();
 
 };
-
+}  // namespace GUI
+QT_END_NAMESPACE
 #endif  // SRC_GUI_MAINWINDOW_H_

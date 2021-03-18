@@ -83,6 +83,11 @@ namespace PreProcessing {
  *
  */
 struct PreProcessedImage {
+  /**
+   * @brief The image array where each pixel is represented by the 3 RGB
+   * channels
+   *
+   */
   float* image;
 };
 }  // namespace PreProcessing
@@ -115,9 +120,9 @@ std::string stringStatus(Status s);
  *
  */
 struct Coordinate {
-  float x;
-  float y;
-  Status status;
+  float x;        ///< The *relative* X co-ordinate of the detected body part
+  float y;        ///< The *relative* Y co-ordinate of the detected body part
+  Status status;  ///< A Coordinate is either `Trustworthy` or `Untrustworthy`
 };
 
 /**
@@ -132,11 +137,39 @@ struct Coordinate {
  *
  */
 struct ProcessedResults {
+  /**
+   * @brief Each element of this array corresponds to a body part with
+   * a defined `PostProcessing::Coordinate` which specifies the confidence of
+   * the body part as well as the *relative* position of the body part in the
+   * image frame
+   *
+   */
   std::array<Coordinate, JointMax + 1> body_parts;
 };
 }  // namespace PostProcessing
 
 namespace Inference {
+
+/**
+ * @brief *Intermediate result* of pose estimation
+ *
+ * This type is used to capture the output of running pose estimation using the
+ * TensorFlow Lite model. It is only temporarily used within the
+ * `Inference::InferenceCore` before being restructured into
+ * `Inference::InferenceResults`
+ *
+ */
+struct Result {
+  /**
+   * @brief The confidence in this body part being the one determined from
+   * inference. Values are in the range [0.0..1.0] with 1.0 indicating 100%
+   * confidence.
+   *
+   */
+  float confidence;
+  size_t x;  ///< The *absolute* X co-ordinate of the body part detected
+  size_t y;  ///< The *absolute* Y co-ordinate of the body part detected
+};
 
 /**
  * @brief Indicates position and confidence in positioning of a body part node
@@ -148,8 +181,14 @@ namespace Inference {
  *
  */
 struct Coordinate {
-  float x;
-  float y;
+  float x;  ///< The *relative* X co-ordinate of the body part detected
+  float y;  ///< The *relative* X co-ordinate of the body part detected
+  /**
+   * @brief The confidence in this body part being the one determined from
+   * inference. Values are in the range [0.0..1.0] with 1.0 indicating 100%
+   * confidence.
+   *
+   */
   float confidence;
 };
 
@@ -158,6 +197,12 @@ struct Coordinate {
  *
  */
 struct InferenceResults {
+  /**
+   * @brief Each element of this array corresponds to a body part with
+   * a defined `Inference::Coordinate` which specifies the confidence of the
+   * body part as well as the position of the body part in the image frame
+   *
+   */
   std::array<Coordinate, BodyPartMax + 1> body_parts;
 };
 }  // namespace Inference
