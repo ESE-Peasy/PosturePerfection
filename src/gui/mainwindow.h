@@ -37,6 +37,12 @@
 #include <QWidget>
 #include <QtCore/QVariant>
 
+#include "opencv2/core.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include <opencv2/imgcodecs.hpp> 
+
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
@@ -82,6 +88,7 @@ class MainWindow : public QMainWindow {
    * @param pose_status a `PostureEstimating::PoseStatus` structure
    */
   void updateTable(PostureEstimating::PoseStatus pose_status);
+  void updateFrame(cv::Mat currentFrame);
 
  private:
   QGridLayout *mainLayout = new QGridLayout;
@@ -89,6 +96,8 @@ class MainWindow : public QMainWindow {
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
   void generateTable();
+  void initalFrame();
+  QLabel *frame = new QLabel();
 
  private slots:
   /**

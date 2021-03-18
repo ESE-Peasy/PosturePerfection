@@ -26,9 +26,8 @@
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 #include "datawindow.h"
-#include "opencv2/core.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/videoio.hpp"
+
+// #include "opencv/cv.hpp"
 
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
@@ -81,23 +80,8 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
 
-  this->generateTable();
-  /*
-  QLabel *myLabel = new QLabel();
-  cv::Mat img = cv::imread("person.jpg"); 
-  QImage imgIn= QImage((uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
-  QPixmap pixmap = QPixmap::fromImage(img);
-  myLabel.setPixmap(pixmap);
-  */
-
- /*
-  cv::Mat opencv_image = cv::imread("person.jpg"); 
-  cv::Mat dest;
-  cvtColor(opencv_image, dest,CV_BGR2RGB);
-  QImage image((uchar*)dest.data, dest.cols, dest.rows,QImage::Format_RGB888);
-  */
-
-  // QImage imgIn= QImage((uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+  // this->generateTable();
+  this->initalFrame();
 
 }
 
@@ -133,6 +117,22 @@ void GUI::MainWindow::showDateTime() {
 }
 
 GUI::MainWindow::~MainWindow() { delete mainLayout; }
+
+void GUI::MainWindow::initalFrame() {
+  QLabel *frame = new QLabel();
+  cv::Mat img = cv::imread("src/gui/posture-logo.png"); 
+  QImage imgIn= QImage((uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+  QPixmap pixmap = QPixmap::fromImage(imgIn);
+  frame->setPixmap(pixmap);
+  mainLayout->addWidget(frame, 1, 0);
+}
+
+void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
+  QImage imgIn= QImage((uchar*) currentFrame.data, currentFrame.cols, currentFrame.rows, currentFrame.step, QImage::Format_RGB888);
+  QPixmap pixmap = QPixmap::fromImage(imgIn);
+  frame->setPixmap(pixmap);
+  mainLayout->addWidget(frame, 1, 0);
+}
 
 void GUI::MainWindow::generateTable(void) {
   // Create table with appropriate headers

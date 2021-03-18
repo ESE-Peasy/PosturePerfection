@@ -49,7 +49,7 @@ void Pipeline::input_thread_body() {
 
     // Set the time to something appropriate for the system. This dictates the
     // frame-rate at which the system operates.
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
   }
 }
 
