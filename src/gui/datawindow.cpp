@@ -1,35 +1,9 @@
-/**
- * @file mainwindow.cpp
- * @brief Main user interface file
- *
- * @copyright Copyright (C) 2021  Andrew Ritchie
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- */
-#include "mainwindow.h"
-#include <iostream>
-#include <string>
-#include "../intermediate_structures.h"
-#include "../posture_estimator.h"
 #include "datawindow.h"
 
+#include "mainwindow.h"
 
-
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+fullscreen::fullscreen(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
-
   // create three buttons
   QPushButton *resetButton = new QPushButton("&Reset Posture");
 
@@ -76,12 +50,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setLayout(mainLayout);
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
-
-  connect(modeButton, SIGNAL(clicked()), this, SLOT(on_modeButton_clicked()));
-
 }
 
-void MainWindow::showDateTime() {
+void fullscreen::showDateTime() {
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
 
@@ -112,11 +83,11 @@ void MainWindow::showDateTime() {
   mainLayout->itemAt(3)->widget()->deleteLater();
 }
 
-MainWindow::~MainWindow() { delete mainLayout; }
+fullscreen::~fullscreen() { delete mainLayout; }
 
-int MainWindow::getData(PostureEstimating::PostureEstimator e) {
+int fullscreen::getData() {
+  PostureEstimating::PostureEstimator e = MainWindow::returnEstimator();
   // Create table with appropriate headers
-  posture = e;
   QTableView *view = new QTableView;
   model = new QStandardItemModel(0, 4);
   view->setModel(model);
@@ -135,10 +106,9 @@ int MainWindow::getData(PostureEstimating::PostureEstimator e) {
         new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.x));
     QStandardItem *itm3 =
         new QStandardItem(QString("%1").arg(e.current_pose.joints[i]->coord.y));
-    QStandardItem *itm4 =
-        new QStandardItem(PostProcessing::stringStatus(
-                              e.current_pose.joints[i]->coord.status)
-                              .c_str());
+    QStandardItem *itm4 = new QStandardItem(
+        PostProcessing::stringStatus(e.current_pose.joints[i]->coord.status)
+            .c_str());
 
     itm1->setForeground(QColor(Qt::white));
     itm2->setForeground(QColor(Qt::white));
@@ -155,17 +125,4 @@ int MainWindow::getData(PostureEstimating::PostureEstimator e) {
   // Add the table to the GUI
   mainLayout->addWidget(view, 1, 0);
   return 0;
-}
-
-void MainWindow::on_modeButton_clicked() {
-    fullscreen *full = new fullscreen;
-    //full->getData(posture);
-    full->show();
-    QCoreApplication::processEvents();
-    hide();
-}
-
-
-PostureEstimating::PostureEstimator MainWindow::returnEstimator(){
-  return posture;
 }

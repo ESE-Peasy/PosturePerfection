@@ -1,7 +1,6 @@
-/**
- * @file mainwindow.h
- * @brief Header file for the main window
- *
+/*
+ * @file fullscreen.h
+ * @brief Interface for representation of user's pose
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -18,8 +17,32 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef SRC_GUI_MAINWINDOW_H_
-#define SRC_GUI_MAINWINDOW_H_
+
+#ifndef FULLSCREEN_H
+#define FULLSCREEN_H
+
+#include <QMainWindow>
+
+namespace Ui {
+class fullscreen;
+}
+
+/*
+ * @brief This class allows for navigation around the application from the
+ * fullscreen page.
+ *
+ * This class lets the user navigate to the mainwindow, settingspage and
+ * datapage from the fullscreen page.
+ *
+ * This class handles:
+ * Navigating to the mainwindow.
+ * Navigating to the settingspage.
+ * Navigating to the datapage.
+ * Triggering posture reseting functionality
+ *
+ *
+ *
+ */
 
 #include <qcustomplot.h>
 
@@ -40,53 +63,17 @@
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
-QT_BEGIN_NAMESPACE
-namespace GUi {
-class MainWindow;
-}
-QT_END_NAMESPACE
-
-/**
- * @brief This class allows for navigation around the application from the main
- * page.
- *
- * This class lets the user navigate to the data page, settings page and
- * fullscreen page from the main window.
- *
- * This class handles:
- * Navigating to the data page.
- * Navigating to the settings page.
- * Navigating to the full screen.
- * Triggering posture reseting functionality
- *
- */
-class MainWindow : public QMainWindow {
+class fullscreen : public QMainWindow {
   Q_OBJECT
 
  public:
-  /**
-   * @brief Initialises the main page.
-   *
-   * @param *parent Pointer to the parent interface.
-   */
-  MainWindow(QWidget *parent = 0);  // NOLINT (Purposely not using explicit)
-  ~MainWindow();
-  PostureEstimating::PostureEstimator posture;
-  PostureEstimating::PostureEstimator returnEstimator();
-
-
-  /**
-   * @brief Extract data from the posture estimator.
-   *
-   * @param PostureEstimator object.
-   */
-  int getData(PostureEstimating::PostureEstimator e);
-
- private:
+  explicit fullscreen(QWidget *parent = nullptr);
+  ~fullscreen();
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
+  int getData();
 
  private slots:
   /**
@@ -94,8 +81,7 @@ class MainWindow : public QMainWindow {
    */
   void showDateTime();
 
-  void on_modeButton_clicked();
-
+ private:
 };
 
-#endif  // SRC_GUI_MAINWINDOW_H_
+#endif  // FULLSCREEN_H

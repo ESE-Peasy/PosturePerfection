@@ -27,6 +27,7 @@
 #include "post_processor.h"
 #include "posture_estimator.h"
 #include "pre_processor.h"
+#include "gui/datawindow.h"
 
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
@@ -89,13 +90,14 @@ PostProcessing::ProcessedResults pipeline(std::string image) {
   return processed_results;
 }
 
+PostureEstimating::PostureEstimator e;
+
 int main(int argc, char *argv[]) {
   printf("Initial Pose Points \n");
   PostProcessing::ProcessedResults ideal_results = pipeline("./person.jpg");
   printf("Current Pose Points \n");
   PostProcessing::ProcessedResults current_results = pipeline("./person2.jpeg");
 
-  PostureEstimating::PostureEstimator e;
   e.update_ideal_pose(ideal_results);
   e.pose_change_threshold = 0;
   bool posture = e.updateCurrentPoseAndCheckPosture(current_results);
@@ -118,8 +120,12 @@ int main(int argc, char *argv[]) {
 
   QApplication a(argc, argv);
   MainWindow w;
+  //fullscreen f;
+
   w.getData(e);
+  //f.getData(e);
   QCoreApplication::processEvents();
   w.showMaximized();
+  //f.showMaximized();
   return a.exec();
 }
