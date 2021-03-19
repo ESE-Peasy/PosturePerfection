@@ -27,7 +27,7 @@
 #include "posture_estimator.h"
 
 #define NUM_LOOPS 500
-#define NUM_INF_CORE_THREADS 16
+#define NUM_INF_CORE_THREADS 8
 
 bool run_flag = true;
 

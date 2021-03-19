@@ -22,7 +22,7 @@
 
 #include "mainwindow.h"
 
-SettingsWindow::SettingsWindow(QWidget *parent) : QMainWindow(parent) {
+GUI::SettingsWindow::SettingsWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
   // create three buttons
   QPushButton *mainButton = new QPushButton("&Main Window");
@@ -74,7 +74,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QMainWindow(parent) {
   connect(mainButton, SIGNAL(clicked()), this, SLOT(on_mainButton_clicked()));
 }
 
-void SettingsWindow::showDateTime() {
+void GUI::SettingsWindow::showDateTime() {
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
 
@@ -105,11 +105,6 @@ void SettingsWindow::showDateTime() {
   mainLayout->itemAt(3)->widget()->deleteLater();
 }
 
-SettingsWindow::~SettingsWindow() { delete mainLayout; }
+GUI::SettingsWindow::~SettingsWindow() { delete mainLayout; }
 
-void SettingsWindow::on_mainButton_clicked() {
-  GUI::MainWindow *full = new GUI::MainWindow;
-  full->showMaximized();
-  QCoreApplication::processEvents();
-  hide();
-}
+void GUI::SettingsWindow::on_mainButton_clicked() { this->close(); }

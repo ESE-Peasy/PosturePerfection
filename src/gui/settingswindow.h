@@ -1,4 +1,4 @@
-/*
+/**
  * @file settingswindow.h
  * @brief Header file for the settings GUI page
  * @copyright Copyright (C) 2021  Andrew Ritchie
@@ -17,31 +17,6 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-
-#ifndef SRC_GUI_SETTINGSWINDOW_H_
-#define SRC_GUI_SETTINGSWINDOW_H_
-
-namespace Ui {
-class SettingsWindow;
-}
-
-/*
- * @brief This class allows for navigation around the application from the
- * settings page.
- *
- * This class lets the user navigate to the mainwindow, settingspage and
- * datapage from the fullscreen page.
- *
- * This class handles:
- * Navigating to the mainwindow.
- * Navigating to the settingspage.
- * Navigating to the datapage.
- * Triggering posture reseting functionality
- *
- *
- *
- */
-
 #include <qcustomplot.h>
 
 #include <QApplication>
@@ -60,6 +35,29 @@ class SettingsWindow;
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
+
+#ifndef SRC_GUI_SETTINGSWINDOW_H_
+#define SRC_GUI_SETTINGSWINDOW_H_
+
+QT_BEGIN_NAMESPACE
+namespace GUI {
+
+/**
+ * @brief This class allows for navigation around the application from the
+ * settings page.
+ *
+ * This class lets the user navigate to the mainwindow, settingspage and
+ * datapage from the fullscreen page.
+ *
+ * This class handles:
+ * Navigating to the mainwindow.
+ * Navigating to the settingspage.
+ * Navigating to the datapage.
+ * Triggering posture reseting functionality
+ *
+ *
+ *
+ */
 
 class SettingsWindow : public QMainWindow {
   Q_OBJECT
@@ -83,5 +81,6 @@ class SettingsWindow : public QMainWindow {
 
  private:
 };
-
+}  // namespace GUI
+QT_END_NAMESPACE
 #endif  // SRC_GUI_SETTINGSWINDOW_H_

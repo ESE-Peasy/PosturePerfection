@@ -27,8 +27,6 @@
 #include "../posture_estimator.h"
 #include "settingswindow.h"
 
-// #include "opencv/cv.hpp"
-
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   central->setStyleSheet("background-color:#0d1117;");
 

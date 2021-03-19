@@ -40,10 +40,6 @@
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
-#include "opencv2/core.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/videoio.hpp"
 
 QT_BEGIN_NAMESPACE
 
@@ -77,8 +73,6 @@ class MainWindow : public QMainWindow {
    */
   MainWindow(QWidget *parent = 0);  // NOLINT [runtime/explicit]
   ~MainWindow();
-  PostureEstimating::PostureEstimator posture;
-  PostureEstimating::PostureEstimator returnEstimator();
 
   /**
    * @brief Refresh the contents of the data table with the most recent data
