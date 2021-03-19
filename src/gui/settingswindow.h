@@ -1,6 +1,6 @@
 /*
  * @file settingswindow.h
- * @brief Interface for representation of user's pose
+ * @brief Header file for the settings GUI page
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -18,10 +18,8 @@
  *
  */
 
-#ifndef SETTINGSWINDOW_H
-#define SETTINGSWINODW_H
-
-#include <QMainWindow>
+#ifndef SRC_GUI_SETTINGSWINDOW_H_
+#define SRC_GUI_SETTINGSWINDOW_H_
 
 namespace Ui {
 class SettingsWindow;
@@ -29,7 +27,7 @@ class SettingsWindow;
 
 /*
  * @brief This class allows for navigation around the application from the
- * fullscreen page.
+ * settings page.
  *
  * This class lets the user navigate to the mainwindow, settingspage and
  * datapage from the fullscreen page.
@@ -86,4 +84,4 @@ class SettingsWindow : public QMainWindow {
  private:
 };
 
-#endif  // SETTINGSWINDOW_H
+#endif  // SRC_GUI_SETTINGSWINDOW_H_

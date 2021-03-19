@@ -82,7 +82,8 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   // this->generateTable();
   this->initalFrame();
 
-  connect(settingsButton, SIGNAL(clicked()), this, SLOT(on_settingsButton_clicked()));
+  connect(settingsButton, SIGNAL(clicked()), this,
+          SLOT(on_settingsButton_clicked()));
 }
 
 void GUI::MainWindow::showDateTime() {
@@ -121,17 +122,19 @@ GUI::MainWindow::~MainWindow() { delete mainLayout; }
 void GUI::MainWindow::initalFrame() {
   QLabel *frame = new QLabel();
   cv::Mat img = cv::imread("src/gui/posture-logo.png");
-  QImage imgIn = QImage((uchar *)img.data, img.cols, img.rows, img.step,
-                        QImage::Format_RGB888);
+  QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
+                        img.data,
+                        img.cols, img.rows, img.step, QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
   mainLayout->addWidget(frame, 1, 0);
 }
 
 void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
-  QImage imgIn =
-      QImage((uchar *)currentFrame.data, currentFrame.cols, currentFrame.rows,
-             currentFrame.step, QImage::Format_RGB888);
+  QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
+                        currentFrame.data,
+                        currentFrame.cols, currentFrame.rows, currentFrame.step,
+                        QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
   mainLayout->addWidget(frame, 1, 0);

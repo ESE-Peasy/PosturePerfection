@@ -37,7 +37,6 @@ void frame_callback(PostureEstimating::PoseStatus pose_status,
                     cv::Mat input_image) {
   // main_window_ptr->updateTable(pose_status);
   main_window_ptr->updateFrame(input_image);
-  
 }
 
 int main(int argc, char* argv[]) {
