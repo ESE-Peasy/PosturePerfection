@@ -69,7 +69,6 @@ class SettingsWindow : public QMainWindow {
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
-  int getData();
 
  private slots:
   /**
@@ -77,6 +76,9 @@ class SettingsWindow : public QMainWindow {
    */
   void showDateTime();
 
+  /**
+   * @brief Navigates the user to the main window.
+   */
   void on_mainButton_clicked();
 
  private:
