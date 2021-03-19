@@ -103,6 +103,9 @@ class MainWindow : public QMainWindow {
    */
   void showDateTime();
 
+  /**
+   * @brief Navigates to the settings page.
+   */
   void on_settingsButton_clicked();
 };
 }  // namespace GUI
