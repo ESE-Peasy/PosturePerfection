@@ -10,7 +10,7 @@
 bool check_normalised(float value) { return value <= 1.0 && value >= -1.0; }
 
 BOOST_AUTO_TEST_CASE(ImageNormalised) {
-  cv::Mat image = cv::imread("../../person.jpg");
+  cv::Mat image = cv::imread("../../test/test_image.jpg");
 
   PreProcessing::PreProcessor pre_proc =
       PreProcessing::PreProcessor(MODEL_INPUT_X, MODEL_INPUT_Y);
@@ -25,7 +25,7 @@ BOOST_AUTO_TEST_CASE(ImageNormalised) {
 }
 
 BOOST_AUTO_TEST_CASE(RBChannelsSwitched) {
-  cv::Mat image = cv::imread("../../person.jpg");
+  cv::Mat image = cv::imread("../../test/test_image.jpg");
 
   PreProcessing::PreProcessor pre_proc =
       PreProcessing::PreProcessor(MODEL_INPUT_X, MODEL_INPUT_Y);
