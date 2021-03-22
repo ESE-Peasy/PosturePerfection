@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal
+ * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal, Andrew Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -35,7 +35,8 @@ GUI::MainWindow* main_window_ptr;
 
 void frame_callback(PostureEstimating::PoseStatus pose_status,
                     cv::Mat input_image) {
-  main_window_ptr->updateTable(pose_status);
+  // main_window_ptr->updateTable(pose_status);
+  main_window_ptr->updateFrame(input_image);
 }
 
 int main(int argc, char* argv[]) {

@@ -1,7 +1,6 @@
 /**
- * @file mainwindow.h
- * @brief Header file for the main window
- *
+ * @file settingswindow.h
+ * @brief Header file for the settings GUI page
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -18,9 +17,6 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#ifndef SRC_GUI_MAINWINDOW_H_
-#define SRC_GUI_MAINWINDOW_H_
-
 #include <qcustomplot.h>
 
 #include <QApplication>
@@ -36,66 +32,43 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QtCore/QVariant>
-#include <opencv2/imgcodecs.hpp>
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
-QT_BEGIN_NAMESPACE
+#ifndef SRC_GUI_SETTINGSWINDOW_H_
+#define SRC_GUI_SETTINGSWINDOW_H_
 
-/**
- * @brief All code related to the graphical user interface for
- * PosturePerfection
- *
- */
+QT_BEGIN_NAMESPACE
 namespace GUI {
 
 /**
- * @brief Allows for navigation around the application from the main
- * page by letting the user navigate to the data page, settings page and
- * fullscreen page from the main window.
+ * @brief This class allows for navigation around the application from the
+ * settings page.
+ *
+ * This class lets the user navigate to the mainwindow, settingspage and
+ * datapage from the fullscreen page.
  *
  * This class handles:
- *  - Navigating to the data page.
- *  - Navigating to the settings page.
- *  - Navigating to the full screen.
- *  - Triggering posture reseting functionality
+ * Navigating to the mainwindow.
+ * Navigating to the settingspage.
+ * Navigating to the datapage.
+ * Triggering posture reseting functionality
+ *
+ *
  *
  */
-class MainWindow : public QMainWindow {
+
+class SettingsWindow : public QMainWindow {
   Q_OBJECT
 
  public:
-  /**
-   * @brief Initialises the main page.
-   *
-   * @param *parent Pointer to the parent interface.
-   */
-  MainWindow(QWidget *parent = 0);  // NOLINT [runtime/explicit]
-  ~MainWindow();
-
-  /**
-   * @brief Refresh the contents of the data table with the most recent data
-   *
-   * @param pose_status a `PostureEstimating::PoseStatus` structure
-   */
-  void updateTable(PostureEstimating::PoseStatus pose_status);
-
-  /**
-   * @brief Refresh the video feed to the most recent frame
-   *
-   * @param currentFrame a `cv::Mat` object
-   */
-  void updateFrame(cv::Mat currentFrame);
-
- private:
+  explicit SettingsWindow(QWidget *parent = nullptr);
+  ~SettingsWindow();
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
-  void generateTable();
-  void initalFrame();
-  QLabel *frame = new QLabel();
 
  private slots:
   /**
@@ -104,10 +77,12 @@ class MainWindow : public QMainWindow {
   void showDateTime();
 
   /**
-   * @brief Navigates to the settings page.
+   * @brief Navigates the user to the main window.
    */
-  void on_settingsButton_clicked();
+  void on_mainButton_clicked();
+
+ private:
 };
 }  // namespace GUI
 QT_END_NAMESPACE
-#endif  // SRC_GUI_MAINWINDOW_H_
+#endif  // SRC_GUI_SETTINGSWINDOW_H_
