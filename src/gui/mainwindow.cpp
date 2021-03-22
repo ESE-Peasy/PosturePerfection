@@ -28,6 +28,73 @@
 #include "settingswindow.h"
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+  
+  QWidget *firstPageWidget = new QWidget;
+  QWidget *secondPageWidget = new QWidget;
+  QWidget *thirdPageWidget = new QWidget;
+  /*
+  QLabel *label = new QLabel(this);
+  QHBoxLayout *hlayout = new QHBoxLayout();
+  label->setText("Random String");
+  hlayout->addWidget(label);
+  firstPageWidget->setLayout(hlayout);
+  */
+
+  QPushButton *resetButton = new QPushButton("&Reset Posture");
+  QHBoxLayout *hlayout = new QHBoxLayout();
+  hlayout->addWidget(resetButton);
+  firstPageWidget->setLayout(hlayout);
+
+
+  QLabel *label2 = new QLabel(this);
+  QHBoxLayout *hlayout2 = new QHBoxLayout();
+  label2->setText("Random String on the second page");
+  hlayout2->addWidget(label2);
+  secondPageWidget->setLayout(hlayout2);
+
+
+  QStackedWidget *stackedWidget = new QStackedWidget;
+  stackedWidget->addWidget(firstPageWidget);
+  stackedWidget->addWidget(secondPageWidget);
+  stackedWidget->addWidget(thirdPageWidget);
+  /*
+   QVBoxLayout *layout = new QVBoxLayout;
+   layout->addWidget(stackedWidget);
+   QWidget *placeholderWidget = new QWidget;
+   placeholderWidget->setLayout(layout);
+   //setCentralWidget(placeholderWidget);
+  */
+
+  QComboBox *pageComboBox = new QComboBox;
+  pageComboBox->addItem(tr("Page 1"));
+  pageComboBox->addItem(tr("Page 2"));
+  pageComboBox->addItem(tr("Page 3"));
+  
+  mainLayout->addWidget(pageComboBox, 0, 0);
+  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
+            stackedWidget, &QStackedWidget::setCurrentIndex);
+
+   QVBoxLayout *layout = new QVBoxLayout;
+  layout->addWidget(pageComboBox);
+  layout->addWidget(stackedWidget);
+  QWidget *placeholderWidget = new QWidget;
+  placeholderWidget->setLayout(layout);
+  setCentralWidget(placeholderWidget);
+  
+   //connect(resetButton, SIGNAL(clicked()), this, SLOT(slotDisplayFen()));
+
+  //connect(resetButton, SIGNAL(changeStackedWidgetIndex(int)), this, SLOT(setCurrentIndex(int)) );
+  //this->stackedWidget.setCurrentIndex(0)
+  //pageComboBox->setCurrentIndex(1);
+
+  //this->setCentralWidget( pageComboBox );
+
+
+
+
+
+
+  /*
   central->setStyleSheet("background-color:#0d1117;");
 
   // create three buttons
@@ -82,9 +149,16 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
   connect(settingsButton, SIGNAL(clicked()), this,
           SLOT(on_settingsButton_clicked()));
+  */
+}
+
+void GUI::MainWindow::slotDisplayFen()
+{
+  stackedWidget->setCurrentIndex(2);
 }
 
 void GUI::MainWindow::showDateTime() {
+  /*
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
 
@@ -113,11 +187,14 @@ void GUI::MainWindow::showDateTime() {
   // output the current date/time and clear the previous outputted value
   mainLayout->addWidget(groupDateTime, 0, 1);
   mainLayout->itemAt(3)->widget()->deleteLater();
+  */
 }
 
-GUI::MainWindow::~MainWindow() { delete mainLayout; }
+GUI::MainWindow::~MainWindow() { //delete mainLayout; 
+}
 
 void GUI::MainWindow::initalFrame() {
+  /*
   QLabel *frame = new QLabel();
   cv::Mat img = cv::imread("src/gui/posture-logo.png");
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
@@ -126,9 +203,11 @@ void GUI::MainWindow::initalFrame() {
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
   mainLayout->addWidget(frame, 1, 0);
+  */
 }
 
 void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
+  /*
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
                         currentFrame.data,
                         currentFrame.cols, currentFrame.rows, currentFrame.step,
@@ -136,9 +215,11 @@ void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
   mainLayout->addWidget(frame, 1, 0);
+  */
 }
 
 void GUI::MainWindow::generateTable(void) {
+  /*
   QTableView *view = new QTableView;
   model = new QStandardItemModel(0, 4);
   view->setModel(model);
@@ -169,9 +250,11 @@ void GUI::MainWindow::generateTable(void) {
 
   // Add the table to the GUI
   mainLayout->addWidget(view, 1, 0);
+  */
 }
 
 void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
+  /*
   uint8_t i = 0;
   for (auto joint : pose_status.current_pose.joints) {
     model->item(i, 0)->setData(
@@ -184,10 +267,13 @@ void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
                                Qt::DisplayRole);
     i++;
   }
+  */
 }
 
 void GUI::MainWindow::on_settingsButton_clicked() {
+  /*
   SettingsWindow *full = new SettingsWindow;
   full->showMaximized();
   QCoreApplication::processEvents();
+  */
 }

@@ -37,6 +37,7 @@
 #include <QWidget>
 #include <QtCore/QVariant>
 #include <opencv2/imgcodecs.hpp>
+#include <QStackedWidget>
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
@@ -88,6 +89,12 @@ class MainWindow : public QMainWindow {
    */
   void updateFrame(cv::Mat currentFrame);
 
+ public slots:
+  void slotDisplayFen();
+
+ signals:
+  void changeStackedWidgetIndex(int);
+
  private:
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
@@ -96,6 +103,8 @@ class MainWindow : public QMainWindow {
   void generateTable();
   void initalFrame();
   QLabel *frame = new QLabel();
+  QStackedWidget *stackedWidget = new QStackedWidget;
+
 
  private slots:
   /**
