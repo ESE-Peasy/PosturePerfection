@@ -71,12 +71,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a07090053e9beec19ad522c8dddb7aa29"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#a07090053e9beec19ad522c8dddb7aa29">cmake_minimum_required</a> (VERSION 3.7.0) project(gui VERSION 1.0.0 LANGUAGES CXX) if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES) <a class="el" href="CMakeLists_8txt.html#a7b7902e413b859f92d83fa46364199dc">set</a>(CMAKE_BUILD_TYPE &quot;RelWithDebInfo&quot;) endif() <a class="el" href="CMakeLists_8txt.html#a7b7902e413b859f92d83fa46364199dc">set</a>(CMAKE_CXX_STANDARD 11) <a class="el" href="CMakeLists_8txt.html#a7b7902e413b859f92d83fa46364199dc">set</a>(CMAKE_CXX_STANDARD_REQUIRED ON) <a class="el" href="CMakeLists_8txt.html#a7b7902e413b859f92d83fa46364199dc">set</a>(CMAKE_AUTOMOC ON) <a class="el" href="CMakeLists_8txt.html#a7b7902e413b859f92d83fa46364199dc">set</a>(CMAKE_AUTORCC ON) <a class="el" href="CMakeLists_8txt.html#a7b7902e413b859f92d83fa46364199dc">set</a>(CMAKE_AUTOUIC ON) <a class="el" href="CMakeLists_8txt.html#aff19a2b08a70c1671d45f82b7f9aac16">find_package</a>(Qt5 COMPONENTS Widgets PrintSupport REQUIRED) <a class="el" href="CMakeLists_8txt.html#aff19a2b08a70c1671d45f82b7f9aac16">find_package</a>(QCustomPlot) <a class="el" href="CMakeLists_8txt.html#a95c561a7c4ab4f98ade379ad378d8372">add_library</a>(PosturePerfection_gui STATIC mainwindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp) <a class="el" href="CMakeLists_8txt.html#a9c779c44143503c58fb384b5b5b004a3">target_link_libraries</a>(PosturePerfection_gui Qt5</td></tr>
-<tr class="separator:a07090053e9beec19ad522c8dddb7aa29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34aff959167aebc70a3bcd23fc526ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#ae34aff959167aebc70a3bcd23fc526ef">cmake_minimum_required</a> (VERSION 3.7.0) project(gui VERSION 1.0.0 LANGUAGES CXX) if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES) <a class="el" href="gui_2CMakeLists_8txt.html#a1bfe71e38d59a899a64490bd35d6b9f1">set</a>(CMAKE_BUILD_TYPE &quot;RelWithDebInfo&quot;) endif() <a class="el" href="gui_2CMakeLists_8txt.html#a1bfe71e38d59a899a64490bd35d6b9f1">set</a>(OpenCV_DIR &quot;$</td></tr>
+<tr class="separator:ae34aff959167aebc70a3bcd23fc526ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeceba7f4eb4a9c11dbd1b92fdcdd5340"><td class="memItemLeft" align="right" valign="top">opencv_build&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340">find_package</a> (OpenCV REQUIRED) <a class="el" href="CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a>(&quot;$</td></tr>
+<tr class="separator:aeceba7f4eb4a9c11dbd1b92fdcdd5340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bfe71e38d59a899a64490bd35d6b9f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#a1bfe71e38d59a899a64490bd35d6b9f1">set</a> (CMAKE_CXX_STANDARD 11) set(CMAKE_CXX_STANDARD_REQUIRED ON) set(CMAKE_AUTOMOC ON) set(CMAKE_AUTORCC ON) set(CMAKE_AUTOUIC ON) <a class="el" href="gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340">find_package</a>(Qt5 COMPONENTS Widgets PrintSupport REQUIRED) <a class="el" href="gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340">find_package</a>(QCustomPlot) <a class="el" href="CMakeLists_8txt.html#a95c561a7c4ab4f98ade379ad378d8372">add_library</a>(PosturePerfection_gui STATIC mainwindow.cpp settingswindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp) <a class="el" href="CMakeLists_8txt.html#a9c779c44143503c58fb384b5b5b004a3">target_link_libraries</a>(PosturePerfection_gui Qt5</td></tr>
+<tr class="separator:a1bfe71e38d59a899a64490bd35d6b9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a07090053e9beec19ad522c8dddb7aa29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07090053e9beec19ad522c8dddb7aa29">&#9670;&nbsp;</a></span>cmake_minimum_required()</h2>
+<a id="ae34aff959167aebc70a3bcd23fc526ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34aff959167aebc70a3bcd23fc526ef">&#9670;&nbsp;</a></span>cmake_minimum_required()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -86,6 +90,42 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">VERSION 3.7.&#160;</td>
           <td class="paramname"><em>0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeceba7f4eb4a9c11dbd1b92fdcdd5340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeceba7f4eb4a9c11dbd1b92fdcdd5340">&#9670;&nbsp;</a></span>find_package()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">opencv_build find_package </td>
+          <td>(</td>
+          <td class="paramtype">OpenCV&#160;</td>
+          <td class="paramname"><em>REQUIRED</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1bfe71e38d59a899a64490bd35d6b9f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bfe71e38d59a899a64490bd35d6b9f1">&#9670;&nbsp;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">set </td>
+          <td>(</td>
+          <td class="paramtype">CMAKE_CXX_STANDARD&#160;</td>
+          <td class="paramname"><em>11</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

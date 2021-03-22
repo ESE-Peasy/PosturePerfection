@@ -1,0 +1,4 @@
+<map id="GUI::SettingsWindow" name="GUI::SettingsWindow">
+<area shape="rect" id="node1" title="This class allows for navigation around the application from the settings page." alt="" coords="5,80,152,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="25,5,132,32"/>
+</map>

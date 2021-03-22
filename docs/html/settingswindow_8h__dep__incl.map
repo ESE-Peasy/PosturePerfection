@@ -1,0 +1,5 @@
+<map id="settingswindow.h" name="settingswindow.h">
+<area shape="rect" id="node1" title="Header file for the settings GUI page." alt="" coords="78,5,201,32"/>
+<area shape="rect" id="node2" href="$mainwindow_8cpp.html" title="Main user interface file." alt="" coords="5,80,124,107"/>
+<area shape="rect" id="node3" href="$settingswindow_8cpp.html" title=" " alt="" coords="147,80,283,107"/>
+</map>

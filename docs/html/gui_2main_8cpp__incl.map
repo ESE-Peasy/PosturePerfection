@@ -1,7 +1,7 @@
 <map id="main.cpp" name="main.cpp">
-<area shape="rect" id="node1" title="Main file for the user interface." alt="" coords="400,5,475,32"/>
+<area shape="rect" id="node1" title="Main file for the user interface." alt="" coords="457,5,532,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,155,101,181"/>
-<area shape="rect" id="node3" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="771,80,875,107"/>
+<area shape="rect" id="node3" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="828,80,932,107"/>
 <area shape="rect" id="node4" title=" " alt="" coords="126,155,229,181"/>
 <area shape="rect" id="node5" title=" " alt="" coords="253,155,321,181"/>
 <area shape="rect" id="node6" title=" " alt="" coords="345,155,415,181"/>
@@ -15,9 +15,10 @@
 <area shape="rect" id="node14" title=" " alt="" coords="1210,155,1313,181"/>
 <area shape="rect" id="node15" title=" " alt="" coords="1337,155,1409,181"/>
 <area shape="rect" id="node16" title=" " alt="" coords="1434,155,1553,181"/>
-<area shape="rect" id="node17" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="1497,229,1676,256"/>
-<area shape="rect" id="node20" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="1636,155,1783,181"/>
-<area shape="rect" id="node18" title=" " alt="" coords="1561,304,1612,331"/>
-<area shape="rect" id="node19" title=" " alt="" coords="1661,304,1715,331"/>
-<area shape="rect" id="node21" title=" " alt="" coords="1751,229,1811,256"/>
+<area shape="rect" id="node17" title=" " alt="" coords="1577,155,1740,181"/>
+<area shape="rect" id="node18" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="1684,229,1863,256"/>
+<area shape="rect" id="node21" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="1823,155,1969,181"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1748,304,1799,331"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1847,304,1902,331"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1938,229,1998,256"/>
 </map>
