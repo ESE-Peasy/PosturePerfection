@@ -59,12 +59,15 @@ namespace Pipeline {
  * @tparam T The type for elements in the buffer. This must provide an `id`
  * field that is a `uint8_t`.
  */
-template <typename T>
+template <typename T, size_t N>
 class Buffer {
  private:
-  std::mutex lock_in;   ///< `std::mutex` for input to the object
-  std::mutex lock_out;  ///< `std::mutex` for output of the object
-  std::deque<T> queue;  ///< Underlying queueing mechanism
+  std::mutex lock_in;      ///< `std::mutex` for input to the object
+  std::mutex lock_out;     ///< `std::mutex` for output of the object
+  std::array<T, N> queue;  ///< Underlying queueing mechanism
+
+  size_t front_index = 0;
+  size_t back_index = 0;
 
   /**
    * @brief Flag to indicate if the pipeline is running
@@ -86,23 +89,32 @@ class Buffer {
   uint8_t id = -1;
 
   /**
-   * @brief The maximum size of the queue to build up
-   *
-   * The queue's size cannot be expanded past this limit and this is enforced by
-   * the push methods.
-   *
-   */
-  size_t max_size;
+  //  * @brief The maximum size of the queue to build up
+  //  *
+  //  * The queue's size cannot be expanded past this limit and this is enforced
+  by
+  //  * the push methods.
+  //  *
+  //  */
+  // size_t max_size;
+
+  size_t size(void) {
+    int size = back_index - front_index;
+    if (size < 0) {
+      return (queue.max_size() + size);
+    }
+    return size;
+  }
+
+  bool full = false;
 
  public:
   /**
    * @brief Construct a new `Buffer` object
    *
    * @param running_ptr Pointer to the `Pipeline::Pipeline::running` flag
-   * @param size_t The maximum size of the `Buffer`
    */
-  explicit Buffer(bool* running_ptr, size_t max_size)
-      : running(running_ptr), max_size(max_size) {}
+  explicit Buffer(bool* running_ptr) : running(running_ptr) {}
 
   /**
    * @brief Push a frame to the queue
@@ -116,8 +128,13 @@ class Buffer {
   void push(T frame) {
     while (*running) {
       lock_in.lock();
-      if ((uint8_t)(id + 1) == frame.id && queue.size() + 1 <= max_size) {
-        queue.push_back(frame);
+      if ((uint8_t)(id + 1) == frame.id && !full) {
+        queue.at(back_index) = frame;
+        back_index = (back_index + 1) % queue.max_size();
+        if (back_index == front_index) {
+          full = true;
+        }
+
         id++;
         lock_in.unlock();
         break;
@@ -142,13 +159,18 @@ class Buffer {
     while (*running) {
       // Immediately return if the queue is full
       lock_in.lock();
-      if (queue.size() + 1 > max_size) {
+      if (full) {
         lock_in.unlock();
         return false;
       }
 
       if ((uint8_t)(id + 1) == frame.id) {
-        queue.push_back(frame);
+        queue.at(back_index) = frame;
+        back_index = (back_index + 1) % queue.max_size();
+        if (front_index == back_index) {
+          full = true;
+        }
+
         id++;
         lock_in.unlock();
         return true;
@@ -167,9 +189,11 @@ class Buffer {
     T front;
     while (*running) {
       this->lock_out.lock();
-      if (!this->queue.empty()) {
-        front = this->queue.front();
-        this->queue.pop_front();
+      if (size() != 0) {
+        front = this->queue.at(front_index);
+        front_index = (front_index + 1) % queue.max_size();
+        full = false;
+
         this->lock_out.unlock();
         break;
       }
@@ -246,8 +270,8 @@ class Pipeline {
   PostProcessing::PostProcessor post_processor;
   PostureEstimating::PostureEstimator posture_estimator;
 
-  Buffer<PreprocessedFrame> preprocessed_frames;
-  Buffer<CoreResults> core_results;
+  Buffer<PreprocessedFrame, 8> preprocessed_frames;
+  Buffer<CoreResults, 8> core_results;
 
   /**
    * @brief Function that provides the body for the input thread
@@ -300,6 +324,12 @@ class Pipeline {
    *
    */
   ~Pipeline();
+
+  bool set_confidence_threshold(float threshold);
+
+  // set_framerate(float framerate);
+
+  // set_ideal_posture(PostureEstimating::Pose posture);
 };
 }  // namespace Pipeline
 #endif  // SRC_PIPELINE_H_
