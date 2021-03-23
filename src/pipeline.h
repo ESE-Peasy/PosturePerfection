@@ -36,6 +36,10 @@
 #include "posture_estimator.h"
 #include "pre_processor.h"
 
+#define FRAME_DELAY_MAX 2000      ///< Maximum settable frame delay, i.e., 0.5Hz
+#define FRAME_DELAY_MIN 50        ///< Minimum settable frame delay, i.e., 20Hz
+#define FRAME_DELAY_DEFAULT 1000  ///< Default delay between frames in ms
+
 /**
  * @brief Components of the pipeline at the core of the system
  *
@@ -87,16 +91,6 @@ class Buffer {
    *
    */
   uint8_t id = -1;
-
-  /**
-  //  * @brief The maximum size of the queue to build up
-  //  *
-  //  * The queue's size cannot be expanded past this limit and this is enforced
-  by
-  //  * the push methods.
-  //  *
-  //  */
-  // size_t max_size;
 
   size_t size(void) {
     int size = back_index - front_index;
@@ -268,12 +262,18 @@ class Pipeline {
    */
   bool running;
 
+  /**
+   * @brief Currently set delay between frames in ms
+   *
+   */
+  size_t frame_delay = FRAME_DELAY_DEFAULT;
+
   PreProcessing::PreProcessor preprocessor;
   PostProcessing::PostProcessor post_processor;
   PostureEstimating::PostureEstimator posture_estimator;
 
-  Buffer<PreprocessedFrame, 8> preprocessed_frames;
-  Buffer<CoreResults, 8> core_results;
+  Buffer<PreprocessedFrame> preprocessed_frames;
+  Buffer<CoreResults> core_results;
 
   /**
    * @brief Function that provides the body for the input thread
@@ -327,11 +327,51 @@ class Pipeline {
    */
   ~Pipeline();
 
+  /**
+   * @brief Set the confidence threshold
+   *
+   * @param threshold New threshold to set
+   * @return `true` If updating the threshold succeeded
+   * @return `false` If updating the threshold did not succeed
+   */
   bool set_confidence_threshold(float threshold);
 
   // set_framerate(float framerate);
 
-  // set_ideal_posture(PostureEstimating::Pose posture);
+  /**
+   * @brief Increment the frame rate to the next predefined value
+   *
+   * If the maximum frame rate of the system is reached, it will not be
+   * increased further and the current (unchanged) frame rate is returned.
+   *
+   * @return float Currently set frame rate in Hz
+   */
+  float increase_framerate(void);
+
+  /**
+   * @brief Decrement the frame rate to the next predefined value
+   *
+   * If the minimum frame rate of the system is reached, it will not be
+   * decreased further and the current (unchanged) frame rate is returned.
+   *
+   * @return float Currently set frame rate in Hz
+   */
+  float decrease_framerate(void);
+
+  /**
+   * @brief Get the frame rate
+   *
+   * @return float currently set frame rate in Hz
+   */
+  float get_framerate(void);
+
+  /**
+   * @brief Set the ideal posture
+   *
+   * @param posture A previous frame's posture that is to be used as the new
+   * ideal posture
+   */
+  void set_ideal_posture(PostProcessing::ProcessedResults posture);
 };
 }  // namespace Pipeline
 #endif  // SRC_PIPELINE_H_

@@ -18,6 +18,7 @@
 
 #include "pipeline.h"
 
+#include <string>
 #include <utility>
 
 #define MODEL_INPUT_X 224
@@ -45,11 +46,11 @@ void Pipeline::input_thread_body() {
     if (preprocessed_frames.try_push(
             PreprocessedFrame{id, frame, preprocessor.run(frame)})) {
       id++;
-    }
 
-    // Set the time to something appropriate for the system. This dictates the
-    // frame-rate at which the system operates.
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      // Set the time to something appropriate for the system. This dictates the
+      // frame-rate at which the system operates.
+      std::this_thread::sleep_for(std::chrono::milliseconds(frame_delay));
+    }
   }
 }
 
@@ -70,6 +71,11 @@ void Pipeline::post_processing_thread_body() {
 
     auto pose_result = posture_estimator.runEstimator(
         post_processor.run(next_frame.image_results));
+
+    // Put the `frame.id` on the image for debugging purposes
+    auto str = std::to_string(next_frame.id);
+    cv::putText(next_frame.raw_image, str.c_str(), cv::Point(20, 20),
+                cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 0, 0));
     callback(pose_result, next_frame.raw_image);
   }
 }
@@ -86,9 +92,6 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       callback(callback) {
   this->running = true;
 
-  std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
-  threads.push_back(std::move(input_thread));
-
   // Create multiple inference core threads to improve performance
   for (; num_inference_core_threads > 0; num_inference_core_threads--) {
     Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
@@ -102,6 +105,10 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
   std::thread post_processing_thread(
       &Pipeline::Pipeline::post_processing_thread_body, this);
   threads.push_back(std::move(post_processing_thread));
+
+  // Start capturing frames after everything is set up
+  std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
+  threads.push_back(std::move(input_thread));
 }
 
 Pipeline::~Pipeline() {
@@ -111,4 +118,35 @@ Pipeline::~Pipeline() {
     t.join();
   }
 }
+
+bool Pipeline::set_confidence_threshold(float threshold) {
+  return post_processor.set_confidence_threshold(threshold);
+}
+
+float Pipeline::increase_framerate(void) {
+  // Increasing frame rate means decreasing frame delay
+  auto new_frame_delay = frame_delay << 1;
+  if (new_frame_delay >= FRAME_DELAY_MIN) {
+    // Won't be too low, so can update
+    frame_delay = new_frame_delay;
+  }
+  return 1.0 / frame_delay;
+}
+
+float Pipeline::decrease_framerate(void) {
+  // Decreasing frame rate means decreasing frame delay
+  auto new_frame_delay = frame_delay >> 1;
+  if (new_frame_delay <= FRAME_DELAY_MAX) {
+    // Won't be too high, so can update
+    frame_delay = new_frame_delay;
+  }
+  return 1.0 / frame_delay;
+}
+
+float Pipeline::get_framerate(void) { return 1.0 / frame_delay; }
+
+void Pipeline::set_ideal_posture(PostProcessing::ProcessedResults posture) {
+  posture_estimator.update_ideal_pose(posture);
+}
+
 }  // namespace Pipeline
