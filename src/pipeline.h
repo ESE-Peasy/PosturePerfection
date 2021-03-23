@@ -336,8 +336,6 @@ class Pipeline {
    */
   bool set_confidence_threshold(float threshold);
 
-  // set_framerate(float framerate);
-
   /**
    * @brief Increment the frame rate to the next predefined value
    *
