@@ -27,69 +27,90 @@
 namespace Pipeline {
 
 void Pipeline::input_thread_body() {
-  cv::VideoCapture cap(0);
+}
+
+FrameGenerator::FrameGenerator(size_t* frame_delay)
+    : frame_delay(frame_delay), cap(0) {
+  printf("FrameGenerator()\n");
+  t_previous_capture = std::chrono::steady_clock::now();
+
   if (!cap.isOpened()) {
     fprintf(stderr, "Can't access camera\n");
     return;
   }
 
-  uint8_t id = 0;
+  std::thread t(&FrameGenerator::FrameGenerator::thread_body, this);
 
-  while (running) {
-    auto prev_time = std::chrono::steady_clock::now();
+  thread = std::move(t);
+  lock_out.lock();
+}
+
+FrameGenerator::~FrameGenerator() { thread.join(); }
+
+void FrameGenerator::thread_body(void) {
+  printf("inside thread\n");
+  {
     cv::Mat frame;
     cap.read(frame);
+    // printf("read fraem\n");
+
     if (frame.empty()) {
       fprintf(stderr, "Empty frame\n");
       return;
     }
-    printf("new frame %d\n", id);
-    std::fflush(stdout);
 
-    if (preprocessed_frames.try_push(
-            PreprocessedFrame{id, frame, preprocessor.run(frame)})) {
-      printf("preprocessed and pushed frame %d\n", id);
-      std::fflush(stdout);
-
-      std::chrono::duration<double, std::milli> frame_age =
-          std::chrono::steady_clock::now() - prev_time;
-
-      std::cout << "Frame " << std::to_string(id) << " captured "
-                << frame_age.count() << "ms ago\n"
-                << std::flush;
-
-      id++;
-      // cv::imshow("", frame);
-      // if (cv::waitKey(5) >= 0) {
-      //   running = false;
-      // }
-      // Set the time to something appropriate for the system. This dictates the
-      // frame-rate at which the system operates.
-      std::this_thread::sleep_for(std::chrono::milliseconds(frame_delay));
-    }
+    lock.lock();
+    current_frame = frame;
+    lock.unlock();
   }
+  lock_out.unlock();
+  while (true) {
+    cv::Mat frame;
+    cap.read(frame);
+
+    if (frame.empty()) {
+      fprintf(stderr, "Empty frame\n");
+      return;
+    }
+
+    lock.lock();
+    current_frame = frame;
+    lock.unlock();
+  }
+}
+
+RawFrame FrameGenerator::next_frame(void) {
+  printf("next_frame()\n");
+  lock_out.lock();
+  std::chrono::duration<double, std::milli> t_since_last_request =
+      std::chrono::steady_clock::now() - t_previous_capture;
+
+  while (t_since_last_request <= std::chrono::milliseconds(*frame_delay)) {
+    t_since_last_request =
+        std::chrono::steady_clock::now() - t_previous_capture;
+  }
+  t_previous_capture = std::chrono::steady_clock::now();
+
+  printf("about to lock in next_frame()\n");
+  std::fflush(stdout);
+
+  lock.lock();
+  printf("got lock in next_frame()\n");
+  std::fflush(stdout);
+
+  auto output = RawFrame{id++, current_frame};
+  lock.unlock();
+  lock_out.unlock();
+  return output;
 }
 
 void Pipeline::core_thread_body(Inference::InferenceCore core) {
   while (running) {
-    printf("core thread attempt to pop\n");
-    std::fflush(stdout);
 
-    // preprocessed_frames.notify_thread_ready();
-    auto next_frame = preprocessed_frames.pop();
-    cv::imshow("", next_frame.raw_image);
-      if (cv::waitKey(5) >= 0) {
-        running = false;
-      }
+    auto raw_next_frame = frame_generator.next_frame();
+    auto preprocessed_image = preprocessor.run(raw_next_frame.raw_image);
 
-    printf("core thread run %d\n", next_frame.id);
-    std::fflush(stdout);
-
-    auto core_result = core.run(next_frame.preprocessed_image);
-    std::this_thread::sleep_for(std::chrono::milliseconds(frame_delay*2));
-
-    printf("core thread pushing %d\n", next_frame.id);
-    std::fflush(stdout);
+    auto core_result = core.run(preprocessed_image);
 
     core_results.push(
         CoreResults{next_frame.id, next_frame.raw_image, core_result});
@@ -98,13 +119,8 @@ void Pipeline::core_thread_body(Inference::InferenceCore core) {
 
 void Pipeline::post_processing_thread_body() {
   while (running) {
-    // printf("post proc. pop\n");
-    // std::fflush(stdout);
 
     auto next_frame = core_results.pop();
-
-    // printf("post proc. run %d\n", next_frame.id);
-    // std::fflush(stdout);
 
     auto pose_result = posture_estimator.runEstimator(
         post_processor.run(next_frame.image_results));
@@ -113,9 +129,6 @@ void Pipeline::post_processing_thread_body() {
     auto str = std::to_string(next_frame.id);
     cv::putText(next_frame.raw_image, str.c_str(), cv::Point(20, 20),
                 cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 0, 0));
-
-    // printf("post proc. callback %d\n", next_frame.id);
-    // std::fflush(stdout);
 
     callback(pose_result, next_frame.raw_image);
   }

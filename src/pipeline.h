@@ -237,6 +237,33 @@ struct PreprocessedFrame {
   PreProcessing::PreProcessedImage preprocessed_image;
 };
 
+struct RawFrame {
+  uint8_t id;
+  cv::Mat raw_image;
+};
+
+class FrameGenerator {
+  private:
+    uint8_t id = 0;
+    cv::VideoCapture cap;
+    cv::Mat current_frame;
+    uint8_t current_id;
+    std::mutex lock;
+    std::mutex lock_out;
+    
+    std::thread thread;
+
+    std::chrono::time_point<std::chrono::steady_clock> t_previous_capture;
+    size_t * frame_delay;
+
+  void thread_body(void);
+
+  public:
+    FrameGenerator(size_t * frame_delay);
+    ~FrameGenerator();
+    RawFrame next_frame(void);
+};
+
 /**
  * @brief Contains the id of the frame within the pipeline, as well as the raw
  * image and the results of running inference on that image. A struct of this
