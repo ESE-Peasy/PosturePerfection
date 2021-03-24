@@ -26,8 +26,6 @@
 #include <mutex>   //NOLINT [build/c++11]
 #include <thread>  //NOLINT [build/c++11]
 #include <vector>
-#include <utility>
-
 
 #include "iir.h"
 #include "inference_core.h"
@@ -40,7 +38,7 @@
 
 #define FRAME_DELAY_MAX 2000      ///< Maximum settable frame delay, i.e., 0.5Hz
 #define FRAME_DELAY_MIN 50        ///< Minimum settable frame delay, i.e., 20Hz
-#define FRAME_DELAY_DEFAULT 1000  ///< Default delay between frames in ms
+#define FRAME_DELAY_DEFAULT 100  ///< Default delay between frames in ms
 
 /**
  * @brief Components of the pipeline at the core of the system
@@ -239,24 +237,6 @@ struct PreprocessedFrame {
   PreProcessing::PreProcessedImage preprocessed_image;
 };
 
-struct RawFrame {
-  uint8_t id;
-  cv::Mat raw_image;
-};
-
-class FrameGenerator {
-  private:
-    uint8_t id = 0;
-    cv::VideoCapture cap;
-    std::chrono::time_point<std::chrono::steady_clock> t_previous_capture;
-    size_t * frame_delay;
-    std::mutex lock;
-
-  public:
-    FrameGenerator(size_t * frame_delay);
-    RawFrame next_frame(void);
-};
-
 /**
  * @brief Contains the id of the frame within the pipeline, as well as the raw
  * image and the results of running inference on that image. A struct of this
@@ -312,8 +292,7 @@ class Pipeline {
   PostProcessing::PostProcessor post_processor;
   PostureEstimating::PostureEstimator posture_estimator;
 
-  // Buffer<PreprocessedFrame> preprocessed_frames;
-  FrameGenerator frame_generator;
+  Buffer<PreprocessedFrame> preprocessed_frames;
   Buffer<CoreResults> core_results;
 
   /**

@@ -1,5 +1,6 @@
 /**
- * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal, Andrew Ritchie
+ * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal, Andrew
+ * Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -27,29 +28,30 @@
 #include "posture_estimator.h"
 
 #define NUM_LOOPS 500
-#define NUM_INF_CORE_THREADS 8
+#define NUM_INF_CORE_THREADS 1
 
 bool run_flag = true;
 
-GUI::MainWindow* main_window_ptr;
+// GUI::MainWindow* main_window_ptr;
 
 void frame_callback(PostureEstimating::PoseStatus pose_status,
                     cv::Mat input_image) {
   // main_window_ptr->updateTable(pose_status);
-  main_window_ptr->updateFrame(input_image);
+  // main_window_ptr->updateFrame(input_image);
 }
 
 int main(int argc, char* argv[]) {
   printf("start\n");
 
-  QApplication a(argc, argv);
-  GUI::MainWindow w;
-  QCoreApplication::processEvents();
-  w.showMaximized();
+  // QApplication a(argc, argv);
+  // GUI::MainWindow w;
+  // QCoreApplication::processEvents();
+  // w.showMaximized();
 
-  main_window_ptr = &w;
+  // main_window_ptr = &w;
 
   Pipeline::Pipeline p(NUM_INF_CORE_THREADS, &frame_callback);
+  while(true) {}
 
-  return a.exec();
+  // return a.exec();
 }

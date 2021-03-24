@@ -18,7 +18,6 @@
 
 #include "pipeline.h"
 
-#include <memory>
 #include <string>
 #include <utility>
 
@@ -28,98 +27,47 @@
 namespace Pipeline {
 
 void Pipeline::input_thread_body() {
-  // cv::VideoCapture cap(0);
-  // if (!cap.isOpened()) {
-  //   fprintf(stderr, "Can't access camera\n");
-  //   return;
-  // }
-
-  // uint8_t id = 0;
-
-  // while (running) {
-  //   auto prev_time = std::chrono::steady_clock::now();
-  //   cv::Mat frame;
-  //   cap.read(frame);
-  //   if (frame.empty()) {
-  //     fprintf(stderr, "Empty frame\n");
-  //     return;
-  //   }
-
-  //   auto preprocessor_result = preprocessor.run(frame);
-
-  //   printf("new frame %d\n", id);
-  //   std::fflush(stdout);
-
-  //   if (preprocessed_frames.try_push(
-  //           PreprocessedFrame{id, frame, preprocessor_result})) {
-  //     printf("preprocessed and pushed frame %d\n", id);
-  //     std::fflush(stdout);
-
-  //     std::chrono::duration<double, std::milli> frame_age =
-  //         std::chrono::steady_clock::now() - prev_time;
-
-  //     // std::cout << "Frame " << std::to_string(id) << " captured "
-  //     //           << frame_age.count() << "ms ago\n"
-  //     //           << std::flush;
-
-  //     id++;
-  //     // cv::imshow("", frame);
-  //     // if (cv::waitKey(5) >= 0) {
-  //     //   running = false;
-  //     // }
-  //     // Set the time to something appropriate for the system. This dictates
-  //     the
-  //     // frame-rate at which the system operates.
-  //     std::this_thread::sleep_for(std::chrono::milliseconds(frame_delay));
-  //   }
-  // }
-}
-
-FrameGenerator::FrameGenerator(size_t* frame_delay)
-    : frame_delay(frame_delay), cap(0) {
-  t_previous_capture = std::chrono::steady_clock::now();
-
+  cv::VideoCapture cap(0);
   if (!cap.isOpened()) {
     fprintf(stderr, "Can't access camera\n");
-  }
-  if (!cap.set(cv::CAP_PROP_FPS, 1000.0/ *frame_delay)) {
-    fprintf(stderr, "FPS doesn't work\n");
-  };
-}
-
-RawFrame FrameGenerator::next_frame(void) {
-  lock.lock();
-
-  // std::chrono::duration<double, std::milli> t_since_last_request =
-  //     std::chrono::steady_clock::now() - t_previous_capture;
-
-  // while (t_since_last_request <=
-  //        std::chrono::milliseconds(*frame_delay)) {
-  //   t_since_last_request =
-  //       std::chrono::steady_clock::now() - t_previous_capture;
-  // }
-
-  std::cout << cap.get(cv::CAP_PROP_POS_FRAMES) << "\n" << std::flush;
-
-  cv::Mat frame;
-  cap.read(frame);
-  printf("read fraem\n");
-
-  if (frame.empty()) {
-    fprintf(stderr, "Empty frame\n");
-    return RawFrame{};
+    return;
   }
 
-  t_previous_capture = std::chrono::steady_clock::now();
+  uint8_t id = 0;
 
-  cv::imshow("", frame);
-  if (cv::waitKey(5) >= 0) {
-    return RawFrame{};
+  while (running) {
+    auto prev_time = std::chrono::steady_clock::now();
+    cv::Mat frame;
+    cap.read(frame);
+    if (frame.empty()) {
+      fprintf(stderr, "Empty frame\n");
+      return;
+    }
+    printf("new frame %d\n", id);
+    std::fflush(stdout);
+
+    if (preprocessed_frames.try_push(
+            PreprocessedFrame{id, frame, preprocessor.run(frame)})) {
+      printf("preprocessed and pushed frame %d\n", id);
+      std::fflush(stdout);
+
+      std::chrono::duration<double, std::milli> frame_age =
+          std::chrono::steady_clock::now() - prev_time;
+
+      std::cout << "Frame " << std::to_string(id) << " captured "
+                << frame_age.count() << "ms ago\n"
+                << std::flush;
+
+      id++;
+      // cv::imshow("", frame);
+      // if (cv::waitKey(5) >= 0) {
+      //   running = false;
+      // }
+      // Set the time to something appropriate for the system. This dictates the
+      // frame-rate at which the system operates.
+      std::this_thread::sleep_for(std::chrono::milliseconds(frame_delay));
+    }
   }
-
-  lock.unlock();
-
-  return RawFrame{id++, frame};
 }
 
 void Pipeline::core_thread_body(Inference::InferenceCore core) {
@@ -128,30 +76,23 @@ void Pipeline::core_thread_body(Inference::InferenceCore core) {
     std::fflush(stdout);
 
     // preprocessed_frames.notify_thread_ready();
-    // auto next_frame = preprocessed_frames.pop();
-    auto raw_next_frame = frame_generator.next_frame();
+    auto next_frame = preprocessed_frames.pop();
+    cv::imshow("", next_frame.raw_image);
+      if (cv::waitKey(5) >= 0) {
+        running = false;
+      }
 
-    printf("core thread you gotta frame in me\n");
+    printf("core thread run %d\n", next_frame.id);
     std::fflush(stdout);
 
-    auto preprocessed_image = preprocessor.run(raw_next_frame.raw_image);
+    auto core_result = core.run(next_frame.preprocessed_image);
+    std::this_thread::sleep_for(std::chrono::milliseconds(frame_delay*2));
 
-    // cv::imshow("", next_frame.raw_image);
-    //   if (cv::waitKey(5) >= 0) {
-    //     running = false;
-    //   }
-
-    printf("core thread run %d\n", raw_next_frame.id);
-    std::fflush(stdout);
-
-    auto core_result = core.run(preprocessed_image);
-    // std::this_thread::sleep_for(std::chrono::milliseconds(frame_delay*2));
-
-    printf("core thread pushing %d\n", raw_next_frame.id);
+    printf("core thread pushing %d\n", next_frame.id);
     std::fflush(stdout);
 
     core_results.push(
-        CoreResults{raw_next_frame.id, raw_next_frame.raw_image, core_result});
+        CoreResults{next_frame.id, next_frame.raw_image, core_result});
   }
 }
 
@@ -187,8 +128,7 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       post_processor(0.1,
                      IIR::SmoothingSettings{std::vector<std::vector<float>>{}}),
       posture_estimator(),
-      // preprocessed_frames(&this->running, num_inference_core_threads),
-      frame_generator(&frame_delay),
+      preprocessed_frames(&this->running, num_inference_core_threads),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
   this->running = true;
@@ -207,9 +147,9 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       &Pipeline::Pipeline::post_processing_thread_body, this);
   threads.push_back(std::move(post_processing_thread));
 
-  // // Start capturing frames after everything is set up
-  // std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
-  // threads.push_back(std::move(input_thread));
+  // Start capturing frames after everything is set up
+  std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
+  threads.push_back(std::move(input_thread));
 }
 
 Pipeline::~Pipeline() {
