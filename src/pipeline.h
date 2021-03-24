@@ -26,6 +26,8 @@
 #include <mutex>   //NOLINT [build/c++11]
 #include <thread>  //NOLINT [build/c++11]
 #include <vector>
+#include <utility>
+
 
 #include "iir.h"
 #include "inference_core.h"
@@ -102,6 +104,9 @@ class Buffer {
 
   bool full = false;
 
+  size_t num_receiving_threads = 0;
+  std::mutex lock_num_receiving_threads;
+
  public:
   /**
    * @brief Construct a new `Buffer` object
@@ -161,6 +166,17 @@ class Buffer {
       }
 
       if ((uint8_t)(id + 1) == frame.id) {
+        lock_num_receiving_threads.lock();
+        // printf("try_push num_receiving_threads=%ld\n",
+        // num_receiving_threads);
+        if (num_receiving_threads <= 0) {
+          lock_in.unlock();
+          lock_num_receiving_threads.unlock();
+          return false;
+        }
+        num_receiving_threads--;
+        lock_num_receiving_threads.unlock();
+
         queue.at(back_index) = frame;
         back_index = (back_index + 1) % queue.size();
         if (front_index == back_index) {
@@ -170,8 +186,9 @@ class Buffer {
         id++;
         lock_in.unlock();
         return true;
+      } else {
+        lock_in.unlock();
       }
-      lock_in.unlock();
     }
     return false;
   }
@@ -183,6 +200,10 @@ class Buffer {
    */
   T pop() {
     T front;
+    lock_num_receiving_threads.lock();
+    num_receiving_threads++;
+    lock_num_receiving_threads.unlock();
+
     while (*running) {
       this->lock_out.lock();
       if (size() != 0 || full) {
@@ -198,6 +219,7 @@ class Buffer {
     return front;
   }
 };
+
 
 /**
  * @brief Contains the id of the frame within the pipeline, as well as the raw
@@ -215,6 +237,24 @@ struct PreprocessedFrame {
   uint8_t id;
   cv::Mat raw_image;
   PreProcessing::PreProcessedImage preprocessed_image;
+};
+
+struct RawFrame {
+  uint8_t id;
+  cv::Mat raw_image;
+};
+
+class FrameGenerator {
+  private:
+    uint8_t id = 0;
+    cv::VideoCapture cap;
+    std::chrono::time_point<std::chrono::steady_clock> t_previous_capture;
+    size_t * frame_delay;
+    std::mutex lock;
+
+  public:
+    FrameGenerator(size_t * frame_delay);
+    RawFrame next_frame(void);
 };
 
 /**
@@ -272,7 +312,8 @@ class Pipeline {
   PostProcessing::PostProcessor post_processor;
   PostureEstimating::PostureEstimator posture_estimator;
 
-  Buffer<PreprocessedFrame> preprocessed_frames;
+  // Buffer<PreprocessedFrame> preprocessed_frames;
+  FrameGenerator frame_generator;
   Buffer<CoreResults> core_results;
 
   /**
