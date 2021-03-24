@@ -29,24 +29,7 @@
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
-  /*
-   QVBoxLayout *layout = new QVBoxLayout;
-  layout->addWidget(pageComboBox);
-  layout->addWidget(stackedWidget);
-  QWidget *placeholderWidget = new QWidget;
-  placeholderWidget->setLayout(layout);
-  setCentralWidget(placeholderWidget);
-  */
-
-  QWidget *firstPageWidget = new QWidget;
-  QWidget *secondPageWidget = new QWidget;
-  QWidget *thirdPageWidget = new QWidget;
-  
-
-  QPushButton *testButton = new QPushButton("&Reset Posture");
-  QHBoxLayout *hlayout = new QHBoxLayout();
-  hlayout->addWidget(testButton);
-  firstPageWidget->setLayout(hlayout);
+  createMainPage();
 
 
   QLabel *label2 = new QLabel(this);
@@ -65,14 +48,12 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   pageComboBox->addItem(tr("Page 2"));
   pageComboBox->addItem(tr("Page 3"));
 
-
-  
-  //mainLayout->addWidget(pageComboBox, 0, 0);
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
             stackedWidget, &QStackedWidget::setCurrentIndex);
   
-  //mainLayout->addWidget(pageComboBox, 1, 2);
   
+  // -----------------------------------------------------------------
+
   central->setStyleSheet("background-color:#0d1117;");
 
   // create three buttons
@@ -130,15 +111,17 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   setWindowTitle(tr("Posture Perfection"));
 
   // this->generateTable();
-  this->initalFrame();
+  //this->initalFrame();
 
   connect(settingsButton, SIGNAL(clicked()), this,
           SLOT(on_settingsButton_clicked()));
 }
 
-void GUI::MainWindow::slotDisplayFen()
+void GUI::MainWindow::createMainPage()
 {
-  stackedWidget->setCurrentIndex(2);
+  initalFrame();
+  firstPageWidget->setLayout(mainPageLayout);
+
 }
 
 void GUI::MainWindow::showDateTime() {
@@ -170,24 +153,12 @@ void GUI::MainWindow::showDateTime() {
 
   // output the current date/time and clear the previous outputted value
   mainLayout->addWidget(groupDateTime, 0, 1);
-  //mainLayout->itemAt(3)->widget()->deleteLater();
-
-
-  /*
-  QVBoxLayout *vertBox = new QVBoxLayout;
-
-  vertBox->addWidget(dateLabel);
-  vertBox->addWidget(clock);
-  groupMulti->setCentralWidget(vertBox);
-  mainLayout->addWidget(groupMulti, 0, 2);
-  */
-
+  mainLayout->itemAt(3)->widget()->deleteLater();
 }
 
 GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
 void GUI::MainWindow::initalFrame() {
-  /*
   QLabel *frame = new QLabel();
   cv::Mat img = cv::imread("src/gui/posture-logo.png");
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
@@ -195,24 +166,20 @@ void GUI::MainWindow::initalFrame() {
                         img.cols, img.rows, img.step, QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
-  mainLayout->addWidget(frame, 1, 0);
-  */
+  mainPageLayout->addWidget(frame, 1, 0);
 }
 
 void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
-  /*
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
                         currentFrame.data,
                         currentFrame.cols, currentFrame.rows, currentFrame.step,
                         QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
-  mainLayout->addWidget(frame, 1, 0);
-  */
+  mainPageLayout->addWidget(frame, 1, 0);
 }
 
 void GUI::MainWindow::generateTable(void) {
-  /*
   QTableView *view = new QTableView;
   model = new QStandardItemModel(0, 4);
   view->setModel(model);
@@ -243,11 +210,9 @@ void GUI::MainWindow::generateTable(void) {
 
   // Add the table to the GUI
   mainLayout->addWidget(view, 1, 0);
-  */
 }
 
 void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
-  /*
   uint8_t i = 0;
   for (auto joint : pose_status.current_pose.joints) {
     model->item(i, 0)->setData(
@@ -260,13 +225,10 @@ void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
                                Qt::DisplayRole);
     i++;
   }
-  */
 }
 
 void GUI::MainWindow::on_settingsButton_clicked() {
-  /*
   SettingsWindow *full = new SettingsWindow;
   full->showMaximized();
   QCoreApplication::processEvents();
-  */
 }

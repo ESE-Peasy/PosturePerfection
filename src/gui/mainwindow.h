@@ -89,11 +89,11 @@ class MainWindow : public QMainWindow {
    */
   void updateFrame(cv::Mat currentFrame);
 
+  void createMainPage();
+
  public slots:
-  void slotDisplayFen();
 
  signals:
-  void changeStackedWidgetIndex(int);
 
  private:
   QGridLayout *mainLayout = new QGridLayout;
@@ -107,6 +107,14 @@ class MainWindow : public QMainWindow {
   QComboBox *pageComboBox = new QComboBox;
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
+
+  QWidget *firstPageWidget = new QWidget;
+  QGridLayout *mainPageLayout = new QGridLayout;
+
+  QWidget *secondPageWidget = new QWidget;
+  QWidget *thirdPageWidget = new QWidget;
+  
+
 
   QGroupBox *groupMulti = new QGroupBox();
   QVBoxLayout *vertBox = new QVBoxLayout;
