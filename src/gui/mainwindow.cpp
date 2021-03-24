@@ -28,21 +28,24 @@
 #include "settingswindow.h"
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-  
+
+  /*
+   QVBoxLayout *layout = new QVBoxLayout;
+  layout->addWidget(pageComboBox);
+  layout->addWidget(stackedWidget);
+  QWidget *placeholderWidget = new QWidget;
+  placeholderWidget->setLayout(layout);
+  setCentralWidget(placeholderWidget);
+  */
+
   QWidget *firstPageWidget = new QWidget;
   QWidget *secondPageWidget = new QWidget;
   QWidget *thirdPageWidget = new QWidget;
-  /*
-  QLabel *label = new QLabel(this);
-  QHBoxLayout *hlayout = new QHBoxLayout();
-  label->setText("Random String");
-  hlayout->addWidget(label);
-  firstPageWidget->setLayout(hlayout);
-  */
+  
 
-  QPushButton *resetButton = new QPushButton("&Reset Posture");
+  QPushButton *testButton = new QPushButton("&Reset Posture");
   QHBoxLayout *hlayout = new QHBoxLayout();
-  hlayout->addWidget(resetButton);
+  hlayout->addWidget(testButton);
   firstPageWidget->setLayout(hlayout);
 
 
@@ -57,44 +60,19 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   stackedWidget->addWidget(firstPageWidget);
   stackedWidget->addWidget(secondPageWidget);
   stackedWidget->addWidget(thirdPageWidget);
-  /*
-   QVBoxLayout *layout = new QVBoxLayout;
-   layout->addWidget(stackedWidget);
-   QWidget *placeholderWidget = new QWidget;
-   placeholderWidget->setLayout(layout);
-   //setCentralWidget(placeholderWidget);
-  */
-
-  QComboBox *pageComboBox = new QComboBox;
+  
   pageComboBox->addItem(tr("Page 1"));
   pageComboBox->addItem(tr("Page 2"));
   pageComboBox->addItem(tr("Page 3"));
+
+
   
-  mainLayout->addWidget(pageComboBox, 0, 0);
+  //mainLayout->addWidget(pageComboBox, 0, 0);
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
             stackedWidget, &QStackedWidget::setCurrentIndex);
-
-   QVBoxLayout *layout = new QVBoxLayout;
-  layout->addWidget(pageComboBox);
-  layout->addWidget(stackedWidget);
-  QWidget *placeholderWidget = new QWidget;
-  placeholderWidget->setLayout(layout);
-  setCentralWidget(placeholderWidget);
   
-   //connect(resetButton, SIGNAL(clicked()), this, SLOT(slotDisplayFen()));
-
-  //connect(resetButton, SIGNAL(changeStackedWidgetIndex(int)), this, SLOT(setCurrentIndex(int)) );
-  //this->stackedWidget.setCurrentIndex(0)
-  //pageComboBox->setCurrentIndex(1);
-
-  //this->setCentralWidget( pageComboBox );
-
-
-
-
-
-
-  /*
+  //mainLayout->addWidget(pageComboBox, 1, 2);
+  
   central->setStyleSheet("background-color:#0d1117;");
 
   // create three buttons
@@ -110,6 +88,7 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   settingsButton->setStyleSheet(
       "background-color:rgb(10, 187, 228); border: none;");
   QVBoxLayout *buttonBox = new QVBoxLayout;
+  buttonBox->addWidget(pageComboBox);
   buttonBox->addWidget(resetButton);
   buttonBox->addWidget(modeButton);
   buttonBox->addWidget(settingsButton);
@@ -133,11 +112,17 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   QLabel *updateLabel = new QLabel();
   QLabel *deleteLabel = new QLabel();
 
+  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
+            stackedWidget, &QStackedWidget::setCurrentIndex);
+
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
   mainLayout->addWidget(groupBoxButtons, 1, 1);
   mainLayout->addWidget(deleteLabel, 3, 1);
   mainLayout->addWidget(updateLabel, 3, 0);
+  mainLayout->addWidget(stackedWidget, 1, 0);
+  //mainLayout->addWidget(pageComboBox, 0, 3);
+
 
   // Display all of the produced widgets on the user's screen
   central->setLayout(mainLayout);
@@ -149,7 +134,6 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
   connect(settingsButton, SIGNAL(clicked()), this,
           SLOT(on_settingsButton_clicked()));
-  */
 }
 
 void GUI::MainWindow::slotDisplayFen()
@@ -158,7 +142,7 @@ void GUI::MainWindow::slotDisplayFen()
 }
 
 void GUI::MainWindow::showDateTime() {
-  /*
+
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
 
@@ -186,12 +170,21 @@ void GUI::MainWindow::showDateTime() {
 
   // output the current date/time and clear the previous outputted value
   mainLayout->addWidget(groupDateTime, 0, 1);
-  mainLayout->itemAt(3)->widget()->deleteLater();
+  //mainLayout->itemAt(3)->widget()->deleteLater();
+
+
+  /*
+  QVBoxLayout *vertBox = new QVBoxLayout;
+
+  vertBox->addWidget(dateLabel);
+  vertBox->addWidget(clock);
+  groupMulti->setCentralWidget(vertBox);
+  mainLayout->addWidget(groupMulti, 0, 2);
   */
+
 }
 
-GUI::MainWindow::~MainWindow() { //delete mainLayout; 
-}
+GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
 void GUI::MainWindow::initalFrame() {
   /*

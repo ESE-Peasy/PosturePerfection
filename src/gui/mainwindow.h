@@ -104,6 +104,12 @@ class MainWindow : public QMainWindow {
   void initalFrame();
   QLabel *frame = new QLabel();
   QStackedWidget *stackedWidget = new QStackedWidget;
+  QComboBox *pageComboBox = new QComboBox;
+  QGroupBox *groupDateTime = new QGroupBox();
+  QVBoxLayout *dtBox = new QVBoxLayout;
+
+  QGroupBox *groupMulti = new QGroupBox();
+  QVBoxLayout *vertBox = new QVBoxLayout;
 
 
  private slots:
