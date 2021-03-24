@@ -28,31 +28,22 @@
 #include "settingswindow.h"
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-
+  // Create the different GUI pages
   createMainPage();
+  createSettingsPage();
 
-
-  QLabel *label2 = new QLabel(this);
-  QHBoxLayout *hlayout2 = new QHBoxLayout();
-  label2->setText("Random String on the second page");
-  hlayout2->addWidget(label2);
-  secondPageWidget->setLayout(hlayout2);
-
-
+  // Stack the pages within the mainwindow
   QStackedWidget *stackedWidget = new QStackedWidget;
   stackedWidget->addWidget(firstPageWidget);
   stackedWidget->addWidget(secondPageWidget);
   stackedWidget->addWidget(thirdPageWidget);
-  
-  pageComboBox->addItem(tr("Page 1"));
-  pageComboBox->addItem(tr("Page 2"));
-  pageComboBox->addItem(tr("Page 3"));
+
+  pageComboBox->addItem(tr("Video Feed"));
+  pageComboBox->addItem(tr("Settings Page"));
+  pageComboBox->addItem(tr("Data Page"));
 
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
-            stackedWidget, &QStackedWidget::setCurrentIndex);
-  
-  
-  // -----------------------------------------------------------------
+          stackedWidget, &QStackedWidget::setCurrentIndex);
 
   central->setStyleSheet("background-color:#0d1117;");
 
@@ -94,7 +85,7 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   QLabel *deleteLabel = new QLabel();
 
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
-            stackedWidget, &QStackedWidget::setCurrentIndex);
+          stackedWidget, &QStackedWidget::setCurrentIndex);
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
@@ -102,30 +93,26 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   mainLayout->addWidget(deleteLabel, 3, 1);
   mainLayout->addWidget(updateLabel, 3, 0);
   mainLayout->addWidget(stackedWidget, 1, 0);
-  //mainLayout->addWidget(pageComboBox, 0, 3);
-
 
   // Display all of the produced widgets on the user's screen
   central->setLayout(mainLayout);
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
-
-  // this->generateTable();
-  //this->initalFrame();
-
-  connect(settingsButton, SIGNAL(clicked()), this,
-          SLOT(on_settingsButton_clicked()));
 }
 
-void GUI::MainWindow::createMainPage()
-{
+void GUI::MainWindow::createMainPage() {
   initalFrame();
   firstPageWidget->setLayout(mainPageLayout);
+}
 
+void GUI::MainWindow::createSettingsPage() {
+  QLabel *label2 = new QLabel();
+  label2->setText("This is the settings page");
+  settingsPageLayout->addWidget(label2, 0, 1);
+  secondPageWidget->setLayout(settingsPageLayout);
 }
 
 void GUI::MainWindow::showDateTime() {
-
   QGroupBox *groupDateTime = new QGroupBox();
   QVBoxLayout *dtBox = new QVBoxLayout;
 
@@ -225,10 +212,4 @@ void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
                                Qt::DisplayRole);
     i++;
   }
-}
-
-void GUI::MainWindow::on_settingsButton_clicked() {
-  SettingsWindow *full = new SettingsWindow;
-  full->showMaximized();
-  QCoreApplication::processEvents();
 }
