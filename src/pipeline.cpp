@@ -113,7 +113,7 @@ void Pipeline::core_thread_body(Inference::InferenceCore core) {
     auto core_result = core.run(preprocessed_image);
 
     core_results.push(
-        CoreResults{next_frame.id, next_frame.raw_image, core_result});
+        CoreResults{raw_next_frame.id, raw_next_frame.raw_image, core_result});
   }
 }
 
@@ -141,7 +141,8 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       post_processor(0.1,
                      IIR::SmoothingSettings{std::vector<std::vector<float>>{}}),
       posture_estimator(),
-      preprocessed_frames(&this->running, num_inference_core_threads),
+      // preprocessed_frames(&this->running, num_inference_core_threads),
+      frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
   this->running = true;

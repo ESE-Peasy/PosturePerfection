@@ -38,7 +38,7 @@
 
 #define FRAME_DELAY_MAX 2000      ///< Maximum settable frame delay, i.e., 0.5Hz
 #define FRAME_DELAY_MIN 50        ///< Minimum settable frame delay, i.e., 20Hz
-#define FRAME_DELAY_DEFAULT 100  ///< Default delay between frames in ms
+#define FRAME_DELAY_DEFAULT 1000  ///< Default delay between frames in ms
 
 /**
  * @brief Components of the pipeline at the core of the system
@@ -319,7 +319,8 @@ class Pipeline {
   PostProcessing::PostProcessor post_processor;
   PostureEstimating::PostureEstimator posture_estimator;
 
-  Buffer<PreprocessedFrame> preprocessed_frames;
+  // Buffer<PreprocessedFrame> preprocessed_frames;
+  FrameGenerator frame_generator;
   Buffer<CoreResults> core_results;
 
   /**
