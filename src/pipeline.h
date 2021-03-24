@@ -185,7 +185,7 @@ class Buffer {
     T front;
     while (*running) {
       this->lock_out.lock();
-      if (size() != 0) {
+      if (size() != 0 || full) {
         front = this->queue.at(front_index);
         front_index = (front_index + 1) % queue.size();
         full = false;
