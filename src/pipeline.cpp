@@ -127,6 +127,10 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
+  
+  if (num_inference_core_threads == 0) {
+    throw std::invalid_argument("num_inference_core_threads must not be zero");
+  }
   this->running = true;
 
   // Create multiple inference core threads to improve performance
