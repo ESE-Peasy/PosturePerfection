@@ -41,6 +41,7 @@
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
+#include "../pipeline.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -72,7 +73,7 @@ class MainWindow : public QMainWindow {
    *
    * @param *parent Pointer to the parent interface.
    */
-  MainWindow(QWidget *parent = 0);  // NOLINT [runtime/explicit]
+  MainWindow(Pipeline::Pipeline *Pipeline, QWidget *parent = 0);  // NOLINT [runtime/explicit]
   ~MainWindow();
 
   /**

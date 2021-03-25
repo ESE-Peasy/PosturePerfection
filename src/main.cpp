@@ -33,6 +33,7 @@
 bool run_flag = true;
 
 GUI::MainWindow* main_window_ptr;
+Pipeline::Pipeline* pipeline_ptr;
 
 void frame_callback(PostureEstimating::PoseStatus pose_status,
                     cv::Mat input_image) {
@@ -42,15 +43,14 @@ void frame_callback(PostureEstimating::PoseStatus pose_status,
 
 int main(int argc, char* argv[]) {
   printf("start\n");
-
+  Pipeline::Pipeline p(NUM_INF_CORE_THREADS, &frame_callback);
+  pipeline_ptr = &p;
   QApplication a(argc, argv);
-  GUI::MainWindow w;
+  GUI::MainWindow w(pipeline_ptr);
   QCoreApplication::processEvents();
   w.showMaximized();
 
   main_window_ptr = &w;
-
-  Pipeline::Pipeline p(NUM_INF_CORE_THREADS, &frame_callback);
 
   return a.exec();
 }

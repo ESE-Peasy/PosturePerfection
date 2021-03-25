@@ -27,7 +27,7 @@
 #include "../posture_estimator.h"
 #include "settingswindow.h"
 
-GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent) : QMainWindow(parent) {
   // Create the different GUI pages
   createMainPage();
   createSettingsPage();
