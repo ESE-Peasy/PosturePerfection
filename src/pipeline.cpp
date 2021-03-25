@@ -51,8 +51,6 @@ FrameGenerator::FrameGenerator(size_t* frame_delay)
 FrameGenerator::~FrameGenerator() { thread.join(); }
 
 void FrameGenerator::thread_body(void) {
-  printf("inside thread\n");
-
   while (true) {
     cv::Mat frame;
     cap.read(frame);
