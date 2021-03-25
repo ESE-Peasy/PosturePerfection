@@ -1,5 +1,6 @@
 /**
- * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal, Andrew Ritchie
+ * @copyright Copyright (C) 2021  Miklas Riechmann, Ashwin Maliampurakal, Andrew
+ * Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

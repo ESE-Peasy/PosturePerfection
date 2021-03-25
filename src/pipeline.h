@@ -60,6 +60,8 @@ namespace Pipeline {
  * between multiple threads without needing to worry about issues in the order
  * of elements.
  *
+ * It is implemented as a circular buffer.
+ *
  * @tparam T The type for elements in the buffer. This must provide an `id`
  * field that is a `uint8_t`.
  */
@@ -70,8 +72,8 @@ class Buffer {
   std::mutex lock_out;   ///< `std::mutex` for output of the object
   std::vector<T> queue;  ///< Underlying queueing mechanism
 
-  size_t front_index = 0;
-  size_t back_index = 0;
+  size_t front_index = 0;  ///< Front (next to be popped) of the buffer
+  size_t back_index = 0;   ///< Back (where to push) of the buffer
 
   /**
    * @brief Flag to indicate if the pipeline is running
@@ -92,6 +94,11 @@ class Buffer {
    */
   uint8_t id = -1;
 
+  /**
+   * @brief Get the current number of elements in the buffer
+   *
+   * @return `size_t` number of elements in the buffer
+   */
   size_t size(void) {
     int size = back_index - front_index;
     if (size < 0) {
@@ -100,6 +107,10 @@ class Buffer {
     return size;
   }
 
+  /**
+   * @brief Flag to indicate if the buffer is full
+   *
+   */
   bool full = false;
 
  public:
@@ -170,8 +181,9 @@ class Buffer {
         id++;
         lock_in.unlock();
         return true;
+      } else {
+        lock_in.unlock();
       }
-      lock_in.unlock();
     }
     return false;
   }
@@ -215,6 +227,117 @@ struct PreprocessedFrame {
   uint8_t id;
   cv::Mat raw_image;
   PreProcessing::PreProcessedImage preprocessed_image;
+};
+
+/**
+ * @brief A frame as returned by the `FrameGenerator`
+ *
+ */
+struct RawFrame {
+  uint8_t id;         ///< Frame ordering ID
+  cv::Mat raw_image;  ///< Raw `cv::Mat` (OpenCV) image
+};
+
+class FrameGenerator {
+ private:
+  /**
+   * @brief Video stream handle
+   *
+   */
+  cv::VideoCapture cap;
+
+  /**
+   * @brief Identifier to keep track of frame ordering
+   *
+   * Each frame is labelled with an ID that increments by one from one frame to
+   * the next. The FrameGenerator never skips and ID. Once the maximum value is
+   * reached, the number overflows and wraps back to zero. Therefore the maximum
+   * number possible for the ID is less than zero, i.e., it is always possible
+   * to determine what the next expected frame ID is.
+   *
+   * Access to this should be protected by `lock`
+   *
+   */
+  uint8_t id = 0;
+
+  /**
+   * @brief The most up-to-date frame retrieved from the camera
+   *
+   * Access to this should be protected by `lock`
+   *
+   */
+  cv::Mat current_frame;
+
+  /**
+   * @brief Lock to protect the most current frame-related data
+   *
+   * Enables the synchronisation of `id` and `current_frame`
+   *
+   */
+  std::mutex lock;
+
+  /**
+   * @brief Lock to ensure only a single thread can retrieve a frame at once
+   *
+   */
+  std::mutex lock_out;
+
+  /**
+   * @brief The thread that retrieves the newest frame from the camera
+   *
+   */
+  std::thread thread;
+
+  /**
+   * @brief Time at which the previous capture took place
+   *
+   * A new capture should only take place after `frame_delay` time has passed
+   * since this `t_previous_capture`
+   *
+   */
+  std::chrono::time_point<std::chrono::steady_clock> t_previous_capture;
+
+  /**
+   * @brief Reference to the `Pipeline`'s frame delay
+   *
+   */
+  size_t* frame_delay;
+
+  /**
+   * @brief Implementation of how to retrieve the next frame from the camera
+   *
+   */
+  void thread_body(void);
+
+  /**
+   * @brief Flag to tell `thread_body` whether or not it should be running
+   *
+   */
+  bool running = true;
+
+ public:
+  /**
+   * @brief Construct a new Frame Generator object
+   *
+   * @param frame_delay Pointer to the `Pipeline`'s frame delay
+   * @throw `std::runtime_error` if the camera cannot be accessed
+   */
+  explicit FrameGenerator(size_t* frame_delay);
+
+  /**
+   * @brief Destroy the Frame Generator object
+   *
+   * Blocks until the `thread` that generates the frames is joined
+   *
+   */
+  ~FrameGenerator();
+
+  /**
+   * @brief Get the newest frame
+   *
+   * @return `RawFrame` The most up-to-date frame from the camera
+   */
+  RawFrame next_frame(void);
 };
 
 /**
@@ -272,14 +395,8 @@ class Pipeline {
   PostProcessing::PostProcessor post_processor;
   PostureEstimating::PostureEstimator posture_estimator;
 
-  Buffer<PreprocessedFrame> preprocessed_frames;
+  FrameGenerator frame_generator;
   Buffer<CoreResults> core_results;
-
-  /**
-   * @brief Function that provides the body for the input thread
-   *
-   */
-  void input_thread_body(void);
 
   /**
    * @brief Function that provides the body for the inference core thread
