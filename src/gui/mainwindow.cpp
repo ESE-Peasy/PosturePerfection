@@ -41,6 +41,12 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   pageComboBox->addItem(tr("Video Feed"));
   pageComboBox->addItem(tr("Settings Page"));
   pageComboBox->addItem(tr("Data Page"));
+  pageComboBox->setStyleSheet(
+      "QListView{color:white; background-color:#0d1117;}");
+  pageComboBox->setStyleSheet(
+      "QComboBox {color:white; background-color: #0d1117; border-color: "
+      "rgba(255,255,255,200); border-width: 1px; border-style: solid; padding: "
+      "1px 0px 1px 3px;}");
 
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
