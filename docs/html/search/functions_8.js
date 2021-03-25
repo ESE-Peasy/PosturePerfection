@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['notifyclient_289',['NotifyClient',['../classNotify_1_1NotifyClient.html#ac6f15158c786e07c250e9499cf902d9c',1,'Notify::NotifyClient']]],
-  ['notifyserver_290',['NotifyServer',['../classNotify_1_1NotifyServer.html#ae8695fdf368c285025774dca392884b5',1,'Notify::NotifyServer']]]
+  ['main_296',['main',['../gui_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../client__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;client_main.cpp'],['../server__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;server_main.cpp']]],
+  ['mainwindow_297',['MainWindow',['../classGUI_1_1MainWindow.html#a976fe04009d096df85d8a42a7d2e7c64',1,'GUI::MainWindow']]]
 ];

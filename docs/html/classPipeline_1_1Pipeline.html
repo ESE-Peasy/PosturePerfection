@@ -86,6 +86,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aefed59f024a1a9acb0b98279124f079b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#aefed59f024a1a9acb0b98279124f079b">~Pipeline</a> ()</td></tr>
 <tr class="memdesc:aefed59f024a1a9acb0b98279124f079b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="classPipeline_1_1Pipeline.html" title="Frame-by-frame pipeline to process video.">Pipeline</a> object.  <a href="classPipeline_1_1Pipeline.html#aefed59f024a1a9acb0b98279124f079b">More...</a><br /></td></tr>
 <tr class="separator:aefed59f024a1a9acb0b98279124f079b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf939f20615758a4753199941aee2218"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#adf939f20615758a4753199941aee2218">set_confidence_threshold</a> (float threshold)</td></tr>
+<tr class="memdesc:adf939f20615758a4753199941aee2218"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the confidence threshold.  <a href="classPipeline_1_1Pipeline.html#adf939f20615758a4753199941aee2218">More...</a><br /></td></tr>
+<tr class="separator:adf939f20615758a4753199941aee2218"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a464136da37a7e56e322443653e34b932"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a464136da37a7e56e322443653e34b932">increase_framerate</a> (void)</td></tr>
+<tr class="memdesc:a464136da37a7e56e322443653e34b932"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the frame rate to the next predefined value.  <a href="classPipeline_1_1Pipeline.html#a464136da37a7e56e322443653e34b932">More...</a><br /></td></tr>
+<tr class="separator:a464136da37a7e56e322443653e34b932"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a64a36310c2c42ee54df53e864b8f86"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a5a64a36310c2c42ee54df53e864b8f86">decrease_framerate</a> (void)</td></tr>
+<tr class="memdesc:a5a64a36310c2c42ee54df53e864b8f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decrement the frame rate to the next predefined value.  <a href="classPipeline_1_1Pipeline.html#a5a64a36310c2c42ee54df53e864b8f86">More...</a><br /></td></tr>
+<tr class="separator:a5a64a36310c2c42ee54df53e864b8f86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab216a6a3df8b59831caa4fa5e4748dbc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#ab216a6a3df8b59831caa4fa5e4748dbc">get_framerate</a> (void)</td></tr>
+<tr class="memdesc:ab216a6a3df8b59831caa4fa5e4748dbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the frame rate.  <a href="classPipeline_1_1Pipeline.html#ab216a6a3df8b59831caa4fa5e4748dbc">More...</a><br /></td></tr>
+<tr class="separator:ab216a6a3df8b59831caa4fa5e4748dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b517257139bbd3de2573f19ceb31b6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a0b517257139bbd3de2573f19ceb31b6b">set_ideal_posture</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> posture)</td></tr>
+<tr class="memdesc:a0b517257139bbd3de2573f19ceb31b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ideal posture.  <a href="classPipeline_1_1Pipeline.html#a0b517257139bbd3de2573f19ceb31b6b">More...</a><br /></td></tr>
+<tr class="separator:a0b517257139bbd3de2573f19ceb31b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Frame-by-frame pipeline to process video. </p>
@@ -154,6 +169,127 @@ Public Member Functions</h2></td></tr>
 
 <p>Destroy the <a class="el" href="classPipeline_1_1Pipeline.html" title="Frame-by-frame pipeline to process video.">Pipeline</a> object. </p>
 <p>Stops threads and waits for them to complete </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5a64a36310c2c42ee54df53e864b8f86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a64a36310c2c42ee54df53e864b8f86">&#9670;&nbsp;</a></span>decrease_framerate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Pipeline::Pipeline::decrease_framerate </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decrement the frame rate to the next predefined value. </p>
+<p>If the minimum frame rate of the system is reached, it will not be decreased further and the current (unchanged) frame rate is returned.</p>
+<dl class="section return"><dt>Returns</dt><dd>float Currently set frame rate in Hz </dd></dl>
+
+</div>
+</div>
+<a id="ab216a6a3df8b59831caa4fa5e4748dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab216a6a3df8b59831caa4fa5e4748dbc">&#9670;&nbsp;</a></span>get_framerate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Pipeline::Pipeline::get_framerate </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the frame rate. </p>
+<dl class="section return"><dt>Returns</dt><dd>float currently set frame rate in Hz </dd></dl>
+
+</div>
+</div>
+<a id="a464136da37a7e56e322443653e34b932"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a464136da37a7e56e322443653e34b932">&#9670;&nbsp;</a></span>increase_framerate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Pipeline::Pipeline::increase_framerate </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Increment the frame rate to the next predefined value. </p>
+<p>If the maximum frame rate of the system is reached, it will not be increased further and the current (unchanged) frame rate is returned.</p>
+<dl class="section return"><dt>Returns</dt><dd>float Currently set frame rate in Hz </dd></dl>
+
+</div>
+</div>
+<a id="adf939f20615758a4753199941aee2218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf939f20615758a4753199941aee2218">&#9670;&nbsp;</a></span>set_confidence_threshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Pipeline::Pipeline::set_confidence_threshold </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>threshold</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the confidence threshold. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">threshold</td><td>New threshold to set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> If updating the threshold succeeded </dd>
+<dd>
+<code>false</code> If updating the threshold did not succeed </dd></dl>
+
+</div>
+</div>
+<a id="a0b517257139bbd3de2573f19ceb31b6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b517257139bbd3de2573f19ceb31b6b">&#9670;&nbsp;</a></span>set_ideal_posture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Pipeline::Pipeline::set_ideal_posture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a>&#160;</td>
+          <td class="paramname"><em>posture</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the ideal posture. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">posture</td><td>A previous frame's posture that is to be used as the new ideal posture </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

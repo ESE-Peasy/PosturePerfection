@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['endif_277',['endif',['../CMakeLists_8txt.html#a3054f5d0bbe01882593a8e474521142f',1,'CMakeLists.txt']]],
-  ['err_5fmsg_278',['err_msg',['../namespaceNotify.html#a8cad23d2c115783e595d6db122757e2f',1,'Notify']]]
+  ['decrease_5fframerate_283',['decrease_framerate',['../classPipeline_1_1Pipeline.html#a5a64a36310c2c42ee54df53e864b8f86',1,'Pipeline::Pipeline']]]
 ];

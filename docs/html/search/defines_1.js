@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['num_5finf_5fcore_5fthreads_388',['NUM_INF_CORE_THREADS',['../main_8cpp.html#ad2aeb460ae3604cfc18fb2787640f453',1,'main.cpp']]],
-  ['num_5floops_389',['NUM_LOOPS',['../main_8cpp.html#ae5301d7305b7b25a73685c7019aca33d',1,'main.cpp']]]
+  ['max_5fconf_5fthresh_397',['MAX_CONF_THRESH',['../post__processor_8cpp.html#a3486736e95cca7a1ad9637578c913178',1,'post_processor.cpp']]],
+  ['min_5fconf_5fthresh_398',['MIN_CONF_THRESH',['../post__processor_8cpp.html#a3b1dc420c609b8e6a361d8c16656755b',1,'post_processor.cpp']]],
+  ['model_5finput_5fx_399',['MODEL_INPUT_X',['../pipeline_8cpp.html#af35ec45d452fa422496f45b63de951a8',1,'pipeline.cpp']]],
+  ['model_5finput_5fy_400',['MODEL_INPUT_Y',['../pipeline_8cpp.html#ad47a5df8b98eda7ee02b4c1538dae149',1,'pipeline.cpp']]]
 ];

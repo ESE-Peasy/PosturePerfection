@@ -7,9 +7,8 @@ var searchData=
   ['bodypart_11',['BodyPart',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3',1,'intermediate_structures.h']]],
   ['bodypartmax_12',['BodyPartMax',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3a73adc2a30ac20f7a93588302bf22c34c',1,'intermediate_structures.h']]],
   ['bodypartmin_13',['BodyPartMin',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3aaee1b01f991f90cd5562d99e12e58fd4',1,'intermediate_structures.h']]],
-  ['buffer_14',['Buffer',['../classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f',1,'Pipeline::Buffer']]],
-  ['buffer_15',['buffer',['../classNotify_1_1NotifyServer.html#adc07ef29a3e4b3d9a80f32cd113b9709',1,'Notify::NotifyServer']]],
-  ['buffer_16',['Buffer',['../classPipeline_1_1Buffer.html',1,'Pipeline']]],
-  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_17',['Buffer&lt; Pipeline::CoreResults &gt;',['../classPipeline_1_1Buffer.html',1,'Pipeline']]],
-  ['buffer_3c_20pipeline_3a_3apreprocessedframe_20_3e_18',['Buffer&lt; Pipeline::PreprocessedFrame &gt;',['../classPipeline_1_1Buffer.html',1,'Pipeline']]]
+  ['buffer_14',['buffer',['../classNotify_1_1NotifyServer.html#adc07ef29a3e4b3d9a80f32cd113b9709',1,'Notify::NotifyServer']]],
+  ['buffer_15',['Buffer',['../classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f',1,'Pipeline::Buffer::Buffer()'],['../classPipeline_1_1Buffer.html',1,'Pipeline::Buffer&lt; T &gt;']]],
+  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_16',['Buffer&lt; Pipeline::CoreResults &gt;',['../classPipeline_1_1Buffer.html',1,'Pipeline']]],
+  ['buffer_3c_20pipeline_3a_3apreprocessedframe_20_3e_17',['Buffer&lt; Pipeline::PreprocessedFrame &gt;',['../classPipeline_1_1Buffer.html',1,'Pipeline']]]
 ];

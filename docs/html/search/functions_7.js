@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['main_287',['main',['../gui_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../client__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;client_main.cpp'],['../server__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;server_main.cpp']]],
-  ['mainwindow_288',['MainWindow',['../classGUI_1_1MainWindow.html#a976fe04009d096df85d8a42a7d2e7c64',1,'GUI::MainWindow']]]
+  ['iir2ndorderfilter_290',['IIR2ndOrderFilter',['../classIIR_1_1IIR2ndOrderFilter.html#af4038e98512af1404520cf4cb7439a45',1,'IIR::IIR2ndOrderFilter']]],
+  ['iirfilter_291',['IIRFilter',['../classIIR_1_1IIRFilter.html#a573b000f3c54ec42c358444cbc995b5f',1,'IIR::IIRFilter']]],
+  ['include_5fdirectories_292',['include_directories',['../CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50',1,'CMakeLists.txt']]],
+  ['increase_5fframerate_293',['increase_framerate',['../classPipeline_1_1Pipeline.html#a464136da37a7e56e322443653e34b932',1,'Pipeline::Pipeline']]],
+  ['inferencecore_294',['InferenceCore',['../classInference_1_1InferenceCore.html#a6d0465cab368c842b3ae33b1b9eebeec',1,'Inference::InferenceCore']]],
+  ['intelligent_5fmean_5fbody_5fparts_295',['intelligent_mean_body_parts',['../post__processor_8cpp.html#a3a861629ba37e50dc5ce36ddb11cf933',1,'post_processor.cpp']]]
 ];

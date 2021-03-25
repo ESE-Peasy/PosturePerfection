@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['max_5fconf_5fthresh_384',['MAX_CONF_THRESH',['../post__processor_8cpp.html#a3486736e95cca7a1ad9637578c913178',1,'post_processor.cpp']]],
-  ['min_5fconf_5fthresh_385',['MIN_CONF_THRESH',['../post__processor_8cpp.html#a3b1dc420c609b8e6a361d8c16656755b',1,'post_processor.cpp']]],
-  ['model_5finput_5fx_386',['MODEL_INPUT_X',['../pipeline_8cpp.html#af35ec45d452fa422496f45b63de951a8',1,'pipeline.cpp']]],
-  ['model_5finput_5fy_387',['MODEL_INPUT_Y',['../pipeline_8cpp.html#ad47a5df8b98eda7ee02b4c1538dae149',1,'pipeline.cpp']]]
+  ['frame_5fdelay_5fdefault_394',['FRAME_DELAY_DEFAULT',['../pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b',1,'pipeline.h']]],
+  ['frame_5fdelay_5fmax_395',['FRAME_DELAY_MAX',['../pipeline_8h.html#acb78faaa3a3b13053be54370c7739523',1,'pipeline.h']]],
+  ['frame_5fdelay_5fmin_396',['FRAME_DELAY_MIN',['../pipeline_8h.html#aa4be07057a307c37ea36990c575282a4',1,'pipeline.h']]]
 ];

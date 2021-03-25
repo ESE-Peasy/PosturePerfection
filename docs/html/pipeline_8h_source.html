@@ -88,139 +88,180 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="posture__estimator_8h.html">posture_estimator.h</a>&quot;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pre__processor_8h.html">pre_processor.h</a>&quot;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePipeline.html">Pipeline</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html">   63</a></span>&#160;<span class="keyword">class </span><a class="code" href="classPipeline_1_1Buffer.html">Buffer</a> {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  std::mutex lock_in;   </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  std::mutex lock_out;  </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  std::deque&lt;T&gt; queue;  </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordtype">bool</span>* running;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  uint8_t <span class="keywordtype">id</span> = -1;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">size_t</span> max_size;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">  104</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">Buffer</a>(<span class="keywordtype">bool</span>* running_ptr, <span class="keywordtype">size_t</span> max_size)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      : running(running_ptr), max_size(max_size) {}</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">  116</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">push</a>(T frame) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">while</span> (*running) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      lock_in.lock();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <span class="keywordflow">if</span> ((uint8_t)(<span class="keywordtype">id</span> + 1) == frame.id &amp;&amp; queue.size() + 1 &lt;= max_size) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        queue.push_back(frame);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordtype">id</span>++;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        lock_in.unlock();</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      lock_in.unlock();</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  }</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">  141</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">try_push</a>(T frame) {</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">while</span> (*running) {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      <span class="comment">// Immediately return if the queue is full</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      lock_in.lock();</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;      <span class="keywordflow">if</span> (queue.size() + 1 &gt; max_size) {</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        lock_in.unlock();</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;      }</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;      <span class="keywordflow">if</span> ((uint8_t)(<span class="keywordtype">id</span> + 1) == frame.id) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        queue.push_back(frame);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordtype">id</span>++;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        lock_in.unlock();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;      lock_in.unlock();</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622">  166</a></span>&#160;  T <a class="code" href="classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622">pop</a>() {</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    T front;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">while</span> (*running) {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;      this-&gt;lock_out.lock();</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      <span class="keywordflow">if</span> (!this-&gt;queue.empty()) {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        front = this-&gt;queue.front();</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        this-&gt;queue.pop_front();</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        this-&gt;lock_out.unlock();</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;      }</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;      this-&gt;lock_out.unlock();</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> front;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;};</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html">  189</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPipeline_1_1PreprocessedFrame.html">PreprocessedFrame</a> {</div>
-<div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html#a0525d3c20c66df51dff66cbb9537ce4f">  195</a></span>&#160;  uint8_t <a class="code" href="structPipeline_1_1PreprocessedFrame.html#a0525d3c20c66df51dff66cbb9537ce4f">id</a>;</div>
-<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html#a9dc7110232d97ba7a86456e39d99af9e">  196</a></span>&#160;  cv::Mat <a class="code" href="structPipeline_1_1PreprocessedFrame.html#a9dc7110232d97ba7a86456e39d99af9e">raw_image</a>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html#a9ea151f2784a9a8d201d92bd61d3917d">  197</a></span>&#160;  <a class="code" href="structPreProcessing_1_1PreProcessedImage.html">PreProcessing::PreProcessedImage</a> <a class="code" href="structPipeline_1_1PreprocessedFrame.html#a9ea151f2784a9a8d201d92bd61d3917d">preprocessed_image</a>;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;};</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html">  206</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPipeline_1_1CoreResults.html">CoreResults</a> {</div>
-<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">  212</a></span>&#160;  uint8_t <a class="code" href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">id</a>;</div>
-<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d">  213</a></span>&#160;  cv::Mat <a class="code" href="structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d">raw_image</a>;</div>
-<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f">  214</a></span>&#160;  <a class="code" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a> <a class="code" href="structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f">image_results</a>;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;};</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="classPipeline_1_1Pipeline.html">  226</a></span>&#160;<span class="keyword">class </span><a class="code" href="namespacePipeline.html">Pipeline</a> {</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  std::vector&lt;std::thread&gt; threads;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="pipeline_8h.html#acb78faaa3a3b13053be54370c7739523">   39</a></span>&#160;<span class="preprocessor">#define FRAME_DELAY_MAX 2000      </span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="pipeline_8h.html#aa4be07057a307c37ea36990c575282a4">   40</a></span>&#160;<span class="preprocessor">#define FRAME_DELAY_MIN 50        </span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b">   41</a></span>&#160;<span class="preprocessor">#define FRAME_DELAY_DEFAULT 1000  </span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePipeline.html">Pipeline</a> {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html">   67</a></span>&#160;<span class="keyword">class </span><a class="code" href="classPipeline_1_1Buffer.html">Buffer</a> {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  std::mutex lock_in;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  std::mutex lock_out;   </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  std::vector&lt;T&gt; queue;  </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordtype">size_t</span> front_index = 0;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordtype">size_t</span> back_index = 0;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordtype">bool</span>* running;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  uint8_t <span class="keywordtype">id</span> = -1;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">size_t</span> size(<span class="keywordtype">void</span>) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">int</span> size = back_index - front_index;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (size &lt; 0) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      <span class="keywordflow">return</span> (queue.size() + size);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordtype">bool</span> full = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">  112</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">Buffer</a>(<span class="keywordtype">bool</span>* running_ptr, <span class="keywordtype">size_t</span> max_size)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      : running(running_ptr), queue(max_size) {}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">  124</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">push</a>(T frame) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">while</span> (*running) {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      lock_in.lock();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      <span class="keywordflow">if</span> ((uint8_t)(<span class="keywordtype">id</span> + 1) == frame.id &amp;&amp; !full) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        queue.at(back_index) = frame;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        back_index = (back_index + 1) % queue.size();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">if</span> (back_index == front_index) {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;          full = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordtype">id</span>++;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        lock_in.unlock();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      lock_in.unlock();</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">  154</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">try_push</a>(T frame) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">while</span> (*running) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;      <span class="comment">// Immediately return if the queue is full</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      lock_in.lock();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;      <span class="keywordflow">if</span> (full) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        lock_in.unlock();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <span class="keywordflow">if</span> ((uint8_t)(<span class="keywordtype">id</span> + 1) == frame.id) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        queue.at(back_index) = frame;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        back_index = (back_index + 1) % queue.size();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">if</span> (front_index == back_index) {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;          full = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordtype">id</span>++;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        lock_in.unlock();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;      }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;      lock_in.unlock();</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622">  184</a></span>&#160;  T <a class="code" href="classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622">pop</a>() {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    T front;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">while</span> (*running) {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      this-&gt;lock_out.lock();</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;      <span class="keywordflow">if</span> (size() != 0 || full) {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        front = this-&gt;queue.at(front_index);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        front_index = (front_index + 1) % queue.size();</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        full = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        this-&gt;lock_out.unlock();</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;      }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;      this-&gt;lock_out.unlock();</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    }</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> front;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;};</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html">  209</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPipeline_1_1PreprocessedFrame.html">PreprocessedFrame</a> {</div>
+<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html#a0525d3c20c66df51dff66cbb9537ce4f">  215</a></span>&#160;  uint8_t <a class="code" href="structPipeline_1_1PreprocessedFrame.html#a0525d3c20c66df51dff66cbb9537ce4f">id</a>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html#a9dc7110232d97ba7a86456e39d99af9e">  216</a></span>&#160;  cv::Mat <a class="code" href="structPipeline_1_1PreprocessedFrame.html#a9dc7110232d97ba7a86456e39d99af9e">raw_image</a>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="structPipeline_1_1PreprocessedFrame.html#a9ea151f2784a9a8d201d92bd61d3917d">  217</a></span>&#160;  <a class="code" href="structPreProcessing_1_1PreProcessedImage.html">PreProcessing::PreProcessedImage</a> <a class="code" href="structPipeline_1_1PreprocessedFrame.html#a9ea151f2784a9a8d201d92bd61d3917d">preprocessed_image</a>;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;};</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html">  226</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structPipeline_1_1CoreResults.html">CoreResults</a> {</div>
+<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">  232</a></span>&#160;  uint8_t <a class="code" href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">id</a>;</div>
+<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d">  233</a></span>&#160;  cv::Mat <a class="code" href="structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d">raw_image</a>;</div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f">  234</a></span>&#160;  <a class="code" href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a> <a class="code" href="structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f">image_results</a>;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;};</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  <span class="keywordtype">bool</span> running;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  <a class="code" href="classPreProcessing_1_1PreProcessor.html">PreProcessing::PreProcessor</a> preprocessor;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  <a class="code" href="classPostProcessing_1_1PostProcessor.html">PostProcessing::PostProcessor</a> post_processor;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <a class="code" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimating::PostureEstimator</a> posture_estimator;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  <a class="code" href="classPipeline_1_1Buffer.html">Buffer&lt;PreprocessedFrame&gt;</a> preprocessed_frames;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  <a class="code" href="classPipeline_1_1Buffer.html">Buffer&lt;CoreResults&gt;</a> core_results;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  <span class="keywordtype">void</span> input_thread_body(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  <span class="keywordtype">void</span> core_thread_body(<a class="code" href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a>);</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  <span class="keywordtype">void</span> post_processing_thread_body(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  void (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat);</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="namespacePipeline.html">Pipeline</a>(uint8_t num_inference_core_threads,</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                    <span class="keywordtype">void</span> (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat));</div>
+<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="classPipeline_1_1Pipeline.html">  246</a></span>&#160;<span class="keyword">class </span><a class="code" href="namespacePipeline.html">Pipeline</a> {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  std::vector&lt;std::thread&gt; threads;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  <span class="keywordtype">bool</span> running;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  <span class="keywordtype">size_t</span> frame_delay = <a class="code" href="pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b">FRAME_DELAY_DEFAULT</a>;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  <a class="code" href="classPreProcessing_1_1PreProcessor.html">PreProcessing::PreProcessor</a> preprocessor;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  <a class="code" href="classPostProcessing_1_1PostProcessor.html">PostProcessing::PostProcessor</a> post_processor;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <a class="code" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimating::PostureEstimator</a> posture_estimator;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <a class="code" href="classPipeline_1_1Buffer.html">Buffer&lt;PreprocessedFrame&gt;</a> preprocessed_frames;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <a class="code" href="classPipeline_1_1Buffer.html">Buffer&lt;CoreResults&gt;</a> core_results;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  <span class="keywordtype">void</span> input_thread_body(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  <span class="keywordtype">void</span> core_thread_body(<a class="code" href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a>);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <span class="keywordtype">void</span> post_processing_thread_body(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  ~<a class="code" href="namespacePipeline.html">Pipeline</a>();</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;};</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;}  <span class="comment">// namespace Pipeline</span></div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PIPELINE_H_</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;  void (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat);</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="namespacePipeline.html">Pipeline</a>(uint8_t num_inference_core_threads,</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                    <span class="keywordtype">void</span> (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat));</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  ~<a class="code" href="namespacePipeline.html">Pipeline</a>();</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;  <span class="keywordtype">bool</span> set_confidence_threshold(<span class="keywordtype">float</span> threshold);</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  <span class="keywordtype">float</span> increase_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;  <span class="keywordtype">float</span> decrease_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  <span class="keywordtype">float</span> get_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  <span class="keywordtype">void</span> set_ideal_posture(<a class="code" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> posture);</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;};</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;}  <span class="comment">// namespace Pipeline</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PIPELINE_H_</span></div>
 <div class="ttc" id="aclassInference_1_1InferenceCore_html"><div class="ttname"><a href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a></div><div class="ttdoc">A wrapper to make running inference easier.</div><div class="ttdef"><b>Definition:</b> inference_core.h:50</div></div>
-<div class="ttc" id="aclassPipeline_1_1Buffer_html"><div class="ttname"><a href="classPipeline_1_1Buffer.html">Pipeline::Buffer</a></div><div class="ttdoc">A synchronising buffer to be used as a communication mechanism between threads.</div><div class="ttdef"><b>Definition:</b> pipeline.h:63</div></div>
-<div class="ttc" id="aclassPipeline_1_1Buffer_html_a5be39610d75d446b134194803d20dfc6"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">Pipeline::Buffer::try_push</a></div><div class="ttdeci">bool try_push(T frame)</div><div class="ttdoc">Push a frame to the queue (doesn't block if queue is full)</div><div class="ttdef"><b>Definition:</b> pipeline.h:141</div></div>
-<div class="ttc" id="aclassPipeline_1_1Buffer_html_a7be59463df9ced0c68e44b2567140622"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622">Pipeline::Buffer::pop</a></div><div class="ttdeci">T pop()</div><div class="ttdoc">Pop the oldest element in the queue and return it.</div><div class="ttdef"><b>Definition:</b> pipeline.h:166</div></div>
-<div class="ttc" id="aclassPipeline_1_1Buffer_html_a8c55c604454fb0b1039271a90dcabe7f"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">Pipeline::Buffer::Buffer</a></div><div class="ttdeci">Buffer(bool *running_ptr, size_t max_size)</div><div class="ttdoc">Construct a new Buffer object.</div><div class="ttdef"><b>Definition:</b> pipeline.h:104</div></div>
-<div class="ttc" id="aclassPipeline_1_1Buffer_html_af5e412a884a75acdf28935a1fd41a344"><div class="ttname"><a href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">Pipeline::Buffer::push</a></div><div class="ttdeci">void push(T frame)</div><div class="ttdoc">Push a frame to the queue.</div><div class="ttdef"><b>Definition:</b> pipeline.h:116</div></div>
+<div class="ttc" id="aclassPipeline_1_1Buffer_html"><div class="ttname"><a href="classPipeline_1_1Buffer.html">Pipeline::Buffer</a></div><div class="ttdoc">A synchronising buffer to be used as a communication mechanism between threads.</div><div class="ttdef"><b>Definition:</b> pipeline.h:67</div></div>
+<div class="ttc" id="aclassPipeline_1_1Buffer_html_a5be39610d75d446b134194803d20dfc6"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">Pipeline::Buffer::try_push</a></div><div class="ttdeci">bool try_push(T frame)</div><div class="ttdoc">Push a frame to the queue (doesn't block if queue is full)</div><div class="ttdef"><b>Definition:</b> pipeline.h:154</div></div>
+<div class="ttc" id="aclassPipeline_1_1Buffer_html_a7be59463df9ced0c68e44b2567140622"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a7be59463df9ced0c68e44b2567140622">Pipeline::Buffer::pop</a></div><div class="ttdeci">T pop()</div><div class="ttdoc">Pop the oldest element in the queue and return it.</div><div class="ttdef"><b>Definition:</b> pipeline.h:184</div></div>
+<div class="ttc" id="aclassPipeline_1_1Buffer_html_a8c55c604454fb0b1039271a90dcabe7f"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f">Pipeline::Buffer::Buffer</a></div><div class="ttdeci">Buffer(bool *running_ptr, size_t max_size)</div><div class="ttdoc">Construct a new Buffer object.</div><div class="ttdef"><b>Definition:</b> pipeline.h:112</div></div>
+<div class="ttc" id="aclassPipeline_1_1Buffer_html_af5e412a884a75acdf28935a1fd41a344"><div class="ttname"><a href="classPipeline_1_1Buffer.html#af5e412a884a75acdf28935a1fd41a344">Pipeline::Buffer::push</a></div><div class="ttdeci">void push(T frame)</div><div class="ttdoc">Push a frame to the queue.</div><div class="ttdef"><b>Definition:</b> pipeline.h:124</div></div>
 <div class="ttc" id="aclassPostProcessing_1_1PostProcessor_html"><div class="ttname"><a href="classPostProcessing_1_1PostProcessor.html">PostProcessing::PostProcessor</a></div><div class="ttdoc">Process the output of an Inference::InferenceCore</div><div class="ttdef"><b>Definition:</b> post_processor.h:51</div></div>
 <div class="ttc" id="aclassPostureEstimating_1_1PostureEstimator_html"><div class="ttname"><a href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimating::PostureEstimator</a></div><div class="ttdoc">This class handles representations of the user's pose and calculates any updates to their pose that i...</div><div class="ttdef"><b>Definition:</b> posture_estimator.h:109</div></div>
 <div class="ttc" id="aclassPreProcessing_1_1PreProcessor_html"><div class="ttname"><a href="classPreProcessing_1_1PreProcessor.html">PreProcessing::PreProcessor</a></div><div class="ttdoc">Pre-process the input image before passing to Inference::InferenceCore</div><div class="ttdef"><b>Definition:</b> pre_processor.h:51</div></div>
 <div class="ttc" id="aiir_8h_html"><div class="ttname"><a href="iir_8h.html">iir.h</a></div><div class="ttdoc">Very simple IIR filter.</div></div>
 <div class="ttc" id="ainference__core_8h_html"><div class="ttname"><a href="inference__core_8h.html">inference_core.h</a></div><div class="ttdoc">Wrapper API for the TensorFlow Lite model.</div></div>
-<div class="ttc" id="anamespacePipeline_html"><div class="ttname"><a href="namespacePipeline.html">Pipeline</a></div><div class="ttdoc">Components of the pipeline at the core of the system.</div><div class="ttdef"><b>Definition:</b> pipeline.cpp:26</div></div>
+<div class="ttc" id="anamespacePipeline_html"><div class="ttname"><a href="namespacePipeline.html">Pipeline</a></div><div class="ttdoc">Components of the pipeline at the core of the system.</div><div class="ttdef"><b>Definition:</b> pipeline.cpp:27</div></div>
+<div class="ttc" id="apipeline_8h_html_a590793cdfea05268adc9911d24a18a6b"><div class="ttname"><a href="pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b">FRAME_DELAY_DEFAULT</a></div><div class="ttdeci">#define FRAME_DELAY_DEFAULT</div><div class="ttdoc">Default delay between frames in ms.</div><div class="ttdef"><b>Definition:</b> pipeline.h:41</div></div>
 <div class="ttc" id="apost__processor_8h_html"><div class="ttname"><a href="post__processor_8h.html">post_processor.h</a></div><div class="ttdoc">Interface for post processing the output of an Inference::InferenceCore</div></div>
 <div class="ttc" id="aposture__estimator_8h_html"><div class="ttname"><a href="posture__estimator_8h.html">posture_estimator.h</a></div><div class="ttdoc">Interface for representation of user's pose.</div></div>
 <div class="ttc" id="apre__processor_8h_html"><div class="ttname"><a href="pre__processor_8h.html">pre_processor.h</a></div><div class="ttdoc">Interface for pre processing the input image before passing to Inference::InferenceCore</div></div>
 <div class="ttc" id="astructInference_1_1InferenceResults_html"><div class="ttname"><a href="structInference_1_1InferenceResults.html">Inference::InferenceResults</a></div><div class="ttdoc">Results of running the model for all body parts.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:199</div></div>
-<div class="ttc" id="astructPipeline_1_1CoreResults_html"><div class="ttname"><a href="structPipeline_1_1CoreResults.html">Pipeline::CoreResults</a></div><div class="ttdoc">Contains the id of the frame within the pipeline, as well as the raw image and the results of running...</div><div class="ttdef"><b>Definition:</b> pipeline.h:206</div></div>
-<div class="ttc" id="astructPipeline_1_1CoreResults_html_a4faabc9ca2d133b5dc9cde07fe5a2c5f"><div class="ttname"><a href="structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f">Pipeline::CoreResults::image_results</a></div><div class="ttdeci">Inference::InferenceResults image_results</div><div class="ttdef"><b>Definition:</b> pipeline.h:214</div></div>
-<div class="ttc" id="astructPipeline_1_1CoreResults_html_a78b35f1f9bb281d50b30ee45bce290d3"><div class="ttname"><a href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">Pipeline::CoreResults::id</a></div><div class="ttdeci">uint8_t id</div><div class="ttdoc">Every frame is assigned a unique id to ensure in-order post processing. This id must be passed throug...</div><div class="ttdef"><b>Definition:</b> pipeline.h:212</div></div>
-<div class="ttc" id="astructPipeline_1_1CoreResults_html_ab2d7f46f2124fd3805f644f46591d13d"><div class="ttname"><a href="structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d">Pipeline::CoreResults::raw_image</a></div><div class="ttdeci">cv::Mat raw_image</div><div class="ttdef"><b>Definition:</b> pipeline.h:213</div></div>
-<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html">Pipeline::PreprocessedFrame</a></div><div class="ttdoc">Contains the id of the frame within the pipeline, as well as the raw image and the preprocessed_image...</div><div class="ttdef"><b>Definition:</b> pipeline.h:189</div></div>
-<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html_a0525d3c20c66df51dff66cbb9537ce4f"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html#a0525d3c20c66df51dff66cbb9537ce4f">Pipeline::PreprocessedFrame::id</a></div><div class="ttdeci">uint8_t id</div><div class="ttdoc">Every frame is assigned a unique id to ensure in-order post processing. This id must be passed throug...</div><div class="ttdef"><b>Definition:</b> pipeline.h:195</div></div>
-<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html_a9dc7110232d97ba7a86456e39d99af9e"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html#a9dc7110232d97ba7a86456e39d99af9e">Pipeline::PreprocessedFrame::raw_image</a></div><div class="ttdeci">cv::Mat raw_image</div><div class="ttdef"><b>Definition:</b> pipeline.h:196</div></div>
-<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html_a9ea151f2784a9a8d201d92bd61d3917d"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html#a9ea151f2784a9a8d201d92bd61d3917d">Pipeline::PreprocessedFrame::preprocessed_image</a></div><div class="ttdeci">PreProcessing::PreProcessedImage preprocessed_image</div><div class="ttdef"><b>Definition:</b> pipeline.h:197</div></div>
+<div class="ttc" id="astructPipeline_1_1CoreResults_html"><div class="ttname"><a href="structPipeline_1_1CoreResults.html">Pipeline::CoreResults</a></div><div class="ttdoc">Contains the id of the frame within the pipeline, as well as the raw image and the results of running...</div><div class="ttdef"><b>Definition:</b> pipeline.h:226</div></div>
+<div class="ttc" id="astructPipeline_1_1CoreResults_html_a4faabc9ca2d133b5dc9cde07fe5a2c5f"><div class="ttname"><a href="structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f">Pipeline::CoreResults::image_results</a></div><div class="ttdeci">Inference::InferenceResults image_results</div><div class="ttdef"><b>Definition:</b> pipeline.h:234</div></div>
+<div class="ttc" id="astructPipeline_1_1CoreResults_html_a78b35f1f9bb281d50b30ee45bce290d3"><div class="ttname"><a href="structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3">Pipeline::CoreResults::id</a></div><div class="ttdeci">uint8_t id</div><div class="ttdoc">Every frame is assigned a unique id to ensure in-order post processing. This id must be passed throug...</div><div class="ttdef"><b>Definition:</b> pipeline.h:232</div></div>
+<div class="ttc" id="astructPipeline_1_1CoreResults_html_ab2d7f46f2124fd3805f644f46591d13d"><div class="ttname"><a href="structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d">Pipeline::CoreResults::raw_image</a></div><div class="ttdeci">cv::Mat raw_image</div><div class="ttdef"><b>Definition:</b> pipeline.h:233</div></div>
+<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html">Pipeline::PreprocessedFrame</a></div><div class="ttdoc">Contains the id of the frame within the pipeline, as well as the raw image and the preprocessed_image...</div><div class="ttdef"><b>Definition:</b> pipeline.h:209</div></div>
+<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html_a0525d3c20c66df51dff66cbb9537ce4f"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html#a0525d3c20c66df51dff66cbb9537ce4f">Pipeline::PreprocessedFrame::id</a></div><div class="ttdeci">uint8_t id</div><div class="ttdoc">Every frame is assigned a unique id to ensure in-order post processing. This id must be passed throug...</div><div class="ttdef"><b>Definition:</b> pipeline.h:215</div></div>
+<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html_a9dc7110232d97ba7a86456e39d99af9e"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html#a9dc7110232d97ba7a86456e39d99af9e">Pipeline::PreprocessedFrame::raw_image</a></div><div class="ttdeci">cv::Mat raw_image</div><div class="ttdef"><b>Definition:</b> pipeline.h:216</div></div>
+<div class="ttc" id="astructPipeline_1_1PreprocessedFrame_html_a9ea151f2784a9a8d201d92bd61d3917d"><div class="ttname"><a href="structPipeline_1_1PreprocessedFrame.html#a9ea151f2784a9a8d201d92bd61d3917d">Pipeline::PreprocessedFrame::preprocessed_image</a></div><div class="ttdeci">PreProcessing::PreProcessedImage preprocessed_image</div><div class="ttdef"><b>Definition:</b> pipeline.h:217</div></div>
+<div class="ttc" id="astructPostProcessing_1_1ProcessedResults_html"><div class="ttname"><a href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a></div><div class="ttdoc">The PostProcessing::Coordinate of each body part.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:139</div></div>
 <div class="ttc" id="astructPostureEstimating_1_1PoseStatus_html"><div class="ttname"><a href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a></div><div class="ttdoc">representation of user's pose for use by the pipeline processing</div><div class="ttdef"><b>Definition:</b> posture_estimator.h:87</div></div>
 <div class="ttc" id="astructPreProcessing_1_1PreProcessedImage_html"><div class="ttname"><a href="structPreProcessing_1_1PreProcessedImage.html">PreProcessing::PreProcessedImage</a></div><div class="ttdoc">A structure of the pre processed image.</div><div class="ttdef"><b>Definition:</b> intermediate_structures.h:85</div></div>
 </div><!-- fragment --></div><!-- contents -->

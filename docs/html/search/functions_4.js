@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['find_5fpackage_279',['find_package',['../CMakeLists_8txt.html#aff19a2b08a70c1671d45f82b7f9aac16',1,'find_package(OpenCV REQUIRED) if(NOT TENSORFLOW_SOURCE_DIR) get_filename_component(TENSORFLOW_SOURCE_DIR &quot;$:&#160;CMakeLists.txt'],['../gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340',1,'find_package(OpenCV REQUIRED) include_directories(&quot;$:&#160;CMakeLists.txt']]],
-  ['frame_5fcallback_280',['frame_callback',['../main_8cpp.html#a4c85d43663de4cae69c6b348201f49e2',1,'main.cpp']]]
+  ['endif_284',['endif',['../CMakeLists_8txt.html#a3054f5d0bbe01882593a8e474521142f',1,'CMakeLists.txt']]],
+  ['err_5fmsg_285',['err_msg',['../namespaceNotify.html#a8cad23d2c115783e595d6db122757e2f',1,'Notify']]]
 ];
