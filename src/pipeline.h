@@ -59,7 +59,7 @@ namespace Pipeline {
  * this class may therefore be used to share the load at any stage in a pipeline
  * between multiple threads without needing to worry about issues in the order
  * of elements.
- * 
+ *
  * It is implemented as a circular buffer.
  *
  * @tparam T The type for elements in the buffer. This must provide an `id`
@@ -316,7 +316,7 @@ class FrameGenerator {
    * @param frame_delay Pointer to the `Pipeline`'s frame delay
    * @throw `std::runtime_error` if the camera cannot be accessed
    */
-  FrameGenerator(size_t* frame_delay);
+  explicit FrameGenerator(size_t* frame_delay);
 
   /**
    * @brief Destroy the Frame Generator object
