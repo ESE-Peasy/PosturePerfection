@@ -32,6 +32,7 @@
 #include <QMenuBar>
 #include <QPushButton>
 #include <QRect>
+#include <QStackedWidget>
 #include <QStatusBar>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -88,25 +89,56 @@ class MainWindow : public QMainWindow {
    */
   void updateFrame(cv::Mat currentFrame);
 
+  /**
+   * @brief Creates the main page within the application
+   *
+   */
+  void createMainPage();
+
+  /**
+   * @brief Creates the settings page within the application
+   *
+   */
+  void createSettingsPage();
+
+ public slots:
+
+ signals:
+
  private:
+  /**
+   * @brief Create a table containing the numeric posture values
+   */
+  void generateTable();
+
+  /**
+   * @brief Create the inital video feed frame with the PosturePerfection logo
+   */
+  void initalFrame();
+
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
   QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
-  void generateTable();
-  void initalFrame();
   QLabel *frame = new QLabel();
+  QStackedWidget *stackedWidget = new QStackedWidget;
+  QComboBox *pageComboBox = new QComboBox;
+  QGroupBox *groupDateTime = new QGroupBox();
+  QVBoxLayout *dtBox = new QVBoxLayout;
+
+  QWidget *firstPageWidget = new QWidget;
+  QGridLayout *mainPageLayout = new QGridLayout;
+
+  QWidget *secondPageWidget = new QWidget;
+  QGridLayout *settingsPageLayout = new QGridLayout;
+
+  QWidget *thirdPageWidget = new QWidget;
 
  private slots:
   /**
    * @brief Displays the current date and time.
    */
   void showDateTime();
-
-  /**
-   * @brief Navigates to the settings page.
-   */
-  void on_settingsButton_clicked();
 };
 }  // namespace GUI
 QT_END_NAMESPACE

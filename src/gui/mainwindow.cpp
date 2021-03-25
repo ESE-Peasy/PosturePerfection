@@ -28,6 +28,29 @@
 #include "settingswindow.h"
 
 GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+  // Create the different GUI pages
+  createMainPage();
+  createSettingsPage();
+
+  // Stack the pages within the mainwindow
+  QStackedWidget *stackedWidget = new QStackedWidget;
+  stackedWidget->addWidget(firstPageWidget);
+  stackedWidget->addWidget(secondPageWidget);
+  stackedWidget->addWidget(thirdPageWidget);
+
+  pageComboBox->addItem(tr("Video Feed"));
+  pageComboBox->addItem(tr("Settings Page"));
+  pageComboBox->addItem(tr("Data Page"));
+  pageComboBox->setStyleSheet(
+      "QListView{color:white; background-color:#0d1117;}");
+  pageComboBox->setStyleSheet(
+      "QComboBox {color:white; background-color: #0d1117; border-color: "
+      "rgba(255,255,255,200); border-width: 1px; border-style: solid; padding: "
+      "1px 0px 1px 3px;}");
+
+  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
+          stackedWidget, &QStackedWidget::setCurrentIndex);
+
   central->setStyleSheet("background-color:#0d1117;");
 
   // create three buttons
@@ -43,6 +66,7 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   settingsButton->setStyleSheet(
       "background-color:rgb(10, 187, 228); border: none;");
   QVBoxLayout *buttonBox = new QVBoxLayout;
+  buttonBox->addWidget(pageComboBox);
   buttonBox->addWidget(resetButton);
   buttonBox->addWidget(modeButton);
   buttonBox->addWidget(settingsButton);
@@ -66,22 +90,32 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   QLabel *updateLabel = new QLabel();
   QLabel *deleteLabel = new QLabel();
 
+  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
+          stackedWidget, &QStackedWidget::setCurrentIndex);
+
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
   mainLayout->addWidget(groupBoxButtons, 1, 1);
   mainLayout->addWidget(deleteLabel, 3, 1);
   mainLayout->addWidget(updateLabel, 3, 0);
+  mainLayout->addWidget(stackedWidget, 1, 0);
 
   // Display all of the produced widgets on the user's screen
   central->setLayout(mainLayout);
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
+}
 
-  // this->generateTable();
-  this->initalFrame();
+void GUI::MainWindow::createMainPage() {
+  initalFrame();
+  firstPageWidget->setLayout(mainPageLayout);
+}
 
-  connect(settingsButton, SIGNAL(clicked()), this,
-          SLOT(on_settingsButton_clicked()));
+void GUI::MainWindow::createSettingsPage() {
+  QLabel *label2 = new QLabel();
+  label2->setText("This is the settings page");
+  settingsPageLayout->addWidget(label2, 0, 1);
+  secondPageWidget->setLayout(settingsPageLayout);
 }
 
 void GUI::MainWindow::showDateTime() {
@@ -125,7 +159,7 @@ void GUI::MainWindow::initalFrame() {
                         img.cols, img.rows, img.step, QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
-  mainLayout->addWidget(frame, 1, 0);
+  mainPageLayout->addWidget(frame, 1, 0);
 }
 
 void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
@@ -135,7 +169,7 @@ void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
                         QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
-  mainLayout->addWidget(frame, 1, 0);
+  mainPageLayout->addWidget(frame, 1, 0);
 }
 
 void GUI::MainWindow::generateTable(void) {
@@ -184,10 +218,4 @@ void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
                                Qt::DisplayRole);
     i++;
   }
-}
-
-void GUI::MainWindow::on_settingsButton_clicked() {
-  SettingsWindow *full = new SettingsWindow;
-  full->showMaximized();
-  QCoreApplication::processEvents();
 }
