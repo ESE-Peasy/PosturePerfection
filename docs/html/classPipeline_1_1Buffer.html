@@ -99,6 +99,7 @@ class Pipeline::Buffer&lt; T &gt;</h3>
 
 <p>A synchronising buffer to be used as a communication mechanism between threads. </p>
 <p>The buffer ensures that elements are in order based on the element's <code>id</code> field. Attempting to <code>push</code> an element that is not next in line will block until the missing element has been pushed by a different thread. An object of this class may therefore be used to share the load at any stage in a pipeline between multiple threads without needing to worry about issues in the order of elements.</p>
+<p>It is implemented as a circular buffer.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>The type for elements in the buffer. This must provide an <code>id</code> field that is a <code>uint8_t</code>. </td></tr>

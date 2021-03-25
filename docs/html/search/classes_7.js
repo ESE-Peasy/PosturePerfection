@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['settingswindow_222',['SettingsWindow',['../classGUI_1_1SettingsWindow.html',1,'GUI']]],
-  ['smoothingsettings_223',['SmoothingSettings',['../structIIR_1_1SmoothingSettings.html',1,'IIR']]]
+  ['rawframe_224',['RawFrame',['../structPipeline_1_1RawFrame.html',1,'Pipeline']]],
+  ['result_225',['Result',['../structInference_1_1Result.html',1,'Inference']]]
 ];
