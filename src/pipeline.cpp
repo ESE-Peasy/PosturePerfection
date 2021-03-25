@@ -18,6 +18,7 @@
 
 #include "pipeline.h"
 
+#include <exception>
 #include <string>
 #include <utility>
 
@@ -26,44 +27,32 @@
 
 namespace Pipeline {
 
-void Pipeline::input_thread_body() {
-}
-
 FrameGenerator::FrameGenerator(size_t* frame_delay)
     : frame_delay(frame_delay), cap(0) {
-  printf("FrameGenerator()\n");
   t_previous_capture = std::chrono::steady_clock::now();
-
   if (!cap.isOpened()) {
-    fprintf(stderr, "Can't access camera\n");
-    return;
+    throw std::runtime_error("Cannot access camera");
   }
 
-  std::thread t(&FrameGenerator::FrameGenerator::thread_body, this);
+  // Ensure there is always a frame ready
+  cv::Mat frame;
+  cap.read(frame);
+  if (frame.empty()) {
+    fprintf(stderr, "Empty frame from camera\n");
+    return;
+  }
+  current_frame = frame;
 
+  // Start thread that continuously gets newest frame
+  std::thread t(&FrameGenerator::FrameGenerator::thread_body, this);
   thread = std::move(t);
-  lock_out.lock();
 }
 
 FrameGenerator::~FrameGenerator() { thread.join(); }
 
 void FrameGenerator::thread_body(void) {
   printf("inside thread\n");
-  {
-    cv::Mat frame;
-    cap.read(frame);
-    // printf("read fraem\n");
 
-    if (frame.empty()) {
-      fprintf(stderr, "Empty frame\n");
-      return;
-    }
-
-    lock.lock();
-    current_frame = frame;
-    lock.unlock();
-  }
-  lock_out.unlock();
   while (true) {
     cv::Mat frame;
     cap.read(frame);
@@ -80,24 +69,19 @@ void FrameGenerator::thread_body(void) {
 }
 
 RawFrame FrameGenerator::next_frame(void) {
-  printf("next_frame()\n");
+  // Lock so only a single thread can get next frame at once
   lock_out.lock();
+
+  // Block until frame delay has elapsed
   std::chrono::duration<double, std::milli> t_since_last_request =
       std::chrono::steady_clock::now() - t_previous_capture;
-
   while (t_since_last_request <= std::chrono::milliseconds(*frame_delay)) {
     t_since_last_request =
         std::chrono::steady_clock::now() - t_previous_capture;
   }
   t_previous_capture = std::chrono::steady_clock::now();
 
-  printf("about to lock in next_frame()\n");
-  std::fflush(stdout);
-
   lock.lock();
-  printf("got lock in next_frame()\n");
-  std::fflush(stdout);
-
   auto output = RawFrame{id++, current_frame};
   lock.unlock();
   lock_out.unlock();
@@ -106,7 +90,6 @@ RawFrame FrameGenerator::next_frame(void) {
 
 void Pipeline::core_thread_body(Inference::InferenceCore core) {
   while (running) {
-
     auto raw_next_frame = frame_generator.next_frame();
     auto preprocessed_image = preprocessor.run(raw_next_frame.raw_image);
 
@@ -119,7 +102,6 @@ void Pipeline::core_thread_body(Inference::InferenceCore core) {
 
 void Pipeline::post_processing_thread_body() {
   while (running) {
-
     auto next_frame = core_results.pop();
 
     auto pose_result = posture_estimator.runEstimator(
@@ -141,7 +123,6 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       post_processor(0.1,
                      IIR::SmoothingSettings{std::vector<std::vector<float>>{}}),
       posture_estimator(),
-      // preprocessed_frames(&this->running, num_inference_core_threads),
       frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
@@ -160,10 +141,6 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
   std::thread post_processing_thread(
       &Pipeline::Pipeline::post_processing_thread_body, this);
   threads.push_back(std::move(post_processing_thread));
-
-  // Start capturing frames after everything is set up
-  std::thread input_thread(&Pipeline::Pipeline::input_thread_body, this);
-  threads.push_back(std::move(input_thread));
 }
 
 Pipeline::~Pipeline() {
@@ -185,7 +162,7 @@ float Pipeline::increase_framerate(void) {
     // Won't be too low, so can update
     frame_delay = new_frame_delay;
   }
-  return 1.0 / frame_delay;
+  return 1000.0 / frame_delay;
 }
 
 float Pipeline::decrease_framerate(void) {
@@ -195,10 +172,10 @@ float Pipeline::decrease_framerate(void) {
     // Won't be too high, so can update
     frame_delay = new_frame_delay;
   }
-  return 1.0 / frame_delay;
+  return 1000.0 / frame_delay;
 }
 
-float Pipeline::get_framerate(void) { return 1.0 / frame_delay; }
+float Pipeline::get_framerate(void) { return 1000.0 / frame_delay; }
 
 void Pipeline::set_ideal_posture(PostProcessing::ProcessedResults posture) {
   posture_estimator.update_ideal_pose(posture);
