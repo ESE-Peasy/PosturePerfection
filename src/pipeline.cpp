@@ -48,10 +48,13 @@ FrameGenerator::FrameGenerator(size_t* frame_delay)
   thread = std::move(t);
 }
 
-FrameGenerator::~FrameGenerator() { thread.join(); }
+FrameGenerator::~FrameGenerator() {
+  running = false;
+  thread.join();
+}
 
 void FrameGenerator::thread_body(void) {
-  while (true) {
+  while (running) {
     cv::Mat frame;
     cap.read(frame);
 

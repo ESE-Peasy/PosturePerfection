@@ -309,6 +309,12 @@ class FrameGenerator {
    */
   void thread_body(void);
 
+  /**
+   * @brief Flag to tell `thread_body` whether or not it should be running
+   *
+   */
+  bool running = true;
+
  public:
   /**
    * @brief Construct a new Frame Generator object
