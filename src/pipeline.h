@@ -36,6 +36,10 @@
 #include "posture_estimator.h"
 #include "pre_processor.h"
 
+#define FRAME_DELAY_MAX 2000      ///< Maximum settable frame delay, i.e., 0.5Hz
+#define FRAME_DELAY_MIN 50        ///< Minimum settable frame delay, i.e., 20Hz
+#define FRAME_DELAY_DEFAULT 1000  ///< Default delay between frames in ms
+
 /**
  * @brief Components of the pipeline at the core of the system
  *
@@ -62,9 +66,12 @@ namespace Pipeline {
 template <typename T>
 class Buffer {
  private:
-  std::mutex lock_in;   ///< `std::mutex` for input to the object
-  std::mutex lock_out;  ///< `std::mutex` for output of the object
-  std::deque<T> queue;  ///< Underlying queueing mechanism
+  std::mutex lock_in;    ///< `std::mutex` for input to the object
+  std::mutex lock_out;   ///< `std::mutex` for output of the object
+  std::vector<T> queue;  ///< Underlying queueing mechanism
+
+  size_t front_index = 0;
+  size_t back_index = 0;
 
   /**
    * @brief Flag to indicate if the pipeline is running
@@ -85,24 +92,25 @@ class Buffer {
    */
   uint8_t id = -1;
 
-  /**
-   * @brief The maximum size of the queue to build up
-   *
-   * The queue's size cannot be expanded past this limit and this is enforced by
-   * the push methods.
-   *
-   */
-  size_t max_size;
+  size_t size(void) {
+    int size = back_index - front_index;
+    if (size < 0) {
+      return (queue.size() + size);
+    }
+    return size;
+  }
+
+  bool full = false;
 
  public:
   /**
    * @brief Construct a new `Buffer` object
    *
    * @param running_ptr Pointer to the `Pipeline::Pipeline::running` flag
-   * @param size_t The maximum size of the `Buffer`
+   * @param max_size Maximum desired useable size of underlying memory
    */
   explicit Buffer(bool* running_ptr, size_t max_size)
-      : running(running_ptr), max_size(max_size) {}
+      : running(running_ptr), queue(max_size) {}
 
   /**
    * @brief Push a frame to the queue
@@ -116,8 +124,13 @@ class Buffer {
   void push(T frame) {
     while (*running) {
       lock_in.lock();
-      if ((uint8_t)(id + 1) == frame.id && queue.size() + 1 <= max_size) {
-        queue.push_back(frame);
+      if ((uint8_t)(id + 1) == frame.id && !full) {
+        queue.at(back_index) = frame;
+        back_index = (back_index + 1) % queue.size();
+        if (back_index == front_index) {
+          full = true;
+        }
+
         id++;
         lock_in.unlock();
         break;
@@ -142,13 +155,18 @@ class Buffer {
     while (*running) {
       // Immediately return if the queue is full
       lock_in.lock();
-      if (queue.size() + 1 > max_size) {
+      if (full) {
         lock_in.unlock();
         return false;
       }
 
       if ((uint8_t)(id + 1) == frame.id) {
-        queue.push_back(frame);
+        queue.at(back_index) = frame;
+        back_index = (back_index + 1) % queue.size();
+        if (front_index == back_index) {
+          full = true;
+        }
+
         id++;
         lock_in.unlock();
         return true;
@@ -167,9 +185,11 @@ class Buffer {
     T front;
     while (*running) {
       this->lock_out.lock();
-      if (!this->queue.empty()) {
-        front = this->queue.front();
-        this->queue.pop_front();
+      if (size() != 0 || full) {
+        front = this->queue.at(front_index);
+        front_index = (front_index + 1) % queue.size();
+        full = false;
+
         this->lock_out.unlock();
         break;
       }
@@ -242,6 +262,12 @@ class Pipeline {
    */
   bool running;
 
+  /**
+   * @brief Currently set delay between frames in ms
+   *
+   */
+  size_t frame_delay = FRAME_DELAY_DEFAULT;
+
   PreProcessing::PreProcessor preprocessor;
   PostProcessing::PostProcessor post_processor;
   PostureEstimating::PostureEstimator posture_estimator;
@@ -300,6 +326,50 @@ class Pipeline {
    *
    */
   ~Pipeline();
+
+  /**
+   * @brief Set the confidence threshold
+   *
+   * @param threshold New threshold to set
+   * @return `true` If updating the threshold succeeded
+   * @return `false` If updating the threshold did not succeed
+   */
+  bool set_confidence_threshold(float threshold);
+
+  /**
+   * @brief Increment the frame rate to the next predefined value
+   *
+   * If the maximum frame rate of the system is reached, it will not be
+   * increased further and the current (unchanged) frame rate is returned.
+   *
+   * @return float Currently set frame rate in Hz
+   */
+  float increase_framerate(void);
+
+  /**
+   * @brief Decrement the frame rate to the next predefined value
+   *
+   * If the minimum frame rate of the system is reached, it will not be
+   * decreased further and the current (unchanged) frame rate is returned.
+   *
+   * @return float Currently set frame rate in Hz
+   */
+  float decrease_framerate(void);
+
+  /**
+   * @brief Get the frame rate
+   *
+   * @return float currently set frame rate in Hz
+   */
+  float get_framerate(void);
+
+  /**
+   * @brief Set the ideal posture
+   *
+   * @param posture A previous frame's posture that is to be used as the new
+   * ideal posture
+   */
+  void set_ideal_posture(PostProcessing::ProcessedResults posture);
 };
 }  // namespace Pipeline
 #endif  // SRC_PIPELINE_H_
