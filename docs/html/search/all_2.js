@@ -15,6 +15,8 @@ var searchData=
   ['coord_30',['coord',['../structPostureEstimating_1_1ConnectedJoint.html#a16a855b50e927a37b3c2dbdcdedd2a17',1,'PostureEstimating::ConnectedJoint']]],
   ['coordinate_31',['Coordinate',['../structInference_1_1Coordinate.html',1,'Inference::Coordinate'],['../structPostProcessing_1_1Coordinate.html',1,'PostProcessing::Coordinate']]],
   ['coreresults_32',['CoreResults',['../structPipeline_1_1CoreResults.html',1,'Pipeline']]],
-  ['createpose_33',['createPose',['../namespacePostureEstimating.html#a2deac6e18a1012d21d7d1cd72e22e28a',1,'PostureEstimating']]],
-  ['current_5fpose_34',['current_pose',['../structPostureEstimating_1_1PoseStatus.html#acfbec116ff61d22b8adfc32015d84381',1,'PostureEstimating::PoseStatus::current_pose()'],['../classPostureEstimating_1_1PostureEstimator.html#a140d626b0ec48aa10183ff5ef88364a0',1,'PostureEstimating::PostureEstimator::current_pose()']]]
+  ['createmainpage_33',['createMainPage',['../classGUI_1_1MainWindow.html#a08474b2d05747fcc32d55ba7209d5209',1,'GUI::MainWindow']]],
+  ['createpose_34',['createPose',['../namespacePostureEstimating.html#a2deac6e18a1012d21d7d1cd72e22e28a',1,'PostureEstimating']]],
+  ['createsettingspage_35',['createSettingsPage',['../classGUI_1_1MainWindow.html#a583c7c30730686b4952a4bdc95b421b8',1,'GUI::MainWindow']]],
+  ['current_5fpose_36',['current_pose',['../structPostureEstimating_1_1PoseStatus.html#acfbec116ff61d22b8adfc32015d84381',1,'PostureEstimating::PoseStatus::current_pose()'],['../classPostureEstimating_1_1PostureEstimator.html#a140d626b0ec48aa10183ff5ef88364a0',1,'PostureEstimating::PostureEstimator::current_pose()']]]
 ];
