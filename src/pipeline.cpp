@@ -129,7 +129,6 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
-  
   if (num_inference_core_threads == 0) {
     throw std::invalid_argument("num_inference_core_threads must not be zero");
   }
@@ -164,13 +163,10 @@ bool Pipeline::set_confidence_threshold(float threshold) {
 
 float Pipeline::increase_framerate(void) {
   // Increasing frame rate means decreasing frame delay
-  cout << "Current frame delay " << frame_delay << "\n";
   auto new_frame_delay = frame_delay >> 1;
-  cout << "Potential frame delay "  << new_frame_delay << "\n";
   if (new_frame_delay >= FRAME_DELAY_MIN) {
     // Won't be too low, so can update
     frame_delay = new_frame_delay;
-    cout << "Updated frame delay "  << 1000.0/frame_delay << "\n";
   }
   return 1000.0 / frame_delay;
 }
