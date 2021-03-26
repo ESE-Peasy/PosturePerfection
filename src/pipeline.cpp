@@ -122,6 +122,8 @@ void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status, cv::Mat 
 
   std::array<cv::Scalar, JointMax+1> colors = {cv::Scalar(0,255,0), cv::Scalar(255,0,0), cv::Scalar(0,0,255), cv::Scalar(255,255,0), cv::Scalar(0,255,255), cv::Scalar(255,0,255)};
 
+  cv::cvtColor(raw_image, raw_image, cv::COLOR_BGR2RGB);
+
   for (int i = JointMin + 1; i <= JointMax-2; i++) {
     if(current.joints[i].coord.status == PostProcessing::Trustworthy && current.joints[i-1].coord.status == PostProcessing::Trustworthy){
       cv::Point upper(static_cast<int>(current.joints[i-1].coord.x * imageWidth), 
