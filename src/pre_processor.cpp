@@ -45,8 +45,8 @@ PreProcessedImage PreProcessor::run(cv::Mat cv_image) {
   cv::resize(cv_image, cv_image, cv::Size(model_width, model_height));
   uint8_t* resized_image = cv_image.data;
 
-  float* normalised_image =
-      reinterpret_cast<float*>(malloc(model_width * model_height * 3 * sizeof(float)));
+  float* normalised_image = reinterpret_cast<float*>(
+      malloc(model_width * model_height * 3 * sizeof(float)));
 
   normalise(resized_image, normalised_image);
 

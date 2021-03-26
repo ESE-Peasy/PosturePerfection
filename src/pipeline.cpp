@@ -114,26 +114,27 @@ void Pipeline::post_processing_thread_body() {
   }
 }
 
-void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status, cv::Mat raw_image){
+void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
+                             cv::Mat raw_image) {
   PostureEstimating::Pose current = pose_status.current_pose;
 
   int imageWidth = raw_image.cols;
   int imageHeight = raw_image.rows;
 
-  std::array<cv::Scalar, JointMax+1> colors = {cv::Scalar(0,255,0), cv::Scalar(255,0,0), cv::Scalar(0,0,255), cv::Scalar(255,255,0), cv::Scalar(0,255,255), cv::Scalar(255,0,255)};
-
   cv::cvtColor(raw_image, raw_image, cv::COLOR_BGR2RGB);
 
-  for (int i = JointMin + 1; i <= JointMax-2; i++) {
-    if(current.joints[i].coord.status == PostProcessing::Trustworthy && current.joints[i-1].coord.status == PostProcessing::Trustworthy){
-      cv::Point upper(static_cast<int>(current.joints[i-1].coord.x * imageWidth), 
-                    static_cast<int>(current.joints[i-1].coord.y * imageHeight));
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    if (current.joints[i].coord.status == PostProcessing::Trustworthy &&
+        current.joints[i - 1].coord.status == PostProcessing::Trustworthy) {
+      cv::Point upper(
+          static_cast<int>(current.joints[i - 1].coord.x * imageWidth),
+          static_cast<int>(current.joints[i - 1].coord.y * imageHeight));
 
       cv::Point curr(static_cast<int>(current.joints[i].coord.x * imageWidth),
-                   static_cast<int>(current.joints[i].coord.y * imageHeight));
-      cv::line(raw_image, upper, curr, colors.at(i), 5);
+                     static_cast<int>(current.joints[i].coord.y * imageHeight));
+      cv::line(raw_image, upper, curr, colours.at(i), 5);
     }
-  }  
+  }
 }
 
 Pipeline::Pipeline(uint8_t num_inference_core_threads,
@@ -146,7 +147,6 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
-  
   if (num_inference_core_threads == 0) {
     throw std::invalid_argument("num_inference_core_threads must not be zero");
   }
