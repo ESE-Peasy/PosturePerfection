@@ -110,7 +110,7 @@ void Pipeline::post_processing_thread_body() {
 
     overlay_image(pose_result, next_frame.raw_image);
 
-    //callback(pose_result, next_frame.raw_image);
+    callback(pose_result, next_frame.raw_image);
   }
 }
 
@@ -120,17 +120,18 @@ void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status, cv::Mat 
   int imageWidth = raw_image.cols;
   int imageHeight = raw_image.rows;
 
-  for (int i = JointMin + 1; i <= JointMax; i++) {
-    cv::Point upper(static_cast<int>(current.joints[i-1].coord.x * imageWidth), 
+  std::array<cv::Scalar, JointMax+1> colors = {cv::Scalar(0,255,0), cv::Scalar(255,0,0), cv::Scalar(0,0,255), cv::Scalar(255,255,0), cv::Scalar(0,255,255), cv::Scalar(255,0,255)};
+
+  for (int i = JointMin + 1; i <= JointMax-2; i++) {
+    if(current.joints[i].coord.status == PostProcessing::Trustworthy && current.joints[i-1].coord.status == PostProcessing::Trustworthy){
+      cv::Point upper(static_cast<int>(current.joints[i-1].coord.x * imageWidth), 
                     static_cast<int>(current.joints[i-1].coord.y * imageHeight));
 
-    cv::Point curr(static_cast<int>(current.joints[i].coord.x * imageWidth),
+      cv::Point curr(static_cast<int>(current.joints[i].coord.x * imageWidth),
                    static_cast<int>(current.joints[i].coord.y * imageHeight));
-    cv::line(raw_image, upper, curr, cv::Scalar(0,255,0), 5);    
-  }
-  
-  cv::imshow("Live", raw_image);
-  cv::waitKey(5);
+      cv::line(raw_image, upper, curr, colors.at(i), 5);
+    }
+  }  
 }
 
 Pipeline::Pipeline(uint8_t num_inference_core_threads,
