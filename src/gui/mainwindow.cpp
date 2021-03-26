@@ -31,6 +31,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline* pipeline, QWidget *parent) : QMa
   // Create the different GUI pages
   createMainPage();
   createSettingsPage(pipeline);
+  pipelinePtr = pipeline;
 
   // Stack the pages within the mainwindow
   QStackedWidget *stackedWidget = new QStackedWidget;
@@ -106,6 +107,10 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline* pipeline, QWidget *parent) : QMa
   setWindowTitle(tr("Posture Perfection"));
 }
 
+void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
+  currentPose = poseStatus;
+}
+
 void GUI::MainWindow::createMainPage() {
   initalFrame();
   firstPageWidget->setLayout(mainPageLayout);
@@ -130,6 +135,9 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   confidenceLabel->setText("Confidence Threshold");
   confidenceLabel->setStyleSheet("QLabel {color : white; }");
   QSlider *slider = new QSlider(Qt::Horizontal, this);
+  slider->setMinimum(0);
+  slider->setMaximum(10);
+  slider->setTickInterval(1);
   vertThreshold->setSpacing(0);
   vertThreshold->setMargin(0);
   vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
@@ -137,6 +145,8 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   groupThreshold->setLayout(vertThreshold);
 
   settingsPageLayout->addWidget(groupThreshold, 1, 0);
+
+  connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setThresholdValue(int)));
   
   // Let user adjust the video framerate
   QGridLayout *framerate = new QGridLayout;
@@ -146,6 +156,9 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   QPushButton *downFramerate = new QPushButton("&Down");
   framerate->addWidget(upFramerate, 0, 1, 1, 1, Qt::AlignLeft);
   framerate->addWidget(downFramerate, 2, 1, 1, 1, Qt::AlignLeft);
+
+  connect(upFramerate, SIGNAL(clicked()), this, SLOT(increaseVideoFramerate()));
+  connect(downFramerate, SIGNAL(clicked()), this, SLOT(decreaseVideoFramerate()));
   
   QLabel *currentFrame = new QLabel();
   currentFrame->setText("Frame Rate: 100");
@@ -160,12 +173,31 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
 
   QPushButton *idealPosture = new QPushButton("&Ideal Posture");
   framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
+  connect(idealPosture, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
 
   QGroupBox *groupFramerate= new QGroupBox();
   groupFramerate->setLayout(framerate);
   settingsPageLayout->addWidget(groupFramerate, 2, 0);
 
   secondPageWidget->setLayout(settingsPageLayout);
+}
+
+void GUI::MainWindow::setIdealPosture() {
+  pipelinePtr->set_ideal_posture(currentPose);
+}
+
+
+void GUI::MainWindow::setThresholdValue(int scaledValue) {
+  float value = (float)scaledValue / 10.0;
+  pipelinePtr->set_confidence_threshold(scaledValue);
+}
+
+void GUI::MainWindow::increaseVideoFramerate() {
+  pipelinePtr->increase_framerate();
+}
+
+void GUI::MainWindow::decreaseVideoFramerate() {
+  pipelinePtr->decrease_framerate();
 }
 
 void GUI::MainWindow::showDateTime() {

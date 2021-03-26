@@ -102,7 +102,16 @@ class MainWindow : public QMainWindow {
    */
   void createSettingsPage(Pipeline::Pipeline *pipeline);
 
+  void updatePose(PostureEstimating::PoseStatus poseStatus);
+
  public slots:
+  void setThresholdValue(int);
+
+  void increaseVideoFramerate();
+
+  void decreaseVideoFramerate();
+
+  void setIdealPosture();
 
  signals:
 
@@ -116,6 +125,9 @@ class MainWindow : public QMainWindow {
    * @brief Create the inital video feed frame with the PosturePerfection logo
    */
   void initalFrame();
+
+  Pipeline::Pipeline* pipelinePtr = nullptr;
+  PostureEstimating::PoseStatus currentPose;
 
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;

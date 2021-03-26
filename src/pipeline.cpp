@@ -182,8 +182,8 @@ float Pipeline::decrease_framerate(void) {
 
 float Pipeline::get_framerate(void) { return 1000.0 / frame_delay; }
 
-void Pipeline::set_ideal_posture(PostProcessing::ProcessedResults posture) {
-  posture_estimator.update_ideal_pose(posture);
+void Pipeline::set_ideal_posture(PostureEstimating::PoseStatus pose) {
+  posture_estimator.update_ideal_pose(pose);
 }
 
 }  // namespace Pipeline

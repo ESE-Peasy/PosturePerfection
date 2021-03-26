@@ -160,9 +160,8 @@ bool PostureEstimator::updateCurrentPoseAndCheckPosture(
   return this->good_posture;
 }
 
-void PostureEstimator::update_ideal_pose(
-    PostProcessing::ProcessedResults results) {
-  this->ideal_pose = createPoseFromResult(results);
+void PostureEstimator::update_ideal_pose(PostureEstimating::PoseStatus pose) {
+  this->ideal_pose = pose.current_pose;
 }
 
 PoseStatus PostureEstimator::runEstimator(
