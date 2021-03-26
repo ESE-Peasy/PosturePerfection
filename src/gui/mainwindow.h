@@ -104,6 +104,8 @@ class MainWindow : public QMainWindow {
 
   void updatePose(PostureEstimating::PoseStatus poseStatus);
 
+  void setOutputFramerate();
+
  public slots:
   void setThresholdValue(int);
 
@@ -128,6 +130,9 @@ class MainWindow : public QMainWindow {
 
   Pipeline::Pipeline* pipelinePtr = nullptr;
   PostureEstimating::PoseStatus currentPose;
+  QGridLayout *framerate = new QGridLayout;
+  QLabel *currentFrame = new QLabel();
+
 
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;

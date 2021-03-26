@@ -27,6 +27,8 @@
 #include "../posture_estimator.h"
 #include "settingswindow.h"
 
+using namespace std;
+
 GUI::MainWindow::MainWindow(Pipeline::Pipeline* pipeline, QWidget *parent) : QMainWindow(parent) {
   // Create the different GUI pages
   createMainPage();
@@ -132,7 +134,7 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
 
   // Allow user to select the confidence threshold
   QLabel *confidenceLabel = new QLabel();
-  confidenceLabel->setText("Confidence Threshold");
+  confidenceLabel->setText("Posture Estimating Sensitivity");
   confidenceLabel->setStyleSheet("QLabel {color : white; }");
   QSlider *slider = new QSlider(Qt::Horizontal, this);
   slider->setMinimum(0);
@@ -149,7 +151,6 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setThresholdValue(int)));
   
   // Let user adjust the video framerate
-  QGridLayout *framerate = new QGridLayout;
   framerate->setSpacing(0);
   framerate->setMargin(0);
   QPushButton *upFramerate = new QPushButton("&Up");
@@ -159,9 +160,8 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
 
   connect(upFramerate, SIGNAL(clicked()), this, SLOT(increaseVideoFramerate()));
   connect(downFramerate, SIGNAL(clicked()), this, SLOT(decreaseVideoFramerate()));
-  
-  QLabel *currentFrame = new QLabel();
-  currentFrame->setText("Frame Rate: 100");
+
+  currentFrame->setText("Frame Rate: 1 fps");
   currentFrame->setStyleSheet("QLabel {color : white; }");
   framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
 
@@ -194,10 +194,18 @@ void GUI::MainWindow::setThresholdValue(int scaledValue) {
 
 void GUI::MainWindow::increaseVideoFramerate() {
   pipelinePtr->increase_framerate();
+  setOutputFramerate();
+}
+
+void GUI::MainWindow::setOutputFramerate() {
+  float newFramerate = pipelinePtr->get_framerate();
+  QString output = "Frame Rate: " + QString::number(newFramerate) + " fps";
+  currentFrame->setText(output);
 }
 
 void GUI::MainWindow::decreaseVideoFramerate() {
   pipelinePtr->decrease_framerate();
+  setOutputFramerate();
 }
 
 void GUI::MainWindow::showDateTime() {
