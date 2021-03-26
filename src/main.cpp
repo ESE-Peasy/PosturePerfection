@@ -51,6 +51,5 @@ int main(int argc, char* argv[]) {
   w.showMaximized();
 
   main_window_ptr = &w;
-
   return a.exec();
 }

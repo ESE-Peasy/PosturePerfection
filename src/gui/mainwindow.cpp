@@ -27,8 +27,6 @@
 #include "../posture_estimator.h"
 #include "settingswindow.h"
 
-using namespace std;
-
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
   // Create the different GUI pages
@@ -111,7 +109,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 }
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
-  currentPose = poseStatus;
+  currentPoseStatus = poseStatus;
 }
 
 void GUI::MainWindow::createMainPage() {
@@ -186,11 +184,11 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
 }
 
 void GUI::MainWindow::setIdealPosture() {
-  pipelinePtr->set_ideal_posture(currentPose);
+  pipelinePtr->set_ideal_posture(currentPoseStatus.current_pose);
 }
 
 void GUI::MainWindow::setThresholdValue(int scaledValue) {
-  float value = (float)scaledValue / 10.0;
+  float value = static_cast<float>(scaledValue) / 10.0;
   pipelinePtr->set_confidence_threshold(scaledValue);
 }
 

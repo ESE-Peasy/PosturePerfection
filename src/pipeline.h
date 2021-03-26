@@ -486,7 +486,7 @@ class Pipeline {
    * @param pose A previous frame's posture that is to be used as the new
    * ideal posture
    */
-  void set_ideal_posture(PostureEstimating::PoseStatus pose);
+  void set_ideal_posture(PostureEstimating::Pose pose);
 };
 }  // namespace Pipeline
 #endif  // SRC_PIPELINE_H_

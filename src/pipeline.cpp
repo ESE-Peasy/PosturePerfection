@@ -25,8 +25,6 @@
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
 
-using namespace std;
-
 namespace Pipeline {
 
 FrameGenerator::FrameGenerator(size_t* frame_delay)
@@ -183,7 +181,7 @@ float Pipeline::decrease_framerate(void) {
 
 float Pipeline::get_framerate(void) { return 1000.0 / frame_delay; }
 
-void Pipeline::set_ideal_posture(PostureEstimating::PoseStatus pose) {
+void Pipeline::set_ideal_posture(PostureEstimating::Pose pose) {
   posture_estimator.update_ideal_pose(pose);
 }
 

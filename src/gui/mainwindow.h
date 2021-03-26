@@ -154,7 +154,7 @@ class MainWindow : public QMainWindow {
   void initalFrame();
 
   Pipeline::Pipeline *pipelinePtr = nullptr;
-  PostureEstimating::PoseStatus currentPose;
+  PostureEstimating::PoseStatus currentPoseStatus;
   QGridLayout *framerate = new QGridLayout;
   QLabel *currentFrame = new QLabel();
 

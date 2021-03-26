@@ -222,7 +222,7 @@ class PostureEstimator {
    * @param results `PostureEstimating::PoseStatus` struct containing user's
    * pose data.
    */
-  void update_ideal_pose(PostureEstimating::PoseStatus pose);
+  void update_ideal_pose(PostureEstimating::Pose pose);
 
   /**
    * @brief Return a `PoseStatus` of the user's pose
