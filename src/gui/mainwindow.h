@@ -100,7 +100,7 @@ class MainWindow : public QMainWindow {
    * @brief Creates the settings page within the application
    *
    */
-  void createSettingsPage();
+  void createSettingsPage(Pipeline::Pipeline *pipeline);
 
  public slots:
 

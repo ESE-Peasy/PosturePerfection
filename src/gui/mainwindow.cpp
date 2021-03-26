@@ -27,10 +27,10 @@
 #include "../posture_estimator.h"
 #include "settingswindow.h"
 
-GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent) : QMainWindow(parent) {
+GUI::MainWindow::MainWindow(Pipeline::Pipeline* pipeline, QWidget *parent) : QMainWindow(parent) {
   // Create the different GUI pages
   createMainPage();
-  createSettingsPage();
+  createSettingsPage(pipeline);
 
   // Stack the pages within the mainwindow
   QStackedWidget *stackedWidget = new QStackedWidget;
@@ -111,10 +111,38 @@ void GUI::MainWindow::createMainPage() {
   firstPageWidget->setLayout(mainPageLayout);
 }
 
-void GUI::MainWindow::createSettingsPage() {
-  QLabel *label2 = new QLabel();
-  label2->setText("This is the settings page");
-  settingsPageLayout->addWidget(label2, 0, 1);
+void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
+  QGroupBox *groupThreshold= new QGroupBox();
+  QVBoxLayout *vertThreshold = new QVBoxLayout;
+
+  QLabel *settingsTitle = new QLabel();
+  settingsTitle->setText("Settings Page");
+  settingsTitle->setStyleSheet("QLabel {color : white; }");
+  QFont font = settingsTitle->font();
+  font.setPointSize(37);
+  font.setBold(true);
+  settingsTitle->setFont(font);
+  settingsPageLayout->addWidget(settingsTitle, 0,0, Qt::AlignCenter);
+
+
+  QLabel *confidenceLabel = new QLabel();
+  confidenceLabel->setText("Confidence Threshold");
+  confidenceLabel->setStyleSheet("QLabel {color : white; }");
+  QSlider *slider = new QSlider(Qt::Horizontal, this);
+  vertThreshold->setSpacing(0);
+  vertThreshold->setMargin(0);
+  vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
+  vertThreshold->addWidget(slider, 0, Qt::AlignTop);
+  groupThreshold->setLayout(vertThreshold);
+
+  settingsPageLayout->addWidget(groupThreshold, 1, 0);
+  QLabel *label3 = new QLabel();
+  label3->setText("Confidence Threshold 2");
+  settingsPageLayout->addWidget(label3, 2, 0);
+
+
+  
+  
   secondPageWidget->setLayout(settingsPageLayout);
 }
 
