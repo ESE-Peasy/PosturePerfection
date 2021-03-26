@@ -115,6 +115,7 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   QGroupBox *groupThreshold= new QGroupBox();
   QVBoxLayout *vertThreshold = new QVBoxLayout;
 
+  // Create Setting's page title
   QLabel *settingsTitle = new QLabel();
   settingsTitle->setText("Settings Page");
   settingsTitle->setStyleSheet("QLabel {color : white; }");
@@ -124,7 +125,7 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   settingsTitle->setFont(font);
   settingsPageLayout->addWidget(settingsTitle, 0,0, Qt::AlignCenter);
 
-
+  // Allow user to select the confidence threshold
   QLabel *confidenceLabel = new QLabel();
   confidenceLabel->setText("Confidence Threshold");
   confidenceLabel->setStyleSheet("QLabel {color : white; }");
@@ -137,6 +138,7 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
 
   settingsPageLayout->addWidget(groupThreshold, 1, 0);
   
+  // Let user adjust the video framerate
   QGridLayout *framerate = new QGridLayout;
   framerate->setSpacing(0);
   framerate->setMargin(0);
@@ -145,11 +147,19 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   framerate->addWidget(upFramerate, 0, 1, 1, 1, Qt::AlignLeft);
   framerate->addWidget(downFramerate, 2, 1, 1, 1, Qt::AlignLeft);
   
-
   QLabel *currentFrame = new QLabel();
   currentFrame->setText("Frame Rate: 100");
   currentFrame->setStyleSheet("QLabel {color : white; }");
   framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
+
+  // Let the user take their current posture as the ideal posture
+  QLabel *idealLabel= new QLabel();
+  idealLabel->setText("Set Ideal Posture ->");
+  idealLabel->setStyleSheet("QLabel {color : white; }");
+  framerate->addWidget(idealLabel, 1, 2, 1, 1, Qt::AlignRight);
+
+  QPushButton *idealPosture = new QPushButton("&Ideal Posture");
+  framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
 
   QGroupBox *groupFramerate= new QGroupBox();
   groupFramerate->setLayout(framerate);
