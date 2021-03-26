@@ -136,13 +136,25 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   groupThreshold->setLayout(vertThreshold);
 
   settingsPageLayout->addWidget(groupThreshold, 1, 0);
-  QLabel *label3 = new QLabel();
-  label3->setText("Confidence Threshold 2");
-  settingsPageLayout->addWidget(label3, 2, 0);
-
-
   
+  QGridLayout *framerate = new QGridLayout;
+  framerate->setSpacing(0);
+  framerate->setMargin(0);
+  QPushButton *upFramerate = new QPushButton("&Up");
+  QPushButton *downFramerate = new QPushButton("&Down");
+  framerate->addWidget(upFramerate, 0, 1, 1, 1, Qt::AlignLeft);
+  framerate->addWidget(downFramerate, 2, 1, 1, 1, Qt::AlignLeft);
   
+
+  QLabel *currentFrame = new QLabel();
+  currentFrame->setText("Frame Rate: 100");
+  currentFrame->setStyleSheet("QLabel {color : white; }");
+  framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
+
+  QGroupBox *groupFramerate= new QGroupBox();
+  groupFramerate->setLayout(framerate);
+  settingsPageLayout->addWidget(groupFramerate, 2, 0);
+
   secondPageWidget->setLayout(settingsPageLayout);
 }
 
