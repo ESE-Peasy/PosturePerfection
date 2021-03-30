@@ -369,6 +369,15 @@ struct CoreResults {
 class Pipeline {
  private:
   /**
+  * @brief Array of colours used to display lines between detected joints
+  *
+  */
+  std::array<cv::Scalar, JointMax + 1> colours = {
+        cv::Scalar(0, 255, 0),   cv::Scalar(255, 0, 0),
+        cv::Scalar(0, 0, 255),   cv::Scalar(255, 255, 0),
+        cv::Scalar(0, 255, 255), cv::Scalar(255, 0, 255)};
+
+  /**
    * @brief Vector of all threads created in the pipeline
    *
    * The de-constructor iterates through this and calls `join()` an each thread
@@ -422,6 +431,14 @@ class Pipeline {
    *
    */
   void (*callback)(PostureEstimating::PoseStatus, cv::Mat);
+
+  /**
+   * @brief Function to overlay a stick figure of user posture over the input
+   * image
+   *
+   */
+  void overlay_image(PostureEstimating::PoseStatus pose_status,
+                     cv::Mat raw_image);
 
  public:
   /**
