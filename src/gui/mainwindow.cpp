@@ -70,7 +70,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
   title->setScaledContents(true);
-  QPixmap pix("src/gui/posture-logo.png");
+  QPixmap pix("images/logo.png");
   title->setPixmap(pix);
   title->setMinimumSize(10, 10);
   title->setMaximumSize(250, 125);
@@ -235,7 +235,7 @@ GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
 void GUI::MainWindow::initalFrame() {
   QLabel *frame = new QLabel();
-  cv::Mat img = cv::imread("src/gui/posture-logo.png");
+  cv::Mat img = cv::imread("images/logo.png");
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
                         img.data,
                         img.cols, img.rows, img.step, QImage::Format_RGB888);
