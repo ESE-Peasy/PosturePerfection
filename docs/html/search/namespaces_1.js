@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['iir_229',['IIR',['../namespaceIIR.html',1,'']]],
-  ['inference_230',['Inference',['../namespaceInference.html',1,'']]]
+  ['iir_230',['IIR',['../namespaceIIR.html',1,'']]],
+  ['inference_231',['Inference',['../namespaceInference.html',1,'']]]
 ];
