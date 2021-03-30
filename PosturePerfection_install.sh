@@ -11,7 +11,7 @@ mkdir -p models && cd models
 wget https://github.com/ESE-Peasy/PosturePerfection/raw/main/models/EfficientPoseRT_LITE.tflite
 cd ..
 mkdir -p images && cd images
-wget https://github.com/ESE-Peasy/PosturePerfection/blob/main/images/logo.png  
+wget https://github.com/ESE-Peasy/PosturePerfection/raw/main/images/logo.png  
 cd ..
 
 # Download and install the PosturePerfection build of OpenCV
