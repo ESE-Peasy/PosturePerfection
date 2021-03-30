@@ -7,10 +7,10 @@ NO_COLOUR='\033[0m'
 
 # Download the model and logo
 printf "Downloading additional dependencies...\n"
-mkdir models && cd models
+mkdir -p models && cd models
 wget https://github.com/ESE-Peasy/PosturePerfection/raw/main/models/EfficientPoseRT_LITE.tflite
 cd ..
-mkdir images && cd images
+mkdir -p images && cd images
 wget https://github.com/ESE-Peasy/PosturePerfection/blob/main/images/logo.png  
 cd ..
 
