@@ -236,6 +236,8 @@ GUI::MainWindow::~MainWindow() { delete mainLayout; }
 void GUI::MainWindow::initalFrame() {
   QLabel *frame = new QLabel();
   cv::Mat img = cv::imread("images/logo.png");
+  // Switch from BGR to RGB
+  cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
                         img.data,
                         img.cols, img.rows, img.step, QImage::Format_RGB888);

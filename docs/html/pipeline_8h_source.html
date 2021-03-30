@@ -233,43 +233,51 @@ $(function() {
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
 <div class="line"><a name="l00369"></a><span class="lineno"><a class="line" href="classPipeline_1_1Pipeline.html">  369</a></span>&#160;<span class="keyword">class </span><a class="code" href="namespacePipeline.html">Pipeline</a> {</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;  std::vector&lt;std::thread&gt; threads;</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;  std::array&lt;cv::Scalar, JointMax + 1&gt; colours = {</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        cv::Scalar(0, 255, 0),   cv::Scalar(255, 0, 0),</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;        cv::Scalar(0, 0, 255),   cv::Scalar(255, 255, 0),</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        cv::Scalar(0, 255, 255), cv::Scalar(255, 0, 255)};</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  <span class="keywordtype">bool</span> running;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160; </div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;  <span class="keywordtype">size_t</span> frame_delay = <a class="code" href="pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b">FRAME_DELAY_DEFAULT</a>;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;  <a class="code" href="classPreProcessing_1_1PreProcessor.html">PreProcessing::PreProcessor</a> preprocessor;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;  <a class="code" href="classPostProcessing_1_1PostProcessor.html">PostProcessing::PostProcessor</a> post_processor;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;  <a class="code" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimating::PostureEstimator</a> posture_estimator;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  <a class="code" href="classPipeline_1_1FrameGenerator.html">FrameGenerator</a> frame_generator;</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  <a class="code" href="classPipeline_1_1Buffer.html">Buffer&lt;CoreResults&gt;</a> core_results;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;  <span class="keywordtype">void</span> core_thread_body(<a class="code" href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a>);</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  std::vector&lt;std::thread&gt; threads;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;  <span class="keywordtype">bool</span> running;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  <span class="keywordtype">size_t</span> frame_delay = <a class="code" href="pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b">FRAME_DELAY_DEFAULT</a>;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  <a class="code" href="classPreProcessing_1_1PreProcessor.html">PreProcessing::PreProcessor</a> preprocessor;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;  <a class="code" href="classPostProcessing_1_1PostProcessor.html">PostProcessing::PostProcessor</a> post_processor;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;  <a class="code" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimating::PostureEstimator</a> posture_estimator;</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;  <span class="keywordtype">void</span> post_processing_thread_body(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;  void (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat);</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="namespacePipeline.html">Pipeline</a>(uint8_t num_inference_core_threads,</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                    <span class="keywordtype">void</span> (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat));</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  ~<a class="code" href="namespacePipeline.html">Pipeline</a>();</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  <span class="keywordtype">bool</span> set_confidence_threshold(<span class="keywordtype">float</span> threshold);</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <a class="code" href="classPipeline_1_1FrameGenerator.html">FrameGenerator</a> frame_generator;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  <a class="code" href="classPipeline_1_1Buffer.html">Buffer&lt;CoreResults&gt;</a> core_results;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;  <span class="keywordtype">void</span> core_thread_body(<a class="code" href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a>);</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  <span class="keywordtype">void</span> post_processing_thread_body(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160; </div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;  void (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat);</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;  <span class="keywordtype">void</span> overlay_image(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a> pose_status,</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                     cv::Mat raw_image);</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160; </div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;  <span class="keyword">explicit</span> <a class="code" href="namespacePipeline.html">Pipeline</a>(uint8_t num_inference_core_threads,</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;                    <span class="keywordtype">void</span> (*callback)(<a class="code" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>, cv::Mat));</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160; </div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;  <span class="keywordtype">float</span> increase_framerate(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;  <span class="keywordtype">float</span> decrease_framerate(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160; </div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;  <span class="keywordtype">float</span> get_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;  ~<a class="code" href="namespacePipeline.html">Pipeline</a>();</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  <span class="keywordtype">bool</span> set_confidence_threshold(<span class="keywordtype">float</span> threshold);</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160; </div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;  <span class="keywordtype">float</span> increase_framerate(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160; </div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;  <span class="keywordtype">void</span> set_ideal_posture(<a class="code" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> posture);</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;};</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;}  <span class="comment">// namespace Pipeline</span></div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PIPELINE_H_</span></div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  <span class="keywordtype">float</span> decrease_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;  <span class="keywordtype">float</span> get_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160; </div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;  <span class="keywordtype">void</span> set_ideal_posture(<a class="code" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> posture);</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;};</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;}  <span class="comment">// namespace Pipeline</span></div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PIPELINE_H_</span></div>
 <div class="ttc" id="aclassInference_1_1InferenceCore_html"><div class="ttname"><a href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a></div><div class="ttdoc">A wrapper to make running inference easier.</div><div class="ttdef"><b>Definition:</b> inference_core.h:50</div></div>
 <div class="ttc" id="aclassPipeline_1_1Buffer_html"><div class="ttname"><a href="classPipeline_1_1Buffer.html">Pipeline::Buffer</a></div><div class="ttdoc">A synchronising buffer to be used as a communication mechanism between threads.</div><div class="ttdef"><b>Definition:</b> pipeline.h:69</div></div>
 <div class="ttc" id="aclassPipeline_1_1Buffer_html_a5be39610d75d446b134194803d20dfc6"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">Pipeline::Buffer::try_push</a></div><div class="ttdeci">bool try_push(T frame)</div><div class="ttdoc">Push a frame to the queue (doesn't block if queue is full)</div><div class="ttdef"><b>Definition:</b> pipeline.h:165</div></div>

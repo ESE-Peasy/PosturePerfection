@@ -38,6 +38,7 @@
 #include <QWidget>
 #include <QtCore/QVariant>
 #include <opencv2/imgcodecs.hpp>
+#include "opencv2/opencv.hpp"
 
 #include "../intermediate_structures.h"
 #include "../pipeline.h"
