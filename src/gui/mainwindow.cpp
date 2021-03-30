@@ -27,10 +27,12 @@
 #include "../posture_estimator.h"
 #include "settingswindow.h"
 
-GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
+    : QMainWindow(parent) {
   // Create the different GUI pages
   createMainPage();
-  createSettingsPage();
+  createSettingsPage(pipeline);
+  pipelinePtr = pipeline;
 
   // Stack the pages within the mainwindow
   QStackedWidget *stackedWidget = new QStackedWidget;
@@ -59,24 +61,16 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   resetButton->setStyleSheet(
       "background-color:rgb(10, 187, 228); border: none;");
 
-  QPushButton *modeButton = new QPushButton("&Modes");
-  modeButton->setStyleSheet(
-      "background-color:rgb(10, 187, 228); border: none;");
-  QPushButton *settingsButton = new QPushButton("&Settings");
-  settingsButton->setStyleSheet(
-      "background-color:rgb(10, 187, 228); border: none;");
   QVBoxLayout *buttonBox = new QVBoxLayout;
   buttonBox->addWidget(pageComboBox);
   buttonBox->addWidget(resetButton);
-  buttonBox->addWidget(modeButton);
-  buttonBox->addWidget(settingsButton);
   groupBoxButtons->setLayout(buttonBox);
 
   // Create a title
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
   title->setScaledContents(true);
-  QPixmap pix("src/gui/posture-logo.png");
+  QPixmap pix("images/logo.png");
   title->setPixmap(pix);
   title->setMinimumSize(10, 10);
   title->setMaximumSize(250, 125);
@@ -106,16 +100,104 @@ GUI::MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   setWindowTitle(tr("Posture Perfection"));
 }
 
+void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
+  currentPoseStatus = poseStatus;
+}
+
 void GUI::MainWindow::createMainPage() {
   initalFrame();
   firstPageWidget->setLayout(mainPageLayout);
 }
 
-void GUI::MainWindow::createSettingsPage() {
-  QLabel *label2 = new QLabel();
-  label2->setText("This is the settings page");
-  settingsPageLayout->addWidget(label2, 0, 1);
+void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
+  QGroupBox *groupThreshold = new QGroupBox();
+  QVBoxLayout *vertThreshold = new QVBoxLayout;
+
+  // Create Setting's page title
+  QLabel *settingsTitle = new QLabel();
+  settingsTitle->setText("Settings Page");
+  settingsTitle->setStyleSheet("QLabel {color : white; }");
+  QFont font = settingsTitle->font();
+  font.setPointSize(37);
+  font.setBold(true);
+  settingsTitle->setFont(font);
+  settingsPageLayout->addWidget(settingsTitle, 0, 0, Qt::AlignCenter);
+
+  // Allow user to select the confidence threshold
+  QLabel *confidenceLabel = new QLabel();
+  confidenceLabel->setText("Posture Estimating Sensitivity");
+  confidenceLabel->setStyleSheet("QLabel {color : white; }");
+  QSlider *slider = new QSlider(Qt::Horizontal, this);
+  slider->setMinimum(0);
+  slider->setMaximum(10);
+  slider->setTickInterval(1);
+  vertThreshold->setSpacing(0);
+  vertThreshold->setMargin(0);
+  vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
+  vertThreshold->addWidget(slider, 0, Qt::AlignTop);
+  groupThreshold->setLayout(vertThreshold);
+
+  settingsPageLayout->addWidget(groupThreshold, 1, 0);
+
+  connect(slider, SIGNAL(valueChanged(int)), this,
+          SLOT(setThresholdValue(int)));
+
+  // Let user adjust the video framerate
+  framerate->setSpacing(0);
+  framerate->setMargin(0);
+  QPushButton *upFramerate = new QPushButton("&Up");
+  QPushButton *downFramerate = new QPushButton("&Down");
+  framerate->addWidget(upFramerate, 0, 1, 1, 1, Qt::AlignLeft);
+  framerate->addWidget(downFramerate, 2, 1, 1, 1, Qt::AlignLeft);
+
+  connect(upFramerate, SIGNAL(clicked()), this, SLOT(increaseVideoFramerate()));
+  connect(downFramerate, SIGNAL(clicked()), this,
+          SLOT(decreaseVideoFramerate()));
+
+  currentFrame->setText("Frame Rate: 1 fps");
+  currentFrame->setStyleSheet("QLabel {color : white; }");
+  framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
+
+  // Let the user take their current posture as the ideal posture
+  QLabel *idealLabel = new QLabel();
+  idealLabel->setText("Set Ideal Posture ->");
+  idealLabel->setStyleSheet("QLabel {color : white; }");
+  framerate->addWidget(idealLabel, 1, 2, 1, 1, Qt::AlignRight);
+
+  QPushButton *idealPosture = new QPushButton("&Ideal Posture");
+  framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
+  connect(idealPosture, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
+
+  QGroupBox *groupFramerate = new QGroupBox();
+  groupFramerate->setLayout(framerate);
+  settingsPageLayout->addWidget(groupFramerate, 2, 0);
+
   secondPageWidget->setLayout(settingsPageLayout);
+}
+
+void GUI::MainWindow::setIdealPosture() {
+  pipelinePtr->set_ideal_posture(currentPoseStatus.current_pose);
+}
+
+void GUI::MainWindow::setThresholdValue(int scaledValue) {
+  float value = static_cast<float>(scaledValue) / 10.0;
+  pipelinePtr->set_confidence_threshold(scaledValue);
+}
+
+void GUI::MainWindow::increaseVideoFramerate() {
+  pipelinePtr->increase_framerate();
+  setOutputFramerate();
+}
+
+void GUI::MainWindow::setOutputFramerate() {
+  float newFramerate = pipelinePtr->get_framerate();
+  QString output = "Frame Rate: " + QString::number(newFramerate) + " fps";
+  currentFrame->setText(output);
+}
+
+void GUI::MainWindow::decreaseVideoFramerate() {
+  pipelinePtr->decrease_framerate();
+  setOutputFramerate();
 }
 
 void GUI::MainWindow::showDateTime() {
@@ -153,7 +235,7 @@ GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
 void GUI::MainWindow::initalFrame() {
   QLabel *frame = new QLabel();
-  cv::Mat img = cv::imread("src/gui/posture-logo.png");
+  cv::Mat img = cv::imread("images/logo.png");
   // Switch from BGR to RGB
   cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]

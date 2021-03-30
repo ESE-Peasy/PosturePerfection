@@ -181,7 +181,7 @@ bool Pipeline::set_confidence_threshold(float threshold) {
 
 float Pipeline::increase_framerate(void) {
   // Increasing frame rate means decreasing frame delay
-  auto new_frame_delay = frame_delay << 1;
+  auto new_frame_delay = frame_delay >> 1;
   if (new_frame_delay >= FRAME_DELAY_MIN) {
     // Won't be too low, so can update
     frame_delay = new_frame_delay;
@@ -191,7 +191,7 @@ float Pipeline::increase_framerate(void) {
 
 float Pipeline::decrease_framerate(void) {
   // Decreasing frame rate means decreasing frame delay
-  auto new_frame_delay = frame_delay >> 1;
+  auto new_frame_delay = frame_delay << 1;
   if (new_frame_delay <= FRAME_DELAY_MAX) {
     // Won't be too high, so can update
     frame_delay = new_frame_delay;
@@ -201,8 +201,8 @@ float Pipeline::decrease_framerate(void) {
 
 float Pipeline::get_framerate(void) { return 1000.0 / frame_delay; }
 
-void Pipeline::set_ideal_posture(PostProcessing::ProcessedResults posture) {
-  posture_estimator.update_ideal_pose(posture);
+void Pipeline::set_ideal_posture(PostureEstimating::Pose pose) {
+  posture_estimator.update_ideal_pose(pose);
 }
 
 }  // namespace Pipeline

@@ -219,10 +219,10 @@ class PostureEstimator {
    * @brief Calibrate the user's ideal pose using the results of
    * `PostProcessing`
    *
-   * @param results `PostProcessing::ProcessedResults` struct containing user's
+   * @param results `PostureEstimating::PoseStatus` struct containing user's
    * pose data.
    */
-  void update_ideal_pose(PostProcessing::ProcessedResults results);
+  void update_ideal_pose(PostureEstimating::Pose pose);
 
   /**
    * @brief Return a `PoseStatus` of the user's pose
