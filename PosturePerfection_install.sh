@@ -5,10 +5,13 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NO_COLOUR='\033[0m'
 
-# Download the model
-printf "Downloading the EfficientPoseRT_Lite.tflite model..\n"
+# Download the model and logo
+printf "Downloading additional dependencies...\n"
 mkdir models && cd models
 wget https://github.com/ESE-Peasy/PosturePerfection/raw/main/models/EfficientPoseRT_LITE.tflite
+cd ..
+mkdir images && cd images
+wget https://github.com/ESE-Peasy/PosturePerfection/blob/main/images/logo.png  
 cd ..
 
 # Download and install the PosturePerfection build of OpenCV
