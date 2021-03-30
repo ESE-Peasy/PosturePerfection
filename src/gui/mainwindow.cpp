@@ -61,17 +61,9 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   resetButton->setStyleSheet(
       "background-color:rgb(10, 187, 228); border: none;");
 
-  QPushButton *modeButton = new QPushButton("&Modes");
-  modeButton->setStyleSheet(
-      "background-color:rgb(10, 187, 228); border: none;");
-  QPushButton *settingsButton = new QPushButton("&Settings");
-  settingsButton->setStyleSheet(
-      "background-color:rgb(10, 187, 228); border: none;");
   QVBoxLayout *buttonBox = new QVBoxLayout;
   buttonBox->addWidget(pageComboBox);
   buttonBox->addWidget(resetButton);
-  buttonBox->addWidget(modeButton);
-  buttonBox->addWidget(settingsButton);
   groupBoxButtons->setLayout(buttonBox);
 
   // Create a title
