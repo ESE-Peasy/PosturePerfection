@@ -49,6 +49,12 @@
  */
 namespace Pipeline {
 
+template <typename T>
+struct PopResult {
+  T value;
+  bool valid;
+};
+
 /**
  * @brief A synchronising buffer to be used as a communication mechanism between
  * threads
@@ -191,14 +197,15 @@ class Buffer {
   /**
    * @brief Pop the oldest element in the queue and return it
    *
-   * @return T Oldest frame on the queue
+   * @return T Oldest frame on the queue. Returns `NULL` if `pop()` unblocks
+   * because the Buffer has been told to stop running.
    */
-  T pop() {
-    T front;
+  PopResult<T> pop() {
+    PopResult<T> front = PopResult<T>{T{}, false};
     while (*running) {
       this->lock_out.lock();
       if (size() != 0 || full) {
-        front = this->queue.at(front_index);
+        front = PopResult<T>{this->queue.at(front_index), true};
         front_index = (front_index + 1) % queue.size();
         full = false;
 
@@ -369,13 +376,13 @@ struct CoreResults {
 class Pipeline {
  private:
   /**
-  * @brief Array of colours used to display lines between detected joints
-  *
-  */
+   * @brief Array of colours used to display lines between detected joints
+   *
+   */
   std::array<cv::Scalar, JointMax + 1> colours = {
-        cv::Scalar(0, 255, 0),   cv::Scalar(255, 0, 0),
-        cv::Scalar(0, 0, 255),   cv::Scalar(255, 255, 0),
-        cv::Scalar(0, 255, 255), cv::Scalar(255, 0, 255)};
+      cv::Scalar(0, 255, 0),   cv::Scalar(255, 0, 0),
+      cv::Scalar(0, 0, 255),   cv::Scalar(255, 255, 0),
+      cv::Scalar(0, 255, 255), cv::Scalar(255, 0, 255)};
 
   /**
    * @brief Vector of all threads created in the pipeline

@@ -96,21 +96,25 @@ void Pipeline::core_thread_body(Inference::InferenceCore core) {
 
     auto core_result = core.run(preprocessed_image);
 
-    core_results.push(
-        CoreResults{raw_next_frame.id, raw_next_frame.raw_image, core_result});
+    core_results.push(CoreResults{
+        raw_next_frame.id, std::move(raw_next_frame.raw_image), core_result});
   }
 }
 
 void Pipeline::post_processing_thread_body() {
   while (running) {
     auto next_frame = core_results.pop();
+    if (!next_frame.valid) {
+      // Buffer has been told to stop
+      break;
+    }
 
     auto pose_result = posture_estimator.runEstimator(
-        post_processor.run(next_frame.image_results));
+        post_processor.run(next_frame.value.image_results));
 
-    overlay_image(pose_result, next_frame.raw_image);
+    overlay_image(pose_result, next_frame.value.raw_image);
 
-    callback(pose_result, next_frame.raw_image);
+    callback(pose_result, next_frame.value.raw_image);
   }
 }
 
