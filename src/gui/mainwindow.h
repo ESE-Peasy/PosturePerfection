@@ -22,8 +22,11 @@
 #define SRC_GUI_MAINWINDOW_H_
 
 #include <QApplication>
+#include <QComboBox>
+#include <QDate>
 #include <QDialog>
 #include <QFrame>
+#include <QGroupBox>
 #include <QInputDialog>
 #include <QLabel>
 #include <QMainWindow>
@@ -31,23 +34,20 @@
 #include <QPushButton>
 #include <QRect>
 #include <QStackedWidget>
+#include <QStandardItemModel>
 #include <QStatusBar>
+#include <QTableView>
+#include <QTime>
+#include <QTimer>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QtCore/QVariant>
 #include <opencv2/imgcodecs.hpp>
-#include "opencv2/opencv.hpp"
-#include <QGroupBox>
-#include <QStandardItemModel>
-#include <QComboBox>
-#include <QTime>
-#include <QDate>
-#include <QTableView>
-#include <QTimer>
 
 #include "../intermediate_structures.h"
 #include "../pipeline.h"
 #include "../posture_estimator.h"
+#include "opencv2/opencv.hpp"
 
 QT_BEGIN_NAMESPACE
 
