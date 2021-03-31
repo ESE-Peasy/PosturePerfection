@@ -90,7 +90,7 @@ class MainWindow : public QMainWindow {
    *
    * @param currentFrame a `cv::Mat` object
    */
-  void updateFrame(cv::Mat currentFrame);
+  void emitNewFrame(cv::Mat currentFrame);
 
   /**
    * @brief Creates the main page within the application
@@ -141,7 +141,18 @@ class MainWindow : public QMainWindow {
    */
   void setIdealPosture();
 
+  /**
+   * @brief update the video ouput once a new frame has been captured
+   *
+   */
+  void updateVideoFrame(cv::Mat currentFrame);
+
  signals:
+  /**
+   * @brief emit the newly captured frame
+   *
+   */
+  void currentFrameSignal(cv::Mat currentFrame);
 
  private:
   /**

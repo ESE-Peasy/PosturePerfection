@@ -98,6 +98,10 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   central->setLayout(mainLayout);
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
+
+  qRegisterMetaType<cv::Mat>("cv::Mat");
+  connect(this, SIGNAL(currentFrameSignal(cv::Mat)), this,
+          SLOT(updateVideoFrame(cv::Mat)));
 }
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
@@ -246,7 +250,11 @@ void GUI::MainWindow::initalFrame() {
   mainPageLayout->addWidget(frame, 1, 0);
 }
 
-void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
+void GUI::MainWindow::emitNewFrame(cv::Mat currentFrame) {
+  emit currentFrameSignal(currentFrame);
+}
+
+void GUI::MainWindow::updateVideoFrame(cv::Mat currentFrame) {
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
                         currentFrame.data,
                         currentFrame.cols, currentFrame.rows, currentFrame.step,
