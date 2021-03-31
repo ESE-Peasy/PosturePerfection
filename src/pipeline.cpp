@@ -147,8 +147,8 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       // Disable smoothing with empty settings
       post_processor(
           0.1, IIR::SmoothingSettings{std::vector<std::vector<float>>{
-                   {{0.00289819, 0.00579639, 0.00289819, 1., -0.72654253, 0.},
-                    {1., 1., 0., 1., -1.64755222, 0.73233892}}}}),
+                   {{0.03168934, 0.06337869, 0.03168934, 1., -0.41421356, 0.},
+                    {1., 1., 0., 1., -1.0448155, 0.47759225}}}}),
       posture_estimator(),
       frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
