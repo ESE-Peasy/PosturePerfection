@@ -40,11 +40,12 @@ NotifyServer::NotifyServer(int port, bool ignore) {
             << Notify::GetStringFromCommand("hostname -I | grep -Eo '^[^ ]+'");
   this->server_fd = socket(AF_INET, SOCK_DGRAM, 0);
   this->address.sin_family = AF_INET;
-  this->address.sin_addr.s_addr = INADDR_ANY;
+  this->address.sin_addr.s_addr = htons(INADDR_ANY);
   this->address.sin_port = htons(port);
   int opt = 1;
-  int setup = setsockopt(this->server_fd, SOL_SOCKET,
-                         SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt));
+  int setup =
+      setsockopt(this->server_fd, SOL_SOCKET,
+                 SO_REUSEADDR | SO_REUSEPORT | SO_BROADCAST, &opt, sizeof(opt));
 
   int addr_len = sizeof(address);
   int binding = bind(this->server_fd, (struct sockaddr *)&(this->address),

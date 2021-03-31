@@ -26,7 +26,11 @@ NotifyClient::NotifyClient(char *ip, int port) {
   this->client_fd = socket(AF_INET, SOCK_DGRAM, 0);
   this->address.sin_family = AF_INET;
   this->address.sin_port = htons(port);
+  this->address.sin_addr.s_addr = inet_addr(this->server_ip);
   int addrlen = sizeof(address);
+  int opt = 1;
+  int setup =
+      setsockopt(this->client_fd, SOL_SOCKET, SO_BROADCAST, &opt, sizeof(opt));
 }
 NotifyClient::~NotifyClient() {
   int cls = close(this->client_fd);
@@ -34,9 +38,9 @@ NotifyClient::~NotifyClient() {
 }
 
 void NotifyClient::sendMessage(std::string msg) {
-  int server_connect =
-      inet_pton(AF_INET, this->server_ip, &(this->address.sin_addr));
-  Notify::err_msg(server_connect, "server_address");
+  // int server_connect =
+  //     inet_pton(AF_INET, this->server_ip, &(this->address.sin_addr));
+  // Notify::err_msg(server_connect, "server_address");
   sendto(this->client_fd, msg.c_str(), msg.length(), MSG_DONTWAIT,
          (const struct sockaddr *)&this->address, sizeof(this->address));
 }

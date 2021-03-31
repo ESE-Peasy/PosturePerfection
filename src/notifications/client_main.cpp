@@ -22,7 +22,7 @@
 #include "client.h"
 
 int main(int argc, char *argv[]) {
-  char *ip = const_cast<char *>("127.0.0.1");
+  char *ip = const_cast<char *>("192.168.1.255");
   Notify::NotifyClient client(ip, 8080);
   std::string msg = "Hello World";
   client.sendMessage(msg);
