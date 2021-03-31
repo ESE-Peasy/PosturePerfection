@@ -21,8 +21,6 @@
 #ifndef SRC_GUI_MAINWINDOW_H_
 #define SRC_GUI_MAINWINDOW_H_
 
-#include <qcustomplot.h>
-
 #include <QApplication>
 #include <QDialog>
 #include <QFrame>
@@ -39,6 +37,13 @@
 #include <QtCore/QVariant>
 #include <opencv2/imgcodecs.hpp>
 #include "opencv2/opencv.hpp"
+#include <QGroupBox>
+#include <QStandardItemModel>
+#include <QComboBox>
+#include <QTime>
+#include <QDate>
+#include <QTableView>
+#include <QTimer>
 
 #include "../intermediate_structures.h"
 #include "../pipeline.h"
