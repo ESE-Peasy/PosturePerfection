@@ -145,8 +145,10 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
                    void (*callback)(PostureEstimating::PoseStatus, cv::Mat))
     : preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y),
       // Disable smoothing with empty settings
-      post_processor(0.1,
-                     IIR::SmoothingSettings{std::vector<std::vector<float>>{}}),
+      post_processor(
+          0.1, IIR::SmoothingSettings{std::vector<std::vector<float>>{
+                   {{0.00289819, 0.00579639, 0.00289819, 1., -0.72654253, 0.},
+                    {1., 1., 0., 1., -1.64755222, 0.73233892}}}}),
       posture_estimator(),
       frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
