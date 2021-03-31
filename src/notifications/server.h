@@ -40,8 +40,10 @@ struct IncorrectDirectory : public std::exception {
 class NotifyServer {
  private:
   int server_fd;  ///< General purpose socket for creating other sockets
-  struct sockaddr_in address;  ///< Specific address details for bound socket
-  int addrlen = sizeof(address);                 ///< Length of address structure
+  struct sockaddr_in address,
+      client_address;  ///< Specific address details for bound socket
+  int addr_len = sizeof(address);  ///< Length of address structure
+  int client_len = sizeof(client_address);
 
  public:
   char buffer[1024];  ///< Returned result from client message
