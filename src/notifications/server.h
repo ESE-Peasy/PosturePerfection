@@ -41,7 +41,7 @@ class NotifyServer {
  private:
   int server_fd;  ///< General purpose socket for creating other sockets
   struct sockaddr_in address;  ///< Specific address details for bound socket
-  int addrlen;                 ///< Length of address structure
+  int addrlen = sizeof(address);                 ///< Length of address structure
 
  public:
   char buffer[1024];  ///< Returned result from client message

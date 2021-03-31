@@ -51,7 +51,7 @@ NotifyServer::NotifyServer(int port, bool ignore) {
       bind(this->server_fd, (struct sockaddr *)&(this->address), addrlen);
   Notify::err_msg(binding, "socket_bind");
   int listening = listen(this->server_fd, 5);
-  Notify::err_msg(binding, "socket_listen");
+  Notify::err_msg(listening, "socket_listen");
 }
 NotifyServer::~NotifyServer() {
   shutdown(this->server_fd, SHUT_RDWR);
@@ -59,11 +59,12 @@ NotifyServer::~NotifyServer() {
 }
 
 void NotifyServer::run() {
+  std::cout.flush();
   std::memset(this->buffer, 0, sizeof(this->buffer));
 
   int pi_fd = accept(this->server_fd, (struct sockaddr *)&(this->address),
                      reinterpret_cast<socklen_t *>(&(this->addrlen)));
-
+  Notify::err_msg(pi_fd, "socket_accepting");
   int read_value = read(pi_fd, this->buffer, 1024);
   Notify::err_msg(read_value, "socket_reading");
   std::string buff(this->buffer);
@@ -77,6 +78,7 @@ void NotifyServer::run() {
       "posture-logo-no-text.png");
   std::string out = start + buff + middle + cwd + end;
   system(out.c_str());
+  std::cout << out;
   shutdown(pi_fd, SHUT_RDWR);
   close(pi_fd);
 }
