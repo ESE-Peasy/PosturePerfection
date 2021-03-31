@@ -143,6 +143,21 @@ void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
       cv::Point curr(static_cast<int>(current.joints[i].coord.x * imageWidth),
                      static_cast<int>(current.joints[i].coord.y * imageHeight));
       cv::line(raw_image, upper, curr, colours.at(i), 5);
+
+      cv::Point midpoint(static_cast<int>((upper.x + curr.x) / 2),
+                         static_cast<int>((upper.y + curr.y) / 2));
+
+      if (pose_status.pose_changes.joints.at(i).upper_angle > 0) {
+        cv::Point tip(static_cast<int>(midpoint.x - 50),
+                      static_cast<int>(midpoint.y));
+
+        cv::arrowedLine(raw_image, midpoint, tip, colours.at(i), 2);
+      } else {
+        cv::Point tip(static_cast<int>(midpoint.x + 50),
+                      static_cast<int>(midpoint.y));
+
+        cv::arrowedLine(raw_image, midpoint, tip, colours.at(i), 2);
+      }
     }
   }
 }

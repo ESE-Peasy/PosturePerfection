@@ -54,14 +54,17 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   central->setStyleSheet("background-color:#0d1117;");
 
   // create three buttons
-  QPushButton *resetButton = new QPushButton("&Reset Posture");
+  QPushButton *idealPosture = new QPushButton("&Ideal Posture");
+  framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
+  connect(idealPosture, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
 
-  resetButton->setStyleSheet(
+
+  idealPosture->setStyleSheet(
       "background-color:rgb(10, 187, 228); border: none;");
 
   QVBoxLayout *buttonBox = new QVBoxLayout;
   buttonBox->addWidget(pageComboBox);
-  buttonBox->addWidget(resetButton);
+  buttonBox->addWidget(idealPosture);
   groupBoxButtons->setLayout(buttonBox);
 
   // Create a title
