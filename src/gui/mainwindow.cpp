@@ -42,7 +42,6 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   pageComboBox->addItem(tr("Video Feed"));
   pageComboBox->addItem(tr("Settings Page"));
-  pageComboBox->addItem(tr("Data Page"));
   pageComboBox->setStyleSheet(
       "QListView{color:white; background-color:#0d1117;}");
   pageComboBox->setStyleSheet(
@@ -254,52 +253,4 @@ void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
   mainPageLayout->addWidget(frame, 1, 0);
-}
-
-void GUI::MainWindow::generateTable(void) {
-  QTableView *view = new QTableView;
-  model = new QStandardItemModel(0, 4);
-  view->setModel(model);
-  model->setHeaderData(0, Qt::Horizontal, QObject::tr("Position"));
-  model->setHeaderData(1, Qt::Horizontal, QObject::tr("X coordinate"));
-  model->setHeaderData(2, Qt::Horizontal, QObject::tr("Y coordinate"));
-  model->setHeaderData(3, Qt::Horizontal, QObject::tr("Trustworthy"));
-
-  // Populate the table
-  for (int i = JointMin; i <= JointMax; i++) {
-    QList<QStandardItem *> newRow;
-    QStandardItem *joint = new QStandardItem(QString(""));
-    QStandardItem *x = new QStandardItem(QString(""));
-    QStandardItem *y = new QStandardItem(QString(""));
-    QStandardItem *status = new QStandardItem(QString(""));
-
-    joint->setForeground(QColor(Qt::white));
-    x->setForeground(QColor(Qt::white));
-    y->setForeground(QColor(Qt::white));
-    status->setForeground(QColor(Qt::white));
-
-    newRow.append(joint);
-    newRow.append(x);
-    newRow.append(y);
-    newRow.append(status);
-    model->insertRow(i, newRow);
-  }
-
-  // Add the table to the GUI
-  mainLayout->addWidget(view, 1, 0);
-}
-
-void GUI::MainWindow::updateTable(PostureEstimating::PoseStatus pose_status) {
-  uint8_t i = 0;
-  for (auto joint : pose_status.current_pose.joints) {
-    model->item(i, 0)->setData(
-        PostureEstimating::stringJoint(joint.joint).c_str(), Qt::DisplayRole);
-    model->item(i, 1)->setData(QString("%1").arg(joint.coord.x),
-                               Qt::DisplayRole);
-    model->item(i, 2)->setData(QString("%1").arg(joint.coord.y),
-                               Qt::DisplayRole);
-    model->item(i, 3)->setData(QString("%1").arg(joint.coord.status),
-                               Qt::DisplayRole);
-    i++;
-  }
 }

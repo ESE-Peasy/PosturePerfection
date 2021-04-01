@@ -38,11 +38,11 @@
 #include <QWidget>
 #include <QtCore/QVariant>
 #include <opencv2/imgcodecs.hpp>
-#include "opencv2/opencv.hpp"
 
 #include "../intermediate_structures.h"
 #include "../pipeline.h"
 #include "../posture_estimator.h"
+#include "opencv2/opencv.hpp"
 
 QT_BEGIN_NAMESPACE
 
@@ -77,13 +77,6 @@ class MainWindow : public QMainWindow {
   MainWindow(Pipeline::Pipeline *Pipeline,
              QWidget *parent = 0);  // NOLINT [runtime/explicit]
   ~MainWindow();
-
-  /**
-   * @brief Refresh the contents of the data table with the most recent data
-   *
-   * @param pose_status a `PostureEstimating::PoseStatus` structure
-   */
-  void updateTable(PostureEstimating::PoseStatus pose_status);
 
   /**
    * @brief Refresh the video feed to the most recent frame
@@ -144,11 +137,6 @@ class MainWindow : public QMainWindow {
  signals:
 
  private:
-  /**
-   * @brief Create a table containing the numeric posture values
-   */
-  void generateTable();
-
   /**
    * @brief Create the inital video feed frame with the PosturePerfection logo
    */
