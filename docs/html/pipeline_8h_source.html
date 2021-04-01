@@ -268,16 +268,18 @@ $(function() {
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160; </div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  <span class="keywordtype">bool</span> set_confidence_threshold(<span class="keywordtype">float</span> threshold);</div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160; </div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;  <span class="keywordtype">float</span> increase_framerate(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160; </div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  <span class="keywordtype">float</span> decrease_framerate(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;  <span class="keywordtype">float</span> get_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;  <span class="keywordtype">float</span> get_confidence_threshold();</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160; </div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;  <span class="keywordtype">float</span> increase_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;  <span class="keywordtype">float</span> decrease_framerate(<span class="keywordtype">void</span>);</div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160; </div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;  <span class="keywordtype">void</span> set_ideal_posture(<a class="code" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> pose);</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;};</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;}  <span class="comment">// namespace Pipeline</span></div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PIPELINE_H_</span></div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;  <span class="keywordtype">float</span> get_framerate(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;  <span class="keywordtype">void</span> set_ideal_posture(<a class="code" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> pose);</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;};</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;}  <span class="comment">// namespace Pipeline</span></div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// SRC_PIPELINE_H_</span></div>
 <div class="ttc" id="aclassInference_1_1InferenceCore_html"><div class="ttname"><a href="classInference_1_1InferenceCore.html">Inference::InferenceCore</a></div><div class="ttdoc">A wrapper to make running inference easier.</div><div class="ttdef"><b>Definition:</b> inference_core.h:50</div></div>
 <div class="ttc" id="aclassPipeline_1_1Buffer_html"><div class="ttname"><a href="classPipeline_1_1Buffer.html">Pipeline::Buffer</a></div><div class="ttdoc">A synchronising buffer to be used as a communication mechanism between threads.</div><div class="ttdef"><b>Definition:</b> pipeline.h:69</div></div>
 <div class="ttc" id="aclassPipeline_1_1Buffer_html_a5be39610d75d446b134194803d20dfc6"><div class="ttname"><a href="classPipeline_1_1Buffer.html#a5be39610d75d446b134194803d20dfc6">Pipeline::Buffer::try_push</a></div><div class="ttdeci">bool try_push(T frame)</div><div class="ttdoc">Push a frame to the queue (doesn't block if queue is full)</div><div class="ttdef"><b>Definition:</b> pipeline.h:165</div></div>

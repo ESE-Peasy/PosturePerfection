@@ -17,5 +17,6 @@ var searchData=
   ['createmainpage_31',['createMainPage',['../classGUI_1_1MainWindow.html#a08474b2d05747fcc32d55ba7209d5209',1,'GUI::MainWindow']]],
   ['createpose_32',['createPose',['../namespacePostureEstimating.html#a2deac6e18a1012d21d7d1cd72e22e28a',1,'PostureEstimating']]],
   ['createsettingspage_33',['createSettingsPage',['../classGUI_1_1MainWindow.html#a1283f396bdc85ac157058eb00234a9cf',1,'GUI::MainWindow']]],
-  ['current_5fpose_34',['current_pose',['../structPostureEstimating_1_1PoseStatus.html#acfbec116ff61d22b8adfc32015d84381',1,'PostureEstimating::PoseStatus::current_pose()'],['../classPostureEstimating_1_1PostureEstimator.html#a140d626b0ec48aa10183ff5ef88364a0',1,'PostureEstimating::PostureEstimator::current_pose()']]]
+  ['current_5fpose_34',['current_pose',['../structPostureEstimating_1_1PoseStatus.html#acfbec116ff61d22b8adfc32015d84381',1,'PostureEstimating::PoseStatus::current_pose()'],['../classPostureEstimating_1_1PostureEstimator.html#a140d626b0ec48aa10183ff5ef88364a0',1,'PostureEstimating::PostureEstimator::current_pose()']]],
+  ['currentframesignal_35',['currentFrameSignal',['../classGUI_1_1MainWindow.html#a05f6eea3b31925bdd0bcc9ee931b1779',1,'GUI::MainWindow']]]
 ];
