@@ -18,12 +18,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#include "server.h"
+#include "receiver.h"
 
 int main(int argc, char *argv[]) {
-  Notify::NotifyServer serv(8080);
+  Notify::NotifyReceiver receiver(121121);
   while (1) {
-    serv.run();
+    receiver.run();
   }
   return 1;
 }

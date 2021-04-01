@@ -1,5 +1,5 @@
 /**
- * @file server.cpp
+ * @file receiver.cpp
  * @brief Local server for receiving notifications from the Raspberry Pi. Only
  * runs on Linux
  *
@@ -19,14 +19,14 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#include "server.h"
+#include "receiver.h"
 
 #include <exception>
 #include <string>
 
 namespace Notify {
 
-NotifyServer::NotifyServer(int port, bool ignore) {
+NotifyReceiver::NotifyReceiver(int port, bool ignore) {
   if (!ignore) {
     if (Notify::GetStringFromCommand("pwd | grep -o '[^/]*$'") !=
         "PosturePerfection\n") {
@@ -36,33 +36,35 @@ NotifyServer::NotifyServer(int port, bool ignore) {
       throw IncorrectDirectory();
     }
   }
-  std::cout << "The IP for this device is: \n"
-            << Notify::GetStringFromCommand("hostname -I | grep -Eo '^[^ ]+'");
-  this->server_fd = socket(AF_INET, SOCK_DGRAM, 0);
+  this->receive_fd = socket(AF_INET, SOCK_DGRAM, 0);
+  if (this->receive_fd == 0) {
+    Notify::err_msg(-1, "socket_creation");
+  }
   this->address.sin_family = AF_INET;
   this->address.sin_addr.s_addr = htons(INADDR_ANY);
   this->address.sin_port = htons(port);
   int opt = 1;
   int setup =
-      setsockopt(this->server_fd, SOL_SOCKET,
+      setsockopt(this->receive_fd, SOL_SOCKET,
                  SO_REUSEADDR | SO_REUSEPORT | SO_BROADCAST, &opt, sizeof(opt));
-
-  int addr_len = sizeof(address);
-  int binding = bind(this->server_fd, (struct sockaddr *)&(this->address),
+  if (setup) {
+    Notify::err_msg(-1, "socket_creation");
+  }
+  int binding = bind(this->receive_fd, (struct sockaddr *)&(this->address),
                      sizeof(this->address));
   Notify::err_msg(binding, "socket_bind");
 }
-NotifyServer::~NotifyServer() {
-  shutdown(this->server_fd, SHUT_RDWR);
-  close(this->server_fd);
+NotifyReceiver::~NotifyReceiver() {
+  shutdown(this->receive_fd, SHUT_RDWR);
+  close(this->receive_fd);
 }
 
-void NotifyServer::run() {
+void NotifyReceiver::run() {
   std::cout.flush();
   std::memset(this->buffer, 0, sizeof(this->buffer));
   std::memset(&this->client_address, 0, sizeof(client_address));
 
-  int read_value = recvfrom(this->server_fd, this->buffer, 1024, MSG_DONTWAIT,
+  int read_value = recvfrom(this->receive_fd, this->buffer, 1024, MSG_DONTWAIT,
                             (struct sockaddr *)&this->client_address,
                             (socklen_t *)(&this->client_len));
   ;

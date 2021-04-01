@@ -19,12 +19,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#include "client.h"
+#include "broadcast.h"
 
 int main(int argc, char *argv[]) {
   char *ip = const_cast<char *>("192.168.1.255");
-  Notify::NotifyClient client(ip, 8080);
-  std::string msg = "Hello World";
-  client.sendMessage(msg);
+  Notify::NotifyBroadcast broadcaster(ip, 121121);
+  std::string msg = "Your back is broken :-( \n April Fools!";
+  broadcaster.sendMessage(msg);
   return 1;
 }

@@ -44,7 +44,8 @@ class NotifyBroadcast {
    * @param port Port number to listen on (default is 121121)
    * @param ip Address of server to connect to
    */
-  explicit NotifyBroadcast(char* ip = "255.255.255.255", int port = 121121);
+  explicit NotifyBroadcast(char* ip = (char*)"255.255.255.255",
+                           int port = 121121);
   ~NotifyBroadcast();
 
   /**
