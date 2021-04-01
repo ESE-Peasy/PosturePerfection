@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(LinesAngleCorrect) {
 
   BOOST_CHECK_CLOSE(angle, (0.5880026035),
                     0.00001);  // Rounding due to using float
-};
+}
 
 BOOST_AUTO_TEST_CASE(LinesAngleInAllQuads) {
   PostProcessing::Coordinate p = {0, 0, PostProcessing::Trustworthy};
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(LinesAngleInAllQuads) {
                     0.00001);  // Rounding due to using float
   BOOST_CHECK_CLOSE(angleQ3, ((-135.0 / 180.0) * M_PI),
                     0.00001);  // Rounding due to using float
-};
+}
 
 BOOST_AUTO_TEST_CASE(LinesAngleSlopeZero) {
   PostProcessing::Coordinate p = {1, 1, PostProcessing::Trustworthy};
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE(LinesAngleSlopeZero) {
   BOOST_CHECK_CLOSE(e.getLineAngle(p, h_n), -M_PI / 2,
                     0.00001);  // Rounding due to using float
   BOOST_CHECK_CLOSE(e.getLineAngle(p, v_n), -M_PI, 0.00001);
-};
+}
 
 BOOST_AUTO_TEST_CASE(EmptyWorkingPoseChanges) {
   PostureEstimating::PostureEstimator e;

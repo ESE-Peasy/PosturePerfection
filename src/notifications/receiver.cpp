@@ -54,7 +54,7 @@ NotifyReceiver::NotifyReceiver(int port, bool ignore) {
   Notify::err_msg(binding, "socket_bind");
 
   char *env = getenv("XDG_CURRENT_DESKTOP");
-  if (env == "ubuntu:GNOME") {
+  if (std::strcmp(env, "ubuntu:GNOME")) {
     this->command = "notify-send -u critical \"Posture Perfection\" \"";
   }
 }
