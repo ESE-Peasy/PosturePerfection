@@ -1,6 +1,6 @@
 /**
- * @file client.cpp
- * @brief Local server for receiving notifications from the Raspberry Pi.
+ * @file Broadcast.cpp
+ * @brief Broadcast for sending notifications from the Raspberry Pi.
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *
@@ -18,30 +18,27 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#include "client.h"
+#include "broadcast.h"
 
 namespace Notify {
-NotifyClient::NotifyClient(char *ip, int port) {
-  this->server_ip = ip;
-  this->client_fd = socket(AF_INET, SOCK_DGRAM, 0);
+NotifyBroadcast::NotifyBroadcast(char *ip, int port) {
+  this->target_ip = ip;
+  this->broadcast_fd = socket(AF_INET, SOCK_DGRAM, 0);
   this->address.sin_family = AF_INET;
   this->address.sin_port = htons(port);
-  this->address.sin_addr.s_addr = inet_addr(this->server_ip);
+  this->address.sin_addr.s_addr = inet_addr(this->target_ip);
   int addrlen = sizeof(address);
   int opt = 1;
-  int setup =
-      setsockopt(this->client_fd, SOL_SOCKET, SO_BROADCAST, &opt, sizeof(opt));
+  int setup = setsockopt(this->broadcast_fd, SOL_SOCKET, SO_BROADCAST, &opt,
+                         sizeof(opt));
 }
-NotifyClient::~NotifyClient() {
-  int cls = close(this->client_fd);
+NotifyBroadcast::~NotifyBroadcast() {
+  int cls = close(this->broadcast_fd);
   Notify::err_msg(cls, "socket_close");
 }
 
-void NotifyClient::sendMessage(std::string msg) {
-  // int server_connect =
-  //     inet_pton(AF_INET, this->server_ip, &(this->address.sin_addr));
-  // Notify::err_msg(server_connect, "server_address");
-  sendto(this->client_fd, msg.c_str(), msg.length(), MSG_DONTWAIT,
+void NotifyBroadcast::sendMessage(std::string msg) {
+  sendto(this->broadcast_fd, msg.c_str(), msg.length(), MSG_DONTWAIT,
          (const struct sockaddr *)&this->address, sizeof(this->address));
 }
 }  // namespace Notify

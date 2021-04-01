@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef SRC_NOTIFICATIONS_CLIENT_H_
-#define SRC_NOTIFICATIONS_CLIENT_H_
+#ifndef SRC_NOTIFICATIONS_BROADCAST_H_
+#define SRC_NOTIFICATIONS_BROADCAST_H_
 #include <string>
 
 #include "notify.h"
@@ -31,21 +31,21 @@ namespace Notify {
  * @brief A client which sends notifications about Posture to a server
  *
  */
-class NotifyClient {
+class NotifyBroadcast {
  private:
-  int client_fd;               ///< Socket which the client is bound to
+  int broadcast_fd;            ///< Socket which the client is bound to
   struct sockaddr_in address;  ///< Client address structure
-  char* server_ip;             ///< IP address of server to connect client too
+  char* target_ip;             ///< IP address of server to connect client too
 
  public:
   /**
-   * @brief Constructor for notify client
+   * @brief Constructor for broadcast client
    *
-   * @param port Port number to listen on (default is 8080)
+   * @param port Port number to listen on (default is 121121)
    * @param ip Address of server to connect to
    */
-  explicit NotifyClient(char* ip, int port = 8080);
-  ~NotifyClient();
+  explicit NotifyBroadcast(char* ip = "255.255.255.255", int port = 121121);
+  ~NotifyBroadcast();
 
   /**
    * @brief Sends message from client to server
@@ -54,4 +54,4 @@ class NotifyClient {
   void sendMessage(std::string msg);
 };
 }  // namespace Notify
-#endif  // SRC_NOTIFICATIONS_CLIENT_H_
+#endif  // SRC_NOTIFICATIONS_BROADCAST_H_
