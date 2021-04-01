@@ -41,18 +41,27 @@
 #define FRAME_DELAY_DEFAULT 1000  ///< Default delay between frames in ms
 
 /**
- * @brief Components of the pipeline at the core of the system
- *
- * To use the pipeline one simply needs to initialise a `Pipeline::Pipeline` and
- * it will start to run.
+ * @brief A synchronising buffer and results structure
  *
  */
-namespace Pipeline {
+namespace Buffer {
 
+/**
+ * @brief Result when calling `Buffer::pop()`
+ *
+ * The structure has a field to indicate the validity of the result. It is
+ * possible for the buffer to return a result when the owning pipeline is shut
+ * down. In this situation the result could be invalid as the call to `pop()`
+ * may be blocking until data is available. In this situation a `valid` flag of
+ * `false` means the `value` field should not be used. A `valid` flag of `true`
+ * means the `value` is useable from the buffer's perspective.
+ *
+ * @tparam T Type of elements on the buffer
+ */
 template <typename T>
 struct PopResult {
-  T value;
-  bool valid;
+  T value;     ///< Actual popped result
+  bool valid;  ///< Indicates validity of the result
 };
 
 /**
@@ -197,8 +206,8 @@ class Buffer {
   /**
    * @brief Pop the oldest element in the queue and return it
    *
-   * @return T Oldest frame on the queue. Returns `NULL` if `pop()` unblocks
-   * because the Buffer has been told to stop running.
+   * @return `PopResult<T>` Oldest frame on the queue. Note: the `valid` flag of
+   * the result must be checked before use.
    */
   PopResult<T> pop() {
     PopResult<T> front = PopResult<T>{T{}, false};
@@ -217,6 +226,16 @@ class Buffer {
     return front;
   }
 };
+}  // namespace Buffer
+
+/**
+ * @brief Components of the pipeline at the core of the system
+ *
+ * To use the pipeline one simply needs to initialise a `Pipeline::Pipeline` and
+ * it will start to run.
+ *
+ */
+namespace Pipeline {
 
 /**
  * @brief Contains the id of the frame within the pipeline, as well as the raw
@@ -412,7 +431,7 @@ class Pipeline {
   PostureEstimating::PostureEstimator posture_estimator;
 
   FrameGenerator frame_generator;
-  Buffer<CoreResults> core_results;
+  Buffer::Buffer<CoreResults> core_results;
 
   /**
    * @brief Function that provides the body for the inference core thread
