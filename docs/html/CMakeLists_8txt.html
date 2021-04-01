@@ -71,12 +71,12 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae0ab055b1c2f986c5f5f5e726d9a4086"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ae0ab055b1c2f986c5f5f5e726d9a4086">set</a> (CMAKE_CXX_STANDARD 11) <a class="el" href="notifications_2CMakeLists_8txt.html#a314a1273e21cfbc43955234cc047c2c3">cmake_minimum_required</a>(VERSION 3.16) project(PosturePerfection VERSION 0.3.0) if(APPLE) set(CMAKE_PREFIX_PATH &quot;/usr/local/Cellar/&quot;) endif() if(UNIX AND NOT APPLE) set(CMAKE_CXX_LINK_FLAGS &quot;$</td></tr>
+<tr class="memitem:ae0ab055b1c2f986c5f5f5e726d9a4086"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ae0ab055b1c2f986c5f5f5e726d9a4086">set</a> (CMAKE_CXX_STANDARD 11) <a class="el" href="notifications_2CMakeLists_8txt.html#a3bd88b37b46edc79162cb34ee99417e1">cmake_minimum_required</a>(VERSION 3.16) project(PosturePerfection VERSION 0.3.0) if(APPLE) set(CMAKE_PREFIX_PATH &quot;/usr/local/Cellar/&quot;) endif() if(UNIX AND NOT APPLE) set(CMAKE_CXX_LINK_FLAGS &quot;$</td></tr>
 <tr class="separator:ae0ab055b1c2f986c5f5f5e726d9a4086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af59fdf539fffbc2cf445c4f762adcf66"><td class="memItemLeft" align="right" valign="top">latomic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#af59fdf539fffbc2cf445c4f762adcf66">endif</a> () <a class="el" href="CMakeLists_8txt.html#a66d77f2386efd58d6b289a8143bd6a22">add_subdirectory</a>(gui ENABLE_EXPORTS) <a class="el" href="gui_2CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a>(&quot;$</td></tr>
 <tr class="separator:af59fdf539fffbc2cf445c4f762adcf66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b7902e413b859f92d83fa46364199dc"><td class="memItemLeft" align="right" valign="top">src gui&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a7b7902e413b859f92d83fa46364199dc">set</a> (NTFYSRC notifications/notify.cpp notifications/client.cpp notifications/server.cpp) set(LIBSRC iir.cpp inference_core.cpp post_processor.cpp pre_processor.cpp posture_estimator.cpp pipeline.cpp) set(OpenCV_DIR &quot;$</td></tr>
-<tr class="separator:a7b7902e413b859f92d83fa46364199dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6c575d6569a3ca2351dac1194d4d763"><td class="memItemLeft" align="right" valign="top">src gui&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ad6c575d6569a3ca2351dac1194d4d763">set</a> (NTFYSRC notifications/notify.cpp notifications/broadcaster.cpp notifications/receiver.cpp) set(LIBSRC iir.cpp inference_core.cpp post_processor.cpp pre_processor.cpp posture_estimator.cpp pipeline.cpp) set(OpenCV_DIR &quot;$</td></tr>
+<tr class="separator:ad6c575d6569a3ca2351dac1194d4d763"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff19a2b08a70c1671d45f82b7f9aac16"><td class="memItemLeft" align="right" valign="top">opencv_build&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aff19a2b08a70c1671d45f82b7f9aac16">find_package</a> (OpenCV REQUIRED) if(NOT TENSORFLOW_SOURCE_DIR) get_filename_component(TENSORFLOW_SOURCE_DIR &quot;$</td></tr>
 <tr class="separator:aff19a2b08a70c1671d45f82b7f9aac16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a888087499d9107f7438009b28e1a0a50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a> (&quot;${TENSORFLOW_SOURCE_DIR}/tensorflow/lite&quot;) include_directories(&quot;$</td></tr>
@@ -216,8 +216,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7b7902e413b859f92d83fa46364199dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b7902e413b859f92d83fa46364199dc">&#9670;&nbsp;</a></span>set() <span class="overload">[2/2]</span></h2>
+<a id="ad6c575d6569a3ca2351dac1194d4d763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6c575d6569a3ca2351dac1194d4d763">&#9670;&nbsp;</a></span>set() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +225,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">src gui set </td>
           <td>(</td>
-          <td class="paramtype">NTFYSRC notifications/notify.cpp notifications/client.cpp notifications/server.&#160;</td>
+          <td class="paramtype">NTFYSRC notifications/notify.cpp notifications/broadcaster.cpp notifications/receiver.&#160;</td>
           <td class="paramname"><em>cpp</em></td><td>)</td>
           <td></td>
         </tr>

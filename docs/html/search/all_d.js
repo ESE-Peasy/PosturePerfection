@@ -7,8 +7,8 @@ var searchData=
   ['notify_109',['Notify',['../namespaceNotify.html',1,'']]],
   ['notify_2ecpp_110',['notify.cpp',['../notify_8cpp.html',1,'']]],
   ['notify_2eh_111',['notify.h',['../notify_8h.html',1,'']]],
-  ['notifyclient_112',['NotifyClient',['../classNotify_1_1NotifyClient.html',1,'Notify::NotifyClient'],['../classNotify_1_1NotifyClient.html#ac6f15158c786e07c250e9499cf902d9c',1,'Notify::NotifyClient::NotifyClient()']]],
-  ['notifyserver_113',['NotifyServer',['../classNotify_1_1NotifyServer.html',1,'Notify::NotifyServer'],['../classNotify_1_1NotifyServer.html#ae8695fdf368c285025774dca392884b5',1,'Notify::NotifyServer::NotifyServer()']]],
+  ['notifybroadcast_112',['NotifyBroadcast',['../classNotify_1_1NotifyBroadcast.html',1,'Notify::NotifyBroadcast'],['../classNotify_1_1NotifyBroadcast.html#a34cecaa28f9e2a9b0b8203d20bd257f1',1,'Notify::NotifyBroadcast::NotifyBroadcast()']]],
+  ['notifyreceiver_113',['NotifyReceiver',['../classNotify_1_1NotifyReceiver.html',1,'Notify::NotifyReceiver'],['../classNotify_1_1NotifyReceiver.html#a62200f8eb7a73782a6be903cb46106e9',1,'Notify::NotifyReceiver::NotifyReceiver()']]],
   ['num_5finf_5fcore_5fthreads_114',['NUM_INF_CORE_THREADS',['../main_8cpp.html#ad2aeb460ae3604cfc18fb2787640f453',1,'main.cpp']]],
   ['num_5floops_115',['NUM_LOOPS',['../main_8cpp.html#ae5301d7305b7b25a73685c7019aca33d',1,'main.cpp']]]
 ];

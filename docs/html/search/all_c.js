@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['main_95',['main',['../gui_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../client__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;client_main.cpp'],['../server__main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;server_main.cpp']]],
+  ['main_95',['main',['../gui_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../broadcast__example_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;broadcast_example.cpp'],['../receiver__example_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;receiver_example.cpp']]],
   ['main_2ecpp_96',['main.cpp',['../main_8cpp.html',1,'']]],
   ['main_5fwindow_5fptr_97',['main_window_ptr',['../main_8cpp.html#acd51e455ca9729c59b6214e73103c745',1,'main.cpp']]],
   ['mainwindow_98',['MainWindow',['../classGUI_1_1MainWindow.html',1,'GUI::MainWindow'],['../classGUI_1_1MainWindow.html#a8c28036978847305a5dbbcc7114e7f05',1,'GUI::MainWindow::MainWindow()']]],

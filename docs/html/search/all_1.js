@@ -7,7 +7,10 @@ var searchData=
   ['bodypart_11',['BodyPart',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3',1,'intermediate_structures.h']]],
   ['bodypartmax_12',['BodyPartMax',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3a73adc2a30ac20f7a93588302bf22c34c',1,'intermediate_structures.h']]],
   ['bodypartmin_13',['BodyPartMin',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3aaee1b01f991f90cd5562d99e12e58fd4',1,'intermediate_structures.h']]],
-  ['buffer_14',['buffer',['../classNotify_1_1NotifyServer.html#adc07ef29a3e4b3d9a80f32cd113b9709',1,'Notify::NotifyServer']]],
-  ['buffer_15',['Buffer',['../classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f',1,'Pipeline::Buffer::Buffer()'],['../classPipeline_1_1Buffer.html',1,'Pipeline::Buffer&lt; T &gt;']]],
-  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_16',['Buffer&lt; Pipeline::CoreResults &gt;',['../classPipeline_1_1Buffer.html',1,'Pipeline']]]
+  ['broadcast_5fexample_2ecpp_14',['broadcast_example.cpp',['../broadcast__example_8cpp.html',1,'']]],
+  ['broadcaster_2ecpp_15',['broadcaster.cpp',['../broadcaster_8cpp.html',1,'']]],
+  ['broadcaster_2eh_16',['broadcaster.h',['../broadcaster_8h.html',1,'']]],
+  ['buffer_17',['buffer',['../classNotify_1_1NotifyReceiver.html#a04a8e1d4f6d5c67829e7c33a0de146ea',1,'Notify::NotifyReceiver']]],
+  ['buffer_18',['Buffer',['../classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f',1,'Pipeline::Buffer::Buffer()'],['../classPipeline_1_1Buffer.html',1,'Pipeline::Buffer&lt; T &gt;']]],
+  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_19',['Buffer&lt; Pipeline::CoreResults &gt;',['../classPipeline_1_1Buffer.html',1,'Pipeline']]]
 ];

@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['ci_2emd_17',['ci.md',['../ci_8md.html',1,'']]],
-  ['class_2ddiagram_2emd_18',['class-diagram.md',['../class-diagram_8md.html',1,'']]],
-  ['client_2ecpp_19',['client.cpp',['../client_8cpp.html',1,'']]],
-  ['client_2eh_20',['client.h',['../client_8h.html',1,'']]],
-  ['client_5fmain_2ecpp_21',['client_main.cpp',['../client__main_8cpp.html',1,'']]],
-  ['cmake_5fminimum_5frequired_22',['cmake_minimum_required',['../notifications_2CMakeLists_8txt.html#a314a1273e21cfbc43955234cc047c2c3',1,'cmake_minimum_required(VERSION 3.10) project(Notification) set(NOTFYSRC server.cpp notify.cpp client.cpp) add_executable(NotificationServer $:&#160;CMakeLists.txt'],['../gui_2CMakeLists_8txt.html#ae34aff959167aebc70a3bcd23fc526ef',1,'cmake_minimum_required(VERSION 3.7.0) project(gui VERSION 1.0.0 LANGUAGES CXX) if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES) set(CMAKE_BUILD_TYPE &quot;RelWithDebInfo&quot;) endif() set(OpenCV_DIR &quot;$:&#160;CMakeLists.txt']]],
+  ['ci_2emd_20',['ci.md',['../ci_8md.html',1,'']]],
+  ['class_2ddiagram_2emd_21',['class-diagram.md',['../class-diagram_8md.html',1,'']]],
+  ['cmake_5fminimum_5frequired_22',['cmake_minimum_required',['../notifications_2CMakeLists_8txt.html#a3bd88b37b46edc79162cb34ee99417e1',1,'cmake_minimum_required(VERSION 3.10) project(Notification) set(NOTFYSRC receiver.cpp notify.cpp broadcaster.cpp) add_executable(NotificationReceiver $:&#160;CMakeLists.txt'],['../gui_2CMakeLists_8txt.html#ae34aff959167aebc70a3bcd23fc526ef',1,'cmake_minimum_required(VERSION 3.7.0) project(gui VERSION 1.0.0 LANGUAGES CXX) if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES) set(CMAKE_BUILD_TYPE &quot;RelWithDebInfo&quot;) endif() set(OpenCV_DIR &quot;$:&#160;CMakeLists.txt']]],
   ['cmakelists_2etxt_23',['CMakeLists.txt',['../CMakeLists_8txt.html',1,'']]],
   ['coefficients_24',['coefficients',['../structIIR_1_1SmoothingSettings.html#a30ef6d48c8ee4fb85dbc6177d133b572',1,'IIR::SmoothingSettings']]],
   ['components_2emd_25',['components.md',['../components_8md.html',1,'']]],

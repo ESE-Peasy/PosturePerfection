@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['iir_2ecpp_249',['iir.cpp',['../iir_8cpp.html',1,'']]],
-  ['iir_2eh_250',['iir.h',['../iir_8h.html',1,'']]],
-  ['index_2emd_251',['index.md',['../index_8md.html',1,'']]],
-  ['inference_5fcore_2ecpp_252',['inference_core.cpp',['../inference__core_8cpp.html',1,'']]],
-  ['inference_5fcore_2eh_253',['inference_core.h',['../inference__core_8h.html',1,'']]],
-  ['intermediate_5fstructures_2ecpp_254',['intermediate_structures.cpp',['../intermediate__structures_8cpp.html',1,'']]],
-  ['intermediate_5fstructures_2eh_255',['intermediate_structures.h',['../intermediate__structures_8h.html',1,'']]]
+  ['cmakelists_2etxt_246',['CMakeLists.txt',['../gui_2CMakeLists_8txt.html',1,'']]],
+  ['guidance_2emd_247',['guidance.md',['../guidance_8md.html',1,'']]],
+  ['main_2ecpp_248',['main.cpp',['../gui_2main_8cpp.html',1,'']]]
 ];
