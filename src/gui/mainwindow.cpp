@@ -25,7 +25,6 @@
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
-#include "settingswindow.h"
 
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
