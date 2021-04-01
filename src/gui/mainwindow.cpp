@@ -30,9 +30,9 @@
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
   // Create the different GUI pages
+  pipelinePtr = pipeline;
   createMainPage();
   createSettingsPage(pipeline);
-  pipelinePtr = pipeline;
 
   // Stack the pages within the mainwindow
   QStackedWidget *stackedWidget = new QStackedWidget;
@@ -133,8 +133,11 @@ void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
   confidenceLabel->setStyleSheet("QLabel {color : white; }");
   QSlider *slider = new QSlider(Qt::Horizontal, this);
   slider->setMinimum(0);
-  slider->setMaximum(10);
+  slider->setMaximum(100);
   slider->setTickInterval(1);
+  int initalThreshold =
+      static_cast<int>(pipelinePtr->get_confidence_threshold() * 100);
+  slider->setValue(initalThreshold);
   vertThreshold->setSpacing(0);
   vertThreshold->setMargin(0);
   vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
@@ -184,7 +187,7 @@ void GUI::MainWindow::setIdealPosture() {
 }
 
 void GUI::MainWindow::setThresholdValue(int scaledValue) {
-  float value = static_cast<float>(scaledValue) / 10.0;
+  float value = static_cast<float>(scaledValue) / 100.0;
   pipelinePtr->set_confidence_threshold(value);
 }
 
