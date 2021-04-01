@@ -22,7 +22,6 @@
 #include "receiver.h"
 
 #include <exception>
-#include <string>
 
 namespace Notify {
 
@@ -53,6 +52,11 @@ NotifyReceiver::NotifyReceiver(int port, bool ignore) {
   int binding = bind(this->receive_fd, (struct sockaddr *)&(this->address),
                      sizeof(this->address));
   Notify::err_msg(binding, "socket_bind");
+
+  char *env = getenv("XDG_CURRENT_DESKTOP");
+  if (env == "ubuntu:GNOME") {
+    this->command = "notify-send -u critical \"Posture Perfection\" \"";
+  }
 }
 NotifyReceiver::~NotifyReceiver() {
   shutdown(this->receive_fd, SHUT_RDWR);
@@ -72,15 +76,13 @@ void NotifyReceiver::run() {
     char current_d[1024];
     getcwd(current_d, sizeof(current_d));
     std::string cwd(current_d);
-    std::string start("notify-send \"Posture Perfection\" \"");
-    std::string middle("\" -u critical --icon ");
+    std::string middle("\" --icon ");
     std::string end(
         "/docs/images/"
         "posture-logo-no-text.png");
     this->buffer[read_value] = '\0';
-    std::string out = start + this->buffer + middle + cwd + end;
+    std::string out = this->command + this->buffer + middle + cwd + end;
     system(out.c_str());
-    std::cout << out;
   }
 }
 };  // namespace Notify

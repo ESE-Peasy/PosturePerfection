@@ -33,9 +33,9 @@ namespace Notify {
  */
 class NotifyBroadcast {
  private:
-  int broadcast_fd;            // Socket which the broadcaster is bound to
-  struct sockaddr_in address;  // Broadcast address structure
-  char* target_ip;             // Broadcast IP address
+  int broadcast_fd;            ///< Socket which the broadcaster is bound to
+  struct sockaddr_in address;  ///< Broadcast address structure
+  char* target_ip;             ///< Broadcast IP address
 
  public:
   /**

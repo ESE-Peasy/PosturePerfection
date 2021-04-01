@@ -23,6 +23,8 @@
 #ifndef SRC_NOTIFICATIONS_RECEIVER_H_
 #define SRC_NOTIFICATIONS_RECEIVER_H_
 
+#include <string>
+
 #include "notify.h"
 
 namespace Notify {
@@ -40,18 +42,18 @@ struct IncorrectDirectory : public std::exception {
  */
 class NotifyReceiver {
  private:
-  int receive_fd;              // Receiver socket file descriptor
-  struct sockaddr_in address,  // Receiver address
-      broadcaster_address;     // Specific address details for received messages
-  int addr_len = sizeof(address);  // Length of address structure
-  int broadcaster_len =
-      sizeof(broadcaster_address);  // Length of broadcaster address structure
+  int receive_fd;              ///< Receiver socket file descriptor
+  struct sockaddr_in address,  ///<  Receiver address
+      broadcaster_address;  ///<  Specific address details for received messages
+  int addr_len = sizeof(address);  ///<  Length of address structure
+  int broadcaster_len = sizeof(
+      broadcaster_address);  ///<  Length of broadcaster address structure
+  std::string command =
+      "notify-send -t 0 \"Posture Perfection\" \"";  ///< Notify-send command
+                                                     ///< and flags
 
  public:
-  /**
-   * @brief Returned result from broadcasted message
-   */
-  char buffer[1024];
+  char buffer[1024];  ///< Returned result from broadcasted message
   /**
    * @brief Constructor for `Notify::NotifyReceiver`
    *

@@ -24,7 +24,7 @@
 int main(int argc, char *argv[]) {
   char *ip = const_cast<char *>("192.168.1.255");
   Notify::NotifyBroadcast broadcaster(ip, 121121);
-  std::string msg = "Hello World \n Sample message";
+  std::string msg = "Hello World \nSample message";
   broadcaster.sendMessage(msg);
   return 1;
 }
