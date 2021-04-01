@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16) # Required by TFL
 project(PosturePerfection VERSION 0.3.0)
 
 if(APPLE)
-  set(CMAKE_PREFIX_PATH "/usr/local/Cellar/qt/5.14.2")
+  set(CMAKE_PREFIX_PATH "/usr/local/Cellar/")
 endif()
 
 if(UNIX AND NOT APPLE)
