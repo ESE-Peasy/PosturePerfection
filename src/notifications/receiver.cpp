@@ -62,12 +62,12 @@ NotifyReceiver::~NotifyReceiver() {
 void NotifyReceiver::run() {
   std::cout.flush();
   std::memset(this->buffer, 0, sizeof(this->buffer));
-  std::memset(&this->client_address, 0, sizeof(client_address));
+  std::memset(&this->broadcaster_address, 0, sizeof(broadcaster_address));
 
-  int read_value = recvfrom(this->receive_fd, this->buffer, 1024, MSG_DONTWAIT,
-                            (struct sockaddr *)&this->client_address,
-                            (socklen_t *)(&this->client_len));
-  ;
+  int read_value =
+      recvfrom(this->receive_fd, this->buffer, 1024, MSG_DONTWAIT,
+               (struct sockaddr *)&this->broadcaster_address,
+               reinterpret_cast<socklen_t *>(&this->broadcaster_len));
   if (read_value > 0) {
     char current_d[1024];
     getcwd(current_d, sizeof(current_d));
@@ -81,6 +81,6 @@ void NotifyReceiver::run() {
     std::string out = start + this->buffer + middle + cwd + end;
     system(out.c_str());
     std::cout << out;
-  };
+  }
 }
 };  // namespace Notify

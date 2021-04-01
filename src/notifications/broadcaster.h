@@ -1,7 +1,6 @@
 /**
  * @file client.h
- * @brief Local server for receiving notifications from the Raspberry Pi. Only
- * runs on Linux
+ * @brief Broadcaster for sending notifications to `Notify::NotifyReceiver`
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *
@@ -20,39 +19,40 @@
  *
  */
 
-#ifndef SRC_NOTIFICATIONS_BROADCAST_H_
-#define SRC_NOTIFICATIONS_BROADCAST_H_
+#ifndef SRC_NOTIFICATIONS_BROADCASTER_H_
+#define SRC_NOTIFICATIONS_BROADCASTER_H_
 #include <string>
 
 #include "notify.h"
 
 namespace Notify {
 /**
- * @brief A client which sends notifications about Posture to a server
+ * @brief A broadcaster to send messages to
+ * `Notify::NotifyReceiver`
  *
  */
 class NotifyBroadcast {
  private:
-  int broadcast_fd;            ///< Socket which the client is bound to
-  struct sockaddr_in address;  ///< Client address structure
-  char* target_ip;             ///< IP address of server to connect client too
+  int broadcast_fd;            // Socket which the broadcaster is bound to
+  struct sockaddr_in address;  // Broadcast address structure
+  char* target_ip;             // Broadcast IP address
 
  public:
   /**
-   * @brief Constructor for broadcast client
+   * @brief Constructor for `Notify::NotifyBroadcaster`
    *
    * @param port Port number to listen on (default is 121121)
-   * @param ip Address of server to connect to
+   * @param ip Broadcast address (default is 255.255.255.255)
    */
-  explicit NotifyBroadcast(char* ip = (char*)"255.255.255.255",
+  explicit NotifyBroadcast(char* ip = const_cast<char*>("255.255.255.255"),
                            int port = 121121);
   ~NotifyBroadcast();
 
   /**
-   * @brief Sends message from client to server
+   * @brief Broadcasts message to ip
    * @param msg The message to be sent
    */
   void sendMessage(std::string msg);
 };
 }  // namespace Notify
-#endif  // SRC_NOTIFICATIONS_BROADCAST_H_
+#endif  // SRC_NOTIFICATIONS_BROADCASTER_H_

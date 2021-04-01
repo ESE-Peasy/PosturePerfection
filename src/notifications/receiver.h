@@ -1,7 +1,7 @@
 /**
  * @file receiver.h
- * @brief Local receiver for receiving notifications from the Raspberry Pi. Only
- * runs on Linux
+ * @brief Receiver for listening and receiving notifications from
+ * `Notify::NotifyBroadcast`
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *
@@ -27,38 +27,43 @@
 
 namespace Notify {
 /**
- * @brief Exception for when user tries to run receiver in wrong directory
+ * @brief Exception for when user tries to run `Notify::NotifyReceiver` in wrong
+ * directory
  */
 struct IncorrectDirectory : public std::exception {
   const char *what() const throw() { return "Not in Correct Directory"; }
 };
 /**
- * @brief A receiver which listens for notifications about Posture from the
- * Raspberry Pi and updates the user accordingly
+ * @brief A `Notify::NotifyReceiver` for listening and receiving notifications
+ * from `Notify::NotifyBroadcast`
  *
  */
 class NotifyReceiver {
  private:
   int receive_fd;              // Receiver socket file descriptor
   struct sockaddr_in address,  // Receiver address
-      client_address;          // Specific address details for received messages
+      broadcaster_address;     // Specific address details for received messages
   int addr_len = sizeof(address);  // Length of address structure
-  int client_len =
-      sizeof(client_address);  // Length of broadcast address structure
+  int broadcaster_len =
+      sizeof(broadcaster_address);  // Length of broadcaster address structure
 
  public:
-  char buffer[1024];  // Returned result from broadcast message
   /**
-   * @brief Constructor for notify receiver
+   * @brief Returned result from broadcasted message
+   */
+  char buffer[1024];
+  /**
+   * @brief Constructor for `Notify::NotifyReceiver`
    *
    * @param port Port number to listen on (default is 121121)
-   * @param ignore Boolean to ignore location where receiver is running
+   * @param ignore Boolean to ignore location where Notify::NotifyReceiver is
+   * running
    */
   explicit NotifyReceiver(int port = 121121, bool ignore = false);
   ~NotifyReceiver();
 
   /**
-   * @brief Sets the receiver to start listening
+   * @brief Sets the Notify::NotifyReceiver to start listening
    */
   void run();
 };

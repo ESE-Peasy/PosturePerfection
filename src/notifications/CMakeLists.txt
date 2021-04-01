@@ -6,7 +6,7 @@ project(Notification)
 set(NOTFYSRC
   receiver.cpp
   notify.cpp
-  broadcast.cpp
+  broadcaster.cpp
   )
 # add the executable
 add_executable(NotificationReceiver ${NOTFYSRC} receiver_example.cpp)

@@ -1,7 +1,7 @@
 /**
- * @file client_main.cpp
- * @brief Program for running a notification client, only runs on Linux
- *
+ * @file broadcast_example.cpp
+ * @brief Program for running a simple broadcaster example
+ * *
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *
@@ -19,12 +19,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#include "broadcast.h"
+#include "broadcaster.h"
 
 int main(int argc, char *argv[]) {
   char *ip = const_cast<char *>("192.168.1.255");
   Notify::NotifyBroadcast broadcaster(ip, 121121);
-  std::string msg = "Your back is broken :-( \n April Fools!";
+  std::string msg = "Hello World \n Sample message";
   broadcaster.sendMessage(msg);
   return 1;
 }

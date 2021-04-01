@@ -10,8 +10,8 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/gui")
 
 set(NTFYSRC
     notifications/notify.cpp
-    notifications/client.cpp
-    notifications/server.cpp
+    notifications/broadcaster.cpp
+    notifications/receiver.cpp
     )
 
 set(LIBSRC

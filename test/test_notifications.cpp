@@ -4,14 +4,14 @@
 #include <future>
 #include <iostream>
 
-#include "../src/notifications/client.h"
-#include "../src/notifications/server.h"
+#include "../src/notifications/broadcaster.h"
+#include "../src/notifications/receiver.h"
 
 // Currently cannot test sockets with Boost, so tests can only check if server
 // handles checking in the right directory
 
 BOOST_AUTO_TEST_CASE(CheckDirectory) {
-  BOOST_CHECK_NO_THROW(Notify::NotifyServer serv(8080, true));
-  BOOST_CHECK_THROW(Notify::NotifyServer serv(8080),
+  BOOST_CHECK_NO_THROW(Notify::NotifyReceiver serv(8080, true));
+  BOOST_CHECK_THROW(Notify::NotifyReceiver serv(8080),
                     Notify::IncorrectDirectory);
 }

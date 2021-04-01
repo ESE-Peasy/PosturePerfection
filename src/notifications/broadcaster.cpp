@@ -1,6 +1,6 @@
 /**
  * @file Broadcast.cpp
- * @brief Broadcast for sending notifications from the Raspberry Pi.
+ * @brief Broadcaster for sending notifications to `Notify::receiver`
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *
@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#include "broadcast.h"
+#include "broadcaster.h"
 
 namespace Notify {
 NotifyBroadcast::NotifyBroadcast(char *ip, int port) {
