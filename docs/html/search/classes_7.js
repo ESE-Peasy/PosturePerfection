@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rawframe_232',['RawFrame',['../structPipeline_1_1RawFrame.html',1,'Pipeline']]],
-  ['result_233',['Result',['../structInference_1_1Result.html',1,'Inference']]]
+  ['rawframe_223',['RawFrame',['../structPipeline_1_1RawFrame.html',1,'Pipeline']]],
+  ['result_224',['Result',['../structInference_1_1Result.html',1,'Inference']]]
 ];
