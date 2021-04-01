@@ -98,9 +98,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab216a6a3df8b59831caa4fa5e4748dbc"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#ab216a6a3df8b59831caa4fa5e4748dbc">get_framerate</a> (void)</td></tr>
 <tr class="memdesc:ab216a6a3df8b59831caa4fa5e4748dbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the frame rate.  <a href="classPipeline_1_1Pipeline.html#ab216a6a3df8b59831caa4fa5e4748dbc">More...</a><br /></td></tr>
 <tr class="separator:ab216a6a3df8b59831caa4fa5e4748dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b517257139bbd3de2573f19ceb31b6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a0b517257139bbd3de2573f19ceb31b6b">set_ideal_posture</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> posture)</td></tr>
-<tr class="memdesc:a0b517257139bbd3de2573f19ceb31b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ideal posture.  <a href="classPipeline_1_1Pipeline.html#a0b517257139bbd3de2573f19ceb31b6b">More...</a><br /></td></tr>
-<tr class="separator:a0b517257139bbd3de2573f19ceb31b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a378b6f9da650022e6eed6302c8806022"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a378b6f9da650022e6eed6302c8806022">set_ideal_posture</a> (<a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> pose)</td></tr>
+<tr class="memdesc:a378b6f9da650022e6eed6302c8806022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ideal posture.  <a href="classPipeline_1_1Pipeline.html#a378b6f9da650022e6eed6302c8806022">More...</a><br /></td></tr>
+<tr class="separator:a378b6f9da650022e6eed6302c8806022"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Frame-by-frame pipeline to process video. </p>
@@ -267,8 +267,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0b517257139bbd3de2573f19ceb31b6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b517257139bbd3de2573f19ceb31b6b">&#9670;&nbsp;</a></span>set_ideal_posture()</h2>
+<a id="a378b6f9da650022e6eed6302c8806022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a378b6f9da650022e6eed6302c8806022">&#9670;&nbsp;</a></span>set_ideal_posture()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,8 +276,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void Pipeline::Pipeline::set_ideal_posture </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a>&#160;</td>
-          <td class="paramname"><em>posture</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a>&#160;</td>
+          <td class="paramname"><em>pose</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -286,7 +286,7 @@ Public Member Functions</h2></td></tr>
 <p>Set the ideal posture. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">posture</td><td>A previous frame's posture that is to be used as the new ideal posture </td></tr>
+    <tr><td class="paramname">pose</td><td>A previous frame's posture that is to be used as the new ideal posture </td></tr>
   </table>
   </dd>
 </dl>

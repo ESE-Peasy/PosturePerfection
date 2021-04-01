@@ -108,12 +108,32 @@ void Pipeline::post_processing_thread_body() {
     auto pose_result = posture_estimator.runEstimator(
         post_processor.run(next_frame.image_results));
 
-    // Put the `frame.id` on the image for debugging purposes
-    auto str = std::to_string(next_frame.id);
-    cv::putText(next_frame.raw_image, str.c_str(), cv::Point(20, 20),
-                cv::FONT_HERSHEY_DUPLEX, 1.0, cv::Scalar(255, 0, 0));
+    overlay_image(pose_result, next_frame.raw_image);
 
     callback(pose_result, next_frame.raw_image);
+  }
+}
+
+void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
+                             cv::Mat raw_image) {
+  PostureEstimating::Pose current = pose_status.current_pose;
+
+  int imageWidth = raw_image.cols;
+  int imageHeight = raw_image.rows;
+
+  cv::cvtColor(raw_image, raw_image, cv::COLOR_BGR2RGB);
+
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    if (current.joints[i].coord.status == PostProcessing::Trustworthy &&
+        current.joints[i - 1].coord.status == PostProcessing::Trustworthy) {
+      cv::Point upper(
+          static_cast<int>(current.joints[i - 1].coord.x * imageWidth),
+          static_cast<int>(current.joints[i - 1].coord.y * imageHeight));
+
+      cv::Point curr(static_cast<int>(current.joints[i].coord.x * imageWidth),
+                     static_cast<int>(current.joints[i].coord.y * imageHeight));
+      cv::line(raw_image, upper, curr, colours.at(i), 5);
+    }
   }
 }
 
@@ -127,7 +147,6 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       frame_generator(&frame_delay),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
-  
   if (num_inference_core_threads == 0) {
     throw std::invalid_argument("num_inference_core_threads must not be zero");
   }
@@ -162,7 +181,7 @@ bool Pipeline::set_confidence_threshold(float threshold) {
 
 float Pipeline::increase_framerate(void) {
   // Increasing frame rate means decreasing frame delay
-  auto new_frame_delay = frame_delay << 1;
+  auto new_frame_delay = frame_delay >> 1;
   if (new_frame_delay >= FRAME_DELAY_MIN) {
     // Won't be too low, so can update
     frame_delay = new_frame_delay;
@@ -172,7 +191,7 @@ float Pipeline::increase_framerate(void) {
 
 float Pipeline::decrease_framerate(void) {
   // Decreasing frame rate means decreasing frame delay
-  auto new_frame_delay = frame_delay >> 1;
+  auto new_frame_delay = frame_delay << 1;
   if (new_frame_delay <= FRAME_DELAY_MAX) {
     // Won't be too high, so can update
     frame_delay = new_frame_delay;
@@ -182,8 +201,8 @@ float Pipeline::decrease_framerate(void) {
 
 float Pipeline::get_framerate(void) { return 1000.0 / frame_delay; }
 
-void Pipeline::set_ideal_posture(PostProcessing::ProcessedResults posture) {
-  posture_estimator.update_ideal_pose(posture);
+void Pipeline::set_ideal_posture(PostureEstimating::Pose pose) {
+  posture_estimator.update_ideal_pose(pose);
 }
 
 }  // namespace Pipeline

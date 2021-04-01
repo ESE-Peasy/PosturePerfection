@@ -96,9 +96,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae067ecb8f608b149771b95927e904818"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ae067ecb8f608b149771b95927e904818">~PostureEstimator</a> ()</td></tr>
 <tr class="memdesc:ae067ecb8f608b149771b95927e904818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a <code><a class="el" href="classPostureEstimating_1_1PostureEstimator.html" title="This class handles representations of the user&#39;s pose and calculates any updates to their pose that i...">PostureEstimator</a></code> object.  <a href="classPostureEstimating_1_1PostureEstimator.html#ae067ecb8f608b149771b95927e904818">More...</a><br /></td></tr>
 <tr class="separator:ae067ecb8f608b149771b95927e904818"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96da35b970e17452e9a5b9e5d32561dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc">update_ideal_pose</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
-<tr class="memdesc:a96da35b970e17452e9a5b9e5d32561dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the user's ideal pose using the results of <code><a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a></code>  <a href="classPostureEstimating_1_1PostureEstimator.html#a96da35b970e17452e9a5b9e5d32561dc">More...</a><br /></td></tr>
-<tr class="separator:a96da35b970e17452e9a5b9e5d32561dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad032960ec600840bf538ad88366a12cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd">update_ideal_pose</a> (<a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> pose)</td></tr>
+<tr class="memdesc:ad032960ec600840bf538ad88366a12cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the user's ideal pose using the results of <code><a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a></code>  <a href="classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd">More...</a><br /></td></tr>
+<tr class="separator:ad032960ec600840bf538ad88366a12cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PoseStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">runEstimator</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
 <tr class="memdesc:ac6f12c5c80b96860c57a989c92b28d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PoseStatus</a></code> of the user's pose.  <a href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">More...</a><br /></td></tr>
 <tr class="separator:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,8 +204,8 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a96da35b970e17452e9a5b9e5d32561dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96da35b970e17452e9a5b9e5d32561dc">&#9670;&nbsp;</a></span>update_ideal_pose()</h2>
+<a id="ad032960ec600840bf538ad88366a12cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad032960ec600840bf538ad88366a12cd">&#9670;&nbsp;</a></span>update_ideal_pose()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,8 +213,8 @@ Data Fields</h2></td></tr>
         <tr>
           <td class="memname">void PostureEstimating::PostureEstimator::update_ideal_pose </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a>&#160;</td>
-          <td class="paramname"><em>results</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a>&#160;</td>
+          <td class="paramname"><em>pose</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -223,7 +223,7 @@ Data Fields</h2></td></tr>
 <p>Calibrate the user's ideal pose using the results of <code><a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a></code> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">results</td><td><code><a class="el" href="structPostProcessing_1_1ProcessedResults.html" title="The PostProcessing::Coordinate of each body part.">PostProcessing::ProcessedResults</a></code> struct containing user's pose data. </td></tr>
+    <tr><td class="paramname">results</td><td><code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> struct containing user's pose data. </td></tr>
   </table>
   </dd>
 </dl>

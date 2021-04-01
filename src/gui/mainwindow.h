@@ -38,8 +38,10 @@
 #include <QWidget>
 #include <QtCore/QVariant>
 #include <opencv2/imgcodecs.hpp>
+#include "opencv2/opencv.hpp"
 
 #include "../intermediate_structures.h"
+#include "../pipeline.h"
 #include "../posture_estimator.h"
 
 QT_BEGIN_NAMESPACE
@@ -72,7 +74,8 @@ class MainWindow : public QMainWindow {
    *
    * @param *parent Pointer to the parent interface.
    */
-  MainWindow(QWidget *parent = 0);  // NOLINT [runtime/explicit]
+  MainWindow(Pipeline::Pipeline *Pipeline,
+             QWidget *parent = 0);  // NOLINT [runtime/explicit]
   ~MainWindow();
 
   /**
@@ -99,9 +102,44 @@ class MainWindow : public QMainWindow {
    * @brief Creates the settings page within the application
    *
    */
-  void createSettingsPage();
+  void createSettingsPage(Pipeline::Pipeline *pipeline);
+
+  /**
+   * @brief Updates the current pose
+   *
+   */
+  void updatePose(PostureEstimating::PoseStatus poseStatus);
+
+  /**
+   * @brief Outputs the framerate to the GUI
+   *
+   */
+  void setOutputFramerate();
 
  public slots:
+  /**
+   * @brief Updates the threshold value
+   *
+   */
+  void setThresholdValue(int);
+
+  /**
+   * @brief Increases the video frame rate
+   *
+   */
+  void increaseVideoFramerate();
+
+  /**
+   * @brief Decreases the video frame rate
+   *
+   */
+  void decreaseVideoFramerate();
+
+  /**
+   * @brief sets the current pose to the ideal posture
+   *
+   */
+  void setIdealPosture();
 
  signals:
 
@@ -115,6 +153,11 @@ class MainWindow : public QMainWindow {
    * @brief Create the inital video feed frame with the PosturePerfection logo
    */
   void initalFrame();
+
+  Pipeline::Pipeline *pipelinePtr = nullptr;
+  PostureEstimating::PoseStatus currentPoseStatus;
+  QGridLayout *framerate = new QGridLayout;
+  QLabel *currentFrame = new QLabel();
 
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;

@@ -257,7 +257,7 @@ BOOST_AUTO_TEST_CASE(CreateProducedPoseStatusStructure) {
   PostProcessing::ProcessedResults ri = helper_create_result();
   PostProcessing::ProcessedResults rc = helper_create_result();
   PostureEstimating::PostureEstimator e;
-  e.update_ideal_pose(ri);
+  e.update_ideal_pose(e.createPoseFromResult(ri));
 
   PostureEstimating::PoseStatus p = e.runEstimator(rc);
 
