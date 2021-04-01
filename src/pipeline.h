@@ -471,6 +471,13 @@ class Pipeline {
   bool set_confidence_threshold(float threshold);
 
   /**
+   * @brief Get the confidence threshold object
+   * 
+   * @return `float` Currently set confidence threshold
+   */
+  float get_confidence_threshold();
+
+  /**
    * @brief Increment the frame rate to the next predefined value
    *
    * If the maximum frame rate of the system is reached, it will not be
