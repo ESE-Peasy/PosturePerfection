@@ -36,8 +36,7 @@ if [ $ENABLE_TESTING ]; then
   printf "${PURPLE}Running ctest...${NO_COLOUR}\n"
   cd build
   ctest --verbose || {
-    printf "\n${RED}One or more tests failed. Please see the error messages above " \
-      "for more information.${NO_COLOUR}\n"
+    printf "\n${RED}One or more tests failed. Please see the error messages above for more information.${NO_COLOUR}\n"
     exit 1
   }
   printf "\n${GREEN}All tests have passed. Ready to push to GitHub!\n"
