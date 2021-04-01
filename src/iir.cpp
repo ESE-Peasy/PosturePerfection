@@ -34,6 +34,11 @@ IIR2ndOrderFilter::IIR2ndOrderFilter(std::vector<float> coefficients) {
   };
 }
 
+void IIR2ndOrderFilter::set(float x) {
+  nodes.tap1 = x;
+  nodes.tap2 = x;
+}
+
 float IIR2ndOrderFilter::run(float x) {
   float output = this->nodes.b1 * this->nodes.tap1;
   x = x - (this->nodes.a1 * this->nodes.tap1);
@@ -48,6 +53,12 @@ float IIR2ndOrderFilter::run(float x) {
 IIRFilter::IIRFilter(SmoothingSettings smoothing_settings) {
   for (std::vector<float> cs : smoothing_settings.coefficients) {
     this->filters.push_back(IIR2ndOrderFilter(cs));
+  }
+}
+
+void IIRFilter::set(float x) {
+  for (auto& filter : filters) {
+    filter.set(x);
   }
 }
 

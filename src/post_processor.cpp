@@ -75,6 +75,25 @@ PostProcessor::PostProcessor(float confidence_threshold,
 
 ProcessedResults PostProcessor::run(
     Inference::InferenceResults inference_core_output) {
+  // Set the filters up for the very first frame
+  if (first_run) {
+    first_run = false;
+    printf("first run\n");
+    int body_part_index = BodyPartMin;
+    int filter_index = 0;
+    Inference::Coordinate body_part;
+
+    for (; body_part_index < BodyPartMax + 1;
+         body_part_index++, filter_index += NUM_FILTERS_PER_BODY_PART) {
+      body_part = inference_core_output.body_parts.at(body_part_index);
+
+      iir_filters.at(filter_index).set(body_part.x);
+      iir_filters.at(filter_index + 1).set(body_part.y);
+
+      iir_filters.at(filter_index + 2).set(body_part.confidence);
+    }
+  }
+
   // Initialise structure for results
   std::array<Coordinate, BodyPartMax + 1> intermediate_results;
   ProcessedResults results;
@@ -153,8 +172,6 @@ bool PostProcessor::set_confidence_threshold(float confidence_threshold) {
   }
 }
 
-float PostProcessor::get_confidence_threshold() {
-  return confidence_threshold;
-}
+float PostProcessor::get_confidence_threshold() { return confidence_threshold; }
 
 }  // namespace PostProcessing

@@ -53,6 +53,7 @@ class PostProcessor {
   float confidence_threshold;
   std::vector<IIR::IIRFilter> iir_filters;
   IIR::IIRFilter smoothed_trustworthiness;
+  bool first_run = true;
 
  public:
   /**
