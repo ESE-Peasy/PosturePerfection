@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['notify_231',['Notify',['../namespaceNotify.html',1,'']]]
+  ['iir_235',['IIR',['../namespaceIIR.html',1,'']]],
+  ['inference_236',['Inference',['../namespaceInference.html',1,'']]]
 ];

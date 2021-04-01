@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buffer_284',['Buffer',['../classPipeline_1_1Buffer.html#a8c55c604454fb0b1039271a90dcabe7f',1,'Pipeline::Buffer']]]
+  ['buffer_290',['Buffer',['../classBuffer_1_1Buffer.html#ab092205b64035a79ae498aa38f197442',1,'Buffer::Buffer']]]
 ];

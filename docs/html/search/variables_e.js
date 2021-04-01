@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_374',['y',['../structPostProcessing_1_1Coordinate.html#ac882cc448d92c960bc863168083d3d57',1,'PostProcessing::Coordinate::y()'],['../structInference_1_1Result.html#a76186ee94cb0b041088b9f8e7e6d5dfd',1,'Inference::Result::y()'],['../structInference_1_1Coordinate.html#a0b08fc1fa038a1c7250f1383640f5d54',1,'Inference::Coordinate::y()']]]
+  ['x_381',['x',['../structPostProcessing_1_1Coordinate.html#a6c37348970f8ca93079c28704af41583',1,'PostProcessing::Coordinate::x()'],['../structInference_1_1Result.html#ac1517f8dbde289890e671bf558af7984',1,'Inference::Result::x()'],['../structInference_1_1Coordinate.html#a151c87360ca77a80762ea10f2302a42b',1,'Inference::Coordinate::x()']]]
 ];
