@@ -31,7 +31,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
   // Create the different GUI pages
   createMainPage();
-  createSettingsPage(pipeline);
+  createSettingsPage();
   pipelinePtr = pipeline;
 
   // Stack the pages within the mainwindow
@@ -108,7 +108,7 @@ void GUI::MainWindow::createMainPage() {
   firstPageWidget->setLayout(mainPageLayout);
 }
 
-void GUI::MainWindow::createSettingsPage(Pipeline::Pipeline *pipeline) {
+void GUI::MainWindow::createSettingsPage() {
   QGroupBox *groupThreshold = new QGroupBox();
   QVBoxLayout *vertThreshold = new QVBoxLayout;
 

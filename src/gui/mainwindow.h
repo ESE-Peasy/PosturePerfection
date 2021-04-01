@@ -95,7 +95,7 @@ class MainWindow : public QMainWindow {
    * @brief Creates the settings page within the application
    *
    */
-  void createSettingsPage(Pipeline::Pipeline *pipeline);
+  void createSettingsPage();
 
   /**
    * @brief Updates the current pose
