@@ -185,7 +185,7 @@ void GUI::MainWindow::setIdealPosture() {
 
 void GUI::MainWindow::setThresholdValue(int scaledValue) {
   float value = static_cast<float>(scaledValue) / 10.0;
-  pipelinePtr->set_confidence_threshold(scaledValue);
+  pipelinePtr->set_confidence_threshold(value);
 }
 
 void GUI::MainWindow::increaseVideoFramerate() {
