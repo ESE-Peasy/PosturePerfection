@@ -84,13 +84,6 @@ class MainWindow : public QMainWindow {
   ~MainWindow();
 
   /**
-   * @brief Refresh the contents of the data table with the most recent data
-   *
-   * @param pose_status a `PostureEstimating::PoseStatus` structure
-   */
-  void updateTable(PostureEstimating::PoseStatus pose_status);
-
-  /**
    * @brief Refresh the video feed to the most recent frame
    *
    * @param currentFrame a `cv::Mat` object
@@ -107,7 +100,7 @@ class MainWindow : public QMainWindow {
    * @brief Creates the settings page within the application
    *
    */
-  void createSettingsPage(Pipeline::Pipeline *pipeline);
+  void createSettingsPage();
 
   /**
    * @brief Updates the current pose
@@ -160,11 +153,6 @@ class MainWindow : public QMainWindow {
   void currentFrameSignal(cv::Mat currentFrame);
 
  private:
-  /**
-   * @brief Create a table containing the numeric posture values
-   */
-  void generateTable();
-
   /**
    * @brief Create the inital video feed frame with the PosturePerfection logo
    */
