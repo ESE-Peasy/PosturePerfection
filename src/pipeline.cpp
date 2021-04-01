@@ -179,6 +179,10 @@ bool Pipeline::set_confidence_threshold(float threshold) {
   return post_processor.set_confidence_threshold(threshold);
 }
 
+float Pipeline::get_confidence_threshold() {
+  return post_processor.get_confidence_threshold();
+}
+
 float Pipeline::increase_framerate(void) {
   // Increasing frame rate means decreasing frame delay
   auto new_frame_delay = frame_delay >> 1;

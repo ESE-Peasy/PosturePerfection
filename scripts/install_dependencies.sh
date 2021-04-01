@@ -44,13 +44,31 @@ cd opencv_build
 cmake -DCMAKE_BUILD_TYPE=Release ../opencv_src || exit 1
 make || exit 1
 
-# Install QT5 and libcustoplot for the User Interface
-printf "Installing qt5-default and libqcustomplot-dev\n"
-sudo apt install -y qt5-default libqcustomplot-dev
+OS="$(uname -s)"
 
-## For unit testing
-printf "Installing unit testing dependencies\n"
-sudo apt install libboost-dev libboost-all-dev -y
+case $OS  in
+  *"Linux"*)
+      # Install QT5 for the User Interface
+      printf "Installing qt5-default\n"
+      sudo apt install -y qt5-default
+
+      # For unit testing
+      printf "Installing unit testing dependencies\n"
+      sudo apt install libboost-dev libboost-all-dev -y
+      ;;
+  *"Darwin"*)
+      # Install QT5 for the User Interface
+      printf "Installing qt5\n"
+      brew install qt5
+
+      # For unit testing
+      printf "Installing unit testing dependencies\n"
+      brew install boost
+      ;;
+  *)
+      printf "Failed to install dependencies\n"        
+      exit 1
+esac
 
 ## Reset directory to project root
 cd $PP_ROOT

@@ -25,14 +25,13 @@
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
-#include "settingswindow.h"
 
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
   // Create the different GUI pages
+  pipelinePtr = pipeline;
   createMainPage();
   createSettingsPage();
-  pipelinePtr = pipeline;
 
   // Stack the pages within the mainwindow
   QStackedWidget *stackedWidget = new QStackedWidget;
@@ -97,6 +96,10 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   central->setLayout(mainLayout);
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
+
+  qRegisterMetaType<cv::Mat>("cv::Mat");
+  connect(this, SIGNAL(currentFrameSignal(cv::Mat)), this,
+          SLOT(updateVideoFrame(cv::Mat)));
 }
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
@@ -128,8 +131,11 @@ void GUI::MainWindow::createSettingsPage() {
   confidenceLabel->setStyleSheet("QLabel {color : white; }");
   QSlider *slider = new QSlider(Qt::Horizontal, this);
   slider->setMinimum(0);
-  slider->setMaximum(10);
+  slider->setMaximum(100);
   slider->setTickInterval(1);
+  int initalThreshold =
+      static_cast<int>(pipelinePtr->get_confidence_threshold() * 100);
+  slider->setValue(initalThreshold);
   vertThreshold->setSpacing(0);
   vertThreshold->setMargin(0);
   vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
@@ -179,8 +185,8 @@ void GUI::MainWindow::setIdealPosture() {
 }
 
 void GUI::MainWindow::setThresholdValue(int scaledValue) {
-  float value = static_cast<float>(scaledValue) / 10.0;
-  pipelinePtr->set_confidence_threshold(scaledValue);
+  float value = static_cast<float>(scaledValue) / 100.0;
+  pipelinePtr->set_confidence_threshold(value);
 }
 
 void GUI::MainWindow::increaseVideoFramerate() {
@@ -245,7 +251,11 @@ void GUI::MainWindow::initalFrame() {
   mainPageLayout->addWidget(frame, 1, 0);
 }
 
-void GUI::MainWindow::updateFrame(cv::Mat currentFrame) {
+void GUI::MainWindow::emitNewFrame(cv::Mat currentFrame) {
+  emit currentFrameSignal(currentFrame);
+}
+
+void GUI::MainWindow::updateVideoFrame(cv::Mat currentFrame) {
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]
                         currentFrame.data,
                         currentFrame.cols, currentFrame.rows, currentFrame.step,

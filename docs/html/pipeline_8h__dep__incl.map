@@ -1,9 +1,8 @@
 <map id="pipeline.h" name="pipeline.h">
-<area shape="rect" id="node1" title="Main pipeline for the PosturePerfection system." alt="" coords="385,5,461,32"/>
-<area shape="rect" id="node2" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="261,80,365,107"/>
-<area shape="rect" id="node6" href="$main_8cpp.html" title=" " alt="" coords="405,155,480,181"/>
-<area shape="rect" id="node7" href="$pipeline_8cpp.html" title=" " alt="" coords="460,80,551,107"/>
+<area shape="rect" id="node1" title="Main pipeline for the PosturePerfection system." alt="" coords="237,5,313,32"/>
+<area shape="rect" id="node2" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="119,80,223,107"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="245,155,320,181"/>
+<area shape="rect" id="node6" href="$pipeline_8cpp.html" title=" " alt="" coords="312,80,403,107"/>
 <area shape="rect" id="node3" href="$gui_2main_8cpp.html" title="Main file for the user interface." alt="" coords="5,155,80,181"/>
 <area shape="rect" id="node4" href="$mainwindow_8cpp.html" title="Main user interface file." alt="" coords="103,155,222,181"/>
-<area shape="rect" id="node5" href="$settingswindow_8cpp.html" title=" " alt="" coords="245,155,381,181"/>
 </map>

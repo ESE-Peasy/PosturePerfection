@@ -83,6 +83,13 @@ class PostProcessor {
    * @return `false` If the new threshold value is invalid
    */
   bool set_confidence_threshold(float confidence_threshold);
+
+  /**
+   * @brief Get the confidence threshold object
+   *
+   * @return `float` Currently set confidence threshold
+   */
+  float get_confidence_threshold();
 };
 
 }  // namespace PostProcessing

@@ -1,14 +1,13 @@
 <map id="inference_core.h" name="inference_core.h">
-<area shape="rect" id="node1" title="Wrapper API for the TensorFlow Lite model." alt="" coords="356,5,473,32"/>
-<area shape="rect" id="node2" href="$inference__core_8cpp.html" title=" " alt="" coords="247,80,377,107"/>
-<area shape="rect" id="node3" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="377,155,453,181"/>
-<area shape="rect" id="node10" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="453,80,574,107"/>
-<area shape="rect" id="node4" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="199,229,303,256"/>
-<area shape="rect" id="node8" href="$main_8cpp.html" title=" " alt="" coords="405,304,480,331"/>
-<area shape="rect" id="node9" href="$pipeline_8cpp.html" title=" " alt="" coords="377,229,468,256"/>
+<area shape="rect" id="node1" title="Wrapper API for the TensorFlow Lite model." alt="" coords="268,5,385,32"/>
+<area shape="rect" id="node2" href="$inference__core_8cpp.html" title=" " alt="" coords="159,80,289,107"/>
+<area shape="rect" id="node3" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="289,155,365,181"/>
+<area shape="rect" id="node9" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="365,80,486,107"/>
+<area shape="rect" id="node4" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="111,229,215,256"/>
+<area shape="rect" id="node7" href="$main_8cpp.html" title=" " alt="" coords="245,304,320,331"/>
+<area shape="rect" id="node8" href="$pipeline_8cpp.html" title=" " alt="" coords="289,229,380,256"/>
 <area shape="rect" id="node5" href="$gui_2main_8cpp.html" title="Main file for the user interface." alt="" coords="5,304,80,331"/>
 <area shape="rect" id="node6" href="$mainwindow_8cpp.html" title="Main user interface file." alt="" coords="103,304,222,331"/>
-<area shape="rect" id="node7" href="$settingswindow_8cpp.html" title=" " alt="" coords="245,304,381,331"/>
-<area shape="rect" id="node11" href="$iir_8cpp.html" title=" " alt="" coords="543,155,599,181"/>
-<area shape="rect" id="node12" href="$post__processor_8cpp.html" title=" " alt="" coords="623,155,758,181"/>
+<area shape="rect" id="node10" href="$iir_8cpp.html" title=" " alt="" coords="455,155,511,181"/>
+<area shape="rect" id="node11" href="$post__processor_8cpp.html" title=" " alt="" coords="535,155,670,181"/>
 </map>

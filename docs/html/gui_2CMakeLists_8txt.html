@@ -71,40 +71,18 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae34aff959167aebc70a3bcd23fc526ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#ae34aff959167aebc70a3bcd23fc526ef">cmake_minimum_required</a> (VERSION 3.7.0) project(gui VERSION 1.0.0 LANGUAGES CXX) if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES) <a class="el" href="gui_2CMakeLists_8txt.html#ac9a44e066b779d84926d1fc478e53957">set</a>(CMAKE_BUILD_TYPE &quot;RelWithDebInfo&quot;) endif() <a class="el" href="gui_2CMakeLists_8txt.html#ac9a44e066b779d84926d1fc478e53957">set</a>(OpenCV_DIR &quot;$</td></tr>
+<tr class="memitem:ae34aff959167aebc70a3bcd23fc526ef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#ae34aff959167aebc70a3bcd23fc526ef">cmake_minimum_required</a> (VERSION 3.7.0) project(gui VERSION 1.0.0 LANGUAGES CXX) if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES) <a class="el" href="gui_2CMakeLists_8txt.html#acd80e3f42e3af51a6cbf3af27112bbc8">set</a>(CMAKE_BUILD_TYPE &quot;RelWithDebInfo&quot;) endif() <a class="el" href="gui_2CMakeLists_8txt.html#acd80e3f42e3af51a6cbf3af27112bbc8">set</a>(OpenCV_DIR &quot;$</td></tr>
 <tr class="separator:ae34aff959167aebc70a3bcd23fc526ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeceba7f4eb4a9c11dbd1b92fdcdd5340"><td class="memItemLeft" align="right" valign="top">opencv_build&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340">find_package</a> (OpenCV REQUIRED) <a class="el" href="gui_2CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a>(&quot;$</td></tr>
 <tr class="separator:aeceba7f4eb4a9c11dbd1b92fdcdd5340"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9a44e066b779d84926d1fc478e53957"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#ac9a44e066b779d84926d1fc478e53957">set</a> (CMAKE_CXX_STANDARD 11) set(CMAKE_CXX_STANDARD_REQUIRED ON) set(CMAKE_AUTOMOC ON) set(CMAKE_AUTORCC ON) set(CMAKE_AUTOUIC ON) <a class="el" href="gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340">find_package</a>(Qt5 COMPONENTS Widgets PrintSupport REQUIRED) <a class="el" href="gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340">find_package</a>(QCustomPlot) if(NOT TENSORFLOW_SOURCE_DIR) get_filename_component(TENSORFLOW_SOURCE_DIR &quot;$</td></tr>
-<tr class="separator:ac9a44e066b779d84926d1fc478e53957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd80e3f42e3af51a6cbf3af27112bbc8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#acd80e3f42e3af51a6cbf3af27112bbc8">set</a> (CMAKE_CXX_STANDARD 11) set(CMAKE_CXX_STANDARD_REQUIRED ON) set(CMAKE_AUTOMOC ON) set(CMAKE_AUTORCC ON) set(CMAKE_AUTOUIC ON) <a class="el" href="gui_2CMakeLists_8txt.html#aeceba7f4eb4a9c11dbd1b92fdcdd5340">find_package</a>(Qt5 COMPONENTS Widgets PrintSupport REQUIRED) if(NOT TENSORFLOW_SOURCE_DIR) get_filename_component(TENSORFLOW_SOURCE_DIR &quot;$</td></tr>
+<tr class="separator:acd80e3f42e3af51a6cbf3af27112bbc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3054f5d0bbe01882593a8e474521142f"><td class="memItemLeft" align="right" valign="top">tensorflow_src ABSOLUTE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#a3054f5d0bbe01882593a8e474521142f">endif</a> () <a class="el" href="gui_2CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a>(&quot;$</td></tr>
 <tr class="separator:a3054f5d0bbe01882593a8e474521142f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a888087499d9107f7438009b28e1a0a50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a> (&quot;${TENSORFLOW_SOURCE_DIR}/tensorflow/lite&quot;) include_directories(&quot;$</td></tr>
 <tr class="separator:a888087499d9107f7438009b28e1a0a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec38cb6f22d920b18f90aab9359e7f66"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#aec38cb6f22d920b18f90aab9359e7f66">add_library</a> (PosturePerfection_gui STATIC mainwindow.cpp settingswindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp ../pipeline.cpp) <a class="el" href="CMakeLists_8txt.html#a9c779c44143503c58fb384b5b5b004a3">target_link_libraries</a>(PosturePerfection_gui Qt5</td></tr>
-<tr class="separator:aec38cb6f22d920b18f90aab9359e7f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0aae844091505c41ec9dcc75f3e78a04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="gui_2CMakeLists_8txt.html#a0aae844091505c41ec9dcc75f3e78a04">target_include_directories</a> (PosturePerfection_gui PUBLIC &quot;${CMAKE_CURRENT_BINARY_DIR}/../../flatbuffers/include&quot;) target_link_libraries(PosturePerfection_gui $</td></tr>
-<tr class="separator:a0aae844091505c41ec9dcc75f3e78a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aec38cb6f22d920b18f90aab9359e7f66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec38cb6f22d920b18f90aab9359e7f66">&#9670;&nbsp;</a></span>add_library()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">add_library </td>
-          <td>(</td>
-          <td class="paramtype">PosturePerfection_gui STATIC mainwindow.cpp settingswindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp ../pipeline.&#160;</td>
-          <td class="paramname"><em>cpp</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="ae34aff959167aebc70a3bcd23fc526ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae34aff959167aebc70a3bcd23fc526ef">&#9670;&nbsp;</a></span>cmake_minimum_required()</h2>
 
@@ -176,8 +154,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac9a44e066b779d84926d1fc478e53957"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9a44e066b779d84926d1fc478e53957">&#9670;&nbsp;</a></span>set()</h2>
+<a id="acd80e3f42e3af51a6cbf3af27112bbc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd80e3f42e3af51a6cbf3af27112bbc8">&#9670;&nbsp;</a></span>set()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,24 +165,6 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">CMAKE_CXX_STANDARD&#160;</td>
           <td class="paramname"><em>11</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0aae844091505c41ec9dcc75f3e78a04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0aae844091505c41ec9dcc75f3e78a04">&#9670;&nbsp;</a></span>target_include_directories()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">target_include_directories </td>
-          <td>(</td>
-          <td class="paramtype">PosturePerfection_gui PUBLIC &quot;${CMAKE_CURRENT_BINARY_DIR}/../../flatbuffers/include&quot;&#160;</td>
-          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>

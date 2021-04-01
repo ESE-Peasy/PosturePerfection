@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-slots">Public Slots</a> &#124;
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
 <div class="title">GUI::MainWindow Class Reference</div>  </div>
@@ -111,6 +112,15 @@ Public Slots</h2></td></tr>
 <tr class="memitem:aaa69bb53682ae4c7e3139c5ef6cb13cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#aaa69bb53682ae4c7e3139c5ef6cb13cc">setIdealPosture</a> ()</td></tr>
 <tr class="memdesc:aaa69bb53682ae4c7e3139c5ef6cb13cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the current pose to the ideal posture  <a href="classGUI_1_1MainWindow.html#aaa69bb53682ae4c7e3139c5ef6cb13cc">More...</a><br /></td></tr>
 <tr class="separator:aaa69bb53682ae4c7e3139c5ef6cb13cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf7ad1ebf8a411385498361509f17b75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#aaf7ad1ebf8a411385498361509f17b75">updateVideoFrame</a> (cv::Mat currentFrame)</td></tr>
+<tr class="memdesc:aaf7ad1ebf8a411385498361509f17b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the video ouput once a new frame has been captured  <a href="classGUI_1_1MainWindow.html#aaf7ad1ebf8a411385498361509f17b75">More...</a><br /></td></tr>
+<tr class="separator:aaf7ad1ebf8a411385498361509f17b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a05f6eea3b31925bdd0bcc9ee931b1779"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#a05f6eea3b31925bdd0bcc9ee931b1779">currentFrameSignal</a> (cv::Mat currentFrame)</td></tr>
+<tr class="memdesc:a05f6eea3b31925bdd0bcc9ee931b1779"><td class="mdescLeft">&#160;</td><td class="mdescRight">emit the newly captured frame  <a href="classGUI_1_1MainWindow.html#a05f6eea3b31925bdd0bcc9ee931b1779">More...</a><br /></td></tr>
+<tr class="separator:a05f6eea3b31925bdd0bcc9ee931b1779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -122,9 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af15170fd7b917c980d5e3577579dbbdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#af15170fd7b917c980d5e3577579dbbdb">updateTable</a> (<a class="el" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a> pose_status)</td></tr>
 <tr class="memdesc:af15170fd7b917c980d5e3577579dbbdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh the contents of the data table with the most recent data.  <a href="classGUI_1_1MainWindow.html#af15170fd7b917c980d5e3577579dbbdb">More...</a><br /></td></tr>
 <tr class="separator:af15170fd7b917c980d5e3577579dbbdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3846b6c72e229f01bfb1cfc5830598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#ade3846b6c72e229f01bfb1cfc5830598">updateFrame</a> (cv::Mat currentFrame)</td></tr>
-<tr class="memdesc:ade3846b6c72e229f01bfb1cfc5830598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh the video feed to the most recent frame.  <a href="classGUI_1_1MainWindow.html#ade3846b6c72e229f01bfb1cfc5830598">More...</a><br /></td></tr>
-<tr class="separator:ade3846b6c72e229f01bfb1cfc5830598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5a31641a8e540068dd04fd1d7d15d9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#ad5a31641a8e540068dd04fd1d7d15d9e">emitNewFrame</a> (cv::Mat currentFrame)</td></tr>
+<tr class="memdesc:ad5a31641a8e540068dd04fd1d7d15d9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh the video feed to the most recent frame.  <a href="classGUI_1_1MainWindow.html#ad5a31641a8e540068dd04fd1d7d15d9e">More...</a><br /></td></tr>
+<tr class="separator:ad5a31641a8e540068dd04fd1d7d15d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08474b2d05747fcc32d55ba7209d5209"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#a08474b2d05747fcc32d55ba7209d5209">createMainPage</a> ()</td></tr>
 <tr class="memdesc:a08474b2d05747fcc32d55ba7209d5209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the main page within the application.  <a href="classGUI_1_1MainWindow.html#a08474b2d05747fcc32d55ba7209d5209">More...</a><br /></td></tr>
 <tr class="separator:a08474b2d05747fcc32d55ba7209d5209"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,6 +250,34 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a05f6eea3b31925bdd0bcc9ee931b1779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05f6eea3b31925bdd0bcc9ee931b1779">&#9670;&nbsp;</a></span>currentFrameSignal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GUI::MainWindow::currentFrameSignal </td>
+          <td>(</td>
+          <td class="paramtype">cv::Mat&#160;</td>
+          <td class="paramname"><em>currentFrame</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>emit the newly captured frame </p>
+
+</div>
+</div>
 <a id="aff413f5cac81e23360a4df4854a656ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff413f5cac81e23360a4df4854a656ac">&#9670;&nbsp;</a></span>decreaseVideoFramerate</h2>
 
@@ -264,6 +302,32 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Decreases the video frame rate. </p>
+
+</div>
+</div>
+<a id="ad5a31641a8e540068dd04fd1d7d15d9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5a31641a8e540068dd04fd1d7d15d9e">&#9670;&nbsp;</a></span>emitNewFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GUI::MainWindow::emitNewFrame </td>
+          <td>(</td>
+          <td class="paramtype">cv::Mat&#160;</td>
+          <td class="paramname"><em>currentFrame</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Refresh the video feed to the most recent frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentFrame</td><td>a <code>cv::Mat</code> object </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -368,32 +432,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ade3846b6c72e229f01bfb1cfc5830598"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade3846b6c72e229f01bfb1cfc5830598">&#9670;&nbsp;</a></span>updateFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GUI::MainWindow::updateFrame </td>
-          <td>(</td>
-          <td class="paramtype">cv::Mat&#160;</td>
-          <td class="paramname"><em>currentFrame</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Refresh the video feed to the most recent frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentFrame</td><td>a <code>cv::Mat</code> object </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a5bb8233bd77db5c51d0e6637527ee07d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5bb8233bd77db5c51d0e6637527ee07d">&#9670;&nbsp;</a></span>updatePose()</h2>
 
@@ -437,6 +475,34 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aaf7ad1ebf8a411385498361509f17b75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf7ad1ebf8a411385498361509f17b75">&#9670;&nbsp;</a></span>updateVideoFrame</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GUI::MainWindow::updateVideoFrame </td>
+          <td>(</td>
+          <td class="paramtype">cv::Mat&#160;</td>
+          <td class="paramname"><em>currentFrame</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>update the video ouput once a new frame has been captured </p>
 
 </div>
 </div>

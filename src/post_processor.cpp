@@ -149,4 +149,8 @@ bool PostProcessor::set_confidence_threshold(float confidence_threshold) {
   }
 }
 
+float PostProcessor::get_confidence_threshold() {
+  return confidence_threshold;
+}
+
 }  // namespace PostProcessing
