@@ -4,13 +4,13 @@ cmake_minimum_required(VERSION 3.10)
 project(Notification)
 
 set(NOTFYSRC
-  server.cpp
+  receiver.cpp
   notify.cpp
-  client.cpp
+  broadcaster.cpp
   )
 # add the executable
-add_executable(NotificationServer ${NOTFYSRC} server_main.cpp)
-add_executable(NotificationClient ${NOTFYSRC} client_main.cpp)
+add_executable(NotificationReceiver ${NOTFYSRC} receiver_example.cpp)
+add_executable(NotificationBroadcast ${NOTFYSRC} broadcast_example.cpp)
 
 add_library(PosturePerfection_notify STATIC ${NOTFYSRC})
 

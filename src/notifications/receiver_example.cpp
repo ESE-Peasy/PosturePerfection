@@ -1,6 +1,6 @@
 /**
- * @file server_main.cpp
- * @brief Program for running a notification server, only runs on Linux
+ * @file receiver_example.cpp
+ * @brief Program for running a notification receiver
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *
@@ -18,12 +18,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#include "server.h"
+#include "receiver.h"
 
 int main(int argc, char *argv[]) {
-  Notify::NotifyServer serv(8080);
+  Notify::NotifyReceiver receiver(121121);
   while (1) {
-    serv.run();
+    receiver.run();
   }
   return 1;
 }
