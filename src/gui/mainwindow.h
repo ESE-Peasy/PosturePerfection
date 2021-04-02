@@ -122,6 +122,12 @@ class MainWindow : public QMainWindow {
   void setThresholdValue(int);
 
   /**
+   * @brief Updates the `PostureEstimating::pose_change_threshold` value
+   *
+   */
+  void setPoseChangeThresholdValue(int);
+
+  /**
    * @brief Increases the video frame rate
    *
    */

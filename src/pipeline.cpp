@@ -255,4 +255,8 @@ bool Pipeline::set_pose_change_threshold(float threshold) {
   return posture_estimator.set_pose_change_threshold(threshold);
 }
 
+float Pipeline::get_pose_change_threshold() {
+  return posture_estimator.get_pose_change_threshold();
+}
+
 }  // namespace Pipeline

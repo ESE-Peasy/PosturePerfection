@@ -242,6 +242,15 @@ class PostureEstimator {
   bool set_pose_change_threshold(float threshold);
 
   /**
+   * @brief Get the currently set `pose_change_threshold`. Note that this
+   * threshold is in radians and we set a maximum configurable value of 0.5
+   * radians (28.64 degrees)
+   *
+   * @return `float` The current threshold in the range [0..0.5] (radians)
+   */
+  float get_pose_change_threshold(void);
+
+  /**
    * @brief Return a `PoseStatus` of the user's pose
    *
    * @param results `PostProcessing::ProcessedResults` struct containing user's

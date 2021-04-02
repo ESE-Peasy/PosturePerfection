@@ -629,6 +629,13 @@ class Pipeline {
    * @return `false` If updating the threshold did not succeed
    */
   bool set_pose_change_threshold(float threshold);
+
+  /**
+   * @brief Get the current pose change threshold
+   *
+   * @return `float` Currently set pose change threshold
+   */
+  float get_pose_change_threshold();
 };
 }  // namespace Pipeline
 #endif  // SRC_PIPELINE_H_

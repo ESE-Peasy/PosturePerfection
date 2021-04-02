@@ -177,6 +177,10 @@ bool PostureEstimator::set_pose_change_threshold(float threshold) {
   return false;
 }
 
+float PostureEstimator::get_pose_change_threshold(void) {
+  return this->pose_change_threshold;
+}
+
 PoseStatus PostureEstimator::runEstimator(
     PostProcessing::ProcessedResults results) {
   this->updateCurrentPoseAndCheckPosture(results);

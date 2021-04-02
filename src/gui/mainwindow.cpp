@@ -58,7 +58,6 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
   connect(idealPosture, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
 
-
   idealPosture->setStyleSheet(
       "background-color:rgb(10, 187, 228); border: none;");
 
@@ -132,23 +131,43 @@ void GUI::MainWindow::createSettingsPage() {
   QLabel *confidenceLabel = new QLabel();
   confidenceLabel->setText("Posture Estimating Sensitivity");
   confidenceLabel->setStyleSheet("QLabel {color : white; }");
-  QSlider *slider = new QSlider(Qt::Horizontal, this);
-  slider->setMinimum(0);
-  slider->setMaximum(100);
-  slider->setTickInterval(1);
+  QSlider *confidenceSlider = new QSlider(Qt::Horizontal, this);
+  confidenceSlider->setMinimum(0);
+  confidenceSlider->setMaximum(100);
+  confidenceSlider->setTickInterval(1);
   int initalThreshold =
       static_cast<int>(pipelinePtr->get_confidence_threshold() * 100);
-  slider->setValue(initalThreshold);
+  confidenceSlider->setValue(initalThreshold);
   vertThreshold->setSpacing(0);
   vertThreshold->setMargin(0);
   vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
-  vertThreshold->addWidget(slider, 0, Qt::AlignTop);
+  vertThreshold->addWidget(confidenceSlider, 0, Qt::AlignTop);
+
+  settingsPageLayout->addWidget(groupThreshold, 1, 0);
+
+  connect(confidenceSlider, SIGNAL(valueChanged(int)), this,
+          SLOT(setThresholdValue(int)));
+
+  // Allow user to select the pose change threshold
+  QLabel *poseChangeThresholdLabel = new QLabel();
+  poseChangeThresholdLabel->setText("Pose Change Threshold");
+  poseChangeThresholdLabel->setStyleSheet("QLabel {color : white; }");
+
+  QSlider *poseChangeThresholdSlider = new QSlider(Qt::Horizontal, this);
+  poseChangeThresholdSlider->setMinimum(0);
+  poseChangeThresholdSlider->setMaximum(5);
+  poseChangeThresholdSlider->setTickInterval(1);
+  int initalPoseChangeThreshold =
+      static_cast<int>(pipelinePtr->get_pose_change_threshold() * 10);
+  poseChangeThresholdSlider->setValue(initalPoseChangeThreshold);
+  vertThreshold->addWidget(poseChangeThresholdLabel, 0, Qt::AlignBottom);
+  vertThreshold->addWidget(poseChangeThresholdSlider, 0, Qt::AlignTop);
   groupThreshold->setLayout(vertThreshold);
 
   settingsPageLayout->addWidget(groupThreshold, 1, 0);
 
-  connect(slider, SIGNAL(valueChanged(int)), this,
-          SLOT(setThresholdValue(int)));
+  connect(poseChangeThresholdSlider, SIGNAL(valueChanged(int)), this,
+          SLOT(setPoseChangeThresholdValue(int)));
 
   // Let user adjust the video framerate
   framerate->setSpacing(0);
@@ -166,16 +185,6 @@ void GUI::MainWindow::createSettingsPage() {
 
   currentFrame->setStyleSheet("QLabel {color : white; }");
   framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
-
-  // Let the user take their current posture as the ideal posture
-  QLabel *idealLabel = new QLabel();
-  idealLabel->setText("Set Ideal Posture ->");
-  idealLabel->setStyleSheet("QLabel {color : white; }");
-  framerate->addWidget(idealLabel, 1, 2, 1, 1, Qt::AlignRight);
-
-  QPushButton *idealPosture = new QPushButton("&Ideal Posture");
-  framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
-  connect(idealPosture, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
 
   QGroupBox *groupFramerate = new QGroupBox();
   groupFramerate->setLayout(framerate);
@@ -208,6 +217,11 @@ void GUI::MainWindow::setOutputFramerate() {
 void GUI::MainWindow::decreaseVideoFramerate() {
   pipelinePtr->decrease_framerate();
   setOutputFramerate();
+}
+
+void GUI::MainWindow::setPoseChangeThresholdValue(int scaledValue) {
+  float value = static_cast<float>(scaledValue) / 10.0;
+  pipelinePtr->set_confidence_threshold(value);
 }
 
 void GUI::MainWindow::showDateTime() {
