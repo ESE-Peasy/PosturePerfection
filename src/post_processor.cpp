@@ -78,7 +78,6 @@ ProcessedResults PostProcessor::run(
   // Set the filters up for the very first frame
   if (first_run) {
     first_run = false;
-    printf("first run\n");
     int body_part_index = BodyPartMin;
     int filter_index = 0;
     Inference::Coordinate body_part;

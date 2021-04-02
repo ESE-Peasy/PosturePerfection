@@ -237,6 +237,30 @@ class Buffer {
  */
 namespace Pipeline {
 
+struct FramerateSetting {
+  IIR::SmoothingSettings smoothing_settings;
+  size_t frame_delay;
+};
+
+class Pipeline;
+
+class FramerateSettings {
+ private:
+  // **MUST** be defined in order of ascending frame rate, i.e., descending
+  // frame delay
+  std::vector<FramerateSetting> framerate_settings;
+
+  size_t current_setting;
+  Pipeline* pipeline;
+  void notify_pipeline(void);
+
+ public:
+  FramerateSettings(Pipeline* pipeline);
+  FramerateSetting get_framerate_setting(void);
+  void increase_framerate(void);
+  void decrease_framerate(void);
+};
+
 /**
  * @brief Contains the id of the frame within the pipeline, as well as the raw
  * image and the preprocessed_image. A struct of this type is created for every
@@ -263,6 +287,8 @@ struct RawFrame {
   uint8_t id;         ///< Frame ordering ID
   cv::Mat raw_image;  ///< Raw `cv::Mat` (OpenCV) image
 };
+
+struct FramerateSetting;
 
 class FrameGenerator {
  private:
@@ -324,10 +350,10 @@ class FrameGenerator {
   std::chrono::time_point<std::chrono::steady_clock> t_previous_capture;
 
   /**
-   * @brief Reference to the `Pipeline`'s frame delay
+   * @brief Currently set delay between frames
    *
    */
-  size_t* frame_delay;
+  size_t frame_delay;
 
   /**
    * @brief Implementation of how to retrieve the next frame from the camera
@@ -342,13 +368,14 @@ class FrameGenerator {
   bool running = true;
 
  public:
+  void updated_framerate(size_t new_frame_delay);
   /**
    * @brief Construct a new Frame Generator object
    *
-   * @param frame_delay Pointer to the `Pipeline`'s frame delay
+   * @param framerate_settings Pointer to the `Pipeline`'s `FramerateSettings`
    * @throw `std::runtime_error` if the camera cannot be accessed
    */
-  explicit FrameGenerator(size_t* frame_delay);
+  explicit FrameGenerator(FramerateSettings* framerate_settings);
 
   /**
    * @brief Destroy the Frame Generator object
@@ -420,11 +447,7 @@ class Pipeline {
    */
   bool running;
 
-  /**
-   * @brief Currently set delay between frames in ms
-   *
-   */
-  size_t frame_delay = FRAME_DELAY_DEFAULT;
+  FramerateSettings framerate_settings;
 
   PreProcessing::PreProcessor preprocessor;
   PostProcessing::PostProcessor post_processor;
@@ -467,6 +490,8 @@ class Pipeline {
                      cv::Mat raw_image);
 
  public:
+  void updated_framerate(FramerateSetting new_settings);
+
   /**
    * @brief Construct a new Pipeline object
    *
@@ -498,7 +523,7 @@ class Pipeline {
 
   /**
    * @brief Get the confidence threshold object
-   * 
+   *
    * @return `float` Currently set confidence threshold
    */
   float get_confidence_threshold();

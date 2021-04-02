@@ -27,8 +27,9 @@
 
 namespace Pipeline {
 
-FrameGenerator::FrameGenerator(size_t* frame_delay)
-    : frame_delay(frame_delay), cap(0) {
+FrameGenerator::FrameGenerator(FramerateSettings* framerate_settings)
+    : frame_delay(framerate_settings->get_framerate_setting().frame_delay),
+      cap(0) {
   t_previous_capture = std::chrono::steady_clock::now();
   if (!cap.isOpened()) {
     throw std::runtime_error("Cannot access camera");
@@ -51,6 +52,10 @@ FrameGenerator::FrameGenerator(size_t* frame_delay)
 FrameGenerator::~FrameGenerator() {
   running = false;
   thread.join();
+}
+
+void FrameGenerator::updated_framerate(size_t new_frame_delay) {
+  frame_delay = new_frame_delay;
 }
 
 void FrameGenerator::thread_body(void) {
@@ -76,7 +81,7 @@ RawFrame FrameGenerator::next_frame(void) {
   // Block until frame delay has elapsed
   std::chrono::duration<double, std::milli> t_since_last_request =
       std::chrono::steady_clock::now() - t_previous_capture;
-  while (t_since_last_request <= std::chrono::milliseconds(*frame_delay)) {
+  while (t_since_last_request <= std::chrono::milliseconds(frame_delay)) {
     t_since_last_request =
         std::chrono::steady_clock::now() - t_previous_capture;
   }
@@ -143,14 +148,13 @@ void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
 
 Pipeline::Pipeline(uint8_t num_inference_core_threads,
                    void (*callback)(PostureEstimating::PoseStatus, cv::Mat))
-    : preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y),
+    : framerate_settings(this),
+      preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y),
       // Disable smoothing with empty settings
       post_processor(
-          0.1, IIR::SmoothingSettings{std::vector<std::vector<float>>{
-                   {{0.03168934, 0.06337869, 0.03168934, 1., -0.41421356, 0.},
-                    {1., 1., 0., 1., -1.0448155, 0.47759225}}}}),
+          0.1, framerate_settings.get_framerate_setting().smoothing_settings),
       posture_estimator(),
-      frame_generator(&frame_delay),
+      frame_generator(&framerate_settings),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
   if (num_inference_core_threads == 0) {
@@ -189,27 +193,25 @@ float Pipeline::get_confidence_threshold() {
   return post_processor.get_confidence_threshold();
 }
 
+void Pipeline::updated_framerate(FramerateSetting new_settings) {
+  frame_generator.updated_framerate(new_settings.frame_delay);
+  post_processor = PostProcessing::PostProcessor(
+      get_confidence_threshold(), new_settings.smoothing_settings);
+}
+
 float Pipeline::increase_framerate(void) {
-  // Increasing frame rate means decreasing frame delay
-  auto new_frame_delay = frame_delay >> 1;
-  if (new_frame_delay >= FRAME_DELAY_MIN) {
-    // Won't be too low, so can update
-    frame_delay = new_frame_delay;
-  }
-  return 1000.0 / frame_delay;
+  framerate_settings.increase_framerate();
+  return get_framerate();
 }
 
 float Pipeline::decrease_framerate(void) {
-  // Decreasing frame rate means decreasing frame delay
-  auto new_frame_delay = frame_delay << 1;
-  if (new_frame_delay <= FRAME_DELAY_MAX) {
-    // Won't be too high, so can update
-    frame_delay = new_frame_delay;
-  }
-  return 1000.0 / frame_delay;
+  framerate_settings.decrease_framerate();
+  return get_framerate();
 }
 
-float Pipeline::get_framerate(void) { return 1000.0 / frame_delay; }
+float Pipeline::get_framerate(void) {
+  return 1000.0 / framerate_settings.get_framerate_setting().frame_delay;
+}
 
 void Pipeline::set_ideal_posture(PostureEstimating::Pose pose) {
   posture_estimator.update_ideal_pose(pose);
