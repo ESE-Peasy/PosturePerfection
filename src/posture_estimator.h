@@ -89,6 +89,7 @@ struct PoseStatus {
   Pose current_pose;
   Pose pose_changes;
   bool good_posture;
+  bool ideal_pose_set;
 };
 
 /**
@@ -198,6 +199,11 @@ class PostureEstimator {
   Pose ideal_pose;
 
   /**
+   * @brief The `ideal_pose` is unset until the user manually sets it
+   */
+  bool ideal_pose_set = false;
+
+  /**
    * @brief A representation of what changes are needed to get
    * back to ideal `Pose`.
    */
@@ -223,6 +229,17 @@ class PostureEstimator {
    * pose data.
    */
   void update_ideal_pose(PostureEstimating::Pose pose);
+
+  /**
+   * @brief Set the `pose_change_threshold` to allow user configuration. Note
+   * that this threshold is in radians and we set a maximum configurable value
+   * of 0.5 radians (28.64 degrees)
+   *
+   * @param threshold The updated threshold in the range [0..0.5] (radians)
+   * @return `true` If updating threshold succeeded
+   * @return `false` If updating threshold failed
+   */
+  bool set_pose_change_threshold(float threshold);
 
   /**
    * @brief Return a `PoseStatus` of the user's pose

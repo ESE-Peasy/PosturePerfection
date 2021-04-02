@@ -21,6 +21,9 @@
 #include <cmath>
 #include <string>
 
+#define MIN_POSE_CHANGE_THRESHOLD 0.0  ///< 0 degrees
+#define MAX_POSE_CHANGE_THRESHOLD 0.5  ///< 28.64 degrees
+
 namespace PostureEstimating {
 
 std::string stringJoint(Joint joint) {
@@ -53,7 +56,7 @@ Pose createPose() {
 }
 
 PostureEstimator::PostureEstimator() {
-  this->pose_change_threshold = 0;
+  this->pose_change_threshold = 0.1;
   this->ideal_pose = createPose();
   this->current_pose = createPose();
   this->pose_changes = createPose();
@@ -136,9 +139,9 @@ void PostureEstimator::calculatePoseChanges() {
 }
 
 void PostureEstimator::checkGoodPosture() {
-  for (int i = JointMin; i <= JointMax; i++) {
-    if ((fabs(this->pose_changes.joints[i].lower_angle) >
-         this->pose_change_threshold) ||
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    if ((fabs(this->pose_changes.joints[i].upper_angle) <
+         -(this->pose_change_threshold)) ||
         fabs(this->pose_changes.joints[i].upper_angle) >
             this->pose_change_threshold) {
       this->good_posture = false;
@@ -161,14 +164,24 @@ bool PostureEstimator::updateCurrentPoseAndCheckPosture(
 }
 
 void PostureEstimator::update_ideal_pose(PostureEstimating::Pose pose) {
+  this->ideal_pose_set = true;
   this->ideal_pose = pose;
+}
+
+bool PostureEstimator::set_pose_change_threshold(float threshold) {
+  if (MIN_POSE_CHANGE_THRESHOLD <= threshold &&
+      threshold <= MAX_POSE_CHANGE_THRESHOLD) {
+    this->pose_change_threshold = threshold;
+    return true;
+  }
+  return false;
 }
 
 PoseStatus PostureEstimator::runEstimator(
     PostProcessing::ProcessedResults results) {
   this->updateCurrentPoseAndCheckPosture(results);
   PoseStatus p = {this->ideal_pose, this->current_pose, this->pose_changes,
-                  this->good_posture};
+                  this->good_posture, this->ideal_pose_set};
   return p;
 }  // namespace PostureEstimating
 

@@ -538,9 +538,14 @@ class Pipeline {
    * @brief Function to overlay a stick figure of user posture over the input
    * image
    *
+   * @param `PostureEstimating::PoseStatus` The pose status output for the
+   * current frame
+   * @param `cv::Mat` The raw image for the current frame
+   * @param `float` The angle threshold (in radians) above which a posture is
+   * determined to be bad
    */
   void overlay_image(PostureEstimating::PoseStatus pose_status,
-                     cv::Mat raw_image);
+                     cv::Mat raw_image, float pose_change_threshold);
 
  public:
   void updated_framerate(FramerateSetting new_settings);
@@ -615,6 +620,15 @@ class Pipeline {
    * ideal posture
    */
   void set_ideal_posture(PostureEstimating::Pose pose);
+
+  /**
+   * @brief Set the pose change threshold
+   *
+   * @param threshold New threshold to set
+   * @return `true` If updating the threshold succeeded
+   * @return `false` If updating the threshold did not succeed
+   */
+  bool set_pose_change_threshold(float threshold);
 };
 }  // namespace Pipeline
 #endif  // SRC_PIPELINE_H_

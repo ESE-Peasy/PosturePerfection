@@ -118,15 +118,17 @@ void Pipeline::post_processing_thread_body() {
     auto pose_result = posture_estimator.runEstimator(
         post_processor.run(next_frame.value.image_results));
 
-    overlay_image(pose_result, next_frame.value.raw_image);
+    overlay_image(pose_result, next_frame.value.raw_image,
+                  posture_estimator.pose_change_threshold);
 
     callback(pose_result, next_frame.value.raw_image);
   }
 }
 
 void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
-                             cv::Mat raw_image) {
+                             cv::Mat raw_image, float pose_change_threshold) {
   PostureEstimating::Pose current = pose_status.current_pose;
+  PostureEstimating::Pose changes = pose_status.pose_changes;
 
   int imageWidth = raw_image.cols;
   int imageHeight = raw_image.rows;
@@ -142,21 +144,36 @@ void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
 
       cv::Point curr(static_cast<int>(current.joints[i].coord.x * imageWidth),
                      static_cast<int>(current.joints[i].coord.y * imageHeight));
-      cv::line(raw_image, upper, curr, colours.at(i), 5);
 
-      cv::Point midpoint(static_cast<int>((upper.x + curr.x) / 2),
-                         static_cast<int>((upper.y + curr.y) / 2));
+      if (!pose_status.ideal_pose_set) {
+        // Ideal pose has not been set yet so indicate to user
+        cv::line(raw_image, upper, curr, colours.at(2), 5);
+      } else {
+        if (pose_status.good_posture) {
+          cv::line(raw_image, upper, curr, colours.at(0), 5);
+        } else {
+          cv::Point midpoint(static_cast<int>((upper.x + curr.x) / 2),
+                             static_cast<int>((upper.y + curr.y) / 2));
 
-      if (pose_status.pose_changes.joints.at(i).upper_angle > 0.1) {
-        cv::Point tip(static_cast<int>(midpoint.x - 50),
-                      static_cast<int>(midpoint.y));
+          if (changes.joints.at(i).upper_angle > pose_change_threshold) {
+            cv::line(raw_image, upper, curr, colours.at(1), 5);
+            cv::Point tip(static_cast<int>(midpoint.x - 50),
+                          static_cast<int>(midpoint.y));
 
-        cv::arrowedLine(raw_image, midpoint, tip, colours.at(i), 2);
-      } else if (pose_status.pose_changes.joints.at(i).upper_angle < -0.1) {
-        cv::Point tip(static_cast<int>(midpoint.x + 50),
-                      static_cast<int>(midpoint.y));
+            cv::arrowedLine(raw_image, midpoint, tip, colours.at(i), 2, 8, 0,
+                            0.2);
+          } else if (changes.joints.at(i).upper_angle <
+                     -pose_change_threshold) {
+            cv::line(raw_image, upper, curr, colours.at(1), 5);
+            cv::Point tip(static_cast<int>(midpoint.x + 50),
+                          static_cast<int>(midpoint.y));
 
-        cv::arrowedLine(raw_image, midpoint, tip, colours.at(i), 2);
+            cv::arrowedLine(raw_image, midpoint, tip, colours.at(i), 2, 8, 0,
+                            0.2);
+          } else {
+            cv::line(raw_image, upper, curr, colours.at(0), 5);
+          }
+        }
       }
     }
   }
@@ -232,6 +249,10 @@ float Pipeline::get_framerate(void) {
 
 void Pipeline::set_ideal_posture(PostureEstimating::Pose pose) {
   posture_estimator.update_ideal_pose(pose);
+}
+
+bool Pipeline::set_pose_change_threshold(float threshold) {
+  return posture_estimator.set_pose_change_threshold(threshold);
 }
 
 }  // namespace Pipeline
