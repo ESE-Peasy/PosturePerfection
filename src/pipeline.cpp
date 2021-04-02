@@ -147,12 +147,12 @@ void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
       cv::Point midpoint(static_cast<int>((upper.x + curr.x) / 2),
                          static_cast<int>((upper.y + curr.y) / 2));
 
-      if (pose_status.pose_changes.joints.at(i).upper_angle > 0) {
+      if (pose_status.pose_changes.joints.at(i).upper_angle > 0.1) {
         cv::Point tip(static_cast<int>(midpoint.x - 50),
                       static_cast<int>(midpoint.y));
 
         cv::arrowedLine(raw_image, midpoint, tip, colours.at(i), 2);
-      } else {
+      } else if (pose_status.pose_changes.joints.at(i).upper_angle < -0.1) {
         cv::Point tip(static_cast<int>(midpoint.x + 50),
                       static_cast<int>(midpoint.y));
 
