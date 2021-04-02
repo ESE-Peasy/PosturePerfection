@@ -237,27 +237,82 @@ class Buffer {
  */
 namespace Pipeline {
 
+/**
+ * @brief Parameters relevant to the currently set frame rate
+ *
+ */
 struct FramerateSetting {
-  IIR::SmoothingSettings smoothing_settings;
-  size_t frame_delay;
+  IIR::SmoothingSettings
+      smoothing_settings;  ///< Smoothing settings (coefficients) for the IIR
+                           ///< filter
+  size_t frame_delay;  ///< Delay in ms that represents the current frame rate
 };
 
+// Forward declaration of `Pipeline` for use in `FramerateSettings`
 class Pipeline;
 
+/**
+ * @brief Class to maintain the currently set frame rate and any related
+ * settings
+ */
 class FramerateSettings {
  private:
-  // **MUST** be defined in order of ascending frame rate, i.e., descending
-  // frame delay
+  /**
+   * @brief Structure containing presets for various frame rates
+   *
+   * Check `framerate_settings.cpp` for the possible presets and the default, in
+   * order of ascending frame rate
+   *
+   */
   std::vector<FramerateSetting> framerate_settings;
 
+  /**
+   * @brief Index indicating the current setting
+   *
+   */
   size_t current_setting;
+
+  /**
+   * @brief Pointer to the `Pipeline`
+   *
+   * Only `Pipeline::updated_framerate` is used as a callback to notify the
+   * pipeline of an updated frame rate.
+   *
+   */
   Pipeline* pipeline;
+
+  /**
+   * @brief Internal function that is called to notify relevant objects of a
+   * change in frame rate
+   *
+   */
   void notify_pipeline(void);
 
  public:
+  /**
+   * @brief Construct a new `FramerateSettings` object
+   *
+   * @param pipeline `Pipeline*` pointer to the pipeline
+   */
   FramerateSettings(Pipeline* pipeline);
+
+  /**
+   * @brief Get the currently set `FramerateSetting`
+   *
+   * @return `FramerateSetting`
+   */
   FramerateSetting get_framerate_setting(void);
+
+  /**
+   * @brief Increase the frame rate
+   *
+   */
   void increase_framerate(void);
+
+  /**
+   * @brief Decrease the frame rate
+   *
+   */
   void decrease_framerate(void);
 };
 
@@ -287,8 +342,6 @@ struct RawFrame {
   uint8_t id;         ///< Frame ordering ID
   cv::Mat raw_image;  ///< Raw `cv::Mat` (OpenCV) image
 };
-
-struct FramerateSetting;
 
 class FrameGenerator {
  private:
