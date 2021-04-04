@@ -79,13 +79,6 @@ class IIR2ndOrderFilter {
   explicit IIR2ndOrderFilter(std::vector<float> coefficients);
 
   /**
-   * @brief Set all data in the filter to the given value
-   *
-   * @param x `float` Value to overwrite filter content
-   */
-  void set(float x);
-
-  /**
    * @brief Apply the filter to the next data sample, `x`
    *
    * Every call to this method constitutes a time step in the IIR filter
