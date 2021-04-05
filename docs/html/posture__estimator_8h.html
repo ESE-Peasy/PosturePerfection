@@ -69,6 +69,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">posture_estimator.h File Reference</div>  </div>
@@ -80,15 +81,19 @@ $(function() {
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &quot;<a class="el" href="intermediate__structures_8h_source.html">intermediate_structures.h</a>&quot;</code><br />
+<code>#include &quot;opencv2/core.hpp&quot;</code><br />
+<code>#include &quot;opencv2/imgproc.hpp&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for posture_estimator.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="posture__estimator_8h__incl.png" border="0" usemap="#aposture__estimator_8h" alt=""/></div>
 <map name="aposture__estimator_8h" id="aposture__estimator_8h">
-<area shape="rect" title="Interface for representation of user&#39;s pose." alt="" coords="35,5,171,32"/>
+<area shape="rect" title="Interface for representation of user&#39;s pose." alt="" coords="157,5,293,32"/>
 <area shape="rect" title=" " alt="" coords="5,80,65,107"/>
 <area shape="rect" title=" " alt="" coords="99,155,153,181"/>
 <area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="141,80,309,107"/>
+<area shape="rect" title=" " alt="" coords="333,80,457,107"/>
+<area shape="rect" title=" " alt="" coords="481,80,627,107"/>
 <area shape="rect" title=" " alt="" coords="199,155,250,181"/>
 </map>
 </div>
@@ -131,6 +136,21 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacePostureEstimating"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html">PostureEstimating</a></td></tr>
 <tr class="memdesc:namespacePostureEstimating"><td class="mdescLeft">&#160;</td><td class="mdescRight">Responsible for analysing the results of pose estimation to determine any posture changes which must be relayed to the user. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:acf4e5c7cbd64c2af4771482608797149"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureEstimating::PostureState</a> { <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a6d1285da9800c3586139b758c7941155">PostureEstimating::Good</a>
+, <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a7052577463df1f7d8661179121b02823">PostureEstimating::Bad</a>
+, <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149af183b9c342921bb8ab6b3d77a0ed34e8">PostureEstimating::Unset</a>
+ }</td></tr>
+<tr class="memdesc:acf4e5c7cbd64c2af4771482608797149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Potential states which the posture can be. <code>Unset</code> means that the <code>ideal_pose</code> has not been set by the user.  <a href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">More...</a><br /></td></tr>
+<tr class="separator:acf4e5c7cbd64c2af4771482608797149"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a274270b008bcf4805b1cba5a6cfde8fa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8fa">PostureEstimating::Colours</a> { <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa43b4ba4213c435f8372c3b230f5484ef">PostureEstimating::Red</a>
+, <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa7639562a8d170b76daf4d4f9e6f2b240">PostureEstimating::Green</a>
+, <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa158f8c742139c52dd1200b7bde59c04d">PostureEstimating::Blue</a>
+ }</td></tr>
+<tr class="memdesc:a274270b008bcf4805b1cba5a6cfde8fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colours corresponding to <code>PostureEstimator::colours</code>  <a href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8fa">More...</a><br /></td></tr>
+<tr class="separator:a274270b008bcf4805b1cba5a6cfde8fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>

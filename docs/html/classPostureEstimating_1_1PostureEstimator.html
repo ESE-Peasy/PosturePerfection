@@ -99,9 +99,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad032960ec600840bf538ad88366a12cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd">update_ideal_pose</a> (<a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> pose)</td></tr>
 <tr class="memdesc:ad032960ec600840bf538ad88366a12cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the user's ideal pose using the results of <code><a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a></code>  <a href="classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd">More...</a><br /></td></tr>
 <tr class="separator:ad032960ec600840bf538ad88366a12cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed3521cea863bcf7c5ffdfbe9631dd20"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#aed3521cea863bcf7c5ffdfbe9631dd20">set_pose_change_threshold</a> (float threshold)</td></tr>
+<tr class="memdesc:aed3521cea863bcf7c5ffdfbe9631dd20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <code>pose_change_threshold</code> to allow user configuration. Note that this threshold is in radians and we set a maximum configurable value of 0.5 radians (28.64 degrees)  <a href="classPostureEstimating_1_1PostureEstimator.html#aed3521cea863bcf7c5ffdfbe9631dd20">More...</a><br /></td></tr>
+<tr class="separator:aed3521cea863bcf7c5ffdfbe9631dd20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83a0b435d57bd8d98397d9cc3af79c91"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a83a0b435d57bd8d98397d9cc3af79c91">get_pose_change_threshold</a> (void)</td></tr>
+<tr class="memdesc:a83a0b435d57bd8d98397d9cc3af79c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the currently set <code>pose_change_threshold</code>. Note that this threshold is in radians and we set a maximum configurable value of 0.5 radians (28.64 degrees)  <a href="classPostureEstimating_1_1PostureEstimator.html#a83a0b435d57bd8d98397d9cc3af79c91">More...</a><br /></td></tr>
+<tr class="separator:a83a0b435d57bd8d98397d9cc3af79c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PoseStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">runEstimator</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
 <tr class="memdesc:ac6f12c5c80b96860c57a989c92b28d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PoseStatus</a></code> of the user's pose.  <a href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">More...</a><br /></td></tr>
 <tr class="separator:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2fd71e2deae3d3b90260faf89a7c3a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ad2fd71e2deae3d3b90260faf89a7c3a0">analysePosture</a> (<a class="el" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a> pose_status, cv::Mat current_frame)</td></tr>
+<tr class="memdesc:ad2fd71e2deae3d3b90260faf89a7c3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse the <code>posture_state</code> field of <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> and use it as follows:  <a href="classPostureEstimating_1_1PostureEstimator.html#ad2fd71e2deae3d3b90260faf89a7c3a0">More...</a><br /></td></tr>
+<tr class="separator:ad2fd71e2deae3d3b90260faf89a7c3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
@@ -117,9 +126,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a590dcd4c72bd9219f2cdf3f4e7296bf2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a590dcd4c72bd9219f2cdf3f4e7296bf2">pose_change_threshold</a></td></tr>
 <tr class="memdesc:a590dcd4c72bd9219f2cdf3f4e7296bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A representation of what absolute value changes for a pose is acceptably still a good pose.  <a href="classPostureEstimating_1_1PostureEstimator.html#a590dcd4c72bd9219f2cdf3f4e7296bf2">More...</a><br /></td></tr>
 <tr class="separator:a590dcd4c72bd9219f2cdf3f4e7296bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a925e9492bf416a7409c53761772fbb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#a5a925e9492bf416a7409c53761772fbb">good_posture</a></td></tr>
-<tr class="memdesc:a5a925e9492bf416a7409c53761772fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the user is currently in a good posture (true) or if they have adopted a poor posture (false).  <a href="classPostureEstimating_1_1PostureEstimator.html#a5a925e9492bf416a7409c53761772fbb">More...</a><br /></td></tr>
-<tr class="separator:a5a925e9492bf416a7409c53761772fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab20f6b2846a2a1a4628dae914bb8a1dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureEstimating::PostureState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ab20f6b2846a2a1a4628dae914bb8a1dd">posture_state</a> = <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149af183b9c342921bb8ab6b3d77a0ed34e8">Unset</a></td></tr>
+<tr class="memdesc:ab20f6b2846a2a1a4628dae914bb8a1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the user is currently in a <code>Good</code>, <code>Bad</code> or <code>Unset</code> posture. (<code>Unset</code> means that the <code>ideal_pose</code> has not yet been set)  <a href="classPostureEstimating_1_1PostureEstimator.html#ab20f6b2846a2a1a4628dae914bb8a1dd">More...</a><br /></td></tr>
+<tr class="separator:ab20f6b2846a2a1a4628dae914bb8a1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class handles representations of the user's pose and calculates any updates to their pose that is required. </p>
@@ -178,6 +187,70 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad2fd71e2deae3d3b90260faf89a7c3a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2fd71e2deae3d3b90260faf89a7c3a0">&#9670;&nbsp;</a></span>analysePosture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void PostureEstimating::PostureEstimator::analysePosture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a>&#160;</td>
+          <td class="paramname"><em>pose_status</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cv::Mat&#160;</td>
+          <td class="paramname"><em>current_frame</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Analyse the <code>posture_state</code> field of <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> and use it as follows: </p>
+<ul>
+<li>If <code>Unset</code> then indicate this to user by displaying the current pose as blue lines.</li>
+</ul>
+<p>If <code>Good</code> then display current pose as green lines.</p><ul>
+<li>If <code>Bad</code> then use <code>pose_change_threshold</code> and <code>pose_changes</code> to indicate which direction the user needs to move in order to return to a good posture.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pose_status</td><td><code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> The pose status for the current frame </td></tr>
+    <tr><td class="paramname">current_frame</td><td><code>cv::Mat</code> The current frame to overlay lines on to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a83a0b435d57bd8d98397d9cc3af79c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83a0b435d57bd8d98397d9cc3af79c91">&#9670;&nbsp;</a></span>get_pose_change_threshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PostureEstimating::PostureEstimator::get_pose_change_threshold </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the currently set <code>pose_change_threshold</code>. Note that this threshold is in radians and we set a maximum configurable value of 0.5 radians (28.64 degrees) </p>
+<dl class="section return"><dt>Returns</dt><dd><code>float</code> The current threshold in the range [0..0.5] (radians) </dd></dl>
+
+</div>
+</div>
 <a id="ac6f12c5c80b96860c57a989c92b28d2b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6f12c5c80b96860c57a989c92b28d2b">&#9670;&nbsp;</a></span>runEstimator()</h2>
 
@@ -201,6 +274,35 @@ Data Fields</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="aed3521cea863bcf7c5ffdfbe9631dd20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed3521cea863bcf7c5ffdfbe9631dd20">&#9670;&nbsp;</a></span>set_pose_change_threshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool PostureEstimating::PostureEstimator::set_pose_change_threshold </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>threshold</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the <code>pose_change_threshold</code> to allow user configuration. Note that this threshold is in radians and we set a maximum configurable value of 0.5 radians (28.64 degrees) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">threshold</td><td>The updated threshold in the range [0..0.5] (radians) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> If updating threshold succeeded </dd>
+<dd>
+<code>false</code> If updating threshold failed </dd></dl>
 
 </div>
 </div>
@@ -244,22 +346,6 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The user's current <code><a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">Pose</a></code> from most recent data provided. </p>
-
-</div>
-</div>
-<a id="a5a925e9492bf416a7409c53761772fbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a925e9492bf416a7409c53761772fbb">&#9670;&nbsp;</a></span>good_posture</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool PostureEstimating::PostureEstimator::good_posture</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Whether the user is currently in a good posture (true) or if they have adopted a poor posture (false). </p>
 
 </div>
 </div>
@@ -308,6 +394,22 @@ Data Fields</h2></td></tr>
 </div><div class="memdoc">
 
 <p>A representation of what changes are needed to get back to ideal <code><a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">Pose</a></code>. </p>
+
+</div>
+</div>
+<a id="ab20f6b2846a2a1a4628dae914bb8a1dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab20f6b2846a2a1a4628dae914bb8a1dd">&#9670;&nbsp;</a></span>posture_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureEstimating::PostureState</a> PostureEstimating::PostureEstimator::posture_state = <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149af183b9c342921bb8ab6b3d77a0ed34e8">Unset</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether the user is currently in a <code>Good</code>, <code>Bad</code> or <code>Unset</code> posture. (<code>Unset</code> means that the <code>ideal_pose</code> has not yet been set) </p>
 
 </div>
 </div>

@@ -68,6 +68,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">posture_estimator.cpp File Reference</div>  </div>
@@ -81,13 +82,15 @@ Include dependency graph for posture_estimator.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="posture__estimator_8cpp__incl.png" border="0" usemap="#aposture__estimator_8cpp" alt=""/></div>
 <map name="aposture__estimator_8cpp" id="aposture__estimator_8cpp">
-<area shape="rect" title=" " alt="" coords="21,5,172,32"/>
-<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="29,80,165,107"/>
-<area shape="rect" title=" " alt="" coords="8,229,63,256"/>
-<area shape="rect" title=" " alt="" coords="189,80,247,107"/>
-<area shape="rect" title=" " alt="" coords="73,155,133,181"/>
-<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="158,155,326,181"/>
-<area shape="rect" title=" " alt="" coords="217,229,267,256"/>
+<area shape="rect" title=" " alt="" coords="136,5,287,32"/>
+<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="143,80,279,107"/>
+<area shape="rect" title=" " alt="" coords="5,229,60,256"/>
+<area shape="rect" title=" " alt="" coords="303,80,362,107"/>
+<area shape="rect" title=" " alt="" coords="388,155,448,181"/>
+<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="473,155,641,181"/>
+<area shape="rect" title=" " alt="" coords="71,155,195,181"/>
+<area shape="rect" title=" " alt="" coords="219,155,364,181"/>
+<area shape="rect" title=" " alt="" coords="531,229,582,256"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -96,6 +99,15 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacePostureEstimating"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html">PostureEstimating</a></td></tr>
 <tr class="memdesc:namespacePostureEstimating"><td class="mdescLeft">&#160;</td><td class="mdescRight">Responsible for analysing the results of pose estimation to determine any posture changes which must be relayed to the user. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ad75639fca84e8377eb18448d707b1fc0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#ad75639fca84e8377eb18448d707b1fc0">MIN_POSE_CHANGE_THRESHOLD</a>&#160;&#160;&#160;0.0</td></tr>
+<tr class="memdesc:ad75639fca84e8377eb18448d707b1fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">0 degrees  <a href="posture__estimator_8cpp.html#ad75639fca84e8377eb18448d707b1fc0">More...</a><br /></td></tr>
+<tr class="separator:ad75639fca84e8377eb18448d707b1fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2285cbfe19b0859aba291764c21ec69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#ac2285cbfe19b0859aba291764c21ec69">MAX_POSE_CHANGE_THRESHOLD</a>&#160;&#160;&#160;0.5</td></tr>
+<tr class="memdesc:ac2285cbfe19b0859aba291764c21ec69"><td class="mdescLeft">&#160;</td><td class="mdescRight">28.64 degrees  <a href="posture__estimator_8cpp.html#ac2285cbfe19b0859aba291764c21ec69">More...</a><br /></td></tr>
+<tr class="separator:ac2285cbfe19b0859aba291764c21ec69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -106,6 +118,43 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">Pose</a> object.  <a href="namespacePostureEstimating.html#a2deac6e18a1012d21d7d1cd72e22e28a">More...</a><br /></td></tr>
 <tr class="separator:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ac2285cbfe19b0859aba291764c21ec69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2285cbfe19b0859aba291764c21ec69">&#9670;&nbsp;</a></span>MAX_POSE_CHANGE_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_POSE_CHANGE_THRESHOLD&#160;&#160;&#160;0.5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>28.64 degrees </p>
+
+</div>
+</div>
+<a id="ad75639fca84e8377eb18448d707b1fc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad75639fca84e8377eb18448d707b1fc0">&#9670;&nbsp;</a></span>MIN_POSE_CHANGE_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MIN_POSE_CHANGE_THRESHOLD&#160;&#160;&#160;0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>0 degrees </p>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (C) 2021 Conor Begley, Ashwin Maliampurakal</dd></dl>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+<p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

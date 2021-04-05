@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['pipeline_5fptr_389',['pipeline_ptr',['../main_8cpp.html#aa1e1a0e621743f2fc67ba11d74619c08',1,'main.cpp']]],
-  ['pose_5fchange_5fthreshold_390',['pose_change_threshold',['../classPostureEstimating_1_1PostureEstimator.html#a590dcd4c72bd9219f2cdf3f4e7296bf2',1,'PostureEstimating::PostureEstimator']]],
-  ['pose_5fchanges_391',['pose_changes',['../structPostureEstimating_1_1PoseStatus.html#a6d214f1b02a99ce6254eca9c0f14cb7f',1,'PostureEstimating::PoseStatus::pose_changes()'],['../classPostureEstimating_1_1PostureEstimator.html#a4de910204215a8a086e360d2039b3124',1,'PostureEstimating::PostureEstimator::pose_changes()']]],
-  ['preprocessed_5fimage_392',['preprocessed_image',['../structPipeline_1_1PreprocessedFrame.html#a9ea151f2784a9a8d201d92bd61d3917d',1,'Pipeline::PreprocessedFrame']]]
+  ['raw_5fimage_411',['raw_image',['../structPipeline_1_1PreprocessedFrame.html#a9dc7110232d97ba7a86456e39d99af9e',1,'Pipeline::PreprocessedFrame::raw_image()'],['../structPipeline_1_1RawFrame.html#a7ae39df0d2dc070da2aab19cb6a4b6ca',1,'Pipeline::RawFrame::raw_image()'],['../structPipeline_1_1CoreResults.html#ab2d7f46f2124fd3805f644f46591d13d',1,'Pipeline::CoreResults::raw_image()']]],
+  ['run_5fflag_412',['run_flag',['../main_8cpp.html#a655bd49f2ae24a4bb8bad75fa4093c7e',1,'main.cpp']]]
 ];

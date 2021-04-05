@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['jointmax_413',['JointMax',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5a840f7918d586d226651d783374602760',1,'intermediate_structures.h']]],
-  ['jointmin_414',['JointMin',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5a882a5426be471e7e5846d7ee27342e1f',1,'intermediate_structures.h']]]
+  ['head_434',['Head',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5a04a0279b5e051c6d031d5b4f656c3768',1,'intermediate_structures.h']]],
+  ['head_5ftop_435',['head_top',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3aa7b66db67d128b1876f8c4ebb9d29001',1,'intermediate_structures.h']]],
+  ['hip_436',['Hip',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5abf2d05ab6ee14e81c0c7f864d225286a',1,'intermediate_structures.h']]]
 ];

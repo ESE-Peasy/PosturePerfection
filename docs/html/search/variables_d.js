@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['upper_5fangle_399',['upper_angle',['../structPostureEstimating_1_1ConnectedJoint.html#afca7a4ef7aed10fcf7a5e650c5e6a56b',1,'PostureEstimating::ConnectedJoint']]]
+  ['valid_418',['valid',['../structBuffer_1_1PopResult.html#a774cb009fb6ca186980c873965730d3c',1,'Buffer::PopResult']]],
+  ['value_419',['value',['../structBuffer_1_1PopResult.html#a01b3b1ad3f13b13b74086b1da4771dd9',1,'Buffer::PopResult']]]
 ];

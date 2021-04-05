@@ -1,9 +1,4 @@
 var searchData=
 [
-  ['left_5fankle_416',['left_ankle',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3a4bfc67ef7e143817084eed15514e0a8d',1,'intermediate_structures.h']]],
-  ['left_5felbow_417',['left_elbow',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3ae888416d990c9998e516a8241259dfa4',1,'intermediate_structures.h']]],
-  ['left_5fhip_418',['left_hip',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3a274f14d3492f988f0c60bf9d1f4fc0f5',1,'intermediate_structures.h']]],
-  ['left_5fknee_419',['left_knee',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3adcb0d02e6469c0c942dabaa6f158af19',1,'intermediate_structures.h']]],
-  ['left_5fshoulder_420',['left_shoulder',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3a91581481468ac72d475fc63845aebba1',1,'intermediate_structures.h']]],
-  ['left_5fwrist_421',['left_wrist',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3a32751c11460301f1d49d738bd770330e',1,'intermediate_structures.h']]]
+  ['knee_439',['Knee',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5a10b6f610980f95aa58821b50cdcb150f',1,'intermediate_structures.h']]]
 ];

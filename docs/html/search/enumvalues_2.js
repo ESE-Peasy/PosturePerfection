@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['head_410',['Head',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5a04a0279b5e051c6d031d5b4f656c3768',1,'intermediate_structures.h']]],
-  ['head_5ftop_411',['head_top',['../intermediate__structures_8h.html#a7a4875f2b53773a016c13bcfc2a55ac3aa7b66db67d128b1876f8c4ebb9d29001',1,'intermediate_structures.h']]],
-  ['hip_412',['Hip',['../intermediate__structures_8h.html#ac59007d612b1e2624efd27182f4362f5abf2d05ab6ee14e81c0c7f864d225286a',1,'intermediate_structures.h']]]
+  ['good_432',['Good',['../namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a6d1285da9800c3586139b758c7941155',1,'PostureEstimating']]],
+  ['green_433',['Green',['../namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa7639562a8d170b76daf4d4f9e6f2b240',1,'PostureEstimating']]]
 ];

@@ -106,6 +106,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a378b6f9da650022e6eed6302c8806022"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a378b6f9da650022e6eed6302c8806022">set_ideal_posture</a> (<a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> pose)</td></tr>
 <tr class="memdesc:a378b6f9da650022e6eed6302c8806022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ideal posture.  <a href="classPipeline_1_1Pipeline.html#a378b6f9da650022e6eed6302c8806022">More...</a><br /></td></tr>
 <tr class="separator:a378b6f9da650022e6eed6302c8806022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d064faf390fb3fa0642f58d4cec3a9c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a3d064faf390fb3fa0642f58d4cec3a9c">set_pose_change_threshold</a> (float threshold)</td></tr>
+<tr class="memdesc:a3d064faf390fb3fa0642f58d4cec3a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the pose change threshold.  <a href="classPipeline_1_1Pipeline.html#a3d064faf390fb3fa0642f58d4cec3a9c">More...</a><br /></td></tr>
+<tr class="separator:a3d064faf390fb3fa0642f58d4cec3a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16bbf399b97ba6f277091a43bc696ec1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1Pipeline.html#a16bbf399b97ba6f277091a43bc696ec1">get_pose_change_threshold</a> ()</td></tr>
+<tr class="memdesc:a16bbf399b97ba6f277091a43bc696ec1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current pose change threshold.  <a href="classPipeline_1_1Pipeline.html#a16bbf399b97ba6f277091a43bc696ec1">More...</a><br /></td></tr>
+<tr class="separator:a16bbf399b97ba6f277091a43bc696ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Frame-by-frame pipeline to process video. </p>
@@ -241,6 +247,26 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a16bbf399b97ba6f277091a43bc696ec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16bbf399b97ba6f277091a43bc696ec1">&#9670;&nbsp;</a></span>get_pose_change_threshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Pipeline::Pipeline::get_pose_change_threshold </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the current pose change threshold. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>float</code> Currently set pose change threshold </dd></dl>
+
+</div>
+</div>
 <a id="a464136da37a7e56e322443653e34b932"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a464136da37a7e56e322443653e34b932">&#9670;&nbsp;</a></span>increase_framerate()</h2>
 
@@ -315,6 +341,35 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a3d064faf390fb3fa0642f58d4cec3a9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d064faf390fb3fa0642f58d4cec3a9c">&#9670;&nbsp;</a></span>set_pose_change_threshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Pipeline::Pipeline::set_pose_change_threshold </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>threshold</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the pose change threshold. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">threshold</td><td>New threshold to set </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> If updating the threshold succeeded </dd>
+<dd>
+<code>false</code> If updating the threshold did not succeed </dd></dl>
 
 </div>
 </div>
