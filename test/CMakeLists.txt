@@ -44,7 +44,7 @@ add_definitions (-DBOOST_TEST_DYN_LINK)
 create_test(test_iir ${test_libraries})
 create_test(test_post_processor ${test_libraries})
 create_test(test_pre_processor ${test_libraries} ${OpenCV_LIBS})
-create_test(test_posture_estimator ${test_libraries})
+create_test(test_posture_estimator ${test_libraries} ${OpenCV_LIBS})
 create_test(test_notifications ${test_libraries})
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
