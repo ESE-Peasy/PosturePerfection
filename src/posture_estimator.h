@@ -27,6 +27,8 @@
 #include <string>
 
 #include "intermediate_structures.h"
+#include "opencv2/core.hpp"
+#include "opencv2/imgproc.hpp"
 
 /**
  * @brief Responsible for analysing the results of pose estimation to determine
@@ -93,6 +95,11 @@ struct PoseStatus {
 };
 
 /**
+ * @brief Colours corresponding to `PostureEstimator::colours`
+ */
+enum Colours { Red, Green, Blue };
+
+/**
  * @brief This class handles representations of the user's pose and
  * calculates any updates to their pose that is required.
  *
@@ -109,6 +116,13 @@ struct PoseStatus {
  */
 class PostureEstimator {
  private:
+  /**
+   * @brief Array of colours used when indicating posture
+   *
+   */
+  std::array<cv::Scalar, 3> colours = {
+      cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255)};
+
   /**
    * @brief Calculates the angle(in degrees) between two points, clockwise
    * from the Head.
@@ -175,6 +189,31 @@ class PostureEstimator {
    */
   bool updateCurrentPoseAndCheckPosture(
       PostProcessing::ProcessedResults results);
+
+  /**
+   * @brief Overlay the current pose for the current frame
+   *
+   * @param current_pose `PostureEstimating::Pose` The pose for the current
+   * posture
+   * @param current_frame `cv::Mat` Current frame to overlay lines onto
+   * @param ideal_pose_set `true` If pose has been set in which case draw red
+   * lines to indicate bad posture, and `false` if pose has not been set in
+   * which case draw blue lines
+   */
+  void display_current_pose(PostureEstimating::Pose current_pose,
+                            cv::Mat current_frame, bool ideal_pose_set);
+  /**
+   * @brief Overlay the pose changes for the current frame
+   *
+   * @param pose_changes `PostureEstimating::Pose` Changes needed to return to a
+   * good posture
+   * @param current_pose `PostureEstimating::Pose` The pose for the current
+   * posture
+   * @param current_frame `cv::Mat` Current frame to overlay lines onto
+   */
+  void display_pose_changes_needed(PostureEstimating::Pose pose_changes,
+                                   PostureEstimating::Pose current_pose,
+                                   cv::Mat current_frame);
 
  public:
   /**
@@ -257,6 +296,24 @@ class PostureEstimator {
    * pose data.
    */
   PoseStatus runEstimator(PostProcessing::ProcessedResults results);
+
+  /**
+   * @brief Analyse the `PostureEstimating::PoseStatus` and use it as follows:
+   *  - If `ideal_pose_set` is `false` then indicate this to user by
+   * displaying the current pose as blue lines.
+   * - If `ideal_pose_set` is `true` then check if  a `good_posture` is
+   * detected.
+   * - If `good_posture` is `true` then display current pose as green lines.
+   * - If `good_posture` is `false` then use `pose_change_threshold` and
+   * `pose_changes` to indicate which direction the user needs to move in order
+   * to return to a good posture.
+   *
+   * @param pose_status `PostureEstimating::PoseStatus` The pose status for the
+   * current frame
+   * @param current_frame `cv::Mat` The current frame to overlay lines on to
+   */
+  void analysePosture(PostureEstimating::PoseStatus pose_status,
+                      cv::Mat current_frame);
 };
 }  // namespace PostureEstimating
 #endif  // SRC_POSTURE_ESTIMATOR_H_

@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (C) 2021  Conor Begley
+ * @copyright Copyright (C) 2021  Conor Begley, Ashwin Maliampurakal
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -163,6 +163,81 @@ bool PostureEstimator::updateCurrentPoseAndCheckPosture(
   return this->good_posture;
 }
 
+void PostureEstimator::display_current_pose(
+    PostureEstimating::Pose current_pose, cv::Mat current_frame,
+    bool ideal_pose_set) {
+  int imageWidth = current_frame.cols;
+  int imageHeight = current_frame.rows;
+
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    // Only consider the Head, Neck, Shoulder and Hip joints
+    if (current_pose.joints.at(i).coord.status == PostProcessing::Trustworthy &&
+        current_pose.joints.at(i - 1).coord.status ==
+            PostProcessing::Trustworthy) {
+      cv::Point upper_joint_point(
+          static_cast<int>(current_pose.joints.at(i - 1).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i - 1).coord.y *
+                           imageHeight));
+
+      cv::Point current_joint_point(
+          static_cast<int>(current_pose.joints.at(i).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i).coord.y * imageHeight));
+
+      cv::line(current_frame, upper_joint_point, current_joint_point,
+               ideal_pose_set ? colours.at(Green) : colours.at(Blue), 5);
+    }
+  }
+}
+
+void PostureEstimator::display_pose_changes_needed(
+    PostureEstimating::Pose pose_changes, PostureEstimating::Pose current_pose,
+    cv::Mat current_frame) {
+  int imageWidth = current_frame.cols;
+  int imageHeight = current_frame.rows;
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    // Only consider the Head, Neck, Shoulder and Hip joints
+    if (current_pose.joints.at(i).coord.status == PostProcessing::Trustworthy &&
+        current_pose.joints.at(i - 1).coord.status ==
+            PostProcessing::Trustworthy) {
+      cv::Point upper_joint_point(
+          static_cast<int>(current_pose.joints.at(i - 1).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i - 1).coord.y *
+                           imageHeight));
+
+      cv::Point current_joint_point(
+          static_cast<int>(current_pose.joints.at(i).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i).coord.y * imageHeight));
+
+      cv::Point midpoint(
+          static_cast<int>((upper_joint_point.x + current_joint_point.x) / 2),
+          static_cast<int>((upper_joint_point.y + current_joint_point.y) / 2));
+
+      // Indicate directions to fix posture for each joint
+      if (pose_changes.joints.at(i).upper_angle > pose_change_threshold) {
+        cv::line(current_frame, upper_joint_point, current_joint_point,
+                 colours.at(Red), 5);
+        cv::Point tip(static_cast<int>(midpoint.x - 50),
+                      static_cast<int>(midpoint.y));
+
+        cv::arrowedLine(current_frame, midpoint, tip, colours.at(Blue), 2, 8, 0,
+                        0.2);
+      } else if (pose_changes.joints.at(i).upper_angle <
+                 -pose_change_threshold) {
+        cv::line(current_frame, upper_joint_point, current_joint_point,
+                 colours.at(Red), 5);
+        cv::Point tip(static_cast<int>(midpoint.x + 50),
+                      static_cast<int>(midpoint.y));
+
+        cv::arrowedLine(current_frame, midpoint, tip, colours.at(Blue), 2, 8, 0,
+                        0.2);
+      } else {
+        cv::line(current_frame, upper_joint_point, current_joint_point,
+                 colours.at(Green), 5);
+      }
+    }
+  }
+}
+
 void PostureEstimator::update_ideal_pose(PostureEstimating::Pose pose) {
   this->ideal_pose_set = true;
   this->ideal_pose = pose;
@@ -187,6 +262,23 @@ PoseStatus PostureEstimator::runEstimator(
   PoseStatus p = {this->ideal_pose, this->current_pose, this->pose_changes,
                   this->good_posture, this->ideal_pose_set};
   return p;
-}  // namespace PostureEstimating
+}
+
+void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
+                                      cv::Mat current_frame) {
+  PostureEstimating::Pose current_pose = pose_status.current_pose;
+  PostureEstimating::Pose pose_changes = pose_status.pose_changes;
+
+  cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
+
+  if (!pose_status.ideal_pose_set) {
+    // Ideal pose has not been set yet so indicate to user
+    display_current_pose(current_pose, current_frame, false);
+  } else if (pose_status.good_posture) {
+    display_current_pose(current_pose, current_frame, true);
+  } else {
+    display_pose_changes_needed(pose_changes, current_pose, current_frame);
+  }
+}
 
 }  // namespace PostureEstimating

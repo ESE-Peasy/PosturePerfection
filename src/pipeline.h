@@ -30,7 +30,6 @@
 #include "iir.h"
 #include "inference_core.h"
 #include "opencv2/core.hpp"
-#include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 #include "post_processor.h"
 #include "posture_estimator.h"
@@ -474,15 +473,6 @@ struct CoreResults {
  */
 class Pipeline {
  private:
-  /**
-   * @brief Array of colours used to display lines between detected joints
-   *
-   */
-  std::array<cv::Scalar, JointMax + 1> colours = {
-      cv::Scalar(0, 255, 0),   cv::Scalar(255, 0, 0),
-      cv::Scalar(0, 0, 255),   cv::Scalar(255, 255, 0),
-      cv::Scalar(0, 255, 255), cv::Scalar(255, 0, 255)};
-
   /**
    * @brief Vector of all threads created in the pipeline
    *
