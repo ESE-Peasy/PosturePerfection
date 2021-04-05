@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
   e.pose_change_threshold = M_PI / 4;
   e.checkGoodPosture();
 
-  BOOST_TEST(e.good_posture == true);
+  BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
 
 BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
   e.pose_change_threshold = M_PI / 4;
   e.checkGoodPosture();
 
-  BOOST_TEST(e.good_posture == true);
+  BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
 
 BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
   e.pose_change_threshold = M_PI / 4;
   e.checkGoodPosture();
 
-  BOOST_TEST(e.good_posture == true);
+  BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
 BOOST_AUTO_TEST_CASE(GoodPostureOutsideThreshold) {
   PostureEstimating::PostureEstimator e;
@@ -218,7 +218,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOutsideThreshold) {
   e.pose_change_threshold = M_PI / 6;
   e.checkGoodPosture();
 
-  BOOST_TEST(e.good_posture == false);
+  BOOST_TEST(e.posture_state == PostureEstimating::Bad);
 }
 
 BOOST_AUTO_TEST_CASE(CreatePoseFromTrustworthyResults) {
@@ -264,11 +264,11 @@ BOOST_AUTO_TEST_CASE(CreateProducedPoseStatusStructure) {
   helper_check_result(p.ideal_pose, ri);
   helper_check_result(p.current_pose, rc);
 
-  BOOST_CHECK_EQUAL(p.good_posture, true);
+  BOOST_CHECK_EQUAL(p.posture_state, PostureEstimating::Good);
   PostProcessing::ProcessedResults rch = helper_create_result();
   rch.body_parts[JointMin + 2] = {5, 3, PostProcessing::Trustworthy};
   PostureEstimating::PoseStatus pc = e.runEstimator(rch);
-  BOOST_CHECK_EQUAL(pc.good_posture, false);
+  BOOST_CHECK_EQUAL(pc.posture_state, PostureEstimating::Bad);
 
   for (int i = JointMin; i <= JointMax; i++) {
     BOOST_CHECK_EQUAL(pc.pose_changes.joints[i].joint, static_cast<Joint>(i));

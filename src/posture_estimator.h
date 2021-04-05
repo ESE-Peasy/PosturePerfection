@@ -79,6 +79,13 @@ struct Pose {
 };
 
 /**
+ * @brief Potential states which the posture can be. `Unset` means that the
+ * `ideal_pose` has not been set by the user.
+ *
+ */
+enum PostureState { Good, Bad, Unset };
+
+/**
  * @brief Creates an empty Pose object
  */
 Pose createPose();
@@ -90,8 +97,7 @@ struct PoseStatus {
   Pose ideal_pose;
   Pose current_pose;
   Pose pose_changes;
-  bool good_posture;
-  bool ideal_pose_set;
+  PostureState posture_state;
 };
 
 /**
@@ -184,10 +190,9 @@ class PostureEstimator {
    *
    * @param results `PostProcessing::ProcessingResults` struct containing user's
    * pose data.
-   * @return `true` if user's posture is good
-   * @return `false` if user's posture is bad
+   * @return `PostureEstimating::PostureState`
    */
-  bool updateCurrentPoseAndCheckPosture(
+  PostureEstimating::PostureState updateCurrentPoseAndCheckPosture(
       PostProcessing::ProcessedResults results);
 
   /**
@@ -196,14 +201,16 @@ class PostureEstimator {
    * @param current_pose `PostureEstimating::Pose` The pose for the current
    * posture
    * @param current_frame `cv::Mat` Current frame to overlay lines onto
-   * @param ideal_pose_set `true` If pose has been set in which case draw red
-   * lines to indicate bad posture, and `false` if pose has not been set in
-   * which case draw blue lines
+   * @param posture_state `PostureEstimating::PostureState` If `Good` draw green
+   * lines to indicate good posture, and if `Unset` draw the `ideal_pose` has
+   * not been set in which case draw blue lines
    */
   void display_current_pose(PostureEstimating::Pose current_pose,
-                            cv::Mat current_frame, bool ideal_pose_set);
+                            cv::Mat current_frame,
+                            PostureEstimating::PostureState posture_state);
   /**
-   * @brief Overlay the pose changes for the current frame
+   * @brief Overlay the pose changes for the current frame. We only use this if
+   * the `posture_state` in `pose_status` is `Bad`.
    *
    * @param pose_changes `PostureEstimating::Pose` Changes needed to return to a
    * good posture
@@ -238,11 +245,6 @@ class PostureEstimator {
   Pose ideal_pose;
 
   /**
-   * @brief The `ideal_pose` is unset until the user manually sets it
-   */
-  bool ideal_pose_set = false;
-
-  /**
    * @brief A representation of what changes are needed to get
    * back to ideal `Pose`.
    */
@@ -255,10 +257,10 @@ class PostureEstimator {
   float pose_change_threshold;
 
   /**
-   * @brief Whether the user is currently in a good posture (true) or if they
-   * have adopted a poor posture (false).
+   * @brief Whether the user is currently in a `Good`, `Bad` or `Unset` posture.
+   * (`Unset` means that the `ideal_pose` has not yet been set)
    */
-  bool good_posture;
+  PostureEstimating::PostureState posture_state = Unset;
 
   /**
    * @brief Calibrate the user's ideal pose using the results of
@@ -298,13 +300,12 @@ class PostureEstimator {
   PoseStatus runEstimator(PostProcessing::ProcessedResults results);
 
   /**
-   * @brief Analyse the `PostureEstimating::PoseStatus` and use it as follows:
-   *  - If `ideal_pose_set` is `false` then indicate this to user by
+   * @brief Analyse the `posture_state` field of `PostureEstimating::PoseStatus`
+   * and use it as follows:
+   *  - If `Unset` then indicate this to user by
    * displaying the current pose as blue lines.
-   * - If `ideal_pose_set` is `true` then check if  a `good_posture` is
-   * detected.
-   * - If `good_posture` is `true` then display current pose as green lines.
-   * - If `good_posture` is `false` then use `pose_change_threshold` and
+   * - If `Good` then display current pose as green lines.
+   * - If `Bad` then use `pose_change_threshold` and
    * `pose_changes` to indicate which direction the user needs to move in order
    * to return to a good posture.
    *
