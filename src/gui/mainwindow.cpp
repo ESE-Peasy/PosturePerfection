@@ -114,12 +114,18 @@ void GUI::MainWindow::updatePostureNotification(
   QWidget *postureNotificationBox = new QWidget;
   QGridLayout *postureNotificationLayout = new QGridLayout;
   QLabel *postureNotification = new QLabel();
-  if (poseStatus.good_posture) {
-    postureNotificationBox->setStyleSheet("background-color: green");
-    postureNotification->setText("Good Posture");
+  // poseStatus.set_ideal_posture
+  if (false) {
+    if (poseStatus.good_posture) {
+      postureNotificationBox->setStyleSheet("background-color: green");
+      postureNotification->setText("Good Posture");
+    } else {
+      postureNotificationBox->setStyleSheet("background-color: red");
+      postureNotification->setText("Bad Posture");
+    }
   } else {
-    postureNotificationBox->setStyleSheet("background-color: red");
-    postureNotification->setText("Bad Posture");
+    postureNotificationBox->setStyleSheet("background-color: orange");
+    postureNotification->setText("Undefined");
   }
   postureNotification->setStyleSheet("QLabel {color : white; }");
   postureNotificationLayout->addWidget(postureNotification);
