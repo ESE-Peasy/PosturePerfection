@@ -294,7 +294,7 @@ class FramerateSettings {
    *
    * @param pipeline `Pipeline*` pointer to the pipeline
    */
-  FramerateSettings(Pipeline* pipeline);
+  explicit FramerateSettings(Pipeline* pipeline);
 
   /**
    * @brief Get the currently set `FramerateSetting`
