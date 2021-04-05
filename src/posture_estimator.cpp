@@ -148,7 +148,9 @@ void PostureEstimator::checkGoodPosture() {
       return;
     }
   }
-  this->posture_state = Good;
+  if (!this->posture_state == Unset) {
+    this->posture_state = Good;
+  }
 }
 
 void PostureEstimator::calculateChangesAndCheckPosture() {
