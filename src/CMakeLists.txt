@@ -23,6 +23,7 @@ set(NTFYSRC
 set(LIBSRC
   iir.cpp
   inference_core.cpp
+  framerate_settings.cpp
   post_processor.cpp
   pre_processor.cpp
   posture_estimator.cpp

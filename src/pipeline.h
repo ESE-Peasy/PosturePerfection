@@ -238,6 +238,85 @@ class Buffer {
 namespace Pipeline {
 
 /**
+ * @brief Parameters relevant to the currently set frame rate
+ *
+ */
+struct FramerateSetting {
+  IIR::SmoothingSettings
+      smoothing_settings;  ///< Smoothing settings (coefficients) for the IIR
+                           ///< filter
+  size_t frame_delay;  ///< Delay in ms that represents the current frame rate
+};
+
+// Forward declaration of `Pipeline` for use in `FramerateSettings`
+class Pipeline;
+
+/**
+ * @brief Class to maintain the currently set frame rate and any related
+ * settings
+ */
+class FramerateSettings {
+ private:
+  /**
+   * @brief Structure containing presets for various frame rates
+   *
+   * Check `framerate_settings.cpp` for the possible presets and the default, in
+   * order of ascending frame rate
+   *
+   */
+  std::vector<FramerateSetting> framerate_settings;
+
+  /**
+   * @brief Index indicating the current setting
+   *
+   */
+  size_t current_setting;
+
+  /**
+   * @brief Pointer to the `Pipeline`
+   *
+   * Only `Pipeline::updated_framerate` is used as a callback to notify the
+   * pipeline of an updated frame rate.
+   *
+   */
+  Pipeline* pipeline;
+
+  /**
+   * @brief Internal function that is called to notify relevant objects of a
+   * change in frame rate
+   *
+   */
+  void notify_pipeline(void);
+
+ public:
+  /**
+   * @brief Construct a new `FramerateSettings` object
+   *
+   * @param pipeline `Pipeline*` pointer to the pipeline
+   */
+  explicit FramerateSettings(Pipeline* pipeline);
+
+  /**
+   * @brief Get the currently set `FramerateSetting`
+   *
+   * @return `FramerateSetting`
+   */
+  FramerateSetting get_framerate_setting(void);
+
+  /**
+   * @brief Increase the frame rate
+   *
+   */
+  void increase_framerate(void);
+
+  /**
+   * @brief Decrease the frame rate
+   *
+   */
+  void decrease_framerate(void);
+};
+
+/**
  * @brief Contains the id of the frame within the pipeline, as well as the raw
  * image and the preprocessed_image. A struct of this type is created for every
  * input image after it has been passed through the
@@ -324,10 +403,10 @@ class FrameGenerator {
   std::chrono::time_point<std::chrono::steady_clock> t_previous_capture;
 
   /**
-   * @brief Reference to the `Pipeline`'s frame delay
+   * @brief Currently set delay between frames
    *
    */
-  size_t* frame_delay;
+  size_t frame_delay;
 
   /**
    * @brief Implementation of how to retrieve the next frame from the camera
@@ -342,13 +421,14 @@ class FrameGenerator {
   bool running = true;
 
  public:
+  void updated_framerate(size_t new_frame_delay);
   /**
    * @brief Construct a new Frame Generator object
    *
-   * @param frame_delay Pointer to the `Pipeline`'s frame delay
+   * @param framerate_settings Pointer to the `Pipeline`'s `FramerateSettings`
    * @throw `std::runtime_error` if the camera cannot be accessed
    */
-  explicit FrameGenerator(size_t* frame_delay);
+  explicit FrameGenerator(FramerateSettings* framerate_settings);
 
   /**
    * @brief Destroy the Frame Generator object
@@ -420,11 +500,7 @@ class Pipeline {
    */
   bool running;
 
-  /**
-   * @brief Currently set delay between frames in ms
-   *
-   */
-  size_t frame_delay = FRAME_DELAY_DEFAULT;
+  FramerateSettings framerate_settings;
 
   PreProcessing::PreProcessor preprocessor;
   PostProcessing::PostProcessor post_processor;
@@ -467,6 +543,8 @@ class Pipeline {
                      cv::Mat raw_image);
 
  public:
+  void updated_framerate(FramerateSetting new_settings);
+
   /**
    * @brief Construct a new Pipeline object
    *
@@ -498,7 +576,7 @@ class Pipeline {
 
   /**
    * @brief Get the confidence threshold object
-   * 
+   *
    * @return `float` Currently set confidence threshold
    */
   float get_confidence_threshold();

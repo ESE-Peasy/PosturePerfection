@@ -23,6 +23,7 @@
 
 #define MIN_CONF_THRESH 0.0  // Minimum value a confidence threshold can be
 #define MAX_CONF_THRESH 1.0  // Maximum value a confidence threshold can be
+#define NUM_FILTERS_PER_BODY_PART 3  // No. IIR filters for each body part
 
 /**
  * @brief Take the mean of two body parts
@@ -63,16 +64,35 @@ namespace PostProcessing {
 
 PostProcessor::PostProcessor(float confidence_threshold,
                              IIR::SmoothingSettings smoothing_settings)
-    : confidence_threshold(confidence_threshold) {
+    : confidence_threshold(confidence_threshold),
+      smoothed_trustworthiness(smoothing_settings) {
   // Initialise filters for x and y component of each body part position
   // It may be interesting to add a third filter for confidence in time
-  for (int i = 0; i < (BodyPartMax + 1) * 2; i++) {
+  for (int i = 0; i < (BodyPartMax + 1) * NUM_FILTERS_PER_BODY_PART; i++) {
     this->iir_filters.push_back(IIR::IIRFilter(smoothing_settings));
   }
 }
 
 ProcessedResults PostProcessor::run(
     Inference::InferenceResults inference_core_output) {
+  // Set the filters up for the very first frame
+  if (first_run) {
+    first_run = false;
+    int body_part_index = BodyPartMin;
+    int filter_index = 0;
+    Inference::Coordinate body_part;
+
+    for (; body_part_index < BodyPartMax + 1;
+         body_part_index++, filter_index += NUM_FILTERS_PER_BODY_PART) {
+      body_part = inference_core_output.body_parts.at(body_part_index);
+
+      iir_filters.at(filter_index).set(body_part.x);
+      iir_filters.at(filter_index + 1).set(body_part.y);
+
+      iir_filters.at(filter_index + 2).set(body_part.confidence);
+    }
+  }
+
   // Initialise structure for results
   std::array<Coordinate, BodyPartMax + 1> intermediate_results;
   ProcessedResults results;
@@ -88,14 +108,16 @@ ProcessedResults PostProcessor::run(
   Coordinate processed_body_part;
 
   for (; body_part_index < BodyPartMax + 1;
-       body_part_index++, filter_index += 2) {
+       body_part_index++, filter_index += NUM_FILTERS_PER_BODY_PART) {
     body_part = inference_core_output.body_parts.at(body_part_index);
 
     // Filter the incoming position for each body part
     // The incoming results structure is passed by value so it won't be
     // overwritten here
-    body_part.x = this->iir_filters.at(filter_index).run(body_part.x);
-    body_part.y = this->iir_filters.at(filter_index + 1).run(body_part.y);
+    body_part.x = iir_filters.at(filter_index).run(body_part.x);
+    body_part.y = iir_filters.at(filter_index + 1).run(body_part.y);
+    body_part.confidence =
+        iir_filters.at(filter_index + 2).run(body_part.confidence);
 
     processed_body_part =
         Coordinate{body_part.x, body_part.y,
@@ -149,8 +171,6 @@ bool PostProcessor::set_confidence_threshold(float confidence_threshold) {
   }
 }
 
-float PostProcessor::get_confidence_threshold() {
-  return confidence_threshold;
-}
+float PostProcessor::get_confidence_threshold() { return confidence_threshold; }
 
 }  // namespace PostProcessing

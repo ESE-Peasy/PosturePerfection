@@ -159,7 +159,8 @@ void GUI::MainWindow::createSettingsPage() {
   connect(downFramerate, SIGNAL(clicked()), this,
           SLOT(decreaseVideoFramerate()));
 
-  currentFrame->setText("Frame Rate: 1 fps");
+  setOutputFramerate();
+
   currentFrame->setStyleSheet("QLabel {color : white; }");
   framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
 
@@ -196,7 +197,8 @@ void GUI::MainWindow::increaseVideoFramerate() {
 
 void GUI::MainWindow::setOutputFramerate() {
   float newFramerate = pipelinePtr->get_framerate();
-  QString output = "Frame Rate: " + QString::number(newFramerate) + " fps";
+  QString output =
+      "Frame Rate: " + QString::number(newFramerate, 'f', 1) + " fps";
   currentFrame->setText(output);
 }
 
