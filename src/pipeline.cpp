@@ -24,6 +24,7 @@
 
 #define MODEL_INPUT_X 224
 #define MODEL_INPUT_Y 224
+#define CONFIDENCE_THRESH_DEFAULT 0.1
 
 namespace Pipeline {
 
@@ -152,7 +153,8 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       preprocessor(MODEL_INPUT_X, MODEL_INPUT_Y),
       // Disable smoothing with empty settings
       post_processor(
-          0.1, framerate_settings.get_framerate_setting().smoothing_settings),
+          CONFIDENCE_THRESH_DEFAULT,
+          framerate_settings.get_framerate_setting().smoothing_settings),
       posture_estimator(),
       frame_generator(&framerate_settings),
       core_results(&this->running, num_inference_core_threads),
