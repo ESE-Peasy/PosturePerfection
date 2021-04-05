@@ -114,8 +114,6 @@ class MainWindow : public QMainWindow {
    */
   void setOutputFramerate();
 
-  void updatePostureNotification(bool postureValue);
-
  public slots:
   /**
    * @brief Updates the threshold value
@@ -153,12 +151,29 @@ class MainWindow : public QMainWindow {
    */
   void updateVideoFrame(cv::Mat currentFrame);
 
+  /**
+   * @brief update the posture notification using the posture status "good"
+   * value
+   *
+   * @param postureValue posture status boolean value
+   */
+  void updatePostureNotification(bool postureValue);
+
  signals:
   /**
    * @brief emit the newly captured frame
    *
+   * * @param currentFrame cv::Mat object containing the current captured frame
    */
   void currentFrameSignal(cv::Mat currentFrame);
+
+  /**
+   * @brief emit the newly captured good posture value
+   *
+   * * @param goodPosture boolean value indicating if the user has a good
+   * posture
+   */
+  void currentGoodBadPosture(bool goodPosture);
 
  private:
   /**
