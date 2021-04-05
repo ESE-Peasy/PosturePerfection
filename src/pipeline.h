@@ -30,7 +30,6 @@
 #include "iir.h"
 #include "inference_core.h"
 #include "opencv2/core.hpp"
-#include "opencv2/imgproc.hpp"
 #include "opencv2/videoio.hpp"
 #include "post_processor.h"
 #include "posture_estimator.h"
@@ -475,15 +474,6 @@ struct CoreResults {
 class Pipeline {
  private:
   /**
-   * @brief Array of colours used to display lines between detected joints
-   *
-   */
-  std::array<cv::Scalar, JointMax + 1> colours = {
-      cv::Scalar(0, 255, 0),   cv::Scalar(255, 0, 0),
-      cv::Scalar(0, 0, 255),   cv::Scalar(255, 255, 0),
-      cv::Scalar(0, 255, 255), cv::Scalar(255, 0, 255)};
-
-  /**
    * @brief Vector of all threads created in the pipeline
    *
    * The de-constructor iterates through this and calls `join()` an each thread
@@ -533,14 +523,6 @@ class Pipeline {
    *
    */
   void (*callback)(PostureEstimating::PoseStatus, cv::Mat);
-
-  /**
-   * @brief Function to overlay a stick figure of user posture over the input
-   * image
-   *
-   */
-  void overlay_image(PostureEstimating::PoseStatus pose_status,
-                     cv::Mat raw_image);
 
  public:
   void updated_framerate(FramerateSetting new_settings);
@@ -615,6 +597,22 @@ class Pipeline {
    * ideal posture
    */
   void set_ideal_posture(PostureEstimating::Pose pose);
+
+  /**
+   * @brief Set the pose change threshold
+   *
+   * @param threshold New threshold to set
+   * @return `true` If updating the threshold succeeded
+   * @return `false` If updating the threshold did not succeed
+   */
+  bool set_pose_change_threshold(float threshold);
+
+  /**
+   * @brief Get the current pose change threshold
+   *
+   * @return `float` Currently set pose change threshold
+   */
+  float get_pose_change_threshold();
 };
 }  // namespace Pipeline
 #endif  // SRC_PIPELINE_H_

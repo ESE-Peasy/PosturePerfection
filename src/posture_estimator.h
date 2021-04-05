@@ -27,6 +27,8 @@
 #include <string>
 
 #include "intermediate_structures.h"
+#include "opencv2/core.hpp"
+#include "opencv2/imgproc.hpp"
 
 /**
  * @brief Responsible for analysing the results of pose estimation to determine
@@ -77,6 +79,13 @@ struct Pose {
 };
 
 /**
+ * @brief Potential states which the posture can be. `Unset` means that the
+ * `ideal_pose` has not been set by the user.
+ *
+ */
+enum PostureState { Good, Bad, Unset };
+
+/**
  * @brief Creates an empty Pose object
  */
 Pose createPose();
@@ -88,8 +97,13 @@ struct PoseStatus {
   Pose ideal_pose;
   Pose current_pose;
   Pose pose_changes;
-  bool good_posture;
+  PostureState posture_state;
 };
+
+/**
+ * @brief Colours corresponding to `PostureEstimator::colours`
+ */
+enum Colours { Red, Green, Blue };
 
 /**
  * @brief This class handles representations of the user's pose and
@@ -108,6 +122,13 @@ struct PoseStatus {
  */
 class PostureEstimator {
  private:
+  /**
+   * @brief Array of colours used when indicating posture
+   *
+   */
+  std::array<cv::Scalar, 3> colours = {
+      cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255)};
+
   /**
    * @brief Calculates the angle(in degrees) between two points, clockwise
    * from the Head.
@@ -169,11 +190,37 @@ class PostureEstimator {
    *
    * @param results `PostProcessing::ProcessingResults` struct containing user's
    * pose data.
-   * @return `true` if user's posture is good
-   * @return `false` if user's posture is bad
+   * @return `PostureEstimating::PostureState`
    */
-  bool updateCurrentPoseAndCheckPosture(
+  PostureEstimating::PostureState updateCurrentPoseAndCheckPosture(
       PostProcessing::ProcessedResults results);
+
+  /**
+   * @brief Overlay the current pose for the current frame
+   *
+   * @param current_pose `PostureEstimating::Pose` The pose for the current
+   * posture
+   * @param current_frame `cv::Mat` Current frame to overlay lines onto
+   * @param posture_state `PostureEstimating::PostureState` If `Good` draw green
+   * lines to indicate good posture, and if `Unset` draw the `ideal_pose` has
+   * not been set in which case draw blue lines
+   */
+  void display_current_pose(PostureEstimating::Pose current_pose,
+                            cv::Mat current_frame,
+                            PostureEstimating::PostureState posture_state);
+  /**
+   * @brief Overlay the pose changes for the current frame. We only use this if
+   * the `posture_state` in `pose_status` is `Bad`.
+   *
+   * @param pose_changes `PostureEstimating::Pose` Changes needed to return to a
+   * good posture
+   * @param current_pose `PostureEstimating::Pose` The pose for the current
+   * posture
+   * @param current_frame `cv::Mat` Current frame to overlay lines onto
+   */
+  void display_pose_changes_needed(PostureEstimating::Pose pose_changes,
+                                   PostureEstimating::Pose current_pose,
+                                   cv::Mat current_frame);
 
  public:
   /**
@@ -210,10 +257,10 @@ class PostureEstimator {
   float pose_change_threshold;
 
   /**
-   * @brief Whether the user is currently in a good posture (true) or if they
-   * have adopted a poor posture (false).
+   * @brief Whether the user is currently in a `Good`, `Bad` or `Unset` posture.
+   * (`Unset` means that the `ideal_pose` has not yet been set)
    */
-  bool good_posture;
+  PostureEstimating::PostureState posture_state = Unset;
 
   /**
    * @brief Calibrate the user's ideal pose using the results of
@@ -225,12 +272,49 @@ class PostureEstimator {
   void update_ideal_pose(PostureEstimating::Pose pose);
 
   /**
+   * @brief Set the `pose_change_threshold` to allow user configuration. Note
+   * that this threshold is in radians and we set a maximum configurable value
+   * of 0.5 radians (28.64 degrees)
+   *
+   * @param threshold The updated threshold in the range [0..0.5] (radians)
+   * @return `true` If updating threshold succeeded
+   * @return `false` If updating threshold failed
+   */
+  bool set_pose_change_threshold(float threshold);
+
+  /**
+   * @brief Get the currently set `pose_change_threshold`. Note that this
+   * threshold is in radians and we set a maximum configurable value of 0.5
+   * radians (28.64 degrees)
+   *
+   * @return `float` The current threshold in the range [0..0.5] (radians)
+   */
+  float get_pose_change_threshold(void);
+
+  /**
    * @brief Return a `PoseStatus` of the user's pose
    *
    * @param results `PostProcessing::ProcessedResults` struct containing user's
    * pose data.
    */
   PoseStatus runEstimator(PostProcessing::ProcessedResults results);
+
+  /**
+   * @brief Analyse the `posture_state` field of `PostureEstimating::PoseStatus`
+   * and use it as follows:
+   *  - If `Unset` then indicate this to user by
+   * displaying the current pose as blue lines.
+   * - If `Good` then display current pose as green lines.
+   * - If `Bad` then use `pose_change_threshold` and
+   * `pose_changes` to indicate which direction the user needs to move in order
+   * to return to a good posture.
+   *
+   * @param pose_status `PostureEstimating::PoseStatus` The pose status for the
+   * current frame
+   * @param current_frame `cv::Mat` The current frame to overlay lines on to
+   */
+  void analysePosture(PostureEstimating::PoseStatus pose_status,
+                      cv::Mat current_frame);
 };
 }  // namespace PostureEstimating
 #endif  // SRC_POSTURE_ESTIMATOR_H_

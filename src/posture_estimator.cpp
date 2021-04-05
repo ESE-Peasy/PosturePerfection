@@ -1,5 +1,5 @@
 /**
- * @copyright Copyright (C) 2021  Conor Begley
+ * @copyright Copyright (C) 2021  Conor Begley, Ashwin Maliampurakal
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,6 +20,9 @@
 
 #include <cmath>
 #include <string>
+
+#define MIN_POSE_CHANGE_THRESHOLD 0.0  ///< 0 degrees
+#define MAX_POSE_CHANGE_THRESHOLD 0.5  ///< 28.64 degrees
 
 namespace PostureEstimating {
 
@@ -53,7 +56,7 @@ Pose createPose() {
 }
 
 PostureEstimator::PostureEstimator() {
-  this->pose_change_threshold = 0;
+  this->pose_change_threshold = 0.1;
   this->ideal_pose = createPose();
   this->current_pose = createPose();
   this->pose_changes = createPose();
@@ -136,16 +139,18 @@ void PostureEstimator::calculatePoseChanges() {
 }
 
 void PostureEstimator::checkGoodPosture() {
-  for (int i = JointMin; i <= JointMax; i++) {
-    if ((fabs(this->pose_changes.joints[i].lower_angle) >
-         this->pose_change_threshold) ||
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    if ((fabs(this->pose_changes.joints[i].upper_angle) <
+         -(this->pose_change_threshold)) ||
         fabs(this->pose_changes.joints[i].upper_angle) >
             this->pose_change_threshold) {
-      this->good_posture = false;
+      this->posture_state = Bad;
       return;
     }
   }
-  this->good_posture = true;
+  if (!this->posture_state == Unset) {
+    this->posture_state = Good;
+  }
 }
 
 void PostureEstimator::calculateChangesAndCheckPosture() {
@@ -153,23 +158,129 @@ void PostureEstimator::calculateChangesAndCheckPosture() {
   checkGoodPosture();
 }
 
-bool PostureEstimator::updateCurrentPoseAndCheckPosture(
+PostureEstimating::PostureState
+PostureEstimator::updateCurrentPoseAndCheckPosture(
     PostProcessing::ProcessedResults results) {
   update_current_pose(results);
   calculateChangesAndCheckPosture();
-  return this->good_posture;
+  return this->posture_state;
+}
+
+void PostureEstimator::display_current_pose(
+    PostureEstimating::Pose current_pose, cv::Mat current_frame,
+    PostureEstimating::PostureState posture_state) {
+  int imageWidth = current_frame.cols;
+  int imageHeight = current_frame.rows;
+
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    // Only consider the Head, Neck, Shoulder and Hip joints
+    if (current_pose.joints.at(i).coord.status == PostProcessing::Trustworthy &&
+        current_pose.joints.at(i - 1).coord.status ==
+            PostProcessing::Trustworthy) {
+      cv::Point upper_joint_point(
+          static_cast<int>(current_pose.joints.at(i - 1).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i - 1).coord.y *
+                           imageHeight));
+
+      cv::Point current_joint_point(
+          static_cast<int>(current_pose.joints.at(i).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i).coord.y * imageHeight));
+
+      cv::line(current_frame, upper_joint_point, current_joint_point,
+               posture_state == Good ? colours.at(Green) : colours.at(Blue), 5);
+    }
+  }
+}
+
+void PostureEstimator::display_pose_changes_needed(
+    PostureEstimating::Pose pose_changes, PostureEstimating::Pose current_pose,
+    cv::Mat current_frame) {
+  int imageWidth = current_frame.cols;
+  int imageHeight = current_frame.rows;
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    // Only consider the Head, Neck, Shoulder and Hip joints
+    if (current_pose.joints.at(i).coord.status == PostProcessing::Trustworthy &&
+        current_pose.joints.at(i - 1).coord.status ==
+            PostProcessing::Trustworthy) {
+      cv::Point upper_joint_point(
+          static_cast<int>(current_pose.joints.at(i - 1).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i - 1).coord.y *
+                           imageHeight));
+
+      cv::Point current_joint_point(
+          static_cast<int>(current_pose.joints.at(i).coord.x * imageWidth),
+          static_cast<int>(current_pose.joints.at(i).coord.y * imageHeight));
+
+      cv::Point midpoint(
+          static_cast<int>((upper_joint_point.x + current_joint_point.x) / 2),
+          static_cast<int>((upper_joint_point.y + current_joint_point.y) / 2));
+
+      // Indicate directions to fix posture for each joint
+      if (pose_changes.joints.at(i).upper_angle > pose_change_threshold) {
+        cv::line(current_frame, upper_joint_point, current_joint_point,
+                 colours.at(Red), 5);
+        cv::Point tip(static_cast<int>(midpoint.x - 50),
+                      static_cast<int>(midpoint.y));
+
+        cv::arrowedLine(current_frame, midpoint, tip, colours.at(Blue), 2, 8, 0,
+                        0.2);
+      } else if (pose_changes.joints.at(i).upper_angle <
+                 -pose_change_threshold) {
+        cv::line(current_frame, upper_joint_point, current_joint_point,
+                 colours.at(Red), 5);
+        cv::Point tip(static_cast<int>(midpoint.x + 50),
+                      static_cast<int>(midpoint.y));
+
+        cv::arrowedLine(current_frame, midpoint, tip, colours.at(Blue), 2, 8, 0,
+                        0.2);
+      } else {
+        cv::line(current_frame, upper_joint_point, current_joint_point,
+                 colours.at(Green), 5);
+      }
+    }
+  }
 }
 
 void PostureEstimator::update_ideal_pose(PostureEstimating::Pose pose) {
+  this->posture_state = Good;
   this->ideal_pose = pose;
+}
+
+bool PostureEstimator::set_pose_change_threshold(float threshold) {
+  if (MIN_POSE_CHANGE_THRESHOLD <= threshold &&
+      threshold <= MAX_POSE_CHANGE_THRESHOLD) {
+    this->pose_change_threshold = threshold;
+    return true;
+  }
+  return false;
+}
+
+float PostureEstimator::get_pose_change_threshold(void) {
+  return this->pose_change_threshold;
 }
 
 PoseStatus PostureEstimator::runEstimator(
     PostProcessing::ProcessedResults results) {
   this->updateCurrentPoseAndCheckPosture(results);
   PoseStatus p = {this->ideal_pose, this->current_pose, this->pose_changes,
-                  this->good_posture};
+                  this->posture_state};
   return p;
-}  // namespace PostureEstimating
+}
+
+void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
+                                      cv::Mat current_frame) {
+  PostureEstimating::Pose current_pose = pose_status.current_pose;
+  PostureEstimating::Pose pose_changes = pose_status.pose_changes;
+  PostureEstimating::PostureState posture_state = pose_status.posture_state;
+
+  cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
+
+  if (posture_state == Unset || posture_state == Good) {
+    // Ideal pose has not been set yet so indicate to user
+    display_current_pose(current_pose, current_frame, posture_state);
+  } else {
+    display_pose_changes_needed(pose_changes, current_pose, current_frame);
+  }
+}
 
 }  // namespace PostureEstimating

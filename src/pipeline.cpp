@@ -118,32 +118,9 @@ void Pipeline::post_processing_thread_body() {
     auto pose_result = posture_estimator.runEstimator(
         post_processor.run(next_frame.value.image_results));
 
-    overlay_image(pose_result, next_frame.value.raw_image);
+    posture_estimator.analysePosture(pose_result, next_frame.value.raw_image);
 
     callback(pose_result, next_frame.value.raw_image);
-  }
-}
-
-void Pipeline::overlay_image(PostureEstimating::PoseStatus pose_status,
-                             cv::Mat raw_image) {
-  PostureEstimating::Pose current = pose_status.current_pose;
-
-  int imageWidth = raw_image.cols;
-  int imageHeight = raw_image.rows;
-
-  cv::cvtColor(raw_image, raw_image, cv::COLOR_BGR2RGB);
-
-  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
-    if (current.joints[i].coord.status == PostProcessing::Trustworthy &&
-        current.joints[i - 1].coord.status == PostProcessing::Trustworthy) {
-      cv::Point upper(
-          static_cast<int>(current.joints[i - 1].coord.x * imageWidth),
-          static_cast<int>(current.joints[i - 1].coord.y * imageHeight));
-
-      cv::Point curr(static_cast<int>(current.joints[i].coord.x * imageWidth),
-                     static_cast<int>(current.joints[i].coord.y * imageHeight));
-      cv::line(raw_image, upper, curr, colours.at(i), 5);
-    }
   }
 }
 
@@ -217,6 +194,14 @@ float Pipeline::get_framerate(void) {
 
 void Pipeline::set_ideal_posture(PostureEstimating::Pose pose) {
   posture_estimator.update_ideal_pose(pose);
+}
+
+bool Pipeline::set_pose_change_threshold(float threshold) {
+  return posture_estimator.set_pose_change_threshold(threshold);
+}
+
+float Pipeline::get_pose_change_threshold() {
+  return posture_estimator.get_pose_change_threshold();
 }
 
 }  // namespace Pipeline
