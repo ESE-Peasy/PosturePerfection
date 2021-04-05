@@ -86,11 +86,17 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
+  /*
+  connect(this, SIGNAL(currentFrameSignal(bool)), this,
+          SLOT(updatePostureNotification(bool)));
+  */
+  updatePostureNotification(true);
 
   qRegisterMetaType<PostureEstimating::PostureState>(
       "PostureEstimating::PostureState");
   connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PostureState)),
-          this, SLOT(updatePostureNotification(PostureEstimating::PostureState)));
+          this,
+          SLOT(updatePostureNotification(PostureEstimating::PostureState)));
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
@@ -111,7 +117,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
 void GUI::MainWindow::updatePostureNotification(
     PostureEstimating::PostureState postureState) {
-  // Create notification widgets and set the minimum size shown 
+  // Create notification widgets and set the minimum size shown
   QWidget *postureNotificationBox = new QWidget;
   postureNotificationBox->setMinimumSize(200, 40);
   QGridLayout *postureNotificationLayout = new QGridLayout;

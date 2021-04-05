@@ -114,6 +114,8 @@ class MainWindow : public QMainWindow {
    */
   void setOutputFramerate();
 
+  void updatePostureNotification(bool postureValue);
+
  public slots:
   /**
    * @brief Updates the threshold value
