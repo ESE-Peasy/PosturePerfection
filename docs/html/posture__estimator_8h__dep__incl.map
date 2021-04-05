@@ -1,10 +1,11 @@
 <map id="posture_estimator.h" name="posture_estimator.h">
-<area shape="rect" id="node1" title="Interface for representation of user&#39;s pose." alt="" coords="207,5,343,32"/>
+<area shape="rect" id="node1" title="Interface for representation of user&#39;s pose." alt="" coords="198,5,334,32"/>
 <area shape="rect" id="node2" href="$mainwindow_8cpp.html" title="Main user interface file." alt="" coords="5,229,124,256"/>
-<area shape="rect" id="node3" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="102,155,206,181"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="321,229,395,256"/>
-<area shape="rect" id="node6" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="237,80,313,107"/>
-<area shape="rect" id="node8" href="$posture__estimator_8cpp.html" title=" " alt="" coords="447,80,597,107"/>
+<area shape="rect" id="node3" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="125,155,229,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="246,229,321,256"/>
+<area shape="rect" id="node6" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="304,80,380,107"/>
+<area shape="rect" id="node9" href="$posture__estimator_8cpp.html" title=" " alt="" coords="404,80,555,107"/>
 <area shape="rect" id="node4" href="$gui_2main_8cpp.html" title="Main file for the user interface." alt="" coords="147,229,222,256"/>
-<area shape="rect" id="node7" href="$pipeline_8cpp.html" title=" " alt="" coords="230,155,321,181"/>
+<area shape="rect" id="node7" href="$framerate__settings_8cpp.html" title=" " alt="" coords="354,155,509,181"/>
+<area shape="rect" id="node8" href="$pipeline_8cpp.html" title=" " alt="" coords="533,155,623,181"/>
 </map>

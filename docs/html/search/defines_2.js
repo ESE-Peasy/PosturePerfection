@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['num_5finf_5fcore_5fthreads_421',['NUM_INF_CORE_THREADS',['../main_8cpp.html#ad2aeb460ae3604cfc18fb2787640f453',1,'main.cpp']]],
-  ['num_5floops_422',['NUM_LOOPS',['../main_8cpp.html#ae5301d7305b7b25a73685c7019aca33d',1,'main.cpp']]]
+  ['frame_5fdelay_5fdefault_437',['FRAME_DELAY_DEFAULT',['../pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b',1,'pipeline.h']]],
+  ['frame_5fdelay_5fmax_438',['FRAME_DELAY_MAX',['../pipeline_8h.html#acb78faaa3a3b13053be54370c7739523',1,'pipeline.h']]],
+  ['frame_5fdelay_5fmin_439',['FRAME_DELAY_MIN',['../pipeline_8h.html#aa4be07057a307c37ea36990c575282a4',1,'pipeline.h']]]
 ];

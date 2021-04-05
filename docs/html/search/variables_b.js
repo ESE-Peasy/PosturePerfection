@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['tap1_376',['tap1',['../structIIR_1_1Nodes.html#a850ff446084e8fc41b9406252f060596',1,'IIR::Nodes']]],
-  ['tap2_377',['tap2',['../structIIR_1_1Nodes.html#a07857fd791e4333fc236202e04902fdd',1,'IIR::Nodes']]]
+  ['smoothing_5fsettings_395',['smoothing_settings',['../structPipeline_1_1FramerateSetting.html#a95eae5cc9192db10540713ac80311b8c',1,'Pipeline::FramerateSetting']]],
+  ['status_396',['status',['../structPostProcessing_1_1Coordinate.html#a22157886fa419abe6b405a4706e8a316',1,'PostProcessing::Coordinate']]]
 ];

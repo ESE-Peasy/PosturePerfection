@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_381',['x',['../structPostProcessing_1_1Coordinate.html#a6c37348970f8ca93079c28704af41583',1,'PostProcessing::Coordinate::x()'],['../structInference_1_1Result.html#ac1517f8dbde289890e671bf558af7984',1,'Inference::Result::x()'],['../structInference_1_1Coordinate.html#a151c87360ca77a80762ea10f2302a42b',1,'Inference::Coordinate::x()']]]
+  ['valid_400',['valid',['../structBuffer_1_1PopResult.html#a774cb009fb6ca186980c873965730d3c',1,'Buffer::PopResult']]],
+  ['value_401',['value',['../structBuffer_1_1PopResult.html#a01b3b1ad3f13b13b74086b1da4771dd9',1,'Buffer::PopResult']]]
 ];

@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['id_361',['id',['../structPipeline_1_1PreprocessedFrame.html#a0525d3c20c66df51dff66cbb9537ce4f',1,'Pipeline::PreprocessedFrame::id()'],['../structPipeline_1_1RawFrame.html#a0f7d913fb553064a0dcaa5500d9b3783',1,'Pipeline::RawFrame::id()'],['../structPipeline_1_1CoreResults.html#a78b35f1f9bb281d50b30ee45bce290d3',1,'Pipeline::CoreResults::id()']]],
-  ['ideal_5fpose_362',['ideal_pose',['../structPostureEstimating_1_1PoseStatus.html#a68797f46aa770ee54d1abb6a0ac3cb4d',1,'PostureEstimating::PoseStatus::ideal_pose()'],['../classPostureEstimating_1_1PostureEstimator.html#adbbd536ea3cedbce21ba17c2727328ce',1,'PostureEstimating::PostureEstimator::ideal_pose()']]],
-  ['image_363',['image',['../structPreProcessing_1_1PreProcessedImage.html#aa64fb56367d5772d3b376392589f5404',1,'PreProcessing::PreProcessedImage']]],
-  ['image_5fresults_364',['image_results',['../structPipeline_1_1CoreResults.html#a4faabc9ca2d133b5dc9cde07fe5a2c5f',1,'Pipeline::CoreResults']]]
+  ['good_5fposture_380',['good_posture',['../structPostureEstimating_1_1PoseStatus.html#ab00dc1d7154163d179a581b38874f426',1,'PostureEstimating::PoseStatus::good_posture()'],['../classPostureEstimating_1_1PostureEstimator.html#a5a925e9492bf416a7409c53761772fbb',1,'PostureEstimating::PostureEstimator::good_posture()']]]
 ];

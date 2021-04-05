@@ -77,9 +77,11 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acbb80bba51cd4da8e8da411eb9631db9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1FrameGenerator.html#acbb80bba51cd4da8e8da411eb9631db9">FrameGenerator</a> (size_t *frame_delay)</td></tr>
-<tr class="memdesc:acbb80bba51cd4da8e8da411eb9631db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Frame Generator object.  <a href="classPipeline_1_1FrameGenerator.html#acbb80bba51cd4da8e8da411eb9631db9">More...</a><br /></td></tr>
-<tr class="separator:acbb80bba51cd4da8e8da411eb9631db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5a97d26aeb0bbd49bbe7f451690e5ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1FrameGenerator.html#af5a97d26aeb0bbd49bbe7f451690e5ac">updated_framerate</a> (size_t new_frame_delay)</td></tr>
+<tr class="separator:af5a97d26aeb0bbd49bbe7f451690e5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43292d317b433d92ab7a2b5bdd8cd3d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1FrameGenerator.html#a43292d317b433d92ab7a2b5bdd8cd3d4">FrameGenerator</a> (<a class="el" href="classPipeline_1_1FramerateSettings.html">FramerateSettings</a> *framerate_settings)</td></tr>
+<tr class="memdesc:a43292d317b433d92ab7a2b5bdd8cd3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Frame Generator object.  <a href="classPipeline_1_1FrameGenerator.html#a43292d317b433d92ab7a2b5bdd8cd3d4">More...</a><br /></td></tr>
+<tr class="separator:a43292d317b433d92ab7a2b5bdd8cd3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc4d457c8317f8f3b59b0fe69f4f363e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1FrameGenerator.html#abc4d457c8317f8f3b59b0fe69f4f363e">~FrameGenerator</a> ()</td></tr>
 <tr class="memdesc:abc4d457c8317f8f3b59b0fe69f4f363e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Frame Generator object.  <a href="classPipeline_1_1FrameGenerator.html#abc4d457c8317f8f3b59b0fe69f4f363e">More...</a><br /></td></tr>
 <tr class="separator:abc4d457c8317f8f3b59b0fe69f4f363e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -88,8 +90,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a83e73483b2cadbfe02e4804814c0b643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acbb80bba51cd4da8e8da411eb9631db9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbb80bba51cd4da8e8da411eb9631db9">&#9670;&nbsp;</a></span>FrameGenerator()</h2>
+<a id="a43292d317b433d92ab7a2b5bdd8cd3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43292d317b433d92ab7a2b5bdd8cd3d4">&#9670;&nbsp;</a></span>FrameGenerator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -100,8 +102,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">Pipeline::FrameGenerator::FrameGenerator </td>
           <td>(</td>
-          <td class="paramtype">size_t *&#160;</td>
-          <td class="paramname"><em>frame_delay</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classPipeline_1_1FramerateSettings.html">FramerateSettings</a> *&#160;</td>
+          <td class="paramname"><em>framerate_settings</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -115,7 +117,7 @@ Public Member Functions</h2></td></tr>
 <p>Construct a new Frame Generator object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">frame_delay</td><td>Pointer to the <code><a class="el" href="classPipeline_1_1Pipeline.html" title="Frame-by-frame pipeline to process video.">Pipeline</a></code>'s frame delay </td></tr>
+    <tr><td class="paramname">framerate_settings</td><td>Pointer to the <code><a class="el" href="classPipeline_1_1Pipeline.html" title="Frame-by-frame pipeline to process video.">Pipeline</a></code>'s <code><a class="el" href="classPipeline_1_1FramerateSettings.html" title="Class to maintain the currently set frame rate and any related settings.">FramerateSettings</a></code> </td></tr>
   </table>
   </dd>
 </dl>
@@ -167,6 +169,24 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the newest frame. </p>
 <dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="structPipeline_1_1RawFrame.html" title="A frame as returned by the FrameGenerator">RawFrame</a></code> The most up-to-date frame from the camera </dd></dl>
+
+</div>
+</div>
+<a id="af5a97d26aeb0bbd49bbe7f451690e5ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5a97d26aeb0bbd49bbe7f451690e5ac">&#9670;&nbsp;</a></span>updated_framerate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Pipeline::FrameGenerator::updated_framerate </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>new_frame_delay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
