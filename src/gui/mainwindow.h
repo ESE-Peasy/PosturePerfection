@@ -155,9 +155,9 @@ class MainWindow : public QMainWindow {
    * @brief update the posture notification using the posture status "good"
    * value
    *
-   * @param postureValue posture status boolean value
+   * @param poseStatus posture status
    */
-  void updatePostureNotification(bool postureValue);
+  void updatePostureNotification(PostureEstimating::PoseStatus poseStatus);
 
  signals:
   /**
@@ -170,10 +170,10 @@ class MainWindow : public QMainWindow {
   /**
    * @brief emit the newly captured good posture value
    *
-   * * @param goodPosture boolean value indicating if the user has a good
+   * * @param poseStatus the current posture status object
    * posture
    */
-  void currentGoodBadPosture(bool goodPosture);
+  void currentGoodBadPosture(PostureEstimating::PoseStatus poseStatus);
 
  private:
   /**

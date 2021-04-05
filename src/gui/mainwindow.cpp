@@ -87,8 +87,10 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
 
-  connect(this, SIGNAL(currentGoodBadPosture(bool)), this,
-          SLOT(updatePostureNotification(bool)));
+  qRegisterMetaType<PostureEstimating::PoseStatus>(
+      "PostureEstimating::PoseStatus");
+  connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PoseStatus)),
+          this, SLOT(updatePostureNotification(PostureEstimating::PoseStatus)));
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
@@ -107,11 +109,12 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
           SLOT(updateVideoFrame(cv::Mat)));
 }
 
-void GUI::MainWindow::updatePostureNotification(bool postureValue) {
+void GUI::MainWindow::updatePostureNotification(
+    PostureEstimating::PoseStatus poseStatus) {
   QWidget *postureNotificationBox = new QWidget;
   QGridLayout *postureNotificationLayout = new QGridLayout;
   QLabel *postureNotification = new QLabel();
-  if (postureValue) {
+  if (poseStatus.good_posture) {
     postureNotificationBox->setStyleSheet("background-color: green");
     postureNotification->setText("Good Posture");
   } else {
@@ -126,7 +129,7 @@ void GUI::MainWindow::updatePostureNotification(bool postureValue) {
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
   currentPoseStatus = poseStatus;
-  emit currentGoodBadPosture(poseStatus.good_posture);
+  emit currentGoodBadPosture(poseStatus);
 }
 
 void GUI::MainWindow::createMainPage() {
