@@ -22,6 +22,9 @@
 #ifndef SRC_PIPELINE_H_
 #define SRC_PIPELINE_H_
 
+#include <CppTimer.h>
+
+#include <condition_variable>
 #include <deque>
 #include <mutex>   //NOLINT [build/c++11]
 #include <thread>  //NOLINT [build/c++11]
@@ -342,7 +345,7 @@ struct RawFrame {
   cv::Mat raw_image;  ///< Raw `cv::Mat` (OpenCV) image
 };
 
-class FrameGenerator {
+class FrameGenerator : public CppTimer {
  private:
   /**
    * @brief Video stream handle
@@ -378,7 +381,7 @@ class FrameGenerator {
    * Enables the synchronisation of `id` and `current_frame`
    *
    */
-  std::mutex lock;
+  std::mutex mutex;
 
   /**
    * @brief Lock to ensure only a single thread can retrieve a frame at once
@@ -386,11 +389,9 @@ class FrameGenerator {
    */
   std::mutex lock_out;
 
-  /**
-   * @brief The thread that retrieves the newest frame from the camera
-   *
-   */
-  std::thread thread;
+  std::condition_variable cv;
+
+  void timerEvent(void);
 
   /**
    * @brief Time at which the previous capture took place

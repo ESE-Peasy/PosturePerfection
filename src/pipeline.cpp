@@ -26,6 +26,10 @@
 #define MODEL_INPUT_Y 224
 #define CONFIDENCE_THRESH_DEFAULT 0.1
 
+#define ms_to_ns(x) \
+  (size_t)(x *      \
+           (size_t)1000000)  ///< Convert value in milliseconds to nanoseconds
+
 namespace Pipeline {
 
 FrameGenerator::FrameGenerator(FramerateSettings* framerate_settings)
@@ -45,53 +49,36 @@ FrameGenerator::FrameGenerator(FramerateSettings* framerate_settings)
   }
   current_frame = frame;
 
-  // Start thread that continuously gets newest frame
-  std::thread t(&FrameGenerator::FrameGenerator::thread_body, this);
-  thread = std::move(t);
+  start(ms_to_ns(frame_delay));
 }
 
-FrameGenerator::~FrameGenerator() {
-  running = false;
-  thread.join();
-}
+FrameGenerator::~FrameGenerator() {}
 
 void FrameGenerator::updated_framerate(size_t new_frame_delay) {
   frame_delay = new_frame_delay;
+  stop();
+  start(ms_to_ns(frame_delay));
 }
 
-void FrameGenerator::thread_body(void) {
-  while (running) {
-    cv::Mat frame;
-    cap.read(frame);
+void FrameGenerator::timerEvent(void) {
+  cv::Mat frame;
+  cap.read(frame);
 
-    if (frame.empty()) {
-      fprintf(stderr, "Empty frame\n");
-      return;
-    }
-
-    lock.lock();
-    current_frame = frame;
-    lock.unlock();
+  if (frame.empty()) {
+    fprintf(stderr, "Empty frame\n");
+    return;
   }
+
+  current_frame = frame;
+  cv.notify_one();
 }
 
 RawFrame FrameGenerator::next_frame(void) {
   // Lock so only a single thread can get next frame at once
-  lock_out.lock();
-
-  // Block until frame delay has elapsed
-  std::chrono::duration<double, std::milli> t_since_last_request =
-      std::chrono::steady_clock::now() - t_previous_capture;
-  while (t_since_last_request <= std::chrono::milliseconds(frame_delay)) {
-    t_since_last_request =
-        std::chrono::steady_clock::now() - t_previous_capture;
-  }
-  t_previous_capture = std::chrono::steady_clock::now();
-
-  lock.lock();
+  std::unique_lock<std::mutex> lock(mutex);
+  cv.wait(lock);
   auto output = RawFrame{id++, current_frame};
   lock.unlock();
-  lock_out.unlock();
   return output;
 }
 

@@ -20,10 +20,21 @@ if [ ! "$(printf '%s\n' "$MIN_CMAKE" "$CMAKE_VERSION" | sort -V | head -n1)" = "
       exit 1
 fi
 
+cd ..
+
+## Download cppTimer
+printf "Downloading cppTimer ...\n"
+if [ ! -d "cppTimer_src" ]; then
+  git clone https://github.com/berndporr/cppTimer.git cppTimer_src || exit 1
+  cd cppTimer_src
+  cmake .
+  make
+  sudo make install
+  cd..
+fi
 
 ## Download TFL code
 printf "Downloading TensorFlow ...\n"
-cd ..
 if [ ! -d "tensorflow_src" ]; then
   git clone https://github.com/tensorflow/tensorflow.git tensorflow_src || exit 1
 fi
