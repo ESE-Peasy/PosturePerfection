@@ -86,11 +86,9 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
-  /*
-  connect(this, SIGNAL(currentFrameSignal(bool)), this,
+
+  connect(this, SIGNAL(currentGoodBadPosture(bool)), this,
           SLOT(updatePostureNotification(bool)));
-  */
-  updatePostureNotification(true);
 
   qRegisterMetaType<PostureEstimating::PostureState>(
       "PostureEstimating::PostureState");
