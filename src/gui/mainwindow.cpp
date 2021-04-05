@@ -86,6 +86,11 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
+  /*
+  connect(this, SIGNAL(currentFrameSignal(bool)), this,
+          SLOT(updatePostureNotification(bool)));
+  */
+ updatePostureNotification(true);
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
@@ -102,6 +107,23 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   qRegisterMetaType<cv::Mat>("cv::Mat");
   connect(this, SIGNAL(currentFrameSignal(cv::Mat)), this,
           SLOT(updateVideoFrame(cv::Mat)));
+}
+
+void GUI::MainWindow::updatePostureNotification(bool postureValue) {
+  QWidget *postureNotificationBox = new QWidget;
+  QGridLayout *postureNotificationLayout = new QGridLayout;
+  QLabel *postureNotification = new QLabel();
+  if(postureValue){
+    postureNotificationBox->setStyleSheet("background-color: green");
+    postureNotification->setText("Good Posture");
+  }else{
+    postureNotificationBox->setStyleSheet("background-color: red");
+    postureNotification->setText("Bad Posture");
+  }
+  postureNotification->setStyleSheet("QLabel {color : white; }");
+  postureNotificationLayout->addWidget(postureNotification);
+  postureNotificationBox->setLayout(postureNotificationLayout);
+  mainPageLayout->addWidget(postureNotificationBox, 2, 0, Qt::AlignCenter);
 }
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
