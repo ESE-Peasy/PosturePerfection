@@ -87,10 +87,10 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
 
-  qRegisterMetaType<PostureEstimating::PoseStatus>(
-      "PostureEstimating::PoseStatus");
-  connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PoseStatus)),
-          this, SLOT(updatePostureNotification(PostureEstimating::PoseStatus)));
+  qRegisterMetaType<PostureEstimating::PostureState>(
+      "PostureEstimating::PostureState");
+  connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PostureState)),
+          this, SLOT(updatePostureNotification(PostureEstimating::PostureState)));
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
@@ -110,8 +110,8 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 }
 
 void GUI::MainWindow::updatePostureNotification(
-    PostureEstimating::PoseStatus poseStatus) {
-  // Create notification widgets and set the minimum size shown
+    PostureEstimating::PostureState postureState) {
+  // Create notification widgets and set the minimum size shown 
   QWidget *postureNotificationBox = new QWidget;
   postureNotificationBox->setMinimumSize(200, 40);
   QGridLayout *postureNotificationLayout = new QGridLayout;
@@ -119,8 +119,8 @@ void GUI::MainWindow::updatePostureNotification(
 
   // Check if the ideal pose has been set and if so, display notification
   // according to the posture state
-  if (poseStatus.posture_state != 2) {
-    if (poseStatus.posture_state == 0) {
+  if (postureState != 2) {
+    if (postureState == 0) {
       postureNotificationBox->setStyleSheet("background-color: green");
       postureNotification->setText("Good Posture");
     } else {
@@ -140,7 +140,7 @@ void GUI::MainWindow::updatePostureNotification(
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
   currentPoseStatus = poseStatus;
-  emit currentGoodBadPosture(poseStatus);
+  emit currentGoodBadPosture(poseStatus.posture_state);
 }
 
 void GUI::MainWindow::createMainPage() {
