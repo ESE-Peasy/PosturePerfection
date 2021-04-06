@@ -214,16 +214,16 @@ class Buffer {
   PopResult<T> pop() {
     PopResult<T> front = PopResult<T>{T{}, false};
     while (*running) {
-      this->lock_out.lock();
+      lock_out.lock();
       if (size() != 0 || full) {
-        front = PopResult<T>{this->queue.at(front_index), true};
+        front = PopResult<T>{queue.at(front_index), true};
         front_index = (front_index + 1) % queue.size();
         full = false;
 
-        this->lock_out.unlock();
+        lock_out.unlock();
         break;
       }
-      this->lock_out.unlock();
+      lock_out.unlock();
     }
     return front;
   }
