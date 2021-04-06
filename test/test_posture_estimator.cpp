@@ -11,8 +11,8 @@
 PostureEstimating::Pose helper_create_pose() {
   PostureEstimating::Pose p = PostureEstimating::createPose();
   for (int i = JointMin; i <= JointMax; i++) {
-    p.joints[i].coord = PostProcessing::Coordinate{static_cast<float>(i), 1,
-                                                   PostProcessing::Trustworthy};
+    p.joints[i].coord = PostProcessing::Coordinate{
+        static_cast<float>(i) / JointMax, 0.0, PostProcessing::Trustworthy};
     p.joints[i].lower_angle = -M_PI;
   }
   return p;
@@ -20,9 +20,10 @@ PostureEstimating::Pose helper_create_pose() {
 PostProcessing::ProcessedResults helper_create_result() {
   PostProcessing::ProcessedResults r;
   for (int i = JointMin; i <= JointMax; i++) {
-    r.body_parts[i] = PostProcessing::Coordinate{static_cast<float>(i * 1),
-                                                 static_cast<float>(i * -1),
-                                                 PostProcessing::Trustworthy};
+    r.body_parts[i] = PostProcessing::Coordinate{
+        static_cast<float>(i * 1) / (JointMax * 2),
+        static_cast<float>(1.0 - (static_cast<float>(i * -1) / (JointMax * 2))),
+        PostProcessing::Trustworthy};
   }
   return r;
 }
@@ -35,17 +36,17 @@ void helper_check_result(PostureEstimating::Pose p,
     BOOST_CHECK_EQUAL(p.joints[i].coord.x, r.body_parts[i].x);
     BOOST_CHECK_EQUAL(p.joints[i].coord.y, r.body_parts[i].y);
     if (i > JointMin) {
-      BOOST_CHECK_CLOSE(p.joints[i].upper_angle, -M_PI / 4, 0.00001);
+      BOOST_CHECK_CLOSE(p.joints[i].upper_angle, -M_PI / 4, 0.0001);
     }
     if (i < JointMax) {
-      BOOST_CHECK_CLOSE(p.joints[i].lower_angle, 3 * M_PI / 4, 0.00001);
+      BOOST_CHECK_CLOSE(p.joints[i].lower_angle, 3 * M_PI / 4, 0.0001);
     }
   }
 }
 
 BOOST_AUTO_TEST_CASE(LinesAngleCorrect) {
-  PostProcessing::Coordinate p = {1, 1, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate p1 = {3, 4, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate p = {0.25, 0.75, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate p1 = {0.75, 0.0, PostProcessing::Trustworthy};
   PostureEstimating::PostureEstimator e;
   float angle = e.getLineAngle(p, p1);
 
@@ -54,11 +55,11 @@ BOOST_AUTO_TEST_CASE(LinesAngleCorrect) {
 }
 
 BOOST_AUTO_TEST_CASE(LinesAngleInAllQuads) {
-  PostProcessing::Coordinate p = {0, 0, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate q1 = {2, 2, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate q2 = {-2, 2, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate q3 = {-2, -2, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate q4 = {2, -2, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate p = {0.5, 0.5, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate q1 = {1.0, 0.0, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate q2 = {0.0, 0.0, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate q3 = {0.0, 1.0, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate q4 = {1.0, 1.0, PostProcessing::Trustworthy};
   PostureEstimating::PostureEstimator e;
   float angleQ1 = e.getLineAngle(p, q1);
   float angleQ2 = e.getLineAngle(p, q2);
@@ -76,11 +77,16 @@ BOOST_AUTO_TEST_CASE(LinesAngleInAllQuads) {
 }
 
 BOOST_AUTO_TEST_CASE(LinesAngleSlopeZero) {
-  PostProcessing::Coordinate p = {1, 1, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate h_p = {4, 1, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate v_p = {1, 4, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate h_n = {-4, 1, PostProcessing::Trustworthy};
-  PostProcessing::Coordinate v_n = {1, -4, PostProcessing::Trustworthy};
+  PostProcessing::Coordinate p = {5.0 / 8.0, 3.0 / 8.0,
+                                  PostProcessing::Trustworthy};
+  PostProcessing::Coordinate h_p = {1.0, 3.0 / 8.0,
+                                    PostProcessing::Trustworthy};
+  PostProcessing::Coordinate v_p = {5.0 / 8.0, 0.0,
+                                    PostProcessing::Trustworthy};
+  PostProcessing::Coordinate h_n = {0.0, 3.0 / 8.0,
+                                    PostProcessing::Trustworthy};
+  PostProcessing::Coordinate v_n = {5.0 / 8.0, 1.0,
+                                    PostProcessing::Trustworthy};
   PostureEstimating::PostureEstimator e;
 
   BOOST_CHECK_CLOSE(e.getLineAngle(p, h_p), M_PI / 2,
@@ -186,6 +192,7 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesUntrustworthy) {
 
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
   PostureEstimating::PostureEstimator e;
+  e.update_ideal_pose(e.current_pose);
   e.pose_change_threshold = M_PI / 4;
   e.checkGoodPosture();
 
@@ -194,6 +201,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
 
 BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
   PostureEstimating::PostureEstimator e;
+  e.update_ideal_pose(e.current_pose);
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 6;
   e.pose_changes.joints[JointMin].upper_angle = -M_PI / 6;
   e.pose_change_threshold = M_PI / 4;
@@ -204,6 +212,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
 
 BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
   PostureEstimating::PostureEstimator e;
+  e.update_ideal_pose(e.current_pose);
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
   e.pose_change_threshold = M_PI / 4;
@@ -213,6 +222,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
 }
 BOOST_AUTO_TEST_CASE(GoodPostureOutsideThreshold) {
   PostureEstimating::PostureEstimator e;
+  e.update_ideal_pose(e.current_pose);
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
   e.pose_change_threshold = M_PI / 6;
