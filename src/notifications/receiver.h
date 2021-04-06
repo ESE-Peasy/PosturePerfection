@@ -60,8 +60,11 @@ class NotifyReceiver {
    * @param port Port number to listen on (default is 121121)
    * @param ignore Boolean to ignore location where Notify::NotifyReceiver is
    * running
+   * @param check_env If `true` will check current desktop environment and
+   * change notify-send command if needed
    */
-  explicit NotifyReceiver(int port = 121121, bool ignore = false);
+  explicit NotifyReceiver(int port = 121121, bool ignore = false,
+                          bool check_env = true);
   ~NotifyReceiver();
 
   /**

@@ -11,7 +11,7 @@
 // handles checking in the right directory
 
 BOOST_AUTO_TEST_CASE(CheckDirectory) {
-  BOOST_CHECK_NO_THROW(Notify::NotifyReceiver serv(8080, true));
-  BOOST_CHECK_THROW(Notify::NotifyReceiver serv(8080),
+  BOOST_CHECK_NO_THROW(Notify::NotifyReceiver serv(8080, true, false));
+  BOOST_CHECK_THROW(Notify::NotifyReceiver serv(8080,false,false),
                     Notify::IncorrectDirectory);
 }

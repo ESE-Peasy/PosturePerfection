@@ -25,7 +25,7 @@
 
 namespace Notify {
 
-NotifyReceiver::NotifyReceiver(int port, bool ignore) {
+NotifyReceiver::NotifyReceiver(int port, bool ignore, bool check_env) {
   if (!ignore) {
     if (Notify::GetStringFromCommand("pwd | grep -o '[^/]*$'") !=
         "PosturePerfection\n") {
@@ -52,10 +52,11 @@ NotifyReceiver::NotifyReceiver(int port, bool ignore) {
   int binding = bind(this->receive_fd, (struct sockaddr *)&(this->address),
                      sizeof(this->address));
   Notify::err_msg(binding, "socket_bind");
-
+  if (check_env) {
   char *env = getenv("XDG_CURRENT_DESKTOP");
   if (std::strcmp(env, "ubuntu:GNOME")) {
     this->command = "notify-send -u critical \"Posture Perfection\" \"";
+  }
   }
 }
 NotifyReceiver::~NotifyReceiver() {
