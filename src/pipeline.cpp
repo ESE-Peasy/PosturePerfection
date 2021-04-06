@@ -32,14 +32,10 @@
 
 namespace Pipeline {
 
-FrameGenerator::FrameGenerator(FramerateSettings* framerate_settings)
-    : frame_delay(framerate_settings->get_framerate_setting().frame_delay),
-      cap(0) {
-  t_previous_capture = std::chrono::steady_clock::now();
+FrameGenerator::FrameGenerator(void) : cap(0) {
   if (!cap.isOpened()) {
     throw std::runtime_error("Cannot access camera");
   }
-
   // Ensure there is always a frame ready
   cv::Mat frame;
   cap.read(frame);
@@ -49,28 +45,37 @@ FrameGenerator::FrameGenerator(FramerateSettings* framerate_settings)
   }
   current_frame = frame;
 
-  start(ms_to_ns(frame_delay));
+  // Start thread that continuously gets newest frame
+  std::thread t(&FrameGenerator::FrameGenerator::thread_body, this);
+  thread = std::move(t);
 }
 
-FrameGenerator::~FrameGenerator() {}
+FrameGenerator::~FrameGenerator() {
+  running = false;
+  thread.join();
+}
 
 void FrameGenerator::updated_framerate(size_t new_frame_delay) {
-  frame_delay = new_frame_delay;
   stop();
-  start(ms_to_ns(frame_delay));
+  start(ms_to_ns(new_frame_delay));
 }
 
-void FrameGenerator::timerEvent(void) {
-  cv::Mat frame;
-  cap.read(frame);
+void FrameGenerator::timerEvent(void) { cv.notify_one(); }
 
-  if (frame.empty()) {
-    fprintf(stderr, "Empty frame\n");
-    return;
+void FrameGenerator::thread_body(void) {
+  while (running) {
+    cv::Mat frame;
+    cap.read(frame);
+
+    if (frame.empty()) {
+      fprintf(stderr, "Empty frame\n");
+      return;
+    }
+
+    std::unique_lock<std::mutex> lock(mutex);
+    current_frame = frame;
+    lock.unlock();
   }
-
-  current_frame = frame;
-  cv.notify_one();
 }
 
 RawFrame FrameGenerator::next_frame(void) {
@@ -120,7 +125,7 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
           CONFIDENCE_THRESH_DEFAULT,
           framerate_settings.get_framerate_setting().smoothing_settings),
       posture_estimator(),
-      frame_generator(&framerate_settings),
+      frame_generator(),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
   if (num_inference_core_threads == 0) {
@@ -141,6 +146,9 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
   std::thread post_processing_thread(
       &Pipeline::Pipeline::post_processing_thread_body, this);
   threads.push_back(std::move(post_processing_thread));
+
+  frame_generator.start(
+      ms_to_ns(framerate_settings.get_framerate_setting().frame_delay));
 }
 
 Pipeline::~Pipeline() {
