@@ -81,9 +81,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a62200f8eb7a73782a6be903cb46106e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNotify_1_1NotifyReceiver.html#a62200f8eb7a73782a6be903cb46106e9">NotifyReceiver</a> (int port=121121, bool ignore=false)</td></tr>
-<tr class="memdesc:a62200f8eb7a73782a6be903cb46106e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <code><a class="el" href="classNotify_1_1NotifyReceiver.html" title="A Notify::NotifyReceiver for listening and receiving notifications from Notify::NotifyBroadcast">Notify::NotifyReceiver</a></code>  <a href="classNotify_1_1NotifyReceiver.html#a62200f8eb7a73782a6be903cb46106e9">More...</a><br /></td></tr>
-<tr class="separator:a62200f8eb7a73782a6be903cb46106e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7cb04a49ad64e08cd2946860ad2fe7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNotify_1_1NotifyReceiver.html#a0b7cb04a49ad64e08cd2946860ad2fe7">NotifyReceiver</a> (int port=121121, bool ignore=false, bool check_env=true)</td></tr>
+<tr class="memdesc:a0b7cb04a49ad64e08cd2946860ad2fe7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <code><a class="el" href="classNotify_1_1NotifyReceiver.html" title="A Notify::NotifyReceiver for listening and receiving notifications from Notify::NotifyBroadcast">Notify::NotifyReceiver</a></code>  <a href="classNotify_1_1NotifyReceiver.html#a0b7cb04a49ad64e08cd2946860ad2fe7">More...</a><br /></td></tr>
+<tr class="separator:a0b7cb04a49ad64e08cd2946860ad2fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a42ddcec964b917a014446e18697705"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNotify_1_1NotifyReceiver.html#a9a42ddcec964b917a014446e18697705">~NotifyReceiver</a> ()</td></tr>
 <tr class="separator:a9a42ddcec964b917a014446e18697705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1eb4346bdec0903b026b6ee47b08885"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNotify_1_1NotifyReceiver.html#ac1eb4346bdec0903b026b6ee47b08885">run</a> ()</td></tr>
@@ -99,8 +99,8 @@ Data Fields</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A <code><a class="el" href="classNotify_1_1NotifyReceiver.html" title="A Notify::NotifyReceiver for listening and receiving notifications from Notify::NotifyBroadcast">Notify::NotifyReceiver</a></code> for listening and receiving notifications from <code><a class="el" href="classNotify_1_1NotifyBroadcast.html" title="A broadcaster to send messages to Notify::NotifyReceiver">Notify::NotifyBroadcast</a></code> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a62200f8eb7a73782a6be903cb46106e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62200f8eb7a73782a6be903cb46106e9">&#9670;&nbsp;</a></span>NotifyReceiver()</h2>
+<a id="a0b7cb04a49ad64e08cd2946860ad2fe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b7cb04a49ad64e08cd2946860ad2fe7">&#9670;&nbsp;</a></span>NotifyReceiver()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -118,7 +118,13 @@ Data Fields</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>ignore</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>ignore</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>check_env</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -138,6 +144,7 @@ Data Fields</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">port</td><td>Port number to listen on (default is 121121) </td></tr>
     <tr><td class="paramname">ignore</td><td>Boolean to ignore location where <a class="el" href="classNotify_1_1NotifyReceiver.html" title="A Notify::NotifyReceiver for listening and receiving notifications from Notify::NotifyBroadcast">Notify::NotifyReceiver</a> is running </td></tr>
+    <tr><td class="paramname">check_env</td><td>If <code>true</code> will check current desktop environment and change notify-send command if needed </td></tr>
   </table>
   </dd>
 </dl>
