@@ -26,16 +26,16 @@
 #define MODEL_INPUT_Y 224
 #define CONFIDENCE_THRESH_DEFAULT 0.1
 
+#define ms_to_ns(x) \
+  (size_t)(x *      \
+           (size_t)1000000)  ///< Convert value in milliseconds to nanoseconds
+
 namespace Pipeline {
 
-FrameGenerator::FrameGenerator(FramerateSettings* framerate_settings)
-    : frame_delay(framerate_settings->get_framerate_setting().frame_delay),
-      cap(0) {
-  t_previous_capture = std::chrono::steady_clock::now();
+FrameGenerator::FrameGenerator(void) : cap(0) {
   if (!cap.isOpened()) {
     throw std::runtime_error("Cannot access camera");
   }
-
   // Ensure there is always a frame ready
   cv::Mat frame;
   cap.read(frame);
@@ -56,8 +56,11 @@ FrameGenerator::~FrameGenerator() {
 }
 
 void FrameGenerator::updated_framerate(size_t new_frame_delay) {
-  frame_delay = new_frame_delay;
+  stop();
+  start(ms_to_ns(new_frame_delay));
 }
+
+void FrameGenerator::timerEvent(void) { cv.notify_one(); }
 
 void FrameGenerator::thread_body(void) {
   while (running) {
@@ -69,7 +72,7 @@ void FrameGenerator::thread_body(void) {
       return;
     }
 
-    lock.lock();
+    std::unique_lock<std::mutex> lock(mutex);
     current_frame = frame;
     lock.unlock();
   }
@@ -77,21 +80,10 @@ void FrameGenerator::thread_body(void) {
 
 RawFrame FrameGenerator::next_frame(void) {
   // Lock so only a single thread can get next frame at once
-  lock_out.lock();
-
-  // Block until frame delay has elapsed
-  std::chrono::duration<double, std::milli> t_since_last_request =
-      std::chrono::steady_clock::now() - t_previous_capture;
-  while (t_since_last_request <= std::chrono::milliseconds(frame_delay)) {
-    t_since_last_request =
-        std::chrono::steady_clock::now() - t_previous_capture;
-  }
-  t_previous_capture = std::chrono::steady_clock::now();
-
-  lock.lock();
+  std::unique_lock<std::mutex> lock(mutex);
+  cv.wait(lock);
   auto output = RawFrame{id++, current_frame};
   lock.unlock();
-  lock_out.unlock();
   return output;
 }
 
@@ -133,7 +125,7 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
           CONFIDENCE_THRESH_DEFAULT,
           framerate_settings.get_framerate_setting().smoothing_settings),
       posture_estimator(),
-      frame_generator(&framerate_settings),
+      frame_generator(),
       core_results(&this->running, num_inference_core_threads),
       callback(callback) {
   if (num_inference_core_threads == 0) {
@@ -154,6 +146,9 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
   std::thread post_processing_thread(
       &Pipeline::Pipeline::post_processing_thread_body, this);
   threads.push_back(std::move(post_processing_thread));
+
+  frame_generator.start(
+      ms_to_ns(framerate_settings.get_framerate_setting().frame_delay));
 }
 
 Pipeline::~Pipeline() {

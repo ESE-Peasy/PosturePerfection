@@ -22,6 +22,9 @@
 #ifndef SRC_PIPELINE_H_
 #define SRC_PIPELINE_H_
 
+#include <CppTimer.h>
+
+#include <condition_variable>  //NOLINT [build/c++11]
 #include <deque>
 #include <mutex>   //NOLINT [build/c++11]
 #include <thread>  //NOLINT [build/c++11]
@@ -211,16 +214,16 @@ class Buffer {
   PopResult<T> pop() {
     PopResult<T> front = PopResult<T>{T{}, false};
     while (*running) {
-      this->lock_out.lock();
+      lock_out.lock();
       if (size() != 0 || full) {
-        front = PopResult<T>{this->queue.at(front_index), true};
+        front = PopResult<T>{queue.at(front_index), true};
         front_index = (front_index + 1) % queue.size();
         full = false;
 
-        this->lock_out.unlock();
+        lock_out.unlock();
         break;
       }
-      this->lock_out.unlock();
+      lock_out.unlock();
     }
     return front;
   }
@@ -342,7 +345,7 @@ struct RawFrame {
   cv::Mat raw_image;  ///< Raw `cv::Mat` (OpenCV) image
 };
 
-class FrameGenerator {
+class FrameGenerator : public CppTimer {
  private:
   /**
    * @brief Video stream handle
@@ -378,34 +381,27 @@ class FrameGenerator {
    * Enables the synchronisation of `id` and `current_frame`
    *
    */
-  std::mutex lock;
+  std::mutex mutex;
 
   /**
-   * @brief Lock to ensure only a single thread can retrieve a frame at once
+   * @brief Condition variable to make callers of `next_frame()` wait until the
+   * next frame is ready to be processed.
    *
    */
-  std::mutex lock_out;
+  std::condition_variable cv;
 
   /**
-   * @brief The thread that retrieves the newest frame from the camera
+   * @brief Continuously running thread to ensure the class always has the
+   * newest frame ready
+   *
+   * This cannot be in the body of the timer as OpenCV buffers camera frames.
+   * The only reliable way, at the time of writing, to get the newest frame is
+   * to constantly poll the camera so the OpenCV buffer is emptied. Not doing
+   * this would result in outdated frames being used in the pipeline, leading to
+   * a very noticeable system latency.
    *
    */
   std::thread thread;
-
-  /**
-   * @brief Time at which the previous capture took place
-   *
-   * A new capture should only take place after `frame_delay` time has passed
-   * since this `t_previous_capture`
-   *
-   */
-  std::chrono::time_point<std::chrono::steady_clock> t_previous_capture;
-
-  /**
-   * @brief Currently set delay between frames
-   *
-   */
-  size_t frame_delay;
 
   /**
    * @brief Implementation of how to retrieve the next frame from the camera
@@ -414,20 +410,29 @@ class FrameGenerator {
   void thread_body(void);
 
   /**
+   * @brief Timer to notify waiting threads they can process the current frame
+   *
+   * When the timer fires, at most one thread currently waiting in a
+   * `next_frame()` call will be notified and will start to process the frame.
+   *
+   * This timer controls the frame rate of the pipeline.
+   *
+   */
+  void timerEvent(void);
+
+  /**
    * @brief Flag to tell `thread_body` whether or not it should be running
    *
    */
   bool running = true;
 
  public:
-  void updated_framerate(size_t new_frame_delay);
   /**
    * @brief Construct a new Frame Generator object
    *
-   * @param framerate_settings Pointer to the `Pipeline`'s `FramerateSettings`
    * @throw `std::runtime_error` if the camera cannot be accessed
    */
-  explicit FrameGenerator(FramerateSettings* framerate_settings);
+  FrameGenerator(void);
 
   /**
    * @brief Destroy the Frame Generator object
@@ -436,6 +441,15 @@ class FrameGenerator {
    *
    */
   ~FrameGenerator();
+
+  /**
+   * @brief Notify the `FrameGenerator` that the frame rate has changed
+   *
+   * The underlying timer is stopped and restarted with the new frame delay
+   *
+   * @param new_frame_delay New delay from one frame to the next in ms
+   */
+  void updated_framerate(size_t new_frame_delay);
 
   /**
    * @brief Get the newest frame
