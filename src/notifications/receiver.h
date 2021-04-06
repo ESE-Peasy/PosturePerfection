@@ -61,7 +61,8 @@ class NotifyReceiver {
    * @param ignore Boolean to ignore location where Notify::NotifyReceiver is
    * running
    */
-  explicit NotifyReceiver(int port = 121121, bool ignore = false);
+  explicit NotifyReceiver(int port = 121121, bool ignore = false,
+                          bool check_env = true);
   ~NotifyReceiver();
 
   /**
