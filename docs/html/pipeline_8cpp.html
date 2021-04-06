@@ -82,31 +82,33 @@ Include dependency graph for pipeline.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="pipeline_8cpp__incl.png" border="0" usemap="#apipeline_8cpp" alt=""/></div>
 <map name="apipeline_8cpp" id="apipeline_8cpp">
-<area shape="rect" title=" " alt="" coords="1129,5,1219,32"/>
-<area shape="rect" href="pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="395,80,471,107"/>
-<area shape="rect" title=" " alt="" coords="804,453,859,480"/>
-<area shape="rect" title=" " alt="" coords="1174,80,1251,107"/>
-<area shape="rect" title=" " alt="" coords="1276,80,1328,107"/>
-<area shape="rect" title=" " alt="" coords="896,155,953,181"/>
-<area shape="rect" title=" " alt="" coords="5,155,63,181"/>
-<area shape="rect" title=" " alt="" coords="87,155,146,181"/>
-<area shape="rect" title=" " alt="" coords="146,304,205,331"/>
-<area shape="rect" href="iir_8h.html" title="Very simple IIR filter." alt="" coords="154,229,197,256"/>
-<area shape="rect" href="inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="373,229,490,256"/>
-<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="279,304,394,331"/>
-<area shape="rect" title=" " alt="" coords="619,229,743,256"/>
-<area shape="rect" title=" " alt="" coords="520,155,660,181"/>
-<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="323,155,444,181"/>
-<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="735,155,871,181"/>
-<area shape="rect" title=" " alt="" coords="59,304,121,331"/>
-<area shape="rect" title=" " alt="" coords="469,304,604,331"/>
-<area shape="rect" title=" " alt="" coords="178,379,242,405"/>
-<area shape="rect" title=" " alt="" coords="431,379,499,405"/>
-<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="609,379,777,405"/>
-<area shape="rect" title=" " alt="" coords="667,453,718,480"/>
-<area shape="rect" title=" " alt="" coords="266,379,407,405"/>
-<area shape="rect" title=" " alt="" coords="869,229,929,256"/>
-<area shape="rect" title=" " alt="" coords="953,229,1099,256"/>
+<area shape="rect" title=" " alt="" coords="1361,5,1451,32"/>
+<area shape="rect" href="pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="528,80,604,107"/>
+<area shape="rect" title=" " alt="" coords="1036,453,1091,480"/>
+<area shape="rect" title=" " alt="" coords="1406,80,1483,107"/>
+<area shape="rect" title=" " alt="" coords="1508,80,1560,107"/>
+<area shape="rect" title=" " alt="" coords="1127,155,1215,181"/>
+<area shape="rect" title=" " alt="" coords="5,155,132,181"/>
+<area shape="rect" title=" " alt="" coords="156,155,213,181"/>
+<area shape="rect" title=" " alt="" coords="237,155,295,181"/>
+<area shape="rect" title=" " alt="" coords="319,155,378,181"/>
+<area shape="rect" title=" " alt="" coords="378,304,437,331"/>
+<area shape="rect" href="iir_8h.html" title="Very simple IIR filter." alt="" coords="386,229,429,256"/>
+<area shape="rect" href="inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="605,229,722,256"/>
+<area shape="rect" href="pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="511,304,626,331"/>
+<area shape="rect" title=" " alt="" coords="851,229,975,256"/>
+<area shape="rect" title=" " alt="" coords="752,155,892,181"/>
+<area shape="rect" href="post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="555,155,676,181"/>
+<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="967,155,1103,181"/>
+<area shape="rect" title=" " alt="" coords="291,304,353,331"/>
+<area shape="rect" title=" " alt="" coords="701,304,836,331"/>
+<area shape="rect" title=" " alt="" coords="410,379,474,405"/>
+<area shape="rect" title=" " alt="" coords="663,379,731,405"/>
+<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="841,379,1009,405"/>
+<area shape="rect" title=" " alt="" coords="899,453,950,480"/>
+<area shape="rect" title=" " alt="" coords="498,379,639,405"/>
+<area shape="rect" title=" " alt="" coords="1101,229,1161,256"/>
+<area shape="rect" title=" " alt="" coords="1185,229,1331,256"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -124,6 +126,9 @@ Macros</h2></td></tr>
 <tr class="separator:ad47a5df8b98eda7ee02b4c1538dae149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0d30b1743930d4041e8fcac71c9b678"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8cpp.html#ad0d30b1743930d4041e8fcac71c9b678">CONFIDENCE_THRESH_DEFAULT</a>&#160;&#160;&#160;0.1</td></tr>
 <tr class="separator:ad0d30b1743930d4041e8fcac71c9b678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d6542ffff1463cc337f961ad705a350"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pipeline_8cpp.html#a2d6542ffff1463cc337f961ad705a350">ms_to_ns</a>(x)</td></tr>
+<tr class="memdesc:a2d6542ffff1463cc337f961ad705a350"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert value in milliseconds to nanoseconds.  <a href="pipeline_8cpp.html#a2d6542ffff1463cc337f961ad705a350">More...</a><br /></td></tr>
+<tr class="separator:a2d6542ffff1463cc337f961ad705a350"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ad0d30b1743930d4041e8fcac71c9b678"></a>
@@ -169,6 +174,28 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d6542ffff1463cc337f961ad705a350"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6542ffff1463cc337f961ad705a350">&#9670;&nbsp;</a></span>ms_to_ns</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ms_to_ns</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  (size_t)(x *      \</div>
+<div class="line">           (<span class="keywordtype">size_t</span>)1000000)</div>
+</div><!-- fragment -->
+<p>Convert value in milliseconds to nanoseconds. </p>
 
 </div>
 </div>

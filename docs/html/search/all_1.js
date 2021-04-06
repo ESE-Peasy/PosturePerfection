@@ -12,8 +12,7 @@ var searchData=
   ['broadcast_5fexample_2ecpp_17',['broadcast_example.cpp',['../broadcast__example_8cpp.html',1,'']]],
   ['broadcaster_2ecpp_18',['broadcaster.cpp',['../broadcaster_8cpp.html',1,'']]],
   ['broadcaster_2eh_19',['broadcaster.h',['../broadcaster_8h.html',1,'']]],
-  ['buffer_20',['Buffer',['../classBuffer_1_1Buffer.html#ab092205b64035a79ae498aa38f197442',1,'Buffer::Buffer']]],
-  ['buffer_21',['buffer',['../classNotify_1_1NotifyReceiver.html#a04a8e1d4f6d5c67829e7c33a0de146ea',1,'Notify::NotifyReceiver']]],
-  ['buffer_22',['Buffer',['../namespaceBuffer.html',1,'Buffer'],['../classBuffer_1_1Buffer.html',1,'Buffer::Buffer&lt; T &gt;']]],
-  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_23',['Buffer&lt; Pipeline::CoreResults &gt;',['../classBuffer_1_1Buffer.html',1,'Buffer']]]
+  ['buffer_20',['buffer',['../classNotify_1_1NotifyReceiver.html#a04a8e1d4f6d5c67829e7c33a0de146ea',1,'Notify::NotifyReceiver']]],
+  ['buffer_21',['Buffer',['../classBuffer_1_1Buffer.html#ab092205b64035a79ae498aa38f197442',1,'Buffer::Buffer::Buffer()'],['../namespaceBuffer.html',1,'Buffer'],['../classBuffer_1_1Buffer.html',1,'Buffer::Buffer&lt; T &gt;']]],
+  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_22',['Buffer&lt; Pipeline::CoreResults &gt;',['../classBuffer_1_1Buffer.html',1,'Buffer']]]
 ];
