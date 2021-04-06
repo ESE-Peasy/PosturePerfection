@@ -111,12 +111,16 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
 void GUI::MainWindow::updatePostureNotification(
     PostureEstimating::PoseStatus poseStatus) {
+  // Create notification widgets and set the minimum size shown
   QWidget *postureNotificationBox = new QWidget;
+  postureNotificationBox->setMinimumSize(200, 40);
   QGridLayout *postureNotificationLayout = new QGridLayout;
   QLabel *postureNotification = new QLabel();
-  // poseStatus.set_ideal_posture
-  if (false) {
-    if (poseStatus.good_posture) {
+
+  // Check if the ideal pose has been set and if so, display notification
+  // according to the posture state
+  if (poseStatus.posture_state != 2) {
+    if (poseStatus.posture_state == 0) {
       postureNotificationBox->setStyleSheet("background-color: green");
       postureNotification->setText("Good Posture");
     } else {
@@ -128,7 +132,8 @@ void GUI::MainWindow::updatePostureNotification(
     postureNotification->setText("Undefined");
   }
   postureNotification->setStyleSheet("QLabel {color : white; }");
-  postureNotificationLayout->addWidget(postureNotification);
+  postureNotificationLayout->addWidget(postureNotification, 0, 0,
+                                       Qt::AlignCenter);
   postureNotificationBox->setLayout(postureNotificationLayout);
   mainPageLayout->addWidget(postureNotificationBox, 2, 0, Qt::AlignCenter);
 }
