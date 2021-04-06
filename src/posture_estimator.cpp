@@ -64,8 +64,8 @@ PostureEstimator::PostureEstimator() {
 
 float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,
                                      PostProcessing::Coordinate coord2) {
-  float x_dif = coord2.x - coord1.x;
-  float y_dif = coord2.y - coord1.y;
+  float x_dif = (coord2.x - 0.5) - (coord1.x - 0.5);
+  float y_dif = ((1.0 - coord2.y) - 0.5) - ((1.0 - coord1.y) - 0.5);
 
   if (y_dif == 0) {
     return (x_dif > 0) ? M_PI / 2 : -M_PI / 2;
@@ -219,7 +219,7 @@ void PostureEstimator::display_pose_changes_needed(
       if (pose_changes.joints.at(i).upper_angle > pose_change_threshold) {
         cv::line(current_frame, upper_joint_point, current_joint_point,
                  colours.at(Red), 5);
-        cv::Point tip(static_cast<int>(midpoint.x - 50),
+        cv::Point tip(static_cast<int>(midpoint.x + 50),
                       static_cast<int>(midpoint.y));
 
         cv::arrowedLine(current_frame, midpoint, tip, colours.at(Blue), 2, 8, 0,
@@ -228,7 +228,7 @@ void PostureEstimator::display_pose_changes_needed(
                  -pose_change_threshold) {
         cv::line(current_frame, upper_joint_point, current_joint_point,
                  colours.at(Red), 5);
-        cv::Point tip(static_cast<int>(midpoint.x + 50),
+        cv::Point tip(static_cast<int>(midpoint.x - 50),
                       static_cast<int>(midpoint.y));
 
         cv::arrowedLine(current_frame, midpoint, tip, colours.at(Blue), 2, 8, 0,
