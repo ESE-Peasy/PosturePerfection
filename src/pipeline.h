@@ -24,7 +24,7 @@
 
 #include <CppTimer.h>
 
-#include <condition_variable>
+#include <condition_variable>  //NOLINT [build/c++11]
 #include <deque>
 #include <mutex>   //NOLINT [build/c++11]
 #include <thread>  //NOLINT [build/c++11]
