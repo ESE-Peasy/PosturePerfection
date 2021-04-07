@@ -229,8 +229,8 @@ class MainWindow : public QMainWindow {
   Pipeline::Pipeline *pipelinePtr = nullptr;
   PostureEstimating::PoseStatus currentPoseStatus;
   QGridLayout *framerate = new QGridLayout;
-  QLabel *currentFrame = new QLabel();
-
+  
+  Label *currentFrameRate = new Label();
   Label *postureNotification = new Label();
 
   QGridLayout *mainLayout = new QGridLayout;

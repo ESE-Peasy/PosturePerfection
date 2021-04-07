@@ -99,22 +99,24 @@ void GUI::MainWindow::updatePostureNotification(
       break;
     }
     case PostureEstimating::PostureState::Unset: {
-      postureNotification->setStyleSheet("background-color: grey");
-      postureNotification->setText("Unset");
+      postureNotification->setStyleSheet("background-color: #eda333");
+      postureNotification->setText("No Set Posture",
+                                   "Use the Set Ideal Posture\nbutton below");
       break;
     }
     case PostureEstimating::PostureState::Good: {
-      postureNotification->setStyleSheet("background-color: green");
+      postureNotification->setStyleSheet("background-color: #96cb2f");
       postureNotification->setText("PosturePerfection!");
       break;
     }
     case PostureEstimating::PostureState::Undefined: {
-      postureNotification->setStyleSheet("background-color: orange");
-      postureNotification->setText("Undefined");
+      postureNotification->setStyleSheet("background-color: #909090");
+      postureNotification->setText("Unknown Posture",
+                                   "Hmm... I can't find your posture");
       break;
     }
     case PostureEstimating::PostureState::Bad: {
-      postureNotification->setStyleSheet("background-color: red");
+      postureNotification->setStyleSheet("background-color: #ed3833");
       postureNotification->setText(
           "Imperfect Posture",
           "Follow the guides to\nachieve PosturePerfection!");
@@ -137,6 +139,8 @@ void GUI::MainWindow::createMainPage() {
   auto *settingsButton = new Button("Settings");
   connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettingsPage()));
 
+  postureNotification->setMaximumSize(200, 80);
+
   QGroupBox *mainPageButtons = new QGroupBox();
   QVBoxLayout *mainPageButtonsBox = new QVBoxLayout;
   mainPageButtonsBox->addWidget(postureNotification);
@@ -151,9 +155,7 @@ void GUI::MainWindow::createSettingsPage() {
   QVBoxLayout *vertThreshold = new QVBoxLayout;
 
   // Create Setting's page title
-  QLabel *settingsTitle = new QLabel();
-  settingsTitle->setText("Settings Page");
-  settingsTitle->setStyleSheet("QLabel {color : white; }");
+  auto *settingsTitle = new Label("Settings Page");
   QFont font = settingsTitle->font();
   font.setPointSize(37);
   font.setBold(true);
@@ -161,9 +163,7 @@ void GUI::MainWindow::createSettingsPage() {
   settingsPageLayout->addWidget(settingsTitle, 0, 0, Qt::AlignCenter);
 
   // Allow user to select the confidence threshold
-  QLabel *confidenceLabel = new QLabel();
-  confidenceLabel->setText("Posture Estimating Sensitivity");
-  confidenceLabel->setStyleSheet("QLabel {color : white; }");
+  auto *confidenceLabel = new Label("Confidence Threshold");
   QSlider *confidenceSlider = new QSlider(Qt::Horizontal, this);
   confidenceSlider->setMinimum(0);
   confidenceSlider->setMaximum(100);
@@ -182,9 +182,7 @@ void GUI::MainWindow::createSettingsPage() {
           SLOT(setThresholdValue(int)));
 
   // Allow user to select the pose change threshold
-  QLabel *poseChangeThresholdLabel = new QLabel();
-  poseChangeThresholdLabel->setText("Pose Change Threshold");
-  poseChangeThresholdLabel->setStyleSheet("QLabel {color : white; }");
+  auto *poseChangeThresholdLabel = new Label("Slouch Sensitivity");
 
   QSlider *poseChangeThresholdSlider = new QSlider(Qt::Horizontal, this);
   poseChangeThresholdSlider->setMinimum(0);
@@ -205,10 +203,10 @@ void GUI::MainWindow::createSettingsPage() {
   // Let user adjust the video framerate
   framerate->setSpacing(0);
   framerate->setMargin(0);
-  QPushButton *upFramerate = new QPushButton("&Up");
-  QPushButton *downFramerate = new QPushButton("&Down");
-  framerate->addWidget(upFramerate, 0, 1, 1, 1, Qt::AlignLeft);
-  framerate->addWidget(downFramerate, 2, 1, 1, 1, Qt::AlignLeft);
+  auto *upFramerate = new Button("Up");
+  auto *downFramerate = new Button("Down");
+  framerate->addWidget(upFramerate, 0, 0);
+  framerate->addWidget(downFramerate, 0, 2);
 
   connect(upFramerate, SIGNAL(clicked()), this, SLOT(increaseVideoFramerate()));
   connect(downFramerate, SIGNAL(clicked()), this,
@@ -216,8 +214,7 @@ void GUI::MainWindow::createSettingsPage() {
 
   setOutputFramerate();
 
-  currentFrame->setStyleSheet("QLabel {color : white; }");
-  framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
+  framerate->addWidget(currentFrameRate, 0, 1);
 
   QGroupBox *groupFramerate = new QGroupBox();
   groupFramerate->setLayout(framerate);
@@ -253,7 +250,7 @@ void GUI::MainWindow::setOutputFramerate() {
   float newFramerate = pipelinePtr->get_framerate();
   QString output =
       "Frame Rate: " + QString::number(newFramerate, 'f', 1) + " fps";
-  currentFrame->setText(output);
+  currentFrameRate->setText(output);
 }
 
 void GUI::MainWindow::decreaseVideoFramerate() {

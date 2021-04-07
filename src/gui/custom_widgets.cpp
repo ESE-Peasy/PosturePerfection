@@ -7,7 +7,6 @@ void Label::constructor(const QString &title, const QString &subtitle,
   this->title = title;
   this->subtitle = subtitle;
   setMinimumSize(200, 80);
-  setMaximumSize(200, 80);
 }
 
 Label::Label(QWidget *parent) : QLabel(parent) { constructor("", ""); }
@@ -26,6 +25,7 @@ void Label::setText(const QString &title) { setText(title, ""); }
 void Label::setText(const QString &title, const QString &subtitle) {
   this->title = title;
   this->subtitle = subtitle;
+  repaint();
 }
 
 void Label::paintEvent(QPaintEvent *p) {
