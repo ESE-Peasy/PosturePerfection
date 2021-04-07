@@ -60,6 +60,12 @@ PostureEstimator::PostureEstimator() {
   this->ideal_pose = createPose();
   this->current_pose = createPose();
   this->pose_changes = createPose();
+  Notify::NotifyBroadcast broadcaster = Notify::NotifyBroadcast();
+  this->broadcaster.sendMessage("Posture Perfection is now running");
+}
+
+PostureEstimator::~PostureEstimator() {
+  this->broadcaster.sendMessage("Posture Perfection has shutdown");
 }
 
 float PostureEstimator::getLineAngle(PostProcessing::Coordinate coord1,

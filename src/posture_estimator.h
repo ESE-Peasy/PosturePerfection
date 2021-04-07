@@ -27,6 +27,7 @@
 #include <string>
 
 #include "intermediate_structures.h"
+#include "notifications/broadcaster.h"
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
 
@@ -130,6 +131,11 @@ class PostureEstimator {
       cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255)};
 
   /**
+   * @brief NotifySend broadcaster for sending messages
+   *
+   */
+  Notify::NotifyBroadcast broadcaster;
+  /**
    * @brief Calculates the angle(in degrees) between two points, clockwise
    * from the Head.
    *
@@ -231,7 +237,7 @@ class PostureEstimator {
   /**
    * @brief Destroy a `PostureEstimator` object
    */
-  ~PostureEstimator() {}
+  ~PostureEstimator();
 
   /**
    * @brief The user's current `Pose` from most recent data provided.

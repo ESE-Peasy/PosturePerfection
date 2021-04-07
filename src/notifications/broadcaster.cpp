@@ -21,7 +21,7 @@
 #include "broadcaster.h"
 
 namespace Notify {
-NotifyBroadcast::NotifyBroadcast(char *ip, int port) {
+NotifyBroadcast::NotifyBroadcast(int port, char *ip) {
   this->target_ip = ip;
   this->broadcast_fd = socket(AF_INET, SOCK_DGRAM, 0);
   this->address.sin_family = AF_INET;
@@ -32,13 +32,11 @@ NotifyBroadcast::NotifyBroadcast(char *ip, int port) {
   int setup = setsockopt(this->broadcast_fd, SOL_SOCKET, SO_BROADCAST, &opt,
                          sizeof(opt));
 }
-NotifyBroadcast::~NotifyBroadcast() {
-  int cls = close(this->broadcast_fd);
-  Notify::err_msg(cls, "socket_close");
-}
+NotifyBroadcast::~NotifyBroadcast() { int cls = close(this->broadcast_fd); }
 
 void NotifyBroadcast::sendMessage(std::string msg) {
   sendto(this->broadcast_fd, msg.c_str(), msg.length(), MSG_DONTWAIT,
          (const struct sockaddr *)&this->address, sizeof(this->address));
+  std::cout << msg;
 }
 }  // namespace Notify

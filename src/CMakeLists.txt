@@ -14,11 +14,14 @@ endif()
 add_subdirectory(gui ENABLE_EXPORTS)
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/gui")
 
-set(NTFYSRC
-  notifications/notify.cpp
-  notifications/broadcaster.cpp
-  notifications/receiver.cpp
-)
+#add_subdirectory(notifications ENABLE_EXPORTS)
+#include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/notifications")
+
+#set(NTFYSRC
+#  notifications/notify.cpp
+#  notifications/broadcaster.cpp
+#  notifications/receiver.cpp
+#)
 
 set(LIBSRC
   iir.cpp
@@ -27,7 +30,10 @@ set(LIBSRC
   post_processor.cpp
   pre_processor.cpp
   posture_estimator.cpp
-  pipeline.cpp)
+  pipeline.cpp
+  notifications/notify.cpp
+  notifications/broadcaster.cpp)
+
 
 # Set up OpenCV package
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../../opencv_build")
@@ -50,7 +56,7 @@ add_subdirectory(
   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
   
 add_library(PosturePerfection_static STATIC ${LIBSRC})
-add_library(PosturePerfection_notify STATIC ${NTFYSRC})
+#add_library(PosturePerfection_notify STATIC ${NTFYSRC})
 target_include_directories(PosturePerfection_static PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
