@@ -192,6 +192,7 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesUntrustworthy) {
 
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
   PostureEstimating::PostureEstimator e;
+  e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
   e.pose_change_threshold = M_PI / 4;
   e.checkGoodPosture();
@@ -201,6 +202,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
 
 BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
   PostureEstimating::PostureEstimator e;
+  e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 6;
   e.pose_changes.joints[JointMin].upper_angle = -M_PI / 6;
@@ -212,6 +214,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
 
 BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
   PostureEstimating::PostureEstimator e;
+  e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
@@ -222,6 +225,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
 }
 BOOST_AUTO_TEST_CASE(GoodPostureOutsideThreshold) {
   PostureEstimating::PostureEstimator e;
+  e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
