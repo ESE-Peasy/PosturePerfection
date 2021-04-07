@@ -90,12 +90,6 @@ void GUI::MainWindow::openSettingsPage(void) {
 
 void GUI::MainWindow::updatePostureNotification(
     PostureEstimating::PostureState postureState) {
-  // Create notification widgets and set the minimum size shown
-  QWidget *postureNotificationBox = new QWidget;
-  postureNotificationBox->setMinimumSize(200, 40);
-  QGridLayout *postureNotificationLayout = new QGridLayout;
-  QLabel *postureNotification = new QLabel();
-
   // Check if the ideal pose has been set and if so, display notification
   // according to the posture state
   switch (postureState) {

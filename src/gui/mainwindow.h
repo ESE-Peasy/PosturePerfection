@@ -138,7 +138,7 @@ class Label : public QLabel {
     constructor(title, subtitle);
   }
 
-  void setText(const QString &title) { this->title = title; }
+  void setText(const QString &title) { setText(title, ""); }
 
   void setText(const QString &title, const QString &subtitle) {
     this->title = title;
