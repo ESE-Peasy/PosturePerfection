@@ -163,14 +163,14 @@ class MainWindow : public QMainWindow {
   /**
    * @brief emit the newly captured frame
    *
-   * * @param currentFrame cv::Mat object containing the current captured frame
+   * @param currentFrame cv::Mat object containing the current captured frame
    */
   void currentFrameSignal(cv::Mat currentFrame);
 
   /**
    * @brief emit the newly captured good posture value
    *
-   * * @param postureState the current posture state
+   * @param postureState the current posture state
    */
   void currentGoodBadPosture(PostureEstimating::PostureState postureState);
 

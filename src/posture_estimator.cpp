@@ -139,13 +139,30 @@ void PostureEstimator::calculatePoseChanges() {
 }
 
 void PostureEstimator::checkGoodPosture() {
-  bool isUntrustworthy = true;
-  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
-    if (this->current_pose.joints[i].coord.status !=
-        PostProcessing::Untrustworthy) {
-      isUntrustworthy = false;
-    }
+  if (this->posture_state == Unset) {
+    // If the ideal posture has not been set, then remain in the Unset
+    // state regardless
+    return;
+  }
 
+  bool trustworthyPosture = true;
+  for (int i = JointMin; i <= JointMax - 2; i++) {
+    // If any detected joint is Untrustworthy, then the overall
+    // posture is untrustworthy
+    if (this->current_pose.joints.at(i).coord.status
+                   == PostProcessing::Untrustworthy) {
+      trustworthyPosture = false;
+    }
+  }
+
+  if (!trustworthyPosture) {
+    this->posture_state = Undefined;
+    return;
+  }
+
+  // If the overall posture is trustworthy then check if it is a Bad
+  // or Good posture
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
     if ((fabs(this->pose_changes.joints[i].upper_angle) <
          -(this->pose_change_threshold)) ||
         fabs(this->pose_changes.joints[i].upper_angle) >
@@ -154,12 +171,7 @@ void PostureEstimator::checkGoodPosture() {
       return;
     }
   }
-
-  if (isUntrustworthy == true) {
-    this->posture_state = Undefined;
-  } else if (!this->posture_state == Unset) {
-    this->posture_state = Good;
-  }
+  this->posture_state = Good;
 }
 
 void PostureEstimator::calculateChangesAndCheckPosture() {
@@ -284,11 +296,10 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
 
   cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
 
-  if (posture_state == Unset || posture_state == Good) {
-    // Ideal pose has not been set yet so indicate to user
-    display_current_pose(current_pose, current_frame, posture_state);
-  } else {
+  if (posture_state == Bad) {
     display_pose_changes_needed(pose_changes, current_pose, current_frame);
+  } else {
+    display_current_pose(current_pose, current_frame, posture_state);
   }
 }
 
