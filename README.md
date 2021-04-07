@@ -64,6 +64,10 @@
 
 We are a group of 5th Year Electronics & Software Engineering students at the University of Glasgow, completing a project which provides you with real-time notifications when we detect you have adopted a poor seated posture which could be detrimental to your future health. Check out our [website](https://ese-peasy.github.io/PosturePerfection/) for more information!
 
+<div align="center">
+  <img src="docs/images/animation1.gif" alt="Animation of PosturePerfection" width="600">
+</div>
+
 ### Components Used
 
 - [TensorFlow Lite C++ API](https://www.tensorflow.org/lite/)
