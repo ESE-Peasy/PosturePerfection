@@ -17,11 +17,11 @@ include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/gui")
 #add_subdirectory(notifications ENABLE_EXPORTS)
 #include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/notifications")
 
-#set(NTFYSRC
-#  notifications/notify.cpp
-#  notifications/broadcaster.cpp
-#  notifications/receiver.cpp
-#)
+set(NTFYSRC
+  notifications/notify.cpp
+  notifications/broadcaster.cpp
+  notifications/receiver.cpp
+)
 
 set(LIBSRC
   iir.cpp
@@ -56,7 +56,7 @@ add_subdirectory(
   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
   
 add_library(PosturePerfection_static STATIC ${LIBSRC})
-#add_library(PosturePerfection_notify STATIC ${NTFYSRC})
+add_library(PosturePerfection_notify STATIC ${NTFYSRC})
 target_include_directories(PosturePerfection_static PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)

@@ -22,6 +22,7 @@
 #ifndef SRC_POSTURE_ESTIMATOR_H_
 #define SRC_POSTURE_ESTIMATOR_H_
 
+#include <CppTimer.h>
 #include <stdio.h>
 
 #include <string>
@@ -106,6 +107,43 @@ struct PoseStatus {
  */
 enum Colours { Red, Green, Blue };
 
+class NotificationTimer : public CppTimer {
+ public:
+  bool running;
+  NotificationTimer();
+  ~NotificationTimer();
+  void timerEvent();
+  void countdown(long time);
+};
+
+class BadPostureTimer : public CppTimer {
+ private:
+  NotificationTimer* notificationTimer;
+  Notify::NotifyBroadcast* broadcaster;
+
+ public:
+  bool running;
+  BadPostureTimer(NotificationTimer* timer, Notify::NotifyBroadcast* broadcast);
+  ~BadPostureTimer();
+  void countdown(long time);
+  void stopCountdown();
+  void timerEvent();
+};
+
+class GoodPostureTimer : public CppTimer {
+ private:
+  BadPostureTimer* badTimer;
+  NotificationTimer* notificationTimer;
+
+ public:
+  bool running;
+  GoodPostureTimer(NotificationTimer* notify, BadPostureTimer* bad);
+  ~GoodPostureTimer();
+  void countdown(long time);
+  void stopCountdown();
+  void timerEvent();
+};
+
 /**
  * @brief This class handles representations of the user's pose and
  * calculates any updates to their pose that is required.
@@ -135,6 +173,10 @@ class PostureEstimator {
    *
    */
   Notify::NotifyBroadcast broadcaster;
+  NotificationTimer notificationTimer;
+  BadPostureTimer badPostureTimer;
+  GoodPostureTimer goodPostureTimer;
+
   /**
    * @brief Calculates the angle(in degrees) between two points, clockwise
    * from the Head.

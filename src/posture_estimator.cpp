@@ -24,6 +24,10 @@
 #define MIN_POSE_CHANGE_THRESHOLD 0.0  ///< 0 degrees
 #define MAX_POSE_CHANGE_THRESHOLD 0.5  ///< 28.64 degrees
 
+#define BAD_POSTURE_TIME 10000000000    ///< 10 seconds
+#define GOOD_POSTURE_TIME 5000000000    ///< 5 seconds
+#define NOTIFICATION_TIME 120000000000  ///< 120 seconds
+
 namespace PostureEstimating {
 
 std::string stringJoint(Joint joint) {
@@ -55,12 +59,15 @@ Pose createPose() {
   return p;
 }
 
-PostureEstimator::PostureEstimator() {
+PostureEstimator::PostureEstimator()
+    : broadcaster(),
+      notificationTimer(),
+      badPostureTimer(&notificationTimer, &broadcaster),
+      goodPostureTimer(&notificationTimer, &badPostureTimer) {
   this->pose_change_threshold = 0.1;
   this->ideal_pose = createPose();
   this->current_pose = createPose();
   this->pose_changes = createPose();
-  Notify::NotifyBroadcast broadcaster = Notify::NotifyBroadcast();
   this->broadcaster.sendMessage("Posture Perfection is now running");
 }
 
@@ -282,11 +289,78 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
   cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
 
   if (posture_state == Unset || posture_state == Good) {
+    if (this->badPostureTimer.running && !this->goodPostureTimer.running) {
+      this->goodPostureTimer.countdown(GOOD_POSTURE_TIME);
+    }
     // Ideal pose has not been set yet so indicate to user
     display_current_pose(current_pose, current_frame, posture_state);
   } else {
+    if (!this->badPostureTimer.running) {
+      this->badPostureTimer.countdown(BAD_POSTURE_TIME);
+    }
+    if (this->goodPostureTimer.running) {
+      this->goodPostureTimer.stopCountdown();
+    }
     display_pose_changes_needed(pose_changes, current_pose, current_frame);
   }
 }
 
-}  // namespace PostureEstimating
+NotificationTimer::NotificationTimer() : CppTimer() {}
+NotificationTimer::~NotificationTimer() {}
+void NotificationTimer::timerEvent() { this->running = false; }
+void NotificationTimer::countdown(long time) {
+  this->running = true;
+  this->start(time, ONESHOT);
+}
+GoodPostureTimer::GoodPostureTimer(NotificationTimer* notify,
+                                   BadPostureTimer* bad)
+    : CppTimer() {
+  this->notificationTimer = notify;
+  this->badTimer = bad;
+}
+GoodPostureTimer::~GoodPostureTimer() {}
+void GoodPostureTimer::countdown(long time) {
+  if (!this->running) {
+    this->running = true;
+    this->start(time, ONESHOT);
+  }
+}
+void GoodPostureTimer::stopCountdown() {
+  if (this->running) {
+    this->running = false;
+    this->stop();
+  }
+}
+void GoodPostureTimer::timerEvent() {
+  this->running = false;
+  this->badTimer->stopCountdown();
+}
+
+BadPostureTimer::BadPostureTimer(NotificationTimer* timer,
+                                 Notify::NotifyBroadcast* broadcast)
+    : CppTimer() {
+  this->notificationTimer = timer;
+  this->broadcaster = broadcast;
+}
+BadPostureTimer::~BadPostureTimer() {}
+void BadPostureTimer::countdown(long time) {
+  if (!this->running) {
+    this->running = true;
+    this->start(time, ONESHOT);
+  }
+}
+void BadPostureTimer::stopCountdown() {
+  if (this->running) {
+    this->running = false;
+    this->stop();
+  }
+}
+void BadPostureTimer::timerEvent() {
+  if (!this->notificationTimer->running) {
+    this->notificationTimer->countdown(NOTIFICATION_TIME);
+    this->broadcaster->sendMessage(
+        "You have an imperfect posture, consider readjusting to achieve "
+        "posture perfection");
+  }
+}
+};  // namespace PostureEstimating
