@@ -87,6 +87,12 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
 
+  qRegisterMetaType<PostureEstimating::PostureState>(
+      "PostureEstimating::PostureState");
+  connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PostureState)),
+          this,
+          SLOT(updatePostureNotification(PostureEstimating::PostureState)));
+
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
   mainLayout->addWidget(groupBoxButtons, 1, 1);
@@ -104,8 +110,48 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
           SLOT(updateVideoFrame(cv::Mat)));
 }
 
+void GUI::MainWindow::updatePostureNotification(
+    PostureEstimating::PostureState postureState) {
+  // Create notification widgets and set the minimum size shown
+  QWidget *postureNotificationBox = new QWidget;
+  postureNotificationBox->setMinimumSize(200, 40);
+  QGridLayout *postureNotificationLayout = new QGridLayout;
+  QLabel *postureNotification = new QLabel();
+
+  // Check if the ideal pose has been set and if so, display notification
+  // according to the posture state
+  switch (postureState) {
+    case PostureEstimating::PostureState::Unset: {
+      postureNotificationBox->setStyleSheet("background-color: orange");
+      postureNotification->setText("Unset");
+      break;
+    }
+    case PostureEstimating::PostureState::Good: {
+      postureNotificationBox->setStyleSheet("background-color: green");
+      postureNotification->setText("Good Posture");
+      break;
+    }
+    case PostureEstimating::PostureState::Undefined: {
+      postureNotificationBox->setStyleSheet("background-color: orange");
+      postureNotification->setText("Undefined");
+      break;
+    }
+    case PostureEstimating::PostureState::Bad: {
+      postureNotificationBox->setStyleSheet("background-color: red");
+      postureNotification->setText("Bad Posture");
+      break;
+    }
+  }
+  postureNotification->setStyleSheet("QLabel {color : white; }");
+  postureNotificationLayout->addWidget(postureNotification, 0, 0,
+                                       Qt::AlignCenter);
+  postureNotificationBox->setLayout(postureNotificationLayout);
+  mainPageLayout->addWidget(postureNotificationBox, 2, 0, Qt::AlignCenter);
+}
+
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
   currentPoseStatus = poseStatus;
+  emit currentGoodBadPosture(poseStatus.posture_state);
 }
 
 void GUI::MainWindow::createMainPage() {
