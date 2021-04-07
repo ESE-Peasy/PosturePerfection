@@ -200,21 +200,21 @@ BOOST_AUTO_TEST_CASE(AllUntrustworthyJointsGivesUndefinedPostureState) {
   PostureEstimating::PostureEstimator e;
   // current_pose is initialised as a Pose with all Untrustworthy joints
   e.update_ideal_pose(e.current_pose);
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Undefined);
 }
 
 BOOST_AUTO_TEST_CASE(SettingIdealPostureChangesState) {
   PostureEstimating::PostureEstimator e;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   // Start in Unset state
   BOOST_TEST(e.posture_state == PostureEstimating::Unset);
 
   e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
@@ -224,7 +224,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
   e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
   e.pose_change_threshold = M_PI / 4;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
@@ -236,7 +236,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 6;
   e.pose_changes.joints[JointMin].upper_angle = -M_PI / 6;
   e.pose_change_threshold = M_PI / 4;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
   e.pose_change_threshold = M_PI / 4;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
@@ -259,7 +259,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOutsideThreshold) {
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
   e.pose_change_threshold = M_PI / 6;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Bad);
 }

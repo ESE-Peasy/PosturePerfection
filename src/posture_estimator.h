@@ -168,13 +168,21 @@ class PostureEstimator {
   void calculatePoseChanges();
 
   /**
-   * @brief Checks the current pose_changes_needed and sees if they are still
-   * within the good posture threshold. Designed to be used in conjunction with
-   * calculate pose_changes. WARNING Does not calculate posture
-   * changes.
+   * @brief Determine the current `PostureEstimating::PostureState` based on the
+   * `current_pose` and the `ideal_pose`. This works as follows:
+   * - If `posture_state` is currently `Unset` then remain in this state until
+   * the user sets their `ideal_pose`
+   * - If there are no consecutive nodes that are `Trustworthy` then the state
+   * is changed to `Undefined`
+   * - If the current state is not `Undefined` and the `pose_changes` angles are
+   * outwith the `pose_change_threshold` then the state is changed to `Bad`
+   * - If none of these conditions are met, then the state is changed to `Good`.
+   *
+   * Note that this means it is possible for only partial segments of the
+   * overall posture to be displayed
    *
    */
-  void checkGoodPosture();
+  void checkPostureState();
 
   /**
    * @brief Calculates current posture and ideal posture difference and decides

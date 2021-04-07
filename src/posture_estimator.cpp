@@ -138,20 +138,20 @@ void PostureEstimator::calculatePoseChanges() {
   }
 }
 
-void PostureEstimator::checkGoodPosture() {
-  if (this->posture_state == Unset) {
-    // If the ideal posture has not been set, then remain in the Unset
-    // state regardless
-    return;
-  }
+void PostureEstimator::checkPostureState() {
+  // If the ideal posture has not been set, then remain in the Unset
+  // state regardless
+  if (this->posture_state == Unset) return;
 
-  bool trustworthyPosture = true;
-  for (int i = JointMin; i <= JointMax - 2; i++) {
-    // If any detected joint is Untrustworthy, then the overall
-    // posture is untrustworthy
-    if (this->current_pose.joints.at(i).coord.status
-                   == PostProcessing::Untrustworthy) {
-      trustworthyPosture = false;
+  // If there are any consecutive nodes that are `Trustworthy` then the posture
+  // is said to be trustworthy
+  bool trustworthyPosture = false;
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    if (this->current_pose.joints.at(i - 1).coord.status ==
+            PostProcessing::Trustworthy &&
+        this->current_pose.joints.at(i).coord.status ==
+            PostProcessing::Trustworthy) {
+      trustworthyPosture = true;
     }
   }
 
@@ -176,7 +176,7 @@ void PostureEstimator::checkGoodPosture() {
 
 void PostureEstimator::calculateChangesAndCheckPosture() {
   calculatePoseChanges();
-  checkGoodPosture();
+  checkPostureState();
 }
 
 PostureEstimating::PostureState
@@ -295,8 +295,6 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
   PostureEstimating::PostureState posture_state = pose_status.posture_state;
 
   cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
-
-  if (posture_state == Undefined) return;
 
   if (posture_state == Bad) {
     display_pose_changes_needed(pose_changes, current_pose, current_frame);
