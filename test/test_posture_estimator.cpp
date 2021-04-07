@@ -17,6 +17,7 @@ PostureEstimating::Pose helper_create_pose() {
   }
   return p;
 }
+
 PostProcessing::ProcessedResults helper_create_result() {
   PostProcessing::ProcessedResults r;
   for (int i = JointMin; i <= JointMax; i++) {
@@ -217,6 +218,20 @@ BOOST_AUTO_TEST_CASE(SettingIdealPostureChangesState) {
   e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
+}
+
+BOOST_AUTO_TEST_CASE(NotUndefinedPostureIfConsecutiveJointsTrustworthy) {
+  PostureEstimating::PostureEstimator e;
+  e.update_ideal_pose(e.current_pose);
+  e.checkPostureState();
+
+  BOOST_TEST(e.posture_state == PostureEstimating::Undefined);
+
+  e.current_pose.joints.at(Head).coord.status = PostProcessing::Trustworthy;
+  e.current_pose.joints.at(Neck).coord.status = PostProcessing::Trustworthy;
+  e.checkPostureState();
+  
+  BOOST_TEST(e.posture_state != PostureEstimating::Undefined);
 }
 
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
