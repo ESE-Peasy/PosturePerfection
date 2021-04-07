@@ -118,12 +118,18 @@ Public Slots</h2></td></tr>
 <tr class="memitem:aaf7ad1ebf8a411385498361509f17b75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#aaf7ad1ebf8a411385498361509f17b75">updateVideoFrame</a> (cv::Mat currentFrame)</td></tr>
 <tr class="memdesc:aaf7ad1ebf8a411385498361509f17b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the video ouput once a new frame has been captured  <a href="classGUI_1_1MainWindow.html#aaf7ad1ebf8a411385498361509f17b75">More...</a><br /></td></tr>
 <tr class="separator:aaf7ad1ebf8a411385498361509f17b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d5b70edafc7ac8a0e252b001230906"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#ab7d5b70edafc7ac8a0e252b001230906">updatePostureNotification</a> (<a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureEstimating::PostureState</a> postureState)</td></tr>
+<tr class="memdesc:ab7d5b70edafc7ac8a0e252b001230906"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the posture notification using the posture status "good" value  <a href="classGUI_1_1MainWindow.html#ab7d5b70edafc7ac8a0e252b001230906">More...</a><br /></td></tr>
+<tr class="separator:ab7d5b70edafc7ac8a0e252b001230906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a05f6eea3b31925bdd0bcc9ee931b1779"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#a05f6eea3b31925bdd0bcc9ee931b1779">currentFrameSignal</a> (cv::Mat currentFrame)</td></tr>
 <tr class="memdesc:a05f6eea3b31925bdd0bcc9ee931b1779"><td class="mdescLeft">&#160;</td><td class="mdescRight">emit the newly captured frame  <a href="classGUI_1_1MainWindow.html#a05f6eea3b31925bdd0bcc9ee931b1779">More...</a><br /></td></tr>
 <tr class="separator:a05f6eea3b31925bdd0bcc9ee931b1779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab02bd87e168818582cc78039f6264e12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGUI_1_1MainWindow.html#ab02bd87e168818582cc78039f6264e12">currentGoodBadPosture</a> (<a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureEstimating::PostureState</a> postureState)</td></tr>
+<tr class="memdesc:ab02bd87e168818582cc78039f6264e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">emit the newly captured good posture value  <a href="classGUI_1_1MainWindow.html#ab02bd87e168818582cc78039f6264e12">More...</a><br /></td></tr>
+<tr class="separator:ab02bd87e168818582cc78039f6264e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -274,6 +280,46 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>emit the newly captured frame </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentFrame</td><td>cv::Mat object containing the current captured frame </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab02bd87e168818582cc78039f6264e12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab02bd87e168818582cc78039f6264e12">&#9670;&nbsp;</a></span>currentGoodBadPosture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GUI::MainWindow::currentGoodBadPosture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureEstimating::PostureState</a>&#160;</td>
+          <td class="paramname"><em>postureState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>emit the newly captured good posture value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">postureState</td><td>the current posture state </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -476,6 +522,40 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Updates the current pose. </p>
+
+</div>
+</div>
+<a id="ab7d5b70edafc7ac8a0e252b001230906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d5b70edafc7ac8a0e252b001230906">&#9670;&nbsp;</a></span>updatePostureNotification</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GUI::MainWindow::updatePostureNotification </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureEstimating::PostureState</a>&#160;</td>
+          <td class="paramname"><em>postureState</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>update the posture notification using the posture status "good" value </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">postureState</td><td>the state of the posture currently captured </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
