@@ -120,20 +120,27 @@ void GUI::MainWindow::updatePostureNotification(
 
   // Check if the ideal pose has been set and if so, display notification
   // according to the posture state
-  if (postureState != 2) {
-    if (postureState == 0) {
+  switch (postureState) {
+    case PostureEstimating::PostureState::Unset: {
+      postureNotificationBox->setStyleSheet("background-color: orange");
+      postureNotification->setText("Unset");
+      break;
+    }
+    case PostureEstimating::PostureState::Good: {
       postureNotificationBox->setStyleSheet("background-color: green");
       postureNotification->setText("Good Posture");
-    } else if (postureState == 1) {
-      postureNotificationBox->setStyleSheet("background-color: red");
-      postureNotification->setText("Bad Posture");
-    } else {
+      break;
+    }
+    case PostureEstimating::PostureState::Undefined: {
       postureNotificationBox->setStyleSheet("background-color: orange");
       postureNotification->setText("Undefined");
+      break;
     }
-  } else {
-    postureNotificationBox->setStyleSheet("background-color: orange");
-    postureNotification->setText("Unset");
+    case PostureEstimating::PostureState::Bad: {
+      postureNotificationBox->setStyleSheet("background-color: red");
+      postureNotification->setText("Bad Posture");
+      break;
+    }
   }
   postureNotification->setStyleSheet("QLabel {color : white; }");
   postureNotificationLayout->addWidget(postureNotification, 0, 0,
