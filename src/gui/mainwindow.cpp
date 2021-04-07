@@ -34,37 +34,39 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   createSettingsPage();
 
   // Stack the pages within the mainwindow
-  QStackedWidget *stackedWidget = new QStackedWidget;
   stackedWidget->addWidget(firstPageWidget);
   stackedWidget->addWidget(secondPageWidget);
-  stackedWidget->addWidget(thirdPageWidget);
-
-  pageComboBox->addItem(tr("Video Feed"));
-  pageComboBox->addItem(tr("Settings Page"));
-  pageComboBox->setStyleSheet(
-      "QListView{color:white; background-color:#0d1117;}");
-  pageComboBox->setStyleSheet(
-      "QComboBox {color:white; background-color: #0d1117; border-color: "
-      "rgba(255,255,255,200); border-width: 1px; border-style: solid; padding: "
-      "1px 0px 1px 3px;}");
-
-  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
-          stackedWidget, &QStackedWidget::setCurrentIndex);
 
   central->setStyleSheet("background-color:#0d1117;");
 
-  // create three buttons
-  QPushButton *idealPosture = new QPushButton("&Ideal Posture");
-  framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
-  connect(idealPosture, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
+  // Set up main page
+  auto *idealPostureButton =
+      new Button("Set Ideal Posture", "Set current\nposture as my target");
+  connect(idealPostureButton, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
+  // idealPostureButton->setStyleSheet(
+  //     "background-color:rgb(10, 187, 228); border: none;");
 
-  idealPosture->setStyleSheet(
-      "background-color:rgb(10, 187, 228); border: none;");
+  auto *settingsButton = new Button("Settings");
+  connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettingsPage()));
 
-  QVBoxLayout *buttonBox = new QVBoxLayout;
-  buttonBox->addWidget(pageComboBox);
-  buttonBox->addWidget(idealPosture);
-  groupBoxButtons->setLayout(buttonBox);
+  QGroupBox *mainPageButtons = new QGroupBox();
+  QVBoxLayout *mainPageButtonsBox = new QVBoxLayout;
+  mainPageButtonsBox->addWidget(postureNotification);
+  mainPageButtonsBox->addWidget(settingsButton);
+  mainPageButtonsBox->addWidget(idealPostureButton);
+  mainPageButtons->setLayout(mainPageButtonsBox);
+  mainPageLayout->addWidget(mainPageButtons, 1, 1);
+
+  // Set up settings page
+
+  auto *homeButton = new Button("Back to video");
+  connect(homeButton, SIGNAL(clicked()), this, SLOT(openMainPage()));
+
+  QGroupBox *settingsPageButtons = new QGroupBox();
+  QVBoxLayout *settingsPageButtonsBox = new QVBoxLayout;
+  settingsPageButtonsBox->addWidget(homeButton);
+  settingsPageButtons->setLayout(settingsPageButtonsBox);
+  settingsPageLayout->addWidget(settingsPageButtons, 1, 1);
 
   // Create a title
   QLabel *title = new QLabel();
@@ -95,7 +97,6 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
-  mainLayout->addWidget(groupBoxButtons, 1, 1);
   mainLayout->addWidget(deleteLabel, 3, 1);
   mainLayout->addWidget(updateLabel, 3, 0);
   mainLayout->addWidget(stackedWidget, 1, 0);
@@ -108,6 +109,12 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   qRegisterMetaType<cv::Mat>("cv::Mat");
   connect(this, SIGNAL(currentFrameSignal(cv::Mat)), this,
           SLOT(updateVideoFrame(cv::Mat)));
+}
+
+void GUI::MainWindow::openMainPage(void) { stackedWidget->setCurrentIndex(0); }
+
+void GUI::MainWindow::openSettingsPage(void) {
+  stackedWidget->setCurrentIndex(1);
 }
 
 void GUI::MainWindow::updatePostureNotification(
@@ -127,31 +134,28 @@ void GUI::MainWindow::updatePostureNotification(
       break;
     }
     case PostureEstimating::PostureState::Unset: {
-      postureNotificationBox->setStyleSheet("background-color: orange");
+      postureNotification->setStyleSheet("background-color: grey");
       postureNotification->setText("Unset");
       break;
     }
     case PostureEstimating::PostureState::Good: {
-      postureNotificationBox->setStyleSheet("background-color: green");
-      postureNotification->setText("Good Posture");
+      postureNotification->setStyleSheet("background-color: green");
+      postureNotification->setText("PosturePerfection!");
       break;
     }
     case PostureEstimating::PostureState::Undefined: {
-      postureNotificationBox->setStyleSheet("background-color: orange");
+      postureNotification->setStyleSheet("background-color: orange");
       postureNotification->setText("Undefined");
       break;
     }
     case PostureEstimating::PostureState::Bad: {
-      postureNotificationBox->setStyleSheet("background-color: red");
-      postureNotification->setText("Bad Posture");
+      postureNotification->setStyleSheet("background-color: red");
+      postureNotification->setText(
+          "Imperfect Posture",
+          "Follow the guides to\nachieve PosturePerfection!");
       break;
     }
   }
-  postureNotification->setStyleSheet("QLabel {color : white; }");
-  postureNotificationLayout->addWidget(postureNotification, 0, 0,
-                                       Qt::AlignCenter);
-  postureNotificationBox->setLayout(postureNotificationLayout);
-  mainPageLayout->addWidget(postureNotificationBox, 2, 0, Qt::AlignCenter);
 }
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {

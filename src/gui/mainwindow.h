@@ -31,6 +31,7 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QMenuBar>
+#include <QPainter>
 #include <QPushButton>
 #include <QRect>
 #include <QStackedWidget>
@@ -49,6 +50,8 @@
 #include "../posture_estimator.h"
 #include "opencv2/opencv.hpp"
 
+#define WIDGET_PADDING 10
+
 QT_BEGIN_NAMESPACE
 
 /**
@@ -57,6 +60,120 @@ QT_BEGIN_NAMESPACE
  *
  */
 namespace GUI {
+
+class Button : public QPushButton {
+  Q_OBJECT
+ private:
+  const QString title;
+  const QString subtitle;
+  size_t padding = WIDGET_PADDING;
+
+ public:
+  Button(const QString &title, QWidget *parent = 0)
+      : QPushButton(parent), title(title), subtitle("") {
+    setMinimumSize(200, 80);
+  }
+
+  Button(const QString &title, const QString &subtitle, QWidget *parent = 0)
+      : QPushButton(parent), title(title), subtitle(subtitle) {
+    setMinimumSize(200, 80);
+  }
+
+  void paintEvent(QPaintEvent *p) {
+    QPushButton::paintEvent(p);
+    QPainter paint(this);
+    paint.setPen(QColor("white"));
+
+    QFont titleFont = QApplication::font();
+    titleFont.setBold(true);
+    titleFont.setPixelSize(height() / 5);
+
+    if (subtitle.length() > 0) {
+      QFont subtitleFont = QApplication::font();
+      subtitleFont.setPixelSize(height() / 8);
+
+      paint.setFont(subtitleFont);
+      paint.drawText(QRectF(QPoint(padding, padding),
+                            QPoint(width() - padding, height() - padding)),
+                     Qt::AlignHCenter | Qt::AlignBottom, subtitle);
+
+      paint.setFont(titleFont);
+      paint.drawText(QRectF(QPoint(padding, padding),
+                            QPoint(width() - padding, height() - padding)),
+                     Qt::AlignHCenter | Qt::AlignTop, title);
+    } else {
+      paint.setFont(titleFont);
+      paint.drawText(QRectF(QPoint(padding, padding),
+                            QPoint(width() - padding, height() - padding)),
+                     Qt::AlignCenter, title);
+    }
+  }
+};
+
+class Label : public QLabel {
+  Q_OBJECT
+ private:
+  QString title;
+  QString subtitle;
+  size_t padding = WIDGET_PADDING;
+
+  void constructor(const QString &title, const QString &subtitle,
+                   QWidget *parent = 0) {
+    this->title = title;
+    this->subtitle = subtitle;
+    setMinimumSize(200, 80);
+    setMaximumSize(200, 80);
+    setStyleSheet("background-color: grey");
+  }
+
+ public:
+  Label(QWidget *parent = 0) : QLabel(parent) { constructor("", ""); }
+
+  Label(const QString &title, QWidget *parent = 0) : QLabel(parent) {
+    constructor(title, "");
+  }
+
+  Label(const QString &title, const QString &subtitle, QWidget *parent = 0)
+      : QLabel(parent) {
+    constructor(title, subtitle);
+  }
+
+  void setText(const QString &title) { this->title = title; }
+
+  void setText(const QString &title, const QString &subtitle) {
+    this->title = title;
+    this->subtitle = subtitle;
+  }
+
+  void paintEvent(QPaintEvent *p) {
+    QWidget::paintEvent(p);
+    QPainter paint(this);
+    paint.setPen(QColor("white"));
+
+    QFont titleFont = QApplication::font();
+    titleFont.setBold(true);
+    titleFont.setPixelSize(height() / 5);
+
+    if (subtitle.length() > 0) {
+      QFont subtitleFont = QApplication::font();
+      subtitleFont.setPixelSize(height() / 8);
+
+      paint.setFont(subtitleFont);
+      paint.drawText(QRectF(QPoint(padding, padding),
+                            QPoint(width() - padding, height() - padding)),
+                     Qt::AlignHCenter | Qt::AlignBottom, subtitle);
+      paint.setFont(titleFont);
+      paint.drawText(QRectF(QPoint(padding, padding),
+                            QPoint(width() - padding, height() - padding)),
+                     Qt::AlignHCenter | Qt::AlignTop, title);
+    } else {
+      paint.setFont(titleFont);
+      paint.drawText(QRectF(QPoint(padding, padding),
+                            QPoint(width() - padding, height() - padding)),
+                     Qt::AlignCenter, title);
+    }
+  }
+};
 
 /**
  * @brief Allows for navigation around the application from the main
@@ -159,6 +276,10 @@ class MainWindow : public QMainWindow {
    */
   void updatePostureNotification(PostureEstimating::PostureState postureState);
 
+  void openSettingsPage(void);
+
+  void openMainPage(void);
+
  signals:
   /**
    * @brief emit the newly captured frame
@@ -185,9 +306,10 @@ class MainWindow : public QMainWindow {
   QGridLayout *framerate = new QGridLayout;
   QLabel *currentFrame = new QLabel();
 
+  Label *postureNotification = new Label();
+
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
-  QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
   QLabel *frame = new QLabel();
   QStackedWidget *stackedWidget = new QStackedWidget;
