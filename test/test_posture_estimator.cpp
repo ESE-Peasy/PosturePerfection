@@ -190,6 +190,35 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesUntrustworthy) {
   }
 }
 
+BOOST_AUTO_TEST_CASE(StartInUnsetPostureState) {
+  PostureEstimating::PostureEstimator e;
+
+  BOOST_TEST(e.posture_state == PostureEstimating::Unset);
+}
+
+BOOST_AUTO_TEST_CASE(AllUntrustworthyJointsGivesUndefinedPostureState) {
+  PostureEstimating::PostureEstimator e;
+  // current_pose is initialised as a Pose with all Untrustworthy joints
+  e.update_ideal_pose(e.current_pose);
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.posture_state == PostureEstimating::Undefined);
+}
+
+BOOST_AUTO_TEST_CASE(SettingIdealPostureChangesState) {
+  PostureEstimating::PostureEstimator e;
+  e.checkGoodPosture();
+
+  // Start in Unset state
+  BOOST_TEST(e.posture_state == PostureEstimating::Unset);
+
+  e.current_pose = helper_create_pose();
+  e.update_ideal_pose(e.current_pose);
+  e.checkGoodPosture();
+
+  BOOST_TEST(e.posture_state == PostureEstimating::Good);
+}
+
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
   PostureEstimating::PostureEstimator e;
   e.current_pose = helper_create_pose();
