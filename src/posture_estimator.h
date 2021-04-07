@@ -85,7 +85,7 @@ struct Pose {
  * `ideal_pose` has not been set by the user.
  *
  */
-enum PostureState { Good, Bad, Unset };
+enum PostureState { Good, Bad, Unset, Undefined };
 
 /**
  * @brief Creates an empty Pose object

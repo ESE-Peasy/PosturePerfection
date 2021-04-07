@@ -151,12 +151,28 @@ class MainWindow : public QMainWindow {
    */
   void updateVideoFrame(cv::Mat currentFrame);
 
+  /**
+   * @brief update the posture notification using the posture status "good"
+   * value
+   *
+   * @param postureState the state of the posture currently captured
+   */
+  void updatePostureNotification(PostureEstimating::PostureState postureState);
+
  signals:
   /**
    * @brief emit the newly captured frame
    *
+   * @param currentFrame cv::Mat object containing the current captured frame
    */
   void currentFrameSignal(cv::Mat currentFrame);
+
+  /**
+   * @brief emit the newly captured good posture value
+   *
+   * @param postureState the current posture state
+   */
+  void currentGoodBadPosture(PostureEstimating::PostureState postureState);
 
  private:
   /**
