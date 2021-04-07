@@ -296,6 +296,8 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
 
   cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
 
+  if (posture_state == Undefined) return;
+
   if (posture_state == Bad) {
     display_pose_changes_needed(pose_changes, current_pose, current_frame);
   } else {
