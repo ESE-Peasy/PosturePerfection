@@ -37,6 +37,5 @@ NotifyBroadcast::~NotifyBroadcast() { int cls = close(this->broadcast_fd); }
 void NotifyBroadcast::sendMessage(std::string msg) {
   sendto(this->broadcast_fd, msg.c_str(), msg.length(), MSG_DONTWAIT,
          (const struct sockaddr *)&this->address, sizeof(this->address));
-  std::cout << msg;
 }
 }  // namespace Notify

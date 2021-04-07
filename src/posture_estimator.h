@@ -107,39 +107,45 @@ struct PoseStatus {
  */
 enum Colours { Red, Green, Blue };
 
-class NotificationTimer : public CppTimer {
+class DelayTimer : public CppTimer {
+ private:
+  size_t time;
+
  public:
   bool running;
-  NotificationTimer();
-  ~NotificationTimer();
+  explicit DelayTimer(size_t time);
+  ~DelayTimer();
   void timerEvent();
-  void countdown(size_t time);
+  void countdown();
 };
 
-class BadPostureTimer : public CppTimer {
+class MessageTimer : public CppTimer {
  private:
-  NotificationTimer* notificationTimer;
+  DelayTimer* notificationTimer;
   Notify::NotifyBroadcast* broadcaster;
+  std::string msg;
+  size_t time;
 
  public:
   bool running;
-  BadPostureTimer(NotificationTimer* timer, Notify::NotifyBroadcast* broadcast);
-  ~BadPostureTimer();
-  void countdown(size_t time);
+  MessageTimer(DelayTimer* timer, Notify::NotifyBroadcast* broadcast,
+               std::string msg, size_t time);
+  ~MessageTimer();
+  void countdown();
   void stopCountdown();
   void timerEvent();
 };
 
-class GoodPostureTimer : public CppTimer {
+class cancelTimer : public CppTimer {
  private:
-  BadPostureTimer* badTimer;
-  NotificationTimer* notificationTimer;
+  MessageTimer* toCancel;
+  size_t time;
 
  public:
   bool running;
-  GoodPostureTimer(NotificationTimer* notify, BadPostureTimer* bad);
-  ~GoodPostureTimer();
-  void countdown(size_t time);
+  cancelTimer(MessageTimer* toCancel, size_t time);
+  ~cancelTimer();
+  void countdown();
   void stopCountdown();
   void timerEvent();
 };
@@ -173,9 +179,11 @@ class PostureEstimator {
    *
    */
   Notify::NotifyBroadcast broadcaster;
-  NotificationTimer notificationTimer;
-  BadPostureTimer badPostureTimer;
-  GoodPostureTimer goodPostureTimer;
+  DelayTimer notificationTimer;
+  MessageTimer badPostureTimer;
+  MessageTimer undefinedPostureTimer;
+  cancelTimer cancelBadPostureTimer;
+  cancelTimer cancelUndefinedPostureTimer;
 
   /**
    * @brief Calculates the angle(in degrees) between two points, clockwise
