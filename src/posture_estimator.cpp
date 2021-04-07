@@ -208,7 +208,8 @@ void PostureEstimator::display_current_pose(
           static_cast<int>(current_pose.joints.at(i).coord.y * imageHeight));
 
       cv::line(current_frame, upper_joint_point, current_joint_point,
-               posture_state == Unset ? colours.at(Blue) : colours.at(Green), 5);
+               posture_state == Unset ? colours.at(Blue) : colours.at(Green),
+               5);
     }
   }
 }
