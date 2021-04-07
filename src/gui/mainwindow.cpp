@@ -87,11 +87,6 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
           stackedWidget, &QStackedWidget::setCurrentIndex);
 
-  qRegisterMetaType<PostureEstimating::PoseStatus>(
-      "PostureEstimating::PoseStatus");
-  connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PoseStatus)),
-          this, SLOT(updatePostureNotification(PostureEstimating::PoseStatus)));
-
   qRegisterMetaType<PostureEstimating::PostureState>(
       "PostureEstimating::PostureState");
   connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PostureState)),
@@ -129,13 +124,16 @@ void GUI::MainWindow::updatePostureNotification(
     if (postureState == 0) {
       postureNotificationBox->setStyleSheet("background-color: green");
       postureNotification->setText("Good Posture");
-    } else {
+    } else if (postureState == 1) {
       postureNotificationBox->setStyleSheet("background-color: red");
       postureNotification->setText("Bad Posture");
+    } else {
+      postureNotificationBox->setStyleSheet("background-color: orange");
+      postureNotification->setText("Undefined");
     }
   } else {
     postureNotificationBox->setStyleSheet("background-color: orange");
-    postureNotification->setText("Undefined");
+    postureNotification->setText("Unset");
   }
   postureNotification->setStyleSheet("QLabel {color : white; }");
   postureNotificationLayout->addWidget(postureNotification, 0, 0,

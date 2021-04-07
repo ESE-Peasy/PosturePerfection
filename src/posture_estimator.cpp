@@ -139,7 +139,13 @@ void PostureEstimator::calculatePoseChanges() {
 }
 
 void PostureEstimator::checkGoodPosture() {
+  bool isUntrustworthy = true;
   for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    if (this->current_pose.joints[i].coord.status !=
+        PostProcessing::Untrustworthy) {
+      isUntrustworthy = false;
+    }
+
     if ((fabs(this->pose_changes.joints[i].upper_angle) <
          -(this->pose_change_threshold)) ||
         fabs(this->pose_changes.joints[i].upper_angle) >
@@ -148,7 +154,10 @@ void PostureEstimator::checkGoodPosture() {
       return;
     }
   }
-  if (!this->posture_state == Unset) {
+
+  if (isUntrustworthy == true) {
+    this->posture_state = Undefined;
+  } else if (!this->posture_state == Unset) {
     this->posture_state = Good;
   }
 }
