@@ -39,35 +39,6 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   central->setStyleSheet("background-color:#0d1117;");
 
-  // Set up main page
-  auto *idealPostureButton =
-      new Button("Set Ideal Posture", "Set current\nposture as my target");
-  connect(idealPostureButton, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
-  // idealPostureButton->setStyleSheet(
-  //     "background-color:rgb(10, 187, 228); border: none;");
-
-  auto *settingsButton = new Button("Settings");
-  connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettingsPage()));
-
-  QGroupBox *mainPageButtons = new QGroupBox();
-  QVBoxLayout *mainPageButtonsBox = new QVBoxLayout;
-  mainPageButtonsBox->addWidget(postureNotification);
-  mainPageButtonsBox->addWidget(settingsButton);
-  mainPageButtonsBox->addWidget(idealPostureButton);
-  mainPageButtons->setLayout(mainPageButtonsBox);
-  mainPageLayout->addWidget(mainPageButtons, 1, 1);
-
-  // Set up settings page
-
-  auto *homeButton = new Button("Back to video");
-  connect(homeButton, SIGNAL(clicked()), this, SLOT(openMainPage()));
-
-  QGroupBox *settingsPageButtons = new QGroupBox();
-  QVBoxLayout *settingsPageButtonsBox = new QVBoxLayout;
-  settingsPageButtonsBox->addWidget(homeButton);
-  settingsPageButtons->setLayout(settingsPageButtonsBox);
-  settingsPageLayout->addWidget(settingsPageButtons, 1, 1);
-
   // Create a title
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
@@ -166,6 +137,19 @@ void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
 void GUI::MainWindow::createMainPage() {
   initalFrame();
   firstPageWidget->setLayout(mainPageLayout);
+  auto *idealPostureButton =
+      new Button("Set Ideal Posture", "Set current\nposture as my target");
+  connect(idealPostureButton, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
+  auto *settingsButton = new Button("Settings");
+  connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettingsPage()));
+
+  QGroupBox *mainPageButtons = new QGroupBox();
+  QVBoxLayout *mainPageButtonsBox = new QVBoxLayout;
+  mainPageButtonsBox->addWidget(postureNotification);
+  mainPageButtonsBox->addWidget(settingsButton);
+  mainPageButtonsBox->addWidget(idealPostureButton);
+  mainPageButtons->setLayout(mainPageButtonsBox);
+  mainPageLayout->addWidget(mainPageButtons, 1, 1);
 }
 
 void GUI::MainWindow::createSettingsPage() {
@@ -246,6 +230,15 @@ void GUI::MainWindow::createSettingsPage() {
   settingsPageLayout->addWidget(groupFramerate, 2, 0);
 
   secondPageWidget->setLayout(settingsPageLayout);
+
+  auto *homeButton = new Button("Back to video");
+  connect(homeButton, SIGNAL(clicked()), this, SLOT(openMainPage()));
+
+  QGroupBox *settingsPageButtons = new QGroupBox();
+  QVBoxLayout *settingsPageButtonsBox = new QVBoxLayout;
+  settingsPageButtonsBox->addWidget(homeButton);
+  settingsPageButtons->setLayout(settingsPageButtonsBox);
+  settingsPageLayout->addWidget(settingsPageButtons, 1, 1);
 }
 
 void GUI::MainWindow::setIdealPosture() {
