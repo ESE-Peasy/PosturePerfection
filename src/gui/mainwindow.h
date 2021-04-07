@@ -69,45 +69,11 @@ class Button : public QPushButton {
   size_t padding = WIDGET_PADDING;
 
  public:
-  Button(const QString &title, QWidget *parent = 0)
-      : QPushButton(parent), title(title), subtitle("") {
-    setMinimumSize(200, 80);
-  }
+  Button(const QString &title, QWidget *parent = 0);
 
-  Button(const QString &title, const QString &subtitle, QWidget *parent = 0)
-      : QPushButton(parent), title(title), subtitle(subtitle) {
-    setMinimumSize(200, 80);
-  }
+  Button(const QString &title, const QString &subtitle, QWidget *parent = 0);
 
-  void paintEvent(QPaintEvent *p) {
-    QPushButton::paintEvent(p);
-    QPainter paint(this);
-    paint.setPen(QColor("white"));
-
-    QFont titleFont = QApplication::font();
-    titleFont.setBold(true);
-    titleFont.setPixelSize(height() / 5);
-
-    if (subtitle.length() > 0) {
-      QFont subtitleFont = QApplication::font();
-      subtitleFont.setPixelSize(height() / 8);
-
-      paint.setFont(subtitleFont);
-      paint.drawText(QRectF(QPoint(padding, padding),
-                            QPoint(width() - padding, height() - padding)),
-                     Qt::AlignHCenter | Qt::AlignBottom, subtitle);
-
-      paint.setFont(titleFont);
-      paint.drawText(QRectF(QPoint(padding, padding),
-                            QPoint(width() - padding, height() - padding)),
-                     Qt::AlignHCenter | Qt::AlignTop, title);
-    } else {
-      paint.setFont(titleFont);
-      paint.drawText(QRectF(QPoint(padding, padding),
-                            QPoint(width() - padding, height() - padding)),
-                     Qt::AlignCenter, title);
-    }
-  }
+  void paintEvent(QPaintEvent *p);
 };
 
 class Label : public QLabel {
@@ -118,61 +84,20 @@ class Label : public QLabel {
   size_t padding = WIDGET_PADDING;
 
   void constructor(const QString &title, const QString &subtitle,
-                   QWidget *parent = 0) {
-    this->title = title;
-    this->subtitle = subtitle;
-    setMinimumSize(200, 80);
-    setMaximumSize(200, 80);
-    setStyleSheet("background-color: grey");
-  }
+                   QWidget *parent = 0);
 
  public:
-  Label(QWidget *parent = 0) : QLabel(parent) { constructor("", ""); }
+  Label(QWidget *parent = 0);
 
-  Label(const QString &title, QWidget *parent = 0) : QLabel(parent) {
-    constructor(title, "");
-  }
+  Label(const QString &title, QWidget *parent = 0);
 
-  Label(const QString &title, const QString &subtitle, QWidget *parent = 0)
-      : QLabel(parent) {
-    constructor(title, subtitle);
-  }
+  Label(const QString &title, const QString &subtitle, QWidget *parent = 0);
 
-  void setText(const QString &title) { setText(title, ""); }
+  void setText(const QString &title);
 
-  void setText(const QString &title, const QString &subtitle) {
-    this->title = title;
-    this->subtitle = subtitle;
-  }
+  void setText(const QString &title, const QString &subtitle);
 
-  void paintEvent(QPaintEvent *p) {
-    QWidget::paintEvent(p);
-    QPainter paint(this);
-    paint.setPen(QColor("white"));
-
-    QFont titleFont = QApplication::font();
-    titleFont.setBold(true);
-    titleFont.setPixelSize(height() / 5);
-
-    if (subtitle.length() > 0) {
-      QFont subtitleFont = QApplication::font();
-      subtitleFont.setPixelSize(height() / 8);
-
-      paint.setFont(subtitleFont);
-      paint.drawText(QRectF(QPoint(padding, padding),
-                            QPoint(width() - padding, height() - padding)),
-                     Qt::AlignHCenter | Qt::AlignBottom, subtitle);
-      paint.setFont(titleFont);
-      paint.drawText(QRectF(QPoint(padding, padding),
-                            QPoint(width() - padding, height() - padding)),
-                     Qt::AlignHCenter | Qt::AlignTop, title);
-    } else {
-      paint.setFont(titleFont);
-      paint.drawText(QRectF(QPoint(padding, padding),
-                            QPoint(width() - padding, height() - padding)),
-                     Qt::AlignCenter, title);
-    }
-  }
+  void paintEvent(QPaintEvent *p);
 };
 
 /**
