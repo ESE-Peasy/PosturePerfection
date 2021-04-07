@@ -1,8 +1,16 @@
 @startuml
+
+skinparam BoxPadding 10
+
+box "FrameGenerator Thread" #Light
 actor user
-participant PiCamera
+participant FrameGenerator
+end box
+box "Core Thread" #Light
 participant PreProcessor
 participant InferenceCore
+end box
+box "Post Processing Thread" #Light
 participant PostProcessor
 participant PostureEstimator
 participant GUI

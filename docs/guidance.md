@@ -1,6 +1,6 @@
 ---
 nav_order: 9
-title: Guidance
+title: Website Configuration
 ---
 
 # Locally editing the website
