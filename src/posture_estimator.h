@@ -113,7 +113,7 @@ class NotificationTimer : public CppTimer {
   NotificationTimer();
   ~NotificationTimer();
   void timerEvent();
-  void countdown(long time);
+  void countdown(size_t time);
 };
 
 class BadPostureTimer : public CppTimer {
@@ -125,7 +125,7 @@ class BadPostureTimer : public CppTimer {
   bool running;
   BadPostureTimer(NotificationTimer* timer, Notify::NotifyBroadcast* broadcast);
   ~BadPostureTimer();
-  void countdown(long time);
+  void countdown(size_t time);
   void stopCountdown();
   void timerEvent();
 };
@@ -139,7 +139,7 @@ class GoodPostureTimer : public CppTimer {
   bool running;
   GoodPostureTimer(NotificationTimer* notify, BadPostureTimer* bad);
   ~GoodPostureTimer();
-  void countdown(long time);
+  void countdown(size_t time);
   void stopCountdown();
   void timerEvent();
 };

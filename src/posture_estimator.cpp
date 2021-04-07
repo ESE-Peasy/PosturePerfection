@@ -308,7 +308,7 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
 NotificationTimer::NotificationTimer() : CppTimer() {}
 NotificationTimer::~NotificationTimer() {}
 void NotificationTimer::timerEvent() { this->running = false; }
-void NotificationTimer::countdown(long time) {
+void NotificationTimer::countdown(size_t time) {
   this->running = true;
   this->start(time, ONESHOT);
 }
@@ -319,7 +319,7 @@ GoodPostureTimer::GoodPostureTimer(NotificationTimer* notify,
   this->badTimer = bad;
 }
 GoodPostureTimer::~GoodPostureTimer() {}
-void GoodPostureTimer::countdown(long time) {
+void GoodPostureTimer::countdown(size_t time) {
   if (!this->running) {
     this->running = true;
     this->start(time, ONESHOT);
@@ -343,7 +343,7 @@ BadPostureTimer::BadPostureTimer(NotificationTimer* timer,
   this->broadcaster = broadcast;
 }
 BadPostureTimer::~BadPostureTimer() {}
-void BadPostureTimer::countdown(long time) {
+void BadPostureTimer::countdown(size_t time) {
   if (!this->running) {
     this->running = true;
     this->start(time, ONESHOT);
@@ -357,7 +357,7 @@ void BadPostureTimer::stopCountdown() {
 }
 void BadPostureTimer::timerEvent() {
   if (!this->notificationTimer->running) {
-    this->notificationTimer->countdown(NOTIFICATION_TIME);
+    this->notificationTimer->start(NOTIFICATION_TIME, ONESHOT);
     this->broadcaster->sendMessage(
         "You have an imperfect posture, consider readjusting to achieve "
         "posture perfection");
