@@ -8,7 +8,12 @@ void setPointSizeAndResize(QFont *font, QString &text, int pointSize,
                            int boxWidth, size_t padding) {
   font->setPointSize(pointSize);
   QFontMetrics fm(*font);
-  auto pixelWidth = fm.width(text);
+  int pixelWidth = 0;
+  for (auto line : text.split("\n")) {
+    if (fm.width(line) > pixelWidth) {
+      pixelWidth = fm.width(line);
+    }
+  }
   boxWidth = boxWidth - padding * 2;
   if (pixelWidth > boxWidth) {
     font->setPointSize((pointSize * boxWidth) / pixelWidth);
