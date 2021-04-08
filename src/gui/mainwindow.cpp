@@ -62,13 +62,6 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   connect(timer, SIGNAL(timeout()), this, SLOT(showDateTime()));
   timer->start();
 
-  // Create dummy labels to allow for the cleaning of old widgets
-  QLabel *updateLabel = new QLabel();
-  QLabel *deleteLabel = new QLabel();
-
-  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
-          stackedWidget, &QStackedWidget::setCurrentIndex);
-
   qRegisterMetaType<PostureEstimating::PostureState>(
       "PostureEstimating::PostureState");
   connect(this, SIGNAL(currentGoodBadPosture(PostureEstimating::PostureState)),
@@ -77,9 +70,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
-  mainLayout->addWidget(deleteLabel, 3, 1);
-  mainLayout->addWidget(updateLabel, 3, 0);
-  mainLayout->addWidget(stackedWidget, 1, 0);
+  mainLayout->addWidget(stackedWidget, 1, 0, 1, 2);
 
   // Display all of the produced widgets on the user's screen
   central->setLayout(mainLayout);
@@ -160,8 +151,8 @@ void GUI::MainWindow::createMainPage() {
 }
 
 void GUI::MainWindow::createSettingsPage() {
-  QGroupBox *groupThreshold = new QGroupBox();
-  QVBoxLayout *vertThreshold = new QVBoxLayout;
+  QGroupBox *groupSettings = new QGroupBox();
+  QGridLayout *settings = new QGridLayout;
 
   // Create Setting's page title
   auto *settingsTitle = new Label("Settings Page");
@@ -169,7 +160,12 @@ void GUI::MainWindow::createSettingsPage() {
   font.setPointSize(37);
   font.setBold(true);
   settingsTitle->setFont(font);
-  settingsPageLayout->addWidget(settingsTitle, 0, 0, Qt::AlignCenter);
+
+  // Set layout
+  settingsPageLayout->addWidget(settingsTitle, 0, 0, 1, 1, Qt::AlignLeft);
+  settingsPageLayout->addWidget(groupSettings, 1, 0, 6, 1);
+  settings->setSpacing(0);
+  settings->setMargin(0);
 
   // Allow user to select the confidence threshold
   auto *confidenceLabel = new Label("Confidence Threshold");
@@ -180,19 +176,13 @@ void GUI::MainWindow::createSettingsPage() {
   int initalThreshold =
       static_cast<int>(pipelinePtr->get_confidence_threshold() * 100);
   confidenceSlider->setValue(initalThreshold);
-  vertThreshold->setSpacing(0);
-  vertThreshold->setMargin(0);
-  vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
-  vertThreshold->addWidget(confidenceSlider, 0, Qt::AlignTop);
-
-  settingsPageLayout->addWidget(groupThreshold, 1, 0);
-
+  settings->addWidget(confidenceLabel, 0, 0, 1, 3, Qt::AlignBottom);
+  settings->addWidget(confidenceSlider, 1, 0, 1, 3, Qt::AlignTop);
   connect(confidenceSlider, SIGNAL(valueChanged(int)), this,
           SLOT(setThresholdValue(int)));
 
   // Allow user to select the pose change threshold
   auto *poseChangeThresholdLabel = new Label("Slouch Sensitivity");
-
   QSlider *poseChangeThresholdSlider = new QSlider(Qt::Horizontal, this);
   poseChangeThresholdSlider->setMinimum(0);
   poseChangeThresholdSlider->setMaximum(5);
@@ -200,45 +190,32 @@ void GUI::MainWindow::createSettingsPage() {
   int initalPoseChangeThreshold =
       static_cast<int>(pipelinePtr->get_pose_change_threshold() * 10);
   poseChangeThresholdSlider->setValue(initalPoseChangeThreshold);
-  vertThreshold->addWidget(poseChangeThresholdLabel, 0, Qt::AlignBottom);
-  vertThreshold->addWidget(poseChangeThresholdSlider, 0, Qt::AlignTop);
-  groupThreshold->setLayout(vertThreshold);
-
-  settingsPageLayout->addWidget(groupThreshold, 1, 0);
-
+  settings->addWidget(poseChangeThresholdLabel, 2, 0, 1, 3, Qt::AlignBottom);
+  settings->addWidget(poseChangeThresholdSlider, 3, 0, 1, 3, Qt::AlignTop);
   connect(poseChangeThresholdSlider, SIGNAL(valueChanged(int)), this,
           SLOT(setPoseChangeThresholdValue(int)));
 
   // Let user adjust the video framerate
-  framerate->setSpacing(0);
-  framerate->setMargin(0);
   auto *upFramerate = new Button("Up");
   auto *downFramerate = new Button("Down");
-  framerate->addWidget(upFramerate, 0, 0);
-  framerate->addWidget(downFramerate, 0, 2);
-
+  settings->addWidget(upFramerate, 4, 0, Qt::AlignLeft);
+  settings->addWidget(downFramerate, 4, 2, Qt::AlignRight);
+  settings->addWidget(currentFrameRate, 4, 1, Qt::AlignHCenter);
   connect(upFramerate, SIGNAL(clicked()), this, SLOT(increaseVideoFramerate()));
   connect(downFramerate, SIGNAL(clicked()), this,
           SLOT(decreaseVideoFramerate()));
-
   setOutputFramerate();
 
-  framerate->addWidget(currentFrameRate, 0, 1);
-
-  QGroupBox *groupFramerate = new QGroupBox();
-  groupFramerate->setLayout(framerate);
-  settingsPageLayout->addWidget(groupFramerate, 2, 0);
-
+  groupSettings->setLayout(settings);
   secondPageWidget->setLayout(settingsPageLayout);
 
   auto *homeButton = new Button("Back to video");
   connect(homeButton, SIGNAL(clicked()), this, SLOT(openMainPage()));
-
   QGroupBox *settingsPageButtons = new QGroupBox();
   QVBoxLayout *settingsPageButtonsBox = new QVBoxLayout;
   settingsPageButtonsBox->addWidget(homeButton);
   settingsPageButtons->setLayout(settingsPageButtonsBox);
-  settingsPageLayout->addWidget(settingsPageButtons, 1, 1);
+  settingsPageLayout->addWidget(settingsPageButtons, 1, 1, 6, 1);
 }
 
 void GUI::MainWindow::setIdealPosture() {
@@ -300,7 +277,7 @@ void GUI::MainWindow::showDateTime() {
 
   // output the current date/time and clear the previous outputted value
   mainLayout->addWidget(groupDateTime, 0, 1);
-  mainLayout->itemAt(3)->widget()->deleteLater();
+  mainLayout->itemAt(1)->widget()->deleteLater();
 }
 
 GUI::MainWindow::~MainWindow() { delete mainLayout; }
