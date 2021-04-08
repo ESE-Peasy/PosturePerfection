@@ -1,5 +1,5 @@
 /**
- * @file client.h
+ * @file broadcaster.h
  * @brief Broadcaster for sending notifications to `Notify::NotifyReceiver`
  *
  * @copyright Copyright (C) 2021  Conor Begley

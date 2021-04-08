@@ -1,7 +1,4 @@
 /**
- * @file mainwindow.cpp
- * @brief Main user interface file
- *
  * @copyright Copyright (C) 2021  Andrew Ritchie, Miklas Riechmann
  *
  *  This program is free software: you can redistribute it and/or modify

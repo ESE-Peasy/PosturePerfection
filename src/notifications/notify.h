@@ -1,7 +1,6 @@
 /**
  * @file notify.h
- * @brief Shared functions between server.h and client.h
- * runs on Linux
+ * @brief Shared functions between `server.h` and `client.h`. Only runs on Linux
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *

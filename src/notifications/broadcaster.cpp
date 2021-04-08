@@ -1,7 +1,4 @@
 /**
- * @file Broadcast.cpp
- * @brief Broadcaster for sending notifications to `Notify::receiver`
- *
  * @copyright Copyright (C) 2021  Conor Begley
  *
  *  This program is free software: you can redistribute it and/or modify

@@ -345,6 +345,12 @@ struct RawFrame {
   cv::Mat raw_image;  ///< Raw `cv::Mat` (OpenCV) image
 };
 
+/**
+ * @brief Class to maintain access to the `cv::VideoCapture` used as the input
+ * video stream. This class makes use of the `CppTimer` wrapper created
+ * <a href="https://github.com/berndporr/cppTimer">here</a> to regularly
+ * capture input frames at the set frame rate.
+ */
 class FrameGenerator : public CppTimer {
  private:
   /**

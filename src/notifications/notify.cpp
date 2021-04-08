@@ -1,8 +1,4 @@
 /**
- * @file notify.cpp
- * @brief Shared functions between server.h and client.h
- * runs on Linux
- *
  * @copyright Copyright (C) 2021  Conor Begley
  *
  *  This program is free software: you can redistribute it and/or modify

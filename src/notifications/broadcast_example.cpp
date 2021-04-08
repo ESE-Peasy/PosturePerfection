@@ -1,7 +1,7 @@
 /**
  * @file broadcast_example.cpp
  * @brief Program for running a simple broadcaster example
- * *
+ *
  *
  * @copyright Copyright (C) 2021  Conor Begley
  *
