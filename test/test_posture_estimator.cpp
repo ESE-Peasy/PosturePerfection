@@ -220,7 +220,7 @@ BOOST_AUTO_TEST_CASE(SettingIdealPostureChangesState) {
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
 
-BOOST_AUTO_TEST_CASE(NotUndefinedPostureIfConsecutiveJointsTrustworthy) {
+BOOST_AUTO_TEST_CASE(UndefinedPostureIfConsecutiveJointsTrustworthyButNotFullPosture) {
   PostureEstimating::PostureEstimator e;
   e.update_ideal_pose(e.current_pose);
   e.checkPostureState();
@@ -231,7 +231,7 @@ BOOST_AUTO_TEST_CASE(NotUndefinedPostureIfConsecutiveJointsTrustworthy) {
   e.current_pose.joints.at(Neck).coord.status = PostProcessing::Trustworthy;
   e.checkPostureState();
   
-  BOOST_TEST(e.posture_state != PostureEstimating::Undefined);
+  BOOST_TEST(e.posture_state == PostureEstimating::Undefined);
 }
 
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {

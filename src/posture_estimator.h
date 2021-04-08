@@ -103,7 +103,7 @@ struct PoseStatus {
 /**
  * @brief Colours corresponding to `PostureEstimator::colours`
  */
-enum Colours { Red, Green, Blue };
+enum Colours { Red, Green, Blue, Grey };
 
 /**
  * @brief This class handles representations of the user's pose and
@@ -126,8 +126,9 @@ class PostureEstimator {
    * @brief Array of colours used when indicating posture
    *
    */
-  std::array<cv::Scalar, 3> colours = {
-      cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255)};
+  std::array<cv::Scalar, 4> colours = {
+      cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255),
+      cv::Scalar(144, 144, 144)};
 
   /**
    * @brief Calculates the angle(in degrees) between two points, clockwise

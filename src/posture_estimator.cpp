@@ -139,21 +139,27 @@ void PostureEstimator::calculatePoseChanges() {
 }
 
 void PostureEstimator::checkPostureState() {
-  // If there are any consecutive nodes that are `Trustworthy` then the posture
-  // is said to be trustworthy
-  bool trustworthyPosture = false;
+  // A posture is fully defined if *all* joints are trustworthy
+  bool fullyDefinedPosture = true;
+  // A posture is partially defined if at least two connected joints
+  // are trustworthy
+  bool partiallyDefinedPosture = false;
+
   for (int i = JointMin + 1; i <= JointMax - 2; i++) {
     if (this->current_pose.joints.at(i - 1).coord.status ==
             PostProcessing::Trustworthy &&
         this->current_pose.joints.at(i).coord.status ==
             PostProcessing::Trustworthy) {
-      trustworthyPosture = true;
+      partiallyDefinedPosture = true;
+    } else if (this->current_pose.joints.at(i - 1).coord.status
+                    == PostProcessing::Untrustworthy) {
+      fullyDefinedPosture = false;
     }
   }
 
-  if (!trustworthyPosture) {
+  if (!fullyDefinedPosture || !partiallyDefinedPosture) {
     if (this->posture_state == Unset ||
-                this->posture_state == UndefinedAndUnset) {
+        this->posture_state == UndefinedAndUnset) {
       this->posture_state = UndefinedAndUnset;
     } else {
       this->posture_state = Undefined;
@@ -201,6 +207,15 @@ void PostureEstimator::display_current_pose(
   int imageWidth = current_frame.cols;
   int imageHeight = current_frame.rows;
 
+  // Default for `Undefined` and `UndefinedAndUnset`
+  cv::Scalar line_colour = colours.at(Grey);
+
+  if (posture_state == Unset) {
+    line_colour = colours.at(Blue);
+  } else if (posture_state == Good) {
+    line_colour = colours.at(Green);
+  }
+
   for (int i = JointMin + 1; i <= JointMax - 2; i++) {
     // Only consider the Head, Neck, Shoulder and Hip joints
     if (current_pose.joints.at(i).coord.status == PostProcessing::Trustworthy &&
@@ -216,8 +231,7 @@ void PostureEstimator::display_current_pose(
           static_cast<int>(current_pose.joints.at(i).coord.y * imageHeight));
 
       cv::line(current_frame, upper_joint_point, current_joint_point,
-               posture_state == Unset ? colours.at(Blue) : colours.at(Green),
-               5);
+               line_colour, 5);
     }
   }
 }
