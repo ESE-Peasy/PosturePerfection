@@ -173,7 +173,8 @@ class PostureEstimator {
    * - If `posture_state` is currently `Unset` then remain in this state until
    * the user sets their `ideal_pose`
    * - If there are no consecutive nodes that are `Trustworthy` then the state
-   * is changed to `Undefined`
+   * is changed to `Undefined` or `UndefinedAndUnset` depending on if an
+   * `ideal_pose` has been set or not
    * - If the current state is not `Undefined` and the `pose_changes` angles are
    * outwith the `pose_change_threshold` then the state is changed to `Bad`
    * - If none of these conditions are met, then the state is changed to `Good`.
@@ -265,8 +266,11 @@ class PostureEstimator {
   float pose_change_threshold;
 
   /**
-   * @brief Whether the user is currently in a `Good`, `Bad` or `Unset` posture.
-   * (`Unset` means that the `ideal_pose` has not yet been set)
+   * @brief Whether the user is currently in a `Good`, `Bad`, `Unset`,
+   * `Undefined` or `UndefinedAndUnset` posture.
+   * (`Unset` means that the `ideal_pose` has not yet been set, and `Undefined`
+   * is if pose estimation has not found any successive co-ordinates which are
+   * `Trustworthy`)
    */
   PostureEstimating::PostureState posture_state = UndefinedAndUnset;
 
