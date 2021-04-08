@@ -20,6 +20,7 @@
  */
 #include "mainwindow.h"
 
+#include <QFile>
 #include <iostream>
 #include <string>
 
@@ -30,16 +31,21 @@
 
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
-  // Create the different GUI pages
   pipelinePtr = pipeline;
+
+  // Load style sheet
+  QFile stylesheet("src/gui/stylesheet.qss");
+  stylesheet.open(QFile::ReadOnly);
+  QString setSheet = QLatin1String(stylesheet.readAll());
+  QWidget::setStyleSheet(setSheet);
+
+  // Create the different GUI pages
   createMainPage();
   createSettingsPage();
 
   // Stack the pages within the mainwindow
   stackedWidget->addWidget(firstPageWidget);
   stackedWidget->addWidget(secondPageWidget);
-
-  central->setStyleSheet("background-color:#0d1117;");
 
   // Create a title
   QLabel *title = new QLabel();
@@ -136,8 +142,6 @@ void GUI::MainWindow::createMainPage() {
   connect(idealPostureButton, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
   auto *settingsButton = new Button("Settings");
   connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettingsPage()));
-
-  postureNotification->setMaximumSize(200, 80);
 
   QGroupBox *mainPageButtons = new QGroupBox();
   QVBoxLayout *mainPageButtonsBox = new QVBoxLayout;

@@ -4,11 +4,26 @@
 
 namespace GUI {
 
+/**
+ * @brief Calls `setPointSize()` for the given font
+ *
+ * This function also ensures the text fits within the given bounds and performs
+ * resizing as needed. The function works for lines with newline characters in
+ * that it resizes to fit the longest line in the text string.
+ *
+ * @param font `QFont`
+ * @param text `QString&` text that will be written with the current font
+ * @param pointSize `int` desired point size
+ * @param boxWidth `int` width of the container as returned by `Widget.width()`
+ * @param padding `size_t` Desired padding (in pixels) around the text
+ */
 void setPointSizeAndResize(QFont *font, QString &text, int pointSize,
                            int boxWidth, size_t padding) {
   font->setPointSize(pointSize);
   QFontMetrics fm(*font);
   int pixelWidth = 0;
+  // Subtitles may be broken over multiple lines and we only need the longest of
+  // these measurements
   for (auto line : text.split("\n")) {
     if (fm.width(line) > pixelWidth) {
       pixelWidth = fm.width(line);
