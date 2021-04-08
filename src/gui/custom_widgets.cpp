@@ -1,3 +1,21 @@
+/**
+ * @copyright Copyright (C) 2021  Miklas Riechmann
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
+
 #include "mainwindow.h"
 
 #define POINT_SIZE 20
@@ -17,14 +35,14 @@ namespace GUI {
  * @param boxWidth `int` width of the container as returned by `Widget.width()`
  * @param padding `size_t` Desired padding (in pixels) around the text
  */
-void setPointSizeAndResize(QFont *font, QString &text, int pointSize,
+void setPointSizeAndResize(QFont *font, QString *text, int pointSize,
                            int boxWidth, size_t padding) {
   font->setPointSize(pointSize);
   QFontMetrics fm(*font);
   int pixelWidth = 0;
   // Subtitles may be broken over multiple lines and we only need the longest of
   // these measurements
-  for (auto line : text.split("\n")) {
+  for (auto line : text->split("\n")) {
     if (fm.width(line) > pixelWidth) {
       pixelWidth = fm.width(line);
     }
@@ -68,21 +86,21 @@ void Label::paintEvent(QPaintEvent *p) {
 
   QFont titleFont = QApplication::font();
   titleFont.setBold(true);
-  setPointSizeAndResize(&titleFont, title, POINT_SIZE, width(), padding);
+  setPointSizeAndResize(&titleFont, &title, POINT_SIZE, width(), padding);
 
   if (subtitle.length() > 0) {
     QFont subtitleFont = QApplication::font();
-    setPointSizeAndResize(&subtitleFont, subtitle, (3 * POINT_SIZE) / 5,
+    setPointSizeAndResize(&subtitleFont, &subtitle, (3 * POINT_SIZE) / 5,
                           width(), padding);
 
     paint.setFont(subtitleFont);
-    paint.drawText(QRectF(QPoint(padding, padding),
+    paint.drawText(QRectF(QPoint(padding, (height() - padding) / 2),
                           QPoint(width() - padding, height() - padding)),
-                   Qt::AlignHCenter | Qt::AlignBottom, subtitle);
+                   Qt::AlignCenter, subtitle);
     paint.setFont(titleFont);
     paint.drawText(QRectF(QPoint(padding, padding),
-                          QPoint(width() - padding, height() - padding)),
-                   Qt::AlignHCenter | Qt::AlignTop, title);
+                          QPoint(width() - padding, (height() - padding) / 2)),
+                   Qt::AlignCenter, title);
   } else {
     paint.setFont(titleFont);
     paint.drawText(QRectF(QPoint(padding, padding),
@@ -122,11 +140,11 @@ void Button::paintEvent(QPaintEvent *p) {
 
   QFont titleFont = QApplication::font();
   titleFont.setBold(true);
-  setPointSizeAndResize(&titleFont, title, POINT_SIZE, width(), padding);
+  setPointSizeAndResize(&titleFont, &title, POINT_SIZE, width(), padding);
 
   if (subtitle.length() > 0) {
     QFont subtitleFont = QApplication::font();
-    setPointSizeAndResize(&subtitleFont, subtitle, (3 * POINT_SIZE) / 5,
+    setPointSizeAndResize(&subtitleFont, &subtitle, (3 * POINT_SIZE) / 5,
                           width(), padding);
 
     paint.setFont(subtitleFont);

@@ -72,9 +72,10 @@ class Button : public QPushButton {
                    QWidget *parent = 0);
 
  public:
-  Button(const QString &title, QWidget *parent = 0);
+  explicit Button(const QString &title, QWidget *parent = 0);
 
-  Button(const QString &title, const QString &subtitle, QWidget *parent = 0);
+  explicit Button(const QString &title, const QString &subtitle,
+                  QWidget *parent = 0);
 
   void setText(const QString &title);
 
@@ -94,9 +95,9 @@ class Label : public QLabel {
                    QWidget *parent = 0);
 
  public:
-  Label(QWidget *parent = 0);
+  explicit Label(QWidget *parent = 0);
 
-  Label(const QString &title, QWidget *parent = 0);
+  explicit Label(const QString &title, QWidget *parent = 0);
 
   Label(const QString &title, const QString &subtitle, QWidget *parent = 0);
 
@@ -150,6 +151,8 @@ class MainWindow : public QMainWindow {
    *
    */
   void createSettingsPage();
+
+  void createAboutPage();
 
   /**
    * @brief Updates the current pose
@@ -208,9 +211,11 @@ class MainWindow : public QMainWindow {
    */
   void updatePostureNotification(PostureEstimating::PostureState postureState);
 
+  void openMainPage(void);
+
   void openSettingsPage(void);
 
-  void openMainPage(void);
+  void openAboutPage(void);
 
  signals:
   /**
@@ -257,6 +262,7 @@ class MainWindow : public QMainWindow {
   QGridLayout *settingsPageLayout = new QGridLayout;
 
   QWidget *thirdPageWidget = new QWidget;
+  QGridLayout *aboutPageLayout = new QGridLayout;
 
  private slots:
   /**

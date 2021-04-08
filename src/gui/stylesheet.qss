@@ -24,3 +24,38 @@ QPushButton:flat {
 QPushButton:default {
     border-color: navy; /* make the default button prominent */
 }
+
+QLabel {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+QSlider::groove:horizontal {
+    border: 1px solid #5fb4d3;
+    background: #03212b;
+    height: 20px;
+    margin: 2px 0;
+    border-radius: 10px;
+}
+
+QSlider::handle:horizontal {
+    background: #0b4960;
+    border: 1px solid #5fb4d3;
+    width: 50px;
+    margin: -15px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+    border-radius: 25px;
+}
+
+QSlider::add-page:horizontal {
+    border: 1px solid #5fb4d3;
+    background: #03212b;
+    margin: 2px 0;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    border: 1px solid #5fb4d3;
+    background: #5fb4d3;
+    margin: 2px 0;
+    border-radius: 10px;
+}
