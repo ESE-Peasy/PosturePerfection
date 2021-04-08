@@ -26,6 +26,8 @@
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
+#define LOGO_HEIGHT_MAX 100
+
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
   // Create the different GUI pages
@@ -42,11 +44,18 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   // Create a title
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
-  title->setScaledContents(true);
   QPixmap pix("images/logo.png");
-  title->setPixmap(pix);
-  title->setMinimumSize(10, 10);
-  title->setMaximumSize(250, 125);
+  {
+    auto width = pix.width();
+    auto height = pix.height();
+
+    if (height > LOGO_HEIGHT_MAX) {
+      height = LOGO_HEIGHT_MAX;
+      width = (LOGO_HEIGHT_MAX * width) / height;
+    }
+
+    title->setPixmap(pix.scaled(width, height, Qt::KeepAspectRatio));
+  }
 
   // Run the timer
   QTimer *timer = new QTimer(this);
