@@ -24,17 +24,18 @@
 #define MIN_POSE_CHANGE_THRESHOLD 0.0  ///< 0 degrees
 #define MAX_POSE_CHANGE_THRESHOLD 0.5  ///< 28.64 degrees
 
-#define BAD_POSTURE_TIME 10000000000        ///< 10 seconds
-#define UNDEFINED_POSTURE_TIME 15000000000  ///< 15 seconds
-#define GOOD_POSTURE_TIME 5000000000        ///< 5 seconds
-#define NOTIFICATION_TIME 1200000000000     ///< 120 seconds
+#define BAD_POSTURE_TIME 10000        ///< 10 seconds
+#define UNDEFINED_POSTURE_TIME 10000 ///< 10 seconds
+#define GOOD_POSTURE_TIME 5000      ///< 5 seconds
+#define NOTIFICATION_TIME 30000    ///< 100 seconds
+                          
 
 namespace PostureEstimating {
 
 std::string stringJoint(Joint joint) {
   switch (joint) {
     case Head:
-      return "head";
+      return "h./ead";
     case Neck:
       return "neck";
     case Shoulder:
@@ -348,10 +349,14 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
 
 DelayTimer::DelayTimer(size_t time) : CppTimer() { this->time = time; }
 DelayTimer::~DelayTimer() {}
-void DelayTimer::timerEvent() { this->running = false; }
+void DelayTimer::timerEvent() {
+  this->running = false; 
+  }
 void DelayTimer::countdown() {
+  std::cout << "Notification Timer on for" << this->time <<"\n";
+
   this->running = true;
-  this->start(this->time, ONESHOT);
+  this->startms(this->time, ONESHOT);
 }
 cancelTimer::cancelTimer(MessageTimer* toCancel, size_t time) : CppTimer() {
   this->toCancel = toCancel;
@@ -361,7 +366,7 @@ cancelTimer::~cancelTimer() {}
 void cancelTimer::countdown() {
   if (!this->running) {
     this->running = true;
-    this->start(this->time, ONESHOT);
+    this->startms(this->time, ONESHOT);
   }
 }
 void cancelTimer::stopCountdown() {
@@ -388,7 +393,7 @@ MessageTimer::~MessageTimer() {}
 void MessageTimer::countdown() {
   if (!this->running) {
     this->running = true;
-    this->start(this->time, ONESHOT);
+    this->startms(this->time, ONESHOT);
   }
 }
 void MessageTimer::stopCountdown() {
@@ -398,9 +403,17 @@ void MessageTimer::stopCountdown() {
   }
 }
 void MessageTimer::timerEvent() {
+  this->running = false;
+  std::cout << "Trying to send message  ";
+  std::cout << this->notificationTimer->running << "\n";
   if (!this->notificationTimer->running) {
-    this->notificationTimer->start(NOTIFICATION_TIME, ONESHOT);
-    this->broadcaster->sendMessage(this->msg);
-  }
+    std::cout<<"Sending message and pausing more messages sending ";
+    this->notificationTimer->countdown();
+    this->broadcaster->sendMessage(this->msg); 
+    std::cout << this->notificationTimer->running << "\n"; 
+}
+else{
+  std::cout <<"Not allowed to send message right now";
+}
 }
 };  // namespace PostureEstimating
