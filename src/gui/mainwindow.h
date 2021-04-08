@@ -61,6 +61,11 @@ QT_BEGIN_NAMESPACE
  */
 namespace GUI {
 
+/**
+ * @brief Subclass of `QPushButton` that allows having a title and subtitle
+ * within the button.
+ *
+ */
 class Button : public QPushButton {
   Q_OBJECT
  private:
@@ -84,6 +89,11 @@ class Button : public QPushButton {
   void paintEvent(QPaintEvent *p);
 };
 
+/**
+ * @brief Subclass of `QLabel` that allows having a title and subtitle
+ * within the label.
+ *
+ */
 class Label : public QLabel {
   Q_OBJECT
  private:
@@ -211,10 +221,22 @@ class MainWindow : public QMainWindow {
    */
   void updatePostureNotification(PostureEstimating::PostureState postureState);
 
+  /**
+   * @brief Switch to the main page with the video feed
+   *
+   */
   void openMainPage(void);
 
+  /**
+   * @brief Switch to the settings page
+   *
+   */
   void openSettingsPage(void);
 
+  /**
+   * @brief Switch to the help and about page
+   *
+   */
   void openAboutPage(void);
 
  signals:
