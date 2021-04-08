@@ -69,7 +69,7 @@ void FrameGenerator::thread_body(void) {
 
     if (frame.empty()) {
       fprintf(stderr, "Empty frame\n");
-      return;
+      continue;
     }
 
     std::unique_lock<std::mutex> lock(mutex);

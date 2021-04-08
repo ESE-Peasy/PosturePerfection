@@ -112,7 +112,7 @@ class DelayTimer : public CppTimer {
   size_t time;
 
  public:
-  bool running;
+  bool running = false;
   explicit DelayTimer(size_t time);
   ~DelayTimer();
   void timerEvent();
@@ -127,7 +127,7 @@ class MessageTimer : public CppTimer {
   size_t time;
 
  public:
-  bool running;
+  bool running = false;
   MessageTimer(DelayTimer* timer, Notify::NotifyBroadcast* broadcast,
                std::string msg, size_t time);
   ~MessageTimer();
@@ -142,7 +142,7 @@ class cancelTimer : public CppTimer {
   size_t time;
 
  public:
-  bool running;
+  bool running = false;
   cancelTimer(MessageTimer* toCancel, size_t time);
   ~cancelTimer();
   void countdown();
