@@ -109,9 +109,7 @@ void Pipeline::post_processing_thread_body() {
 
     auto pose_result = posture_estimator.runEstimator(
         post_processor.run(next_frame.value.image_results));
-
     posture_estimator.analysePosture(pose_result, next_frame.value.raw_image);
-
     callback(pose_result, next_frame.value.raw_image);
   }
 }

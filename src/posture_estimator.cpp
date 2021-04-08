@@ -353,12 +353,13 @@ void DelayTimer::countdown() {
 }
 cancelTimer::cancelTimer(MessageTimer* toCancel, size_t time) : CppTimer() {
   this->toCancel = toCancel;
+  this->time = time;
 }
 cancelTimer::~cancelTimer() {}
 void cancelTimer::countdown() {
   if (!this->running) {
     this->running = true;
-    this->start(time, ONESHOT);
+    this->start(this->time, ONESHOT);
   }
 }
 void cancelTimer::stopCountdown() {
