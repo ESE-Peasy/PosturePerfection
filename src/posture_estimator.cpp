@@ -25,10 +25,9 @@
 #define MAX_POSE_CHANGE_THRESHOLD 0.5  ///< 28.64 degrees
 
 #define BAD_POSTURE_TIME 10000        ///< 10 seconds
-#define UNDEFINED_POSTURE_TIME 10000 ///< 10 seconds
-#define GOOD_POSTURE_TIME 5000      ///< 5 seconds
-#define NOTIFICATION_TIME 30000    ///< 100 seconds
-                          
+#define UNDEFINED_POSTURE_TIME 10000  ///< 10 seconds
+#define GOOD_POSTURE_TIME 2000      ///< 2 seconds
+#define NOTIFICATION_TIME 600000    ///< 10 minutes
 
 namespace PostureEstimating {
 
@@ -350,11 +349,10 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
 DelayTimer::DelayTimer(size_t time) : CppTimer() { this->time = time; }
 DelayTimer::~DelayTimer() {}
 void DelayTimer::timerEvent() {
-  this->running = false; 
-  }
-void DelayTimer::countdown() {
-  std::cout << "Notification Timer on for" << this->time <<"\n";
+  this->running = false;
+}
 
+void DelayTimer::countdown() {
   this->running = true;
   this->startms(this->time, ONESHOT);
 }
@@ -404,16 +402,9 @@ void MessageTimer::stopCountdown() {
 }
 void MessageTimer::timerEvent() {
   this->running = false;
-  std::cout << "Trying to send message  ";
-  std::cout << this->notificationTimer->running << "\n";
   if (!this->notificationTimer->running) {
-    std::cout<<"Sending message and pausing more messages sending ";
     this->notificationTimer->countdown();
-    this->broadcaster->sendMessage(this->msg); 
-    std::cout << this->notificationTimer->running << "\n"; 
-}
-else{
-  std::cout <<"Not allowed to send message right now";
+    this->broadcaster->sendMessage(this->msg);
 }
 }
 };  // namespace PostureEstimating

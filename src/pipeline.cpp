@@ -109,12 +109,7 @@ void Pipeline::post_processing_thread_body() {
 
     auto pose_result = posture_estimator.runEstimator(
         post_processor.run(next_frame.value.image_results));
-    try {
     posture_estimator.analysePosture(pose_result, next_frame.value.raw_image);
-     }
-     catch(char const * a){
-       std::cout << a;
-     }
     callback(pose_result, next_frame.value.raw_image);
   }
 }
