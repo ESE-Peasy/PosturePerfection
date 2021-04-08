@@ -64,14 +64,21 @@ namespace GUI {
 class Button : public QPushButton {
   Q_OBJECT
  private:
-  const QString title;
-  const QString subtitle;
+  QString title;
+  QString subtitle;
   size_t padding = WIDGET_PADDING;
+
+  void constructor(const QString &title, const QString &subtitle,
+                   QWidget *parent = 0);
 
  public:
   Button(const QString &title, QWidget *parent = 0);
 
   Button(const QString &title, const QString &subtitle, QWidget *parent = 0);
+
+  void setText(const QString &title);
+
+  void setText(const QString &title, const QString &subtitle);
 
   void paintEvent(QPaintEvent *p);
 };
@@ -228,9 +235,11 @@ class MainWindow : public QMainWindow {
 
   Pipeline::Pipeline *pipelinePtr = nullptr;
   PostureEstimating::PoseStatus currentPoseStatus;
-  
+
   Label *currentFrameRate = new Label();
   Label *postureNotification = new Label();
+  Button *idealPostureButton =
+      new Button("Set Ideal Posture", "Set current\nposture as my target");
 
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;

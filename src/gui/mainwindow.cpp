@@ -133,8 +133,6 @@ void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
 void GUI::MainWindow::createMainPage() {
   initalFrame();
   firstPageWidget->setLayout(mainPageLayout);
-  auto *idealPostureButton =
-      new Button("Set Ideal Posture", "Set current\nposture as my target");
   connect(idealPostureButton, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
   auto *settingsButton = new Button("Settings");
   connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettingsPage()));
@@ -162,8 +160,8 @@ void GUI::MainWindow::createSettingsPage() {
   settingsTitle->setFont(font);
 
   // Set layout
-  settingsPageLayout->addWidget(settingsTitle, 0, 0, 1, 1, Qt::AlignLeft);
-  settingsPageLayout->addWidget(groupSettings, 1, 0, 6, 1);
+  settingsPageLayout->addWidget(settingsTitle, 0, 0, 1, 5, Qt::AlignLeft);
+  settingsPageLayout->addWidget(groupSettings, 1, 0, 6, 4);
   settings->setSpacing(0);
   settings->setMargin(0);
 
@@ -215,11 +213,13 @@ void GUI::MainWindow::createSettingsPage() {
   QVBoxLayout *settingsPageButtonsBox = new QVBoxLayout;
   settingsPageButtonsBox->addWidget(homeButton);
   settingsPageButtons->setLayout(settingsPageButtonsBox);
-  settingsPageLayout->addWidget(settingsPageButtons, 1, 1, 6, 1);
+  settingsPageLayout->addWidget(settingsPageButtons, 1, 4, 6, 1);
 }
 
 void GUI::MainWindow::setIdealPosture() {
   pipelinePtr->set_ideal_posture(currentPoseStatus.current_pose);
+  idealPostureButton->setText("Reset Ideal Posture",
+                              "Set current\nposture as my target");
 }
 
 void GUI::MainWindow::setThresholdValue(int scaledValue) {

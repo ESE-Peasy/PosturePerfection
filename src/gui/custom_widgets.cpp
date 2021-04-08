@@ -1,6 +1,19 @@
 #include "mainwindow.h"
 
+#define POINT_SIZE 20
+
 namespace GUI {
+
+void setPointSizeAndResize(QFont *font, QString &text, int pointSize,
+                           int boxWidth, size_t padding) {
+  font->setPointSize(pointSize);
+  QFontMetrics fm(*font);
+  auto pixelWidth = fm.width(text);
+  boxWidth = boxWidth - padding * 2;
+  if (pixelWidth > boxWidth) {
+    font->setPointSize((pointSize * boxWidth) / pixelWidth);
+  }
+}
 
 void Label::constructor(const QString &title, const QString &subtitle,
                         QWidget *parent) {
@@ -35,11 +48,12 @@ void Label::paintEvent(QPaintEvent *p) {
 
   QFont titleFont = QApplication::font();
   titleFont.setBold(true);
-  titleFont.setPixelSize(height() / 5);
+  setPointSizeAndResize(&titleFont, title, POINT_SIZE, width(), padding);
 
   if (subtitle.length() > 0) {
     QFont subtitleFont = QApplication::font();
-    subtitleFont.setPixelSize(height() / 8);
+    setPointSizeAndResize(&subtitleFont, subtitle, (3 * POINT_SIZE) / 5,
+                          width(), padding);
 
     paint.setFont(subtitleFont);
     paint.drawText(QRectF(QPoint(padding, padding),
@@ -57,14 +71,28 @@ void Label::paintEvent(QPaintEvent *p) {
   }
 }
 
-Button::Button(const QString &title, QWidget *parent)
-    : QPushButton(parent), title(title), subtitle("") {
+void Button::constructor(const QString &title, const QString &subtitle,
+                         QWidget *parent) {
+  this->title = title;
+  this->subtitle = subtitle;
   setMinimumSize(200, 80);
 }
 
+Button::Button(const QString &title, QWidget *parent) : QPushButton(parent) {
+  constructor(title, "");
+}
+
 Button::Button(const QString &title, const QString &subtitle, QWidget *parent)
-    : QPushButton(parent), title(title), subtitle(subtitle) {
-  setMinimumSize(200, 80);
+    : QPushButton(parent) {
+  constructor(title, subtitle);
+}
+
+void Button::setText(const QString &title) { setText(title, ""); }
+
+void Button::setText(const QString &title, const QString &subtitle) {
+  this->title = title;
+  this->subtitle = subtitle;
+  repaint();
 }
 
 void Button::paintEvent(QPaintEvent *p) {
@@ -74,11 +102,12 @@ void Button::paintEvent(QPaintEvent *p) {
 
   QFont titleFont = QApplication::font();
   titleFont.setBold(true);
-  titleFont.setPixelSize(height() / 5);
+  setPointSizeAndResize(&titleFont, title, POINT_SIZE, width(), padding);
 
   if (subtitle.length() > 0) {
     QFont subtitleFont = QApplication::font();
-    subtitleFont.setPixelSize(height() / 8);
+    setPointSizeAndResize(&subtitleFont, subtitle, (3 * POINT_SIZE) / 5,
+                          width(), padding);
 
     paint.setFont(subtitleFont);
     paint.drawText(QRectF(QPoint(padding, padding),
