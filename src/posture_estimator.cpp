@@ -311,7 +311,7 @@ PoseStatus PostureEstimator::runEstimator(
 
 void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
                                       cv::Mat current_frame) {
-  std::cout << "------------- \n";
+  //std::cout << "------------- \n";
   PostureEstimating::Pose current_pose = pose_status.current_pose;
   PostureEstimating::Pose pose_changes = pose_status.pose_changes;
   PostureEstimating::PostureState posture_state = pose_status.posture_state;
@@ -319,52 +319,53 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
   cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
 
   if (posture_state == Undefined) {
-    std::cout << "Posture Undefined:" << "Undefined timer" << this->undefinedPostureTimer.running <<" cancelTimer" << this->cancelUndefinedPostureTimer.running << "\n" ;
+    //std::cout << "Posture Undefined:" << "Undefined timer" << this->undefinedPostureTimer.running <<" cancelTimer" << this->cancelUndefinedPostureTimer.running << "\n" ;
     if (!this->undefinedPostureTimer.running) {
-      std::cout << "undefinedPostureTimer not running\n"; 
+      // std::cout << "undefinedPostureTimer not running\n"; 
       this->undefinedPostureTimer.countdown();
     }
     if (this->cancelUndefinedPostureTimer.running) {
-      std::cout << "cancelUndefinedPostureTimer running\n";
+      // std::cout << "cancelUndefinedPostureTimer running\n";
       this->cancelUndefinedPostureTimer.stopCountdown();
     }
   }
   if (posture_state == Bad) {
-    std::cout << "Posture Bad:" << " Bad timer" << this->badPostureTimer.running <<" cancelTimer" << this->cancelBadPostureTimer.running << "\n" ;
+    // std::cout << "Posture Bad:" << " Bad timer" << this->badPostureTimer.running <<" cancelTimer" << this->cancelBadPostureTimer.running << "\n" ;
     if (!this->badPostureTimer.running) {
-      std::cout << "badPostureTimer running\n";
+      // std::cout << "badPostureTimer running\n";
       this->badPostureTimer.countdown();
     }
     if (this->cancelBadPostureTimer.running) {
-      std::cout << "cancelBadPostureTimer running\n";
+      // std::cout << "cancelBadPostureTimer running\n";
       this->cancelBadPostureTimer.stopCountdown();
     }
     display_pose_changes_needed(pose_changes, current_pose, current_frame);
   } else {
     if (posture_state== Good){
-    std::cout << "Posture Good" << "Bad timer" << this->badPostureTimer.running << " Undefined timer" << this->undefinedPostureTimer.running <<"\n";
+    // std::cout << "Posture Good" << "Bad timer" << this->badPostureTimer.running << " Undefined timer" << this->undefinedPostureTimer.running <<"\n";
     if (this->badPostureTimer.running) {
-      std::cout << "BadPostureTimer running\n";
+      // std::cout << "BadPostureTimer running\n";
       this->cancelBadPostureTimer.countdown();
     }
     if (this->undefinedPostureTimer.running) {
-      std::cout << "undefinedPostureTimer running\n";
+      // std::cout << "undefinedPostureTimer running\n";
       this->cancelUndefinedPostureTimer.countdown();
     }
     }
     else{
-       std::cout << "Posture Unset" << "Bad timer" << this->badPostureTimer.running << " Undefined timer" << this->undefinedPostureTimer.running <<"\n";
+      //  std::cout << "Posture Unset" << "Bad timer" << this->badPostureTimer.running << " Undefined timer" << this->undefinedPostureTimer.running <<"\n";
     }
     display_current_pose(current_pose, current_frame, posture_state);
   }
-  std::cout << "------------- \n";
+  // std::cout << "------------- \n";
 }
 
 DelayTimer::DelayTimer(size_t time) : CppTimer() { this->time = time; }
 DelayTimer::~DelayTimer() {}
-void DelayTimer::timerEvent() { std::cout << "DelayTimer timerEvent\n";this->running = false; }
+void DelayTimer::timerEvent() { //std::cout << "DelayTimer timerEvent\n";
+this->running = false; }
 void DelayTimer::countdown() {
-  std::cout << "DelayTimer countdown\n";
+  // std::cout << "DelayTimer countdown\n";
   this->running = true;
   this->start(this->time, ONESHOT);
 }
@@ -374,23 +375,23 @@ cancelTimer::cancelTimer(MessageTimer* toCancel, size_t time) : CppTimer() {
 }
 cancelTimer::~cancelTimer() {}
 void cancelTimer::countdown() {
-  std::cout << "CancelTimer countdown\n";
+  // std::cout << "CancelTimer countdown\n";
   if (!this->running) {
-      std::cout << "Inside if CancelTimer countdown\n";
+      // std::cout << "Inside if CancelTimer countdown\n";
     this->running = true;
     this->start(this->time, ONESHOT);
   }
 }
 void cancelTimer::stopCountdown() {
-  std::cout << "CancelTimer stopCountdown\n";
+  // std::cout << "CancelTimer stopCountdown\n";
   if (this->running) {
-      std::cout << "Inside if CancelTimer stopCountdown\n";
+      // std::cout << "Inside if CancelTimer stopCountdown\n";
     this->running = false;
     this->stop();
   }
 }
 void cancelTimer::timerEvent() {
-  std::cout << "CancelTimer timerEvent\n";
+  // std::cout << "CancelTimer timerEvent\n";
   this->running = false;
   this->toCancel->stopCountdown();
 }
@@ -406,25 +407,25 @@ MessageTimer::MessageTimer(DelayTimer* timer,
 }
 MessageTimer::~MessageTimer() {}
 void MessageTimer::countdown() {
-  std::cout << "MessageTimer countdown\n";
+  // std::cout << "MessageTimer countdown\n";
   if (!this->running) {
     this->running = true;
-  std::cout << "Inside if MessageTimer Countdown\n";
+  // std::cout << "Inside if MessageTimer Countdown\n";
     this->start(this->time, ONESHOT);
   }
 }
 void MessageTimer::stopCountdown() {
-  std::cout << "MessageTimer stopCountdown\n";
+  // std::cout << "MessageTimer stopCountdown\n";
   if (this->running) {
-    std::cout << "Inside if MessageTimer stopCountdown\n";
+    // std::cout << "Inside if MessageTimer stopCountdown\n";
     this->running = false;
     this->stop();
   }
 }
 void MessageTimer::timerEvent() {
-  std::cout << "MessageTimer timerEvent\n";
+  // std::cout << "MessageTimer timerEvent\n";
   if (!this->notificationTimer->running) {
-    std::cout << "Inside if MessageTimer timerEvent\n";
+    // std::cout << "Inside if MessageTimer timerEvent\n";
     this->notificationTimer->start(NOTIFICATION_TIME, ONESHOT);
     this->broadcaster->sendMessage(this->msg);
   }
