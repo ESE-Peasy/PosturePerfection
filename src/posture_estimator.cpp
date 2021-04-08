@@ -139,10 +139,6 @@ void PostureEstimator::calculatePoseChanges() {
 }
 
 void PostureEstimator::checkPostureState() {
-  // If the ideal posture has not been set, then remain in the Unset
-  // state regardless
-  if (this->posture_state == Unset) return;
-
   // If there are any consecutive nodes that are `Trustworthy` then the posture
   // is said to be trustworthy
   bool trustworthyPosture = false;
@@ -156,9 +152,21 @@ void PostureEstimator::checkPostureState() {
   }
 
   if (!trustworthyPosture) {
-    this->posture_state = Undefined;
+    if (this->posture_state == Unset ||
+                this->posture_state == UndefinedAndUnset) {
+      this->posture_state = UndefinedAndUnset;
+    } else {
+      this->posture_state = Undefined;
+    }
     return;
   }
+
+  if (this->posture_state == UndefinedAndUnset) {
+    this->posture_state = Unset;
+    return;
+  }
+
+  if (this->posture_state == Unset) return;
 
   // If the overall posture is trustworthy then check if it is a Bad
   // or Good posture
@@ -264,8 +272,10 @@ void PostureEstimator::display_pose_changes_needed(
 }
 
 void PostureEstimator::update_ideal_pose(PostureEstimating::Pose pose) {
-  this->posture_state = Good;
-  this->ideal_pose = pose;
+  if (this->posture_state != Undefined) {
+    this->posture_state = Good;
+    this->ideal_pose = pose;
+  }
 }
 
 bool PostureEstimator::set_pose_change_threshold(float threshold) {

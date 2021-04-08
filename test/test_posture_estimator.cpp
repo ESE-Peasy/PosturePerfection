@@ -191,10 +191,10 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesUntrustworthy) {
   }
 }
 
-BOOST_AUTO_TEST_CASE(StartInUnsetPostureState) {
+BOOST_AUTO_TEST_CASE(StartInUndefinedAndUnsetPostureState) {
   PostureEstimating::PostureEstimator e;
 
-  BOOST_TEST(e.posture_state == PostureEstimating::Unset);
+  BOOST_TEST(e.posture_state == PostureEstimating::UndefinedAndUnset);
 }
 
 BOOST_AUTO_TEST_CASE(AllUntrustworthyJointsGivesUndefinedPostureState) {
@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_CASE(SettingIdealPostureChangesState) {
   e.checkPostureState();
 
   // Start in Unset state
-  BOOST_TEST(e.posture_state == PostureEstimating::Unset);
+  BOOST_TEST(e.posture_state == PostureEstimating::UndefinedAndUnset);
 
   e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);

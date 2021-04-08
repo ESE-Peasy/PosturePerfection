@@ -83,7 +83,7 @@ struct Pose {
  * `ideal_pose` has not been set by the user.
  *
  */
-enum PostureState { Good, Bad, Unset, Undefined };
+enum PostureState { Good, Bad, Unset, Undefined, UndefinedAndUnset };
 
 /**
  * @brief Creates an empty Pose object
@@ -268,7 +268,7 @@ class PostureEstimator {
    * @brief Whether the user is currently in a `Good`, `Bad` or `Unset` posture.
    * (`Unset` means that the `ideal_pose` has not yet been set)
    */
-  PostureEstimating::PostureState posture_state = Unset;
+  PostureEstimating::PostureState posture_state = UndefinedAndUnset;
 
   /**
    * @brief Calibrate the user's ideal pose using the results of

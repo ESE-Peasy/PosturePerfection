@@ -121,6 +121,11 @@ void GUI::MainWindow::updatePostureNotification(
   // Check if the ideal pose has been set and if so, display notification
   // according to the posture state
   switch (postureState) {
+    case PostureEstimating::PostureState::UndefinedAndUnset: {
+      postureNotificationBox->setStyleSheet("background-color: orange");
+      postureNotification->setText("Undefined");
+      break;
+    }
     case PostureEstimating::PostureState::Unset: {
       postureNotificationBox->setStyleSheet("background-color: orange");
       postureNotification->setText("Unset");
