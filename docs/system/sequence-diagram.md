@@ -10,7 +10,7 @@ To more easily understand the exact process of analysing the video input and per
 {: .fs-6 .fw-300 }
 
 <div align = "center">
-<img src="../images/sequence-diagram.pdf" alt="Sequence Diagram for PosturePerfection">
+<img src="../images/sequence-diagram.svg" alt="Sequence Diagram for PosturePerfection">
 </div>
 
 The system is separated into six main components:

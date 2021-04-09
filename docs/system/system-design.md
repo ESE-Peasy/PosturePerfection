@@ -10,7 +10,7 @@ This section outlines an overview of the PosturePerfection system, with more det
 {: .fs-6 .fw-300 }
 
 <div align = "center">
-<img src="../images/system-diagram.pdf" alt="Image of System Diagram">
+<img src="../images/system-diagram.png" alt="Image of System Diagram" width="400">
 </div>
 
 ## System Description
@@ -36,5 +36,5 @@ Alongside the alert which is displayed on the dedicated screen for the device, c
 Below is an indication of how the system detects the user's current posture and if it is a healthy posture or not. More details about specific components can be in our [Sequence Diagram](./sequence-diagram.html) and [Class Diagram](./class-diagram.html) pages.
 
 <div align = "center">
-<img src="../images/software-flow.pdf" alt="Image of System Flow Diagram">
+<img src="../images/software-flow.png" alt="Image of System Flow Diagram" width="500">
 </div>
