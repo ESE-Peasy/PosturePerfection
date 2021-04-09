@@ -8,9 +8,9 @@ Code documentation can be found here, however more general information regarding
 
 The project is separated into three main sections, each with a unique function.
 
-> 1. The Pipeline is responsible for performing pose estimation to detect the user's posture and identify when it has worsened as well as the adjustments required to guide the user into a better posture.\n
-> 2. The GUI is responsible for displaying these results and posture adjustment suggestions to the user, as well as allowing various configuration options to be set.\n
-> 3. The [Notification System](@ref Notify) allows an alert to be sent to a separate device which the user is using.
+1. The Pipeline is responsible for performing pose estimation to detect the user's posture and identify when it has worsened as well as the adjustments required to guide the user into a better posture.
+2. The GUI is responsible for displaying these results and posture adjustment suggestions to the user, as well as allowing various configuration options to be set.
+3. The [Notification System](@ref Notify) allows an alert to be sent to a separate device which the user is using.
 
 \subsection pipeline Pipeline
 
@@ -20,6 +20,7 @@ the PostProcessing stage which applies IIR filtering to smoothen the output.
 
 The _Pipeline_ at the core of the system is configurable to run with a various number of threads. Initial testing indicated optimal performance at 8 threads, and so this is currently in use within the pipeline. The pipeline consists of the following key stages:
 
+- [FrameGenerator](@ref Pipeline::FrameGenerator)
 - [PreProcessor](@ref PreProcessing::PreProcessor)
 - [InferenceCore](@ref Inference::InferenceCore)
 - [PostProcessor](@ref PostProcessing::PostProcessor)

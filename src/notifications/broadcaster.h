@@ -27,8 +27,7 @@
 
 namespace Notify {
 /**
- * @brief A broadcaster to send messages to
- * `Notify::NotifyReceiver`
+ * @brief A broadcaster to send messages to `Notify::NotifyReceiver`
  *
  */
 class NotifyBroadcast {

@@ -68,7 +68,7 @@ class NotifyReceiver {
   ~NotifyReceiver();
 
   /**
-   * @brief Sets the Notify::NotifyReceiver to start listening
+   * @brief Sets the `Notify::NotifyReceiver` to start listening
    */
   void run();
 };
