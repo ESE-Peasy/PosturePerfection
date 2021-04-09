@@ -2,7 +2,7 @@
  * @file posture_estimator.h
  * @brief Interface for representation of user's pose
  *
- * @copyright Copyright (C) 2021  Conor Begley
+ * @copyright Copyright (C) 2021  Conor Begley, Ashwin Maliampurakal
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -46,13 +46,13 @@ namespace PostureEstimating {
  * Each body part is represented as a `ConnectedJoint` to record the joints
  * relative position and the connected joints to this joint
  *
- * Angles are measured clockwise from Head
+ * Angles are measured clockwise from Head and are floating point radians.
  *
  *      ^HEAD
  *      |
- *      |/ +30 degrees
+ *      |/ +0.5235988 radians (+30 degrees)
  *      |
- *      |__ +90 degrees
+ *      |__ +1.570796 radians (+90 degrees)
  */
 
 struct ConnectedJoint {
@@ -83,7 +83,8 @@ struct Pose {
 
 /**
  * @brief Potential states which the posture can be. `Unset` means that the
- * `ideal_pose` has not been set by the user.
+ * `ideal_pose` has not been set by the user. `Undefined` means that pose
+ * estimation has failed to confidently identify a full posture.
  *
  */
 enum PostureState { Good, Bad, Unset, Undefined, UndefinedAndUnset };
@@ -94,7 +95,7 @@ enum PostureState { Good, Bad, Unset, Undefined, UndefinedAndUnset };
 Pose createPose();
 
 /**
- * @brief representation of user's pose for use by the pipeline processing
+ * @brief Representation of user's pose for use by the pipeline processing
  */
 struct PoseStatus {
   Pose ideal_pose;
@@ -232,9 +233,9 @@ class StopTimer : public CppTimer {
  * calibrated ideal pose, from the `PostProcessing::ProcessedResult`.
  *
  * This class handles:
- * - Updating current user's pose or ideal user's pose.
+ * - Updating the user's `current_pose` and user's `ideal_pose`
  * - Calculating the angle between `ConnectedJoint`
- * - Comparing the current user's pose and ideal user's pose.
+ * - Comparing the user's `current_pose` and user's `ideal_pose`.
  *
  * General use should just consist of `runEstimator`.
  *
@@ -283,17 +284,17 @@ class PostureEstimator {
   Pose createPoseFromResult(PostProcessing::ProcessedResults results);
 
   /**
-   * @brief Update the user's pose based on the results from inference
+   * @brief Update the user's `current_pose` based on the results from inference
    *
-   * @param results `PostProcessing::ProcessedResults struct containing user's
+   * @param results `PostProcessing::ProcessedResults` struct containing user's
    * pose data.
    */
   void update_current_pose(PostProcessing::ProcessedResults results);
 
   /**
-   * @brief Compares user's current pose and ideal pose, returing a pose
-   * object, with the angles of the `ConnectedJoint` representing the change
-   * needed for each one to return current pose to ideal pose.
+   * @brief Compares user's `current_pose` and `ideal_pose`, updating the
+   * `pose_changes` object, with the angles representing the changes needed
+   * for each joint to return from the `current_pose` to the `ideal_pose`.
    *
    */
   void calculatePoseChanges();
@@ -306,29 +307,26 @@ class PostureEstimator {
    * - If there are no consecutive nodes that are `Trustworthy` then the state
    * is changed to `Undefined` or `UndefinedAndUnset` depending on if an
    * `ideal_pose` has been set or not
-   * - If the current state is not `Undefined` and the `pose_changes` angles
-   * are outwith the `pose_change_threshold` then the state is changed to
-   * `Bad`
-   * - If none of these conditions are met, then the state is changed to
-   * `Good`.
-   *
-   * Note that this means it is possible for only partial segments of the
-   * overall posture to be displayed
+   * - If the overall posture is defined (all joints are `Trustworthy`) then
+   * proceed with identifying the posture as `Bad` if `pose_changes` angles are
+   * outwith the `pose_change_threshold`.
+   * - If the overall posture is defined, and the `pose_changes` angles remain
+   * within the `pose_change_threshold` then the state is changed to `Good`.
    *
    */
   void checkPostureState();
 
   /**
-   * @brief Calculates current posture and ideal posture difference and
-   * decides if a good posture has been adopted based on threshold values.
+   * @brief Calculates `pose_changes` between the `current_pose` and
+   * `ideal_pose` and decides what state the `current_pose` is in
    *
    */
   void calculateChangesAndCheckPosture();
 
   /**
-   * @brief Updates the user's current pose from
-   * `PostProcessing::ProcessingResults`, Calculates pose change needed.
-   * Checks if pose change needed is outside threshold.
+   * @brief Updates the user's `current_pose` from
+   * `PostProcessing::ProcessingResults` and calculates `pose_changes` before
+   * deciding what state the `current_pose` is in
    *
    * @param results `PostProcessing::ProcessingResults` struct containing
    * user's pose data.
@@ -338,21 +336,25 @@ class PostureEstimator {
       PostProcessing::ProcessedResults results);
 
   /**
-   * @brief Overlay the current pose for the current frame
+   * @brief Overlay the `current_pose` for the current frame
    *
    * @param current_pose `PostureEstimating::Pose` The pose for the current
    * posture
    * @param current_frame `cv::Mat` Current frame to overlay lines onto
-   * @param posture_state `PostureEstimating::PostureState` If `Good` draw
-   * green lines to indicate good posture, and if `Unset` draw the
-   * `ideal_pose` has not been set in which case draw blue lines
+   * @param posture_state `PostureEstimating::PostureState` If `Good` draw green
+   * lines to indicate good posture, if `Unset` draw the `ideal_pose` has
+   * not been set in which case draw blue lines and if `Undefined` then draw
+   * grey lines
    */
   void display_current_pose(PostureEstimating::Pose current_pose,
                             cv::Mat current_frame,
                             PostureEstimating::PostureState posture_state);
   /**
-   * @brief Overlay the pose changes for the current frame. We only use this
-   * if the `posture_state` in `pose_status` is `Bad`.
+   * @brief Overlay the `pose_changes` for the current frame. We only use this
+   * if the `posture_state` in `pose_status` is `Bad`. Segments which remain
+   * within the `pose_change_threshold` are highlighted in green, and segments
+   * which are outwith the threshold are highlighted in red with blue arrows
+   * indicating the direction to move to return to the `ideal_pose`.
    *
    * @param pose_changes `PostureEstimating::Pose` Changes needed to return to
    * a good posture
@@ -400,19 +402,18 @@ class PostureEstimator {
 
   /**
    * @brief Whether the user is currently in a `Good`, `Bad`, `Unset`,
-   * `Undefined` or `UndefinedAndUnset` posture.
-   * (`Unset` means that the `ideal_pose` has not yet been set, and
-   * `Undefined` is if pose estimation has not found any successive
-   * co-ordinates which are `Trustworthy`)
+   * `Undefined` or `UndefinedAndUnset` posture. (`Unset` means that the
+   * `ideal_pose` has not yet been set, and `Undefined` is if pose estimation
+   * has not found any successive co-ordinates which are `Trustworthy`)
    */
   PostureEstimating::PostureState posture_state = UndefinedAndUnset;
 
   /**
-   * @brief Calibrate the user's ideal pose using the results of
-   * `PostProcessing`
+   * @brief Calibrate the user's `ideal_pose` with a `pose` object. The
+   * `ideal_pose` is only updated if the `posture_state` is not `Undefined`.
    *
-   * @param results `PostureEstimating::PoseStatus` struct containing user's
-   * pose data.
+   * @param results `PostureEstimating::Pose` struct containing user's pose
+   * data.
    */
   void update_ideal_pose(PostureEstimating::Pose pose);
 
@@ -445,14 +446,15 @@ class PostureEstimator {
   PoseStatus runEstimator(PostProcessing::ProcessedResults results);
 
   /**
-   * @brief Analyse the `posture_state` field of
-   * `PostureEstimating::PoseStatus` and use it as follows:
-   *  - If `Unset` then indicate this to user by
-   * displaying the current pose as blue lines.
-   * - If `Good` then display current pose as green lines.
-   * - If `Bad` then use `pose_change_threshold` and
-   * `pose_changes` to indicate which direction the user needs to move in
-   * order to return to a good posture.
+   * @brief Analyse the `posture_state` field of `PostureEstimating::PoseStatus`
+   * and use it as follows:
+   *  - If `Unset` then indicate this to user by displaying the current pose as
+   * blue lines.
+   *  - If `Undefined` then display any `Trustworthy` segments as grey lines.
+   *  - If `Good` then display current pose as green lines.
+   *  - If `Bad` then use `pose_change_threshold` and `pose_changes` to indicate
+   * which direction the user needs to move in order to return to a good
+   * posture.
    *
    * @param pose_status `PostureEstimating::PoseStatus` The pose status for
    * the current frame

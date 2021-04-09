@@ -1,16 +1,25 @@
 @startuml
+
+skinparam BoxPadding 10
+
+box "FrameGenerator Thread" #Light
 actor user
-participant PiCamera
+participant FrameGenerator
+end box
+box "Core Thread" #Light
 participant PreProcessor
 participant InferenceCore
+end box
+box "Post Processing Thread" #Light
 participant PostProcessor
 participant PostureEstimator
 participant GUI
+end box
 
-user -> PiCamera: Video feed
-user -> PiCamera: 
-user -> PiCamera: 
-PiCamera -> PreProcessor: Analyse video \nframe by frame
+user -> FrameGenerator: Video feed
+user -> FrameGenerator: 
+user -> FrameGenerator: 
+FrameGenerator -> PreProcessor: Analyse video \nframe by frame
 activate PreProcessor
 note over PreProcessor
     1. Resize image 
@@ -48,12 +57,14 @@ note over PostureEstimator
         correct posture
 end note
 
+PostureEstimator -> GUI : Display video feed \nwith overlaying \nrendering of user \nposture
+activate GUI
+
 user <- PostureEstimator : Notification if poor posture
 
-activate GUI
 note over GUI
-    Render user posture
-    using co-ordinates    
+    Allow interaction 
+    with system
 end note
 user <- GUI : GUI alert if poor posture
 

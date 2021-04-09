@@ -1,8 +1,4 @@
 /**
- * @file receiver.cpp
- * @brief Local server for receiving notifications from the Raspberry Pi. Only
- * runs on Linux
- *
  * @copyright Copyright (C) 2021  Conor Begley
  *
  *  This program is free software: you can redistribute it and/or modify

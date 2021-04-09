@@ -1,7 +1,4 @@
 /**
- * @file intermediate_structures.cpp
- * @brief Support functions for the intermediate structures
- *
  * @copyright Copyright (C) 2021  Andrew Ritchie
  *
  *  This program is free software: you can redistribute it and/or modify

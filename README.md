@@ -2,7 +2,7 @@
 <br />
 <p align="center">
 
-  <img src="docs/images/logo.svg" alt="Logo for PosturePerfection" width="250">
+  <img src="docs/images/logo.gif" alt="Logo for PosturePerfection" width="250">
 
   <h1 align="center">PosturePerfection</h1>
 
@@ -20,11 +20,15 @@
   </p>
 </p>
 
+<div align="center">
+
 ![Contributors](https://img.shields.io/github/contributors/ESE-Peasy/PosturePerfection.svg?style=for-the-badge)
 ![Forks](https://img.shields.io/github/forks/ESE-Peasy/PosturePerfection.svg?style=for-the-badge)
 ![Stargazers](https://img.shields.io/github/stars/ESE-Peasy/PosturePerfection.svg?style=for-the-badge)
 ![Issues](https://img.shields.io/github/issues/ESE-Peasy/PosturePerfection.svg?style=for-the-badge)
 ![GNU GPL-3.0 License](https://img.shields.io/github/license/ESE-Peasy/PosturePerfection.svg?style=for-the-badge)
+
+</div>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -60,11 +64,16 @@
 
 We are a group of 5th Year Electronics & Software Engineering students at the University of Glasgow, completing a project which provides you with real-time notifications when we detect you have adopted a poor seated posture which could be detrimental to your future health. Check out our [website](https://ese-peasy.github.io/PosturePerfection/) for more information!
 
+<div align="center">
+  <img src="docs/images/animation1.gif" alt="Animation of PosturePerfection" width="600">
+</div>
+
 ### Components Used
 
 - [TensorFlow Lite C++ API](https://www.tensorflow.org/lite/)
 - [OpenCV C++ API](https://opencv.org)
--
+- [QT C++ API](https://www.qt.io)
+- [CppTimer](https://github.com/berndporr/cppTimer)
 
 ### Built With
 
@@ -81,7 +90,7 @@ If you would like to download and run our project without any interest in develo
 
 ```sh
 wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PosturePerfection_install.sh
-sh PosturePerfection_X.X.X_xxx
+sh PosturePerfection_install.sh
 ```
 
 This script will provide you with more information about usage.
@@ -91,10 +100,9 @@ The installation currently only works on Linux machines. In particular, we test 
 - Intel x86 running Ubuntu 20.04 LTS
 - Raspberry Pi 4B running Raspberry Pi OS
 
-
 ## Getting Started
 
-To get PosturePerfection running by yourself you will need to follow these steps. 
+To get PosturePerfection running by yourself you will need to follow these steps.
 
 ### Prerequisites
 
