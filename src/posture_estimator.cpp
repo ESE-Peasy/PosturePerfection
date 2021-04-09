@@ -26,10 +26,9 @@
 
 #define BAD_POSTURE_TIME 10000                      ///< 10 seconds
 #define UNDEFINED_POSTURE_TIME 300000               ///< 5 minutes
-#define CANCEL_POSTURE_TIME 2000                      ///< 2 seconds
+#define STOP_TIMER_TIME 2000                        ///< 2 seconds
 #define BAD_POSTURE_NOTIFICATION_TIME 180000        ///< 3 minutes
 #define UNDEFINED_POSTURE_NOTIFICATION_TIME 600000  ///< 10 minutes
-
 
 namespace PostureEstimating {
 
@@ -67,14 +66,16 @@ PostureEstimator::PostureEstimator()
       badPostureNotificationTimer(BAD_POSTURE_NOTIFICATION_TIME),
       undefinedPostureNotificationTimer(UNDEFINED_POSTURE_NOTIFICATION_TIME),
       badPostureTimer(
-          std::vector<DelayTimer *>{&badPostureNotificationTimer}, &broadcaster,
+          std::vector<DelayTimer*>{&badPostureNotificationTimer}, &broadcaster,
           "You have an imperfect posture, consider readjusting to achieve "
           "posture perfection",
           BAD_POSTURE_TIME),
-      undefinedPostureTimer(std::vector<DelayTimer *>{&badPostureNotificationTimer,&undefinedPostureNotificationTimer}, &broadcaster,
-                            "Are you still there?", UNDEFINED_POSTURE_TIME),
-      cancelBadPostureTimer(&badPostureTimer, CANCEL_POSTURE_TIME),
-      cancelUndefinedPostureTimer(&badPostureTimer, CANCEL_POSTURE_TIME) {
+      undefinedPostureTimer(
+          std::vector<DelayTimer*>{&badPostureNotificationTimer,
+                                   &undefinedPostureNotificationTimer},
+          &broadcaster, "Are you still there?", UNDEFINED_POSTURE_TIME),
+      stopBadPostureTimer(&badPostureTimer, STOP_TIMER_TIME),
+      stopUndefinedPostureTimer(&badPostureTimer, STOP_TIMER_TIME) {
   this->pose_change_threshold = 0.1;
   this->ideal_pose = createPose();
   this->current_pose = createPose();
@@ -175,8 +176,8 @@ void PostureEstimator::checkPostureState() {
         this->current_pose.joints.at(i).coord.status ==
             PostProcessing::Trustworthy) {
       partiallyDefinedPosture = true;
-    } else if (this->current_pose.joints.at(i - 1).coord.status
-                    == PostProcessing::Untrustworthy) {
+    } else if (this->current_pose.joints.at(i - 1).coord.status ==
+               PostProcessing::Untrustworthy) {
       fullyDefinedPosture = false;
     }
   }
@@ -344,37 +345,37 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
   PostureEstimating::PostureState posture_state = pose_status.posture_state;
 
   cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
-  
+
   if (posture_state == Undefined) {
     if (!this->undefinedPostureTimer.running) {
       this->undefinedPostureTimer.countdown();
     }
-    if (this->cancelUndefinedPostureTimer.running) {
-      this->cancelUndefinedPostureTimer.stopCountdown();
+    if (this->stopUndefinedPostureTimer.running) {
+      this->stopUndefinedPostureTimer.stopCountdown();
     }
     if (this->undefinedPostureTimer.running) {
-        this->cancelUndefinedPostureTimer.countdown();
-      }
+      this->stopUndefinedPostureTimer.countdown();
+    }
   }
   if (posture_state == Bad) {
     if (!this->badPostureTimer.running) {
       this->badPostureTimer.countdown();
     }
-    if (this->cancelBadPostureTimer.running) {
-      this->cancelBadPostureTimer.stopCountdown();
-    
-    if (this->undefinedPostureTimer.running) {
-        this->cancelUndefinedPostureTimer.countdown();
+    if (this->stopBadPostureTimer.running) {
+      this->stopBadPostureTimer.stopCountdown();
+
+      if (this->undefinedPostureTimer.running) {
+        this->stopUndefinedPostureTimer.countdown();
       }
     }
     display_pose_changes_needed(pose_changes, current_pose, current_frame);
   } else {
     if (posture_state == Good) {
       if (this->badPostureTimer.running) {
-        this->cancelBadPostureTimer.countdown();
+        this->stopBadPostureTimer.countdown();
       }
       if (this->undefinedPostureTimer.running) {
-        this->cancelUndefinedPostureTimer.countdown();
+        this->stopUndefinedPostureTimer.countdown();
       }
     }
     display_current_pose(current_pose, current_frame, posture_state);
@@ -383,34 +384,32 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
 
 DelayTimer::DelayTimer(size_t time) : CppTimer() { this->time = time; }
 DelayTimer::~DelayTimer() {}
-void DelayTimer::timerEvent() {
-  this->running = false;
-}
+void DelayTimer::timerEvent() { this->running = false; }
 
 void DelayTimer::countdown() {
   this->running = true;
   this->startms(this->time, ONESHOT);
 }
-cancelTimer::cancelTimer(MessageTimer* toCancel, size_t time) : CppTimer() {
-  this->toCancel = toCancel;
+StopTimer::StopTimer(MessageTimer* toStop, size_t time) : CppTimer() {
+  this->toStop = toStop;
   this->time = time;
 }
-cancelTimer::~cancelTimer() {}
-void cancelTimer::countdown() {
+StopTimer::~StopTimer() {}
+void StopTimer::countdown() {
   if (!this->running) {
     this->running = true;
     this->startms(this->time, ONESHOT);
   }
 }
-void cancelTimer::stopCountdown() {
+void StopTimer::stopCountdown() {
   if (this->running) {
     this->running = false;
     this->stop();
   }
 }
-void cancelTimer::timerEvent() {
+void StopTimer::timerEvent() {
   this->running = false;
-  this->toCancel->stopCountdown();
+  this->toStop->stopCountdown();
 }
 
 MessageTimer::MessageTimer(std::vector<DelayTimer*> timers,
