@@ -30,7 +30,7 @@ if [ ! -d "cppTimer_src" ]; then
   cmake .
   make
   sudo make install
-  cd..
+  cd ..
 else
   printf " skipped\n"
 fi
