@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['openaboutpage_407',['openAboutPage',['../classGUI_1_1MainWindow.html#aa081366c0616dbf396a62693e1d2f61c',1,'GUI::MainWindow']]],
-  ['openmainpage_408',['openMainPage',['../classGUI_1_1MainWindow.html#a22e0f3bef777a82875e3254ef8ea1f5c',1,'GUI::MainWindow']]],
-  ['opensettingspage_409',['openSettingsPage',['../classGUI_1_1MainWindow.html#a640ada4d071f7ed3229c93bd6b0d5e05',1,'GUI::MainWindow']]]
+  ['openaboutpage_405',['openAboutPage',['../classGUI_1_1MainWindow.html#aa081366c0616dbf396a62693e1d2f61c',1,'GUI::MainWindow']]],
+  ['openmainpage_406',['openMainPage',['../classGUI_1_1MainWindow.html#a22e0f3bef777a82875e3254ef8ea1f5c',1,'GUI::MainWindow']]],
+  ['opensettingspage_407',['openSettingsPage',['../classGUI_1_1MainWindow.html#a640ada4d071f7ed3229c93bd6b0d5e05',1,'GUI::MainWindow']]]
 ];

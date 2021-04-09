@@ -81,24 +81,32 @@ $(function() {
 <h1><a class="anchor" id="breakdown"></a>
 Project Breakdown</h1>
 <p>The project is separated into three main sections, each with a unique function.</p>
-<blockquote class="doxtable">
-<p>1. The <a class="el" href="namespacePipeline.html" title="Components of the pipeline at the core of the system.">Pipeline</a> is responsible for performing pose estimation to detect the user's posture and identify when it has worsened as well as the adjustments required to guide the user into a better posture.<br  />
-</p><ol type="1">
-<li>The <a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a> is responsible for displaying these results and posture adjustment suggestions to the user, as well as allowing various configuration options to be set.<br  />
-</li>
-<li>The <a class="el" href="namespaceNotify.html">Notification System</a> allows an alert to be sent to a separate device which the user is using. </li>
+<ol type="1">
+<li>The <a class="el" href="namespacePipeline.html" title="Components of the pipeline at the core of the system.">Pipeline</a> is responsible for performing pose estimation to detect the user's posture and identify when it has worsened as well as the adjustments required to guide the user into a better posture.</li>
+<li>The <a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a> is responsible for displaying these results and posture adjustment suggestions to the user, as well as allowing various configuration options to be set.</li>
+<li>The <a class="el" href="namespaceNotify.html">Notification System</a> allows an alert to be sent to a separate device which the user is using.</li>
 </ol>
-</blockquote>
 <h2><a class="anchor" id="pipeline"></a>
 Pipeline</h2>
 <p>The system is broken down into various stages to allow us to make use of multithreading such that when one stage is processing one frame, another can simultaneously operate on an entirely different frame. In this way, a pipeline is created, with ordering only essential during the <a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a> stage which applies <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filtering to smoothen the output.</p>
 <p>The <em><a class="el" href="namespacePipeline.html" title="Components of the pipeline at the core of the system.">Pipeline</a></em> at the core of the system is configurable to run with a various number of threads. Initial testing indicated optimal performance at 8 threads, and so this is currently in use within the pipeline. The pipeline consists of the following key stages:</p>
 <ul>
+<li><a class="el" href="classPipeline_1_1FrameGenerator.html">FrameGenerator</a></li>
 <li><a class="el" href="classPreProcessing_1_1PreProcessor.html">PreProcessor</a></li>
 <li><a class="el" href="classInference_1_1InferenceCore.html">InferenceCore</a></li>
 <li><a class="el" href="classPostProcessing_1_1PostProcessor.html">PostProcessor</a></li>
 <li><a class="el" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimator</a></li>
 </ul>
+<p>The <a class="el" href="classPipeline_1_1FrameGenerator.html">FrameGenerator</a> runs in a single thread, ensuring that frames are continually captured from the OpenCV camera input at regular intervals defined by the user set frame rate. A timer is used to capture the frames used at regular intervals, making use of the <code>CppTimer</code> wrapper developed <a href="https://github.com/berndporr/cppTimer">here</a>.</p>
+<p>The <a class="el" href="classPreProcessing_1_1PreProcessor.html">PreProcessor</a> and <a class="el" href="classInference_1_1InferenceCore.html">InferenceCore</a> run in a single thread, of which 8 are run simulataneously by default. When one of these threads is ready, the latest frame captured from the <a class="el" href="classPipeline_1_1FrameGenerator.html">FrameGenerator</a> is passed through these two stages. By making use of this threading approach, a more performant system is achieved than if threading was not used.</p>
+<p>The <a class="el" href="classPostProcessing_1_1PostProcessor.html">PostProcessor</a> and <a class="el" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimator</a> run in another thread. Ordering is essential for <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filtering, and therefore throughout these different stages a unique ID is incremented and passed with each frame. Upon reaching the <a class="el" href="classPostProcessing_1_1PostProcessor.html">PostProcessor</a> stage, <a class="el" href="namespaceIIR.html" title="Perform IIR filtering to smoothen the output results.">IIR</a> filtering is applied using the frames in order, before running posture estimation. Finally, using the results of posture estimation, a rendering of the user's posture is overlayed on the image itself. Note that for the scope of this project, a decision was made to use only the upper body joints of the user's posture as these are the most likely to be visible when the user places their camera side on and are the joints which contribute most significantly to a user's posture. However, extension to use the lower body joints is straightforward should this be desired in the future.</p>
+<ul>
+<li>If an "Ideal Posture" has not been set, then the posture is shown using blue lines, and the <code><a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a></code> indicates to the user that they have not yet initialised an "Ideal Posture".</li>
+<li>If two connected joints of the user's current posture remain within a user configurable threshold of the set "Ideal Posture" then this segment is shown as a green line. If <b>all</b> joints are within this threshold then all lines will be green and the user will be notified that they have achieved "PosturePerfection".</li>
+<li>If two connected joints of the user's current posture are outwith this threshold, then a red line is drawn for this segment, and a blue arrow indicates the direction this section of the user's body must move in order to return to their "Ideal Posture".</li>
+<li>Finally, if pose estimation fails on a given frame and no joints are detected with a confidence higher than a user configurable threshold, then no arrows are overlayed on the image and the user is notified that they their current posture is "Undefined". This is likely to occur when the user is no longer visible in the image captured by the video feed.</li>
+</ul>
+<p>The image and the resulting <a class="el" href="structPostureEstimating_1_1PoseStatus.html">PoseStatus</a> are then passed to the Graphical User Interface.</p>
 <h2><a class="anchor" id="gui"></a>
 Graphical User Interface</h2>
 <p>The <em><a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a></em> is responsible for user interaction and displaying a live feed of the user's posture. Processing itself is completed within the <a class="el" href="namespacePipeline.html" title="Components of the pipeline at the core of the system.">Pipeline</a>, with the <code><a class="el" href="classPostureEstimating_1_1PostureEstimator.html" title="This class handles representations of the user&#39;s pose and calculates any updates to their pose that i...">PostureEstimating::PostureEstimator</a></code> responsible for continually passing a <code>PoseStatus</code> to the <a class="el" href="namespaceGUI.html" title="All code related to the graphical user interface for PosturePerfection.">GUI</a> indicating if a good posture is currently being adopted, and any computed changes which would improve the user's posture.</p>
@@ -109,14 +117,15 @@ Graphical User Interface</h2>
 Notification System</h2>
 <p>A <em><a class="el" href="namespaceNotify.html">Notification System</a></em> has been developed to allow an alert to be sent to a separate device when then system detects a poor posture. In this way, although the PosturePerfection system will be placed at the side of the user to analyse their posture profile, an alert can be sent to their laptop device which they are working on so that they are immediately notified of their poor posture.</p>
 <ul>
-<li>NotifyClient</li>
-<li>NotifyServer</li>
+<li><a class="el" href="classNotify_1_1NotifyBroadcast.html">NotifyBroadcast</a></li>
+<li><a class="el" href="classNotify_1_1NotifyReceiver.html">NotifyReceiver</a></li>
 </ul>
 <h1><a class="anchor" id="additional_resources"></a>
 Additional Resources</h1>
 <ul>
 <li><a href="http://github.com/ESE-Peasy/PosturePerfection">GitHub Repository</a></li>
-<li><a href="../">GitHub Pages</a> </li>
+<li><a href="../">GitHub Pages</a></li>
+<li><a href="https://hackaday.io/project/178429-postureperfection">Hackaday.io</a> </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

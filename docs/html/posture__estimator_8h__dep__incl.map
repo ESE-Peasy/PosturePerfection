@@ -1,12 +1,11 @@
 <map id="posture_estimator.h" name="posture_estimator.h">
-<area shape="rect" id="node1" title="Interface for representation of user&#39;s pose." alt="" coords="330,5,466,32"/>
-<area shape="rect" id="node2" href="$mainwindow_8cpp.html" title="Main user interface file." alt="" coords="5,229,124,256"/>
-<area shape="rect" id="node3" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="257,155,361,181"/>
-<area shape="rect" id="node6" href="$main_8cpp.html" title=" " alt="" coords="411,229,486,256"/>
-<area shape="rect" id="node7" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="436,80,512,107"/>
-<area shape="rect" id="node10" href="$posture__estimator_8cpp.html" title=" " alt="" coords="536,80,687,107"/>
+<area shape="rect" id="node1" title="Interface for representation of user&#39;s pose." alt="" coords="235,5,371,32"/>
+<area shape="rect" id="node2" href="$mainwindow_8cpp.html" title=" " alt="" coords="5,229,124,256"/>
+<area shape="rect" id="node3" href="$mainwindow_8h.html" title="Header file for the main window." alt="" coords="162,155,266,181"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="313,229,387,256"/>
+<area shape="rect" id="node6" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="341,80,417,107"/>
+<area shape="rect" id="node9" href="$posture__estimator_8cpp.html" title=" " alt="" coords="441,80,592,107"/>
 <area shape="rect" id="node4" href="$custom__widgets_8cpp.html" title=" " alt="" coords="147,229,289,256"/>
-<area shape="rect" id="node5" href="$gui_2main_8cpp.html" title="Main file for the user interface." alt="" coords="313,229,387,256"/>
-<area shape="rect" id="node8" href="$framerate__settings_8cpp.html" title=" " alt="" coords="486,155,641,181"/>
-<area shape="rect" id="node9" href="$pipeline_8cpp.html" title=" " alt="" coords="665,155,755,181"/>
+<area shape="rect" id="node7" href="$framerate__settings_8cpp.html" title=" " alt="" coords="391,155,546,181"/>
+<area shape="rect" id="node8" href="$pipeline_8cpp.html" title=" " alt="" coords="570,155,661,181"/>
 </map>

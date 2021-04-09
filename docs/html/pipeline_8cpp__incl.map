@@ -25,9 +25,9 @@
 <area shape="rect" id="node16" title=" " alt="" coords="1170,453,1221,480"/>
 <area shape="rect" id="node19" title=" " alt="" coords="1447,379,1589,405"/>
 <area shape="rect" id="node24" title=" " alt="" coords="92,453,152,480"/>
-<area shape="rect" id="node25" href="$broadcaster_8h.html" title=" " alt="" coords="451,304,625,331"/>
+<area shape="rect" id="node25" href="$broadcaster_8h.html" title="Broadcaster for sending notifications to Notify::NotifyReceiver" alt="" coords="451,304,625,331"/>
 <area shape="rect" id="node34" title=" " alt="" coords="700,304,845,331"/>
-<area shape="rect" id="node26" href="$notify_8h.html" title="Shared functions between server.h and client.h runs on Linux." alt="" coords="452,379,515,405"/>
+<area shape="rect" id="node26" href="$notify_8h.html" title="Shared functions between server.h and client.h. Only runs on Linux." alt="" coords="452,379,515,405"/>
 <area shape="rect" id="node27" title=" " alt="" coords="678,453,761,480"/>
 <area shape="rect" id="node28" title=" " alt="" coords="785,453,846,480"/>
 <area shape="rect" id="node29" title=" " alt="" coords="177,453,262,480"/>

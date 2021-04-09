@@ -83,7 +83,7 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The representation of a human's pose, containing all the expected <code><a class="el" href="structPostureEstimating_1_1ConnectedJoint.html" title="A representation of a body part.">ConnectedJoint</a></code>  <a href="structPostureEstimating_1_1Pose.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PoseStatus</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">representation of user's pose for use by the pipeline processing  <a href="structPostureEstimating_1_1PoseStatus.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Representation of user's pose for use by the pipeline processing.  <a href="structPostureEstimating_1_1PoseStatus.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1DelayTimer.html">DelayTimer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple timer which just has the running flag set when running and unset when not running.  <a href="classPostureEstimating_1_1DelayTimer.html#details">More...</a><br /></td></tr>
@@ -109,7 +109,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a869ebd6fd94cca07bd734d21cf5e8518">UndefinedAndUnset</a>
 <br />
  }</td></tr>
-<tr class="memdesc:acf4e5c7cbd64c2af4771482608797149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Potential states which the posture can be. <code>Unset</code> means that the <code>ideal_pose</code> has not been set by the user.  <a href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">More...</a><br /></td></tr>
+<tr class="memdesc:acf4e5c7cbd64c2af4771482608797149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Potential states which the posture can be. <code>Unset</code> means that the <code>ideal_pose</code> has not been set by the user. <code>Undefined</code> means that pose estimation has failed to confidently identify a full posture.  <a href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">More...</a><br /></td></tr>
 <tr class="separator:acf4e5c7cbd64c2af4771482608797149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a274270b008bcf4805b1cba5a6cfde8fa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8fa">Colours</a> { <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa43b4ba4213c435f8372c3b230f5484ef">Red</a>
 , <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa7639562a8d170b76daf4d4f9e6f2b240">Green</a>
@@ -165,7 +165,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Potential states which the posture can be. <code>Unset</code> means that the <code>ideal_pose</code> has not been set by the user. </p>
+<p>Potential states which the posture can be. <code>Unset</code> means that the <code>ideal_pose</code> has not been set by the user. <code>Undefined</code> means that pose estimation has failed to confidently identify a full posture. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acf4e5c7cbd64c2af4771482608797149a6d1285da9800c3586139b758c7941155"></a>Good&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acf4e5c7cbd64c2af4771482608797149a7052577463df1f7d8661179121b02823"></a>Bad&#160;</td><td class="fielddoc"></td></tr>

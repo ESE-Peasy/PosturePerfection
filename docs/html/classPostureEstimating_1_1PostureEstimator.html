@@ -97,7 +97,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae067ecb8f608b149771b95927e904818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a <code><a class="el" href="classPostureEstimating_1_1PostureEstimator.html" title="This class handles representations of the user&#39;s pose and calculates any updates to their pose that i...">PostureEstimator</a></code> object.  <a href="classPostureEstimating_1_1PostureEstimator.html#ae067ecb8f608b149771b95927e904818">More...</a><br /></td></tr>
 <tr class="separator:ae067ecb8f608b149771b95927e904818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad032960ec600840bf538ad88366a12cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd">update_ideal_pose</a> (<a class="el" href="structPostureEstimating_1_1Pose.html">PostureEstimating::Pose</a> pose)</td></tr>
-<tr class="memdesc:ad032960ec600840bf538ad88366a12cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the user's ideal pose using the results of <code><a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a></code>  <a href="classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd">More...</a><br /></td></tr>
+<tr class="memdesc:ad032960ec600840bf538ad88366a12cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrate the user's <code>ideal_pose</code> with a <code>pose</code> object. The <code>ideal_pose</code> is only updated if the <code>posture_state</code> is not <code>Undefined</code>.  <a href="classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd">More...</a><br /></td></tr>
 <tr class="separator:ad032960ec600840bf538ad88366a12cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed3521cea863bcf7c5ffdfbe9631dd20"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#aed3521cea863bcf7c5ffdfbe9631dd20">set_pose_change_threshold</a> (float threshold)</td></tr>
 <tr class="memdesc:aed3521cea863bcf7c5ffdfbe9631dd20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the <code>pose_change_threshold</code> to allow user configuration. Note that this threshold is in radians and we set a maximum configurable value of 0.5 radians (28.64 degrees)  <a href="classPostureEstimating_1_1PostureEstimator.html#aed3521cea863bcf7c5ffdfbe9631dd20">More...</a><br /></td></tr>
@@ -106,10 +106,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a83a0b435d57bd8d98397d9cc3af79c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the currently set <code>pose_change_threshold</code>. Note that this threshold is in radians and we set a maximum configurable value of 0.5 radians (28.64 degrees)  <a href="classPostureEstimating_1_1PostureEstimator.html#a83a0b435d57bd8d98397d9cc3af79c91">More...</a><br /></td></tr>
 <tr class="separator:a83a0b435d57bd8d98397d9cc3af79c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PoseStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">runEstimator</a> (<a class="el" href="structPostProcessing_1_1ProcessedResults.html">PostProcessing::ProcessedResults</a> results)</td></tr>
-<tr class="memdesc:ac6f12c5c80b96860c57a989c92b28d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PoseStatus</a></code> of the user's pose.  <a href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">More...</a><br /></td></tr>
+<tr class="memdesc:ac6f12c5c80b96860c57a989c92b28d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="Representation of user&#39;s pose for use by the pipeline processing.">PoseStatus</a></code> of the user's pose.  <a href="classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b">More...</a><br /></td></tr>
 <tr class="separator:ac6f12c5c80b96860c57a989c92b28d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2fd71e2deae3d3b90260faf89a7c3a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html#ad2fd71e2deae3d3b90260faf89a7c3a0">analysePosture</a> (<a class="el" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a> pose_status, cv::Mat current_frame)</td></tr>
-<tr class="memdesc:ad2fd71e2deae3d3b90260faf89a7c3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse the <code>posture_state</code> field of <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> and use it as follows:  <a href="classPostureEstimating_1_1PostureEstimator.html#ad2fd71e2deae3d3b90260faf89a7c3a0">More...</a><br /></td></tr>
+<tr class="memdesc:ad2fd71e2deae3d3b90260faf89a7c3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analyse the <code>posture_state</code> field of <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="Representation of user&#39;s pose for use by the pipeline processing.">PostureEstimating::PoseStatus</a></code> and use it as follows:  <a href="classPostureEstimating_1_1PostureEstimator.html#ad2fd71e2deae3d3b90260faf89a7c3a0">More...</a><br /></td></tr>
 <tr class="separator:ad2fd71e2deae3d3b90260faf89a7c3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -134,9 +134,9 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>This class handles representations of the user's pose and calculates any updates to their pose that is required. </p>
 <p>It stores representations of the users current pose and their calibrated ideal pose, from the <code>PostProcessing::ProcessedResult</code>.</p>
 <p>This class handles:</p><ul>
-<li>Updating current user's pose or ideal user's pose.</li>
+<li>Updating the user's <code>current_pose</code> and user's <code>ideal_pose</code></li>
 <li>Calculating the angle between <code><a class="el" href="structPostureEstimating_1_1ConnectedJoint.html" title="A representation of a body part.">ConnectedJoint</a></code></li>
-<li>Comparing the current user's pose and ideal user's pose.</li>
+<li>Comparing the user's <code>current_pose</code> and user's <code>ideal_pose</code>.</li>
 </ul>
 <p>General use should just consist of <code>runEstimator</code>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -205,16 +205,16 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Analyse the <code>posture_state</code> field of <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> and use it as follows: </p>
+<p>Analyse the <code>posture_state</code> field of <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="Representation of user&#39;s pose for use by the pipeline processing.">PostureEstimating::PoseStatus</a></code> and use it as follows: </p>
 <ul>
 <li>If <code>Unset</code> then indicate this to user by displaying the current pose as blue lines.</li>
-</ul>
-<p>If <code>Good</code> then display current pose as green lines.</p><ul>
+<li>If <code>Undefined</code> then display any <code>Trustworthy</code> segments as grey lines.</li>
+<li>If <code>Good</code> then display current pose as green lines.</li>
 <li>If <code>Bad</code> then use <code>pose_change_threshold</code> and <code>pose_changes</code> to indicate which direction the user needs to move in order to return to a good posture.</li>
 </ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pose_status</td><td><code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> The pose status for the current frame </td></tr>
+    <tr><td class="paramname">pose_status</td><td><code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="Representation of user&#39;s pose for use by the pipeline processing.">PostureEstimating::PoseStatus</a></code> The pose status for the current frame </td></tr>
     <tr><td class="paramname">current_frame</td><td><code>cv::Mat</code> The current frame to overlay lines on to </td></tr>
   </table>
   </dd>
@@ -259,7 +259,7 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PoseStatus</a></code> of the user's pose. </p>
+<p>Return a <code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="Representation of user&#39;s pose for use by the pipeline processing.">PoseStatus</a></code> of the user's pose. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">results</td><td><code><a class="el" href="structPostProcessing_1_1ProcessedResults.html" title="The PostProcessing::Coordinate of each body part.">PostProcessing::ProcessedResults</a></code> struct containing user's pose data. </td></tr>
@@ -314,10 +314,10 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calibrate the user's ideal pose using the results of <code><a class="el" href="namespacePostProcessing.html" title="Smoothen the results of inference and average body parts since the system assumes a side-on profile.">PostProcessing</a></code> </p>
+<p>Calibrate the user's <code>ideal_pose</code> with a <code>pose</code> object. The <code>ideal_pose</code> is only updated if the <code>posture_state</code> is not <code>Undefined</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">results</td><td><code><a class="el" href="structPostureEstimating_1_1PoseStatus.html" title="representation of user&#39;s pose for use by the pipeline processing">PostureEstimating::PoseStatus</a></code> struct containing user's pose data. </td></tr>
+    <tr><td class="paramname">results</td><td><code><a class="el" href="structPostureEstimating_1_1Pose.html" title="The representation of a human&#39;s pose, containing all the expected ConnectedJoint">PostureEstimating::Pose</a></code> struct containing user's pose data. </td></tr>
   </table>
   </dd>
 </dl>

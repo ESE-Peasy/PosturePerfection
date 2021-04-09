@@ -1,4 +1,4 @@
 <map id="Pipeline::FrameGenerator" name="Pipeline::FrameGenerator">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,173,107"/>
+<area shape="rect" id="node1" title="Class to maintain access to the cv::VideoCapture used as the input video stream. This class makes use..." alt="" coords="5,80,173,107"/>
 <area shape="rect" id="node2" title=" " alt="" coords="50,5,129,32"/>
 </map>

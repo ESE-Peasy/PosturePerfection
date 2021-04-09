@@ -73,13 +73,16 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Class to maintain access to the <code>cv::VideoCapture</code> used as the input video stream. This class makes use of the <code>CppTimer</code> wrapper created <a href="https://github.com/berndporr/cppTimer">here</a> to regularly capture input frames at the set frame rate.  
+ <a href="classPipeline_1_1FrameGenerator.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="pipeline_8h_source.html">pipeline.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Pipeline::FrameGenerator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPipeline_1_1FrameGenerator__inherit__graph.png" border="0" usemap="#aPipeline_1_1FrameGenerator_inherit__map" alt="Inheritance graph"/></div>
 <map name="aPipeline_1_1FrameGenerator_inherit__map" id="aPipeline_1_1FrameGenerator_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,173,107"/>
+<area shape="rect" title="Class to maintain access to the cv::VideoCapture used as the input video stream. This class makes use..." alt="" coords="5,80,173,107"/>
 <area shape="rect" title=" " alt="" coords="50,5,129,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -88,7 +91,7 @@ Collaboration diagram for Pipeline::FrameGenerator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classPipeline_1_1FrameGenerator__coll__graph.png" border="0" usemap="#aPipeline_1_1FrameGenerator_coll__map" alt="Collaboration graph"/></div>
 <map name="aPipeline_1_1FrameGenerator_coll__map" id="aPipeline_1_1FrameGenerator_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,173,107"/>
+<area shape="rect" title="Class to maintain access to the cv::VideoCapture used as the input video stream. This class makes use..." alt="" coords="5,80,173,107"/>
 <area shape="rect" title=" " alt="" coords="50,5,129,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -102,13 +105,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abc4d457c8317f8f3b59b0fe69f4f363e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Frame Generator object.  <a href="classPipeline_1_1FrameGenerator.html#abc4d457c8317f8f3b59b0fe69f4f363e">More...</a><br /></td></tr>
 <tr class="separator:abc4d457c8317f8f3b59b0fe69f4f363e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5a97d26aeb0bbd49bbe7f451690e5ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1FrameGenerator.html#af5a97d26aeb0bbd49bbe7f451690e5ac">updated_framerate</a> (size_t new_frame_delay)</td></tr>
-<tr class="memdesc:af5a97d26aeb0bbd49bbe7f451690e5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceNotify.html" title="Responsible for enabling the sending of notifications from the Raspberry Pi to a secondary device.">Notify</a> the <code><a class="el" href="classPipeline_1_1FrameGenerator.html">FrameGenerator</a></code> that the frame rate has changed.  <a href="classPipeline_1_1FrameGenerator.html#af5a97d26aeb0bbd49bbe7f451690e5ac">More...</a><br /></td></tr>
+<tr class="memdesc:af5a97d26aeb0bbd49bbe7f451690e5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceNotify.html" title="Responsible for enabling the sending of notifications from the Raspberry Pi to a secondary device.">Notify</a> the <code><a class="el" href="classPipeline_1_1FrameGenerator.html" title="Class to maintain access to the cv::VideoCapture used as the input video stream. This class makes use...">FrameGenerator</a></code> that the frame rate has changed.  <a href="classPipeline_1_1FrameGenerator.html#af5a97d26aeb0bbd49bbe7f451690e5ac">More...</a><br /></td></tr>
 <tr class="separator:af5a97d26aeb0bbd49bbe7f451690e5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83e73483b2cadbfe02e4804814c0b643"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPipeline_1_1RawFrame.html">RawFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPipeline_1_1FrameGenerator.html#a83e73483b2cadbfe02e4804814c0b643">next_frame</a> (void)</td></tr>
 <tr class="memdesc:a83e73483b2cadbfe02e4804814c0b643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the newest frame.  <a href="classPipeline_1_1FrameGenerator.html#a83e73483b2cadbfe02e4804814c0b643">More...</a><br /></td></tr>
 <tr class="separator:a83e73483b2cadbfe02e4804814c0b643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class to maintain access to the <code>cv::VideoCapture</code> used as the input video stream. This class makes use of the <code>CppTimer</code> wrapper created <a href="https://github.com/berndporr/cppTimer">here</a> to regularly capture input frames at the set frame rate. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4fde9abfff1701f1256fafa68fabd2f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4fde9abfff1701f1256fafa68fabd2f0">&#9670;&nbsp;</a></span>FrameGenerator()</h2>
 
@@ -193,7 +198,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="namespaceNotify.html" title="Responsible for enabling the sending of notifications from the Raspberry Pi to a secondary device.">Notify</a> the <code><a class="el" href="classPipeline_1_1FrameGenerator.html">FrameGenerator</a></code> that the frame rate has changed. </p>
+<p><a class="el" href="namespaceNotify.html" title="Responsible for enabling the sending of notifications from the Raspberry Pi to a secondary device.">Notify</a> the <code><a class="el" href="classPipeline_1_1FrameGenerator.html" title="Class to maintain access to the cv::VideoCapture used as the input video stream. This class makes use...">FrameGenerator</a></code> that the frame rate has changed. </p>
 <p>The underlying timer is stopped and restarted with the new frame delay</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

@@ -10,6 +10,5 @@ var searchData=
   ['green_75',['Green',['../namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa7639562a8d170b76daf4d4f9e6f2b240',1,'PostureEstimating']]],
   ['grey_76',['Grey',['../namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faad5ba5334ec209a773fac20ac0652c375',1,'PostureEstimating']]],
   ['gui_77',['GUI',['../namespaceGUI.html',1,'']]],
-  ['guidance_2emd_78',['guidance.md',['../guidance_8md.html',1,'']]],
-  ['main_2ecpp_79',['main.cpp',['../gui_2main_8cpp.html',1,'']]]
+  ['guidance_2emd_78',['guidance.md',['../guidance_8md.html',1,'']]]
 ];

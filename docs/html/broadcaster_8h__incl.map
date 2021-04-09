@@ -1,7 +1,7 @@
 <map id="broadcaster.h" name="broadcaster.h">
-<area shape="rect" id="node1" title=" " alt="" coords="175,5,275,32"/>
+<area shape="rect" id="node1" title="Broadcaster for sending notifications to Notify::NotifyReceiver" alt="" coords="175,5,275,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,155,60,181"/>
-<area shape="rect" id="node3" href="$notify_8h.html" title="Shared functions between server.h and client.h runs on Linux." alt="" coords="385,80,448,107"/>
+<area shape="rect" id="node3" href="$notify_8h.html" title="Shared functions between server.h and client.h. Only runs on Linux." alt="" coords="385,80,448,107"/>
 <area shape="rect" id="node4" title=" " alt="" coords="85,155,167,181"/>
 <area shape="rect" id="node5" title=" " alt="" coords="191,155,253,181"/>
 <area shape="rect" id="node6" title=" " alt="" coords="277,155,362,181"/>

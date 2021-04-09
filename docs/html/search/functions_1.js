@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['buffer_365',['Buffer',['../classBuffer_1_1Buffer.html#ab092205b64035a79ae498aa38f197442',1,'Buffer::Buffer']]],
-  ['button_366',['Button',['../classGUI_1_1Button.html#ace80fde34b0edf411a5e434a506da7b0',1,'GUI::Button::Button(const QString &amp;title, QWidget *parent=0)'],['../classGUI_1_1Button.html#a4850cde3517bd8c7a89da2fe187a03f3',1,'GUI::Button::Button(const QString &amp;title, const QString &amp;subtitle, QWidget *parent=0)']]]
+  ['buffer_363',['Buffer',['../classBuffer_1_1Buffer.html#ab092205b64035a79ae498aa38f197442',1,'Buffer::Buffer']]],
+  ['button_364',['Button',['../classGUI_1_1Button.html#ace80fde34b0edf411a5e434a506da7b0',1,'GUI::Button::Button(const QString &amp;title, QWidget *parent=0)'],['../classGUI_1_1Button.html#a4850cde3517bd8c7a89da2fe187a03f3',1,'GUI::Button::Button(const QString &amp;title, const QString &amp;subtitle, QWidget *parent=0)']]]
 ];
