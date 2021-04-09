@@ -35,3 +35,11 @@ object InferenceResults {
     Coordinate left_ankle
 }
 @enduml
+
+@startuml(id=CoreResults)
+object CoreResults {
+    uint8_t id
+    cv::Mat raw_image
+    InferenceResults image_results    
+}
+@enduml 

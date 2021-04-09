@@ -6,17 +6,18 @@ class PostureEstimator {
    +Pose ideal_pose
    +Pose pose_changes
    +float pose_change_threshold
-   +bool good_pose   
+   +bool good_posture   
    -float getLineAngle(PostProcessing::Coordinate coord1, PostProcessing::Coordinate coord2)
-   -Pose createPose(PostProcessing::ProcessedResults results)
+   -Pose createPoseFromResult(PostProcessing::ProcessedResults results)
    -void update_current_pose(ProcessedResults results)
    -Pose calculatePoseChanges()
-   -bool checkPostureState()
+   -bool checkGoodPosture()
    -bool calculateChangesAndCheckPosture()
 
    +PostureEstimator()
-   +void update_ideal_pose(PostProcessing::ProcessedResults results)
-   +bool updateCurrentPoseAndCheck(PostProcessing::ProcessedResults results)
+   +PoseStatus runEstimator(PostProcessing::ProcessedResults results)
+   +void update_ideal_pose(PostureEstimating::Pose pose)
+   +bool updateCurrentPoseAndCheckPosture(PostProcessing::ProcessedResults results)
 }
 @enduml
 
@@ -35,10 +36,17 @@ enum Joint {
 object ConnectedJoint{
     Joint joint
     PostProcessing::Coordinate coord
-    ConnectedJoint * upper_connected_joint
     float upper_angle
-    ConnectedJoint * lower_connected_joint
     float lower_angle
+}
+@enduml
+
+@startuml(id=PoseStatus)
+object PoseStatus{
+    Pose ideal_pose
+    Pose current_pose
+    Pose pose_changes
+    bool good_posture
 }
 @enduml
 

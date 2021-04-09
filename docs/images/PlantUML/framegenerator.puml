@@ -1,0 +1,19 @@
+' File: framegenerator.puml
+
+@startuml(id=FrameGenerator)
+class FrameGenerator {
+   -cv::VideoCapture cap input_image_width
+   -uint8_t id
+   -cv::Mat current_frame
+
+   +FrameGenerator(size_t* frame_delay)
+   +RawFrame next_frame(void)
+}
+@enduml
+
+@startuml(id=RawFrame)
+object RawFrame {
+   uint8_t id
+   cv::Mat raw_image
+}
+@enduml

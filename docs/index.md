@@ -4,7 +4,7 @@ title: Welcome!
 ---
 
 <div align="center"> 
-  <img src="images/logo.svg" alt="Logo for PosturePerfection" width="300">
+  <img src="images/logo.gif" alt="Logo for PosturePerfection" width="300">
   <h1 class="fw-300">Welcome to Posture Perfection!</h1>
   <hr/>
 </div>

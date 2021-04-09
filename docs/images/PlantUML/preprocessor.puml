@@ -21,3 +21,11 @@ object PreProcessedImage {
    float* image
 }
 @enduml
+
+@startuml(id=PreProcessedFrame)
+object PreProcessedFrame {
+   uint8_t id
+   cv::Mat raw_image
+   PreProcessedImage preprocessed_image
+}
+@enduml

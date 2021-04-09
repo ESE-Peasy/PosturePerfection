@@ -5,27 +5,38 @@ skinparam titleFontStyle bold
 
 title Posture Perfection System
 
+!include framegenerator.puml!FrameGenerator
+!include framegenerator.puml!RawFrame
+
+FrameGenerator -- RawFrame
+
 !include preprocessor.puml!PreProcessor
 !include preprocessor.puml!PreProcessedImage
+!include preprocessor.puml!PreProcessedFrame
+
+FrameGenerator -> PreProcessor: RawFrame
 
 PreProcessor -- PreProcessedImage
+PreProcessor -- PreProcessedFrame
 
 !include inferencecore.puml!InferenceCore
 
-PreProcessor -> InferenceCore : PreProcessedImage
+PreProcessor -> InferenceCore : PreProcessedFrame
 
 !include inferencecore.puml!Coordinate
 !include inferencecore.puml!InferenceResults
+!include inferencecore.puml!CoreResults
 
 InferenceCore -- Coordinate
 InferenceCore -- InferenceResults
+InferenceCore -- CoreResults
 
 !include postprocessor.puml!PostProcessor
 !include postprocessor.puml!Status
 !include postprocessor.puml!SmoothingSettings
 !include postprocessor.puml!ProcessedResults
 
-InferenceCore -> PostProcessor : InferenceResults
+InferenceCore -> PostProcessor : CoreResults
 
 PostProcessor -- Status
 PostProcessor -- SmoothingSettings
@@ -35,13 +46,15 @@ PostProcessor -- ProcessedResults
 !include postureestimator.puml!Joint
 !include postureestimator.puml!ConnectedJoint
 !include postureestimator.puml!Pose
+!include postureestimator.puml!PoseStatus
 
 PostProcessor -> PostureEstimator : ProcessedResults
 
 PostureEstimator -- Joint
 PostureEstimator -- ConnectedJoint
 PostureEstimator -- Pose
+PostureEstimator -- PoseStatus
 
-PostureEstimator -> GUI
+PostureEstimator -> GUI: cv::Mat + PoseStatus
 
 @enduml
