@@ -121,14 +121,14 @@ class DelayTimer : public CppTimer {
 
 class MessageTimer : public CppTimer {
  private:
-  DelayTimer* notificationTimer;
+  std::vector<DelayTimer*> notificationTimers;
   Notify::NotifyBroadcast* broadcaster;
   std::string msg;
   size_t time;
 
  public:
   bool running = false;
-  MessageTimer(DelayTimer* timer, Notify::NotifyBroadcast* broadcast,
+  MessageTimer(std::vector<DelayTimer*> timers, Notify::NotifyBroadcast* broadcast,
                std::string msg, size_t time);
   ~MessageTimer();
   void countdown();
@@ -179,7 +179,8 @@ class PostureEstimator {
    *
    */
   Notify::NotifyBroadcast broadcaster;
-  DelayTimer notificationTimer;
+  DelayTimer badPostureNotificationTimer;
+  DelayTimer undefinedPostureNotificationTimer;
   MessageTimer badPostureTimer;
   MessageTimer undefinedPostureTimer;
   cancelTimer cancelBadPostureTimer;

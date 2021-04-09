@@ -14,9 +14,6 @@ endif()
 add_subdirectory(gui ENABLE_EXPORTS)
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/gui")
 
-#add_subdirectory(notifications ENABLE_EXPORTS)
-#include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/notifications")
-
 set(NTFYSRC
   notifications/notify.cpp
   notifications/broadcaster.cpp

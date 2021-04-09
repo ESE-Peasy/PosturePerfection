@@ -25,7 +25,7 @@ cd ..
 ## Download cppTimer
 printf "Downloading cppTimer ...\n"
 if [ ! -d "cppTimer_src" ]; then
-  git clone --branch add_second_timer https://github.com/ESE-Peasy/cppTimer.git cppTimer_src || exit 1
+  git clone https://github.com/berndporr/cppTimer.git cppTimer_src || exit 1
   cd cppTimer_src
   cmake .
   make

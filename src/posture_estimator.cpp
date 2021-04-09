@@ -24,17 +24,19 @@
 #define MIN_POSE_CHANGE_THRESHOLD 0.0  ///< 0 degrees
 #define MAX_POSE_CHANGE_THRESHOLD 0.5  ///< 28.64 degrees
 
-#define BAD_POSTURE_TIME 10000        ///< 10 seconds
-#define UNDEFINED_POSTURE_TIME 10000  ///< 10 seconds
-#define GOOD_POSTURE_TIME 2000      ///< 2 seconds
-#define NOTIFICATION_TIME 600000    ///< 10 minutes
+#define BAD_POSTURE_TIME 10000                      ///< 10 seconds
+#define UNDEFINED_POSTURE_TIME 300000               ///< 5 minutes
+#define CANCEL_POSTURE_TIME 2000                      ///< 2 seconds
+#define BAD_POSTURE_NOTIFICATION_TIME 180000        ///< 3 minutes
+#define UNDEFINED_POSTURE_NOTIFICATION_TIME 600000  ///< 10 minutes
+
 
 namespace PostureEstimating {
 
 std::string stringJoint(Joint joint) {
   switch (joint) {
     case Head:
-      return "h./ead";
+      return "head";
     case Neck:
       return "neck";
     case Shoulder:
@@ -62,16 +64,17 @@ Pose createPose() {
 
 PostureEstimator::PostureEstimator()
     : broadcaster(),
-      notificationTimer(NOTIFICATION_TIME),
+      badPostureNotificationTimer(BAD_POSTURE_NOTIFICATION_TIME),
+      undefinedPostureNotificationTimer(UNDEFINED_POSTURE_NOTIFICATION_TIME),
       badPostureTimer(
-          &notificationTimer, &broadcaster,
+          std::vector<DelayTimer *>{&badPostureNotificationTimer}, &broadcaster,
           "You have an imperfect posture, consider readjusting to achieve "
           "posture perfection",
           BAD_POSTURE_TIME),
-      undefinedPostureTimer(&notificationTimer, &broadcaster,
+      undefinedPostureTimer(std::vector<DelayTimer *>{&badPostureNotificationTimer,&undefinedPostureNotificationTimer}, &broadcaster,
                             "Are you still there?", UNDEFINED_POSTURE_TIME),
-      cancelBadPostureTimer(&badPostureTimer, GOOD_POSTURE_TIME),
-      cancelUndefinedPostureTimer(&badPostureTimer, GOOD_POSTURE_TIME) {
+      cancelBadPostureTimer(&badPostureTimer, CANCEL_POSTURE_TIME),
+      cancelUndefinedPostureTimer(&badPostureTimer, CANCEL_POSTURE_TIME) {
   this->pose_change_threshold = 0.1;
   this->ideal_pose = createPose();
   this->current_pose = createPose();
@@ -324,6 +327,9 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
     if (this->cancelUndefinedPostureTimer.running) {
       this->cancelUndefinedPostureTimer.stopCountdown();
     }
+    if (this->undefinedPostureTimer.running) {
+        this->cancelUndefinedPostureTimer.countdown();
+      }
   }
   if (posture_state == Bad) {
     if (!this->badPostureTimer.running) {
@@ -331,6 +337,10 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
     }
     if (this->cancelBadPostureTimer.running) {
       this->cancelBadPostureTimer.stopCountdown();
+    
+    if (this->undefinedPostureTimer.running) {
+        this->cancelUndefinedPostureTimer.countdown();
+      }
     }
     display_pose_changes_needed(pose_changes, current_pose, current_frame);
   } else {
@@ -378,11 +388,11 @@ void cancelTimer::timerEvent() {
   this->toCancel->stopCountdown();
 }
 
-MessageTimer::MessageTimer(DelayTimer* timer,
+MessageTimer::MessageTimer(std::vector<DelayTimer*> timers,
                            Notify::NotifyBroadcast* broadcast, std::string msg,
                            size_t time)
     : CppTimer() {
-  this->notificationTimer = timer;
+  this->notificationTimers = timers;
   this->broadcaster = broadcast;
   this->msg = msg;
   this->time = time;
@@ -402,9 +412,16 @@ void MessageTimer::stopCountdown() {
 }
 void MessageTimer::timerEvent() {
   this->running = false;
-  if (!this->notificationTimer->running) {
-    this->notificationTimer->countdown();
-    this->broadcaster->sendMessage(this->msg);
-}
+  for (auto timer : this->notificationTimers) {
+    if (timer->running) {
+      return;
+    }
+  }
+  for (auto timer : this->notificationTimers) {
+    if (timer->running) {
+      timer->countdown();
+    }
+  }
+  this->broadcaster->sendMessage(this->msg);
 }
 };  // namespace PostureEstimating
