@@ -50,7 +50,7 @@
 #include "../posture_estimator.h"
 #include "opencv2/opencv.hpp"
 
-#define WIDGET_PADDING 10
+#define WIDGET_PADDING 5
 
 QT_BEGIN_NAMESPACE
 

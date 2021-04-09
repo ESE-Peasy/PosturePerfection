@@ -100,8 +100,9 @@ void GUI::MainWindow::updatePostureNotification(
   // according to the posture state
   switch (postureState) {
     case PostureEstimating::PostureState::UndefinedAndUnset: {
-      postureNotificationBox->setStyleSheet("background-color: orange");
-      postureNotification->setText("Undefined");
+      postureNotification->setStyleSheet("background-color: #909090");
+      postureNotification->setText("Unknown Posture",
+                                   "Hmm... I can't find your posture");
       break;
     }
     case PostureEstimating::PostureState::Unset: {

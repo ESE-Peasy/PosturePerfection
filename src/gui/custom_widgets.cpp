@@ -19,6 +19,7 @@
 #include "mainwindow.h"
 
 #define POINT_SIZE 20
+#define POINT_SIZE_SUB ((4 * POINT_SIZE) / 5)
 
 namespace GUI {
 
@@ -127,7 +128,7 @@ void Label::paintEvent(QPaintEvent *p) {
 
     auto subtitleRect = halfRectBot(width(), height(), padding);
     QFont subtitleFont = QApplication::font();
-    setPointSizeAndResize(&subtitleFont, &subtitle, (3 * POINT_SIZE) / 5,
+    setPointSizeAndResize(&subtitleFont, &subtitle, POINT_SIZE_SUB,
                           subtitleRect);
     paint.setFont(subtitleFont);
     paint.drawText(subtitleRect, Qt::AlignCenter, subtitle);
@@ -179,7 +180,7 @@ void Button::paintEvent(QPaintEvent *p) {
 
     auto subtitleRect = halfRectBot(width(), height(), padding);
     QFont subtitleFont = QApplication::font();
-    setPointSizeAndResize(&subtitleFont, &subtitle, (3 * POINT_SIZE) / 5,
+    setPointSizeAndResize(&subtitleFont, &subtitle, POINT_SIZE_SUB,
                           subtitleRect);
     paint.setFont(subtitleFont);
     paint.drawText(subtitleRect, Qt::AlignCenter, subtitle);
