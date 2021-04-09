@@ -26,6 +26,7 @@
 #include <stdio.h>
 
 #include <string>
+#include <vector>
 
 #include "intermediate_structures.h"
 #include "notifications/broadcaster.h"
@@ -156,12 +157,11 @@ class MessageTimer : public CppTimer {
   /**
    * @brief Constructor for `PostureEstimating::MessageTimer`
    * @param notificationTimers List of `PostureEstimating::DelayTimers` that
-  must not be running for message to be broadcast
-  * @param broadcaster  `Notify::NotifyBroadcast` used to broadcast the message
-  * @param msg message to be sent
-  * @param time The time to wait
-  before broadcasting message
-  */
+   * must not be running for message to be broadcast
+   * @param broadcaster  `Notify::NotifyBroadcast` used to broadcast the message
+   * @param msg message to be sent
+   * @param time The time to wait before broadcasting message
+   */
   MessageTimer(std::vector<DelayTimer*> timers,
                Notify::NotifyBroadcast* broadcast, std::string msg,
                size_t time);
@@ -209,8 +209,8 @@ class StopTimer : public CppTimer {
    */
   ~StopTimer();
   /**
-   *@brief Starts countdown, stopping `PostureEstimating::MessageTimer` if
-   *countdown reached
+   * @brief Starts countdown, stopping `PostureEstimating::MessageTimer` if
+   * countdown reached
    */
   void countdown();
   /**
