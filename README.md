@@ -73,6 +73,7 @@ We are a group of 5th Year Electronics & Software Engineering students at the Un
 - [TensorFlow Lite C++ API](https://www.tensorflow.org/lite/)
 - [OpenCV C++ API](https://opencv.org)
 - [QT C++ API](https://www.qt.io)
+- [CppTimer](https://github.com/berndporr/cppTimer)
 
 ### Built With
 
