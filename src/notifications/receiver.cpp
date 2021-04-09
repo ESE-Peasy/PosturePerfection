@@ -52,11 +52,11 @@ NotifyReceiver::NotifyReceiver(int port, bool ignore, bool check_env) {
   int binding = bind(this->receive_fd, (struct sockaddr *)&(this->address),
                      sizeof(this->address));
   Notify::err_msg(binding, "socket_bind");
-  if (check_env) {
-  char *env = getenv("XDG_CURRENT_DESKTOP");
-  if (std::strcmp(env, "ubuntu:GNOME")) {
-    this->command = "notify-send -u critical \"Posture Perfection\" \"";
-  }
+  if (check_env == true) {
+    char *env = getenv("XDG_CURRENT_DESKTOP");
+    if (std::strcmp(env, "ubuntu:GNOME") == 0) {
+      this->command = "notify-send -u critical \"Posture Perfection\" \"";
+    }
   }
 }
 NotifyReceiver::~NotifyReceiver() {

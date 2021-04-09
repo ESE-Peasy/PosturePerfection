@@ -44,8 +44,8 @@ class NotifyBroadcast {
    * @param port Port number to listen on (default is 121121)
    * @param ip Broadcast address (default is 255.255.255.255)
    */
-  explicit NotifyBroadcast(char* ip = const_cast<char*>("255.255.255.255"),
-                           int port = 121121);
+  explicit NotifyBroadcast(int port = 121121,
+                           char* ip = const_cast<char*>("255.255.255.255"));
   ~NotifyBroadcast();
 
   /**

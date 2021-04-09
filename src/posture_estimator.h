@@ -22,11 +22,14 @@
 #ifndef SRC_POSTURE_ESTIMATOR_H_
 #define SRC_POSTURE_ESTIMATOR_H_
 
+#include <CppTimer.h>
 #include <stdio.h>
 
 #include <string>
+#include <vector>
 
 #include "intermediate_structures.h"
+#include "notifications/broadcaster.h"
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
 
@@ -106,6 +109,122 @@ struct PoseStatus {
 enum Colours { Red, Green, Blue, Grey };
 
 /**
+ * @brief Simple timer which just has the running flag set when running and
+ * unset when not running
+ */
+class DelayTimer : public CppTimer {
+ private:
+ public:
+  size_t time;  ///< The time timer runs for
+  bool running =
+      false;  ///< Boolen which indicates if timer is running (True = running)
+  /**
+   * @brief Constructor for `PostureEstimating::DelayTimer`
+   * @param time The time timer will run for
+   */
+  explicit DelayTimer(size_t time);
+  /**
+   * Deconstructor for `PostureEstimating::DelayTimer`
+   */
+  ~DelayTimer();
+  /**
+   * @brief Sets running flag to false
+   */
+  void timerEvent();
+  /**
+   * @brief Starts the delay timer running
+   */
+  void countdown();
+};
+/**
+ * @brief Broadcasts a message using `Notify::NotifyBroadcast` after a time is
+ * elapsed
+ */
+class MessageTimer : public CppTimer {
+ private:
+  std::vector<DelayTimer*>
+      notificationTimers;  ///< List of `PostureEstimating::DelayTimers` that
+                           ///< must not be running for message to be broadcast
+  Notify::NotifyBroadcast*
+      broadcaster;  ///< `Notify::NotifyBroadcast` used to broadcast message
+  std::string msg;  ///< Message to be sent
+
+ public:
+  size_t time;  ///< The time the `PostureEstimating::MessageTimer` waits
+                ///< before broadcasting message
+  bool running =
+      false;  ///< Boolen which indicates if timer is running (True = running)
+  /**
+   * @brief Constructor for `PostureEstimating::MessageTimer`
+   * @param notificationTimers List of `PostureEstimating::DelayTimers` that
+   * must not be running for message to be broadcast
+   * @param broadcaster  `Notify::NotifyBroadcast` used to broadcast the message
+   * @param msg message to be sent
+   * @param time The time to wait before broadcasting message
+   */
+  MessageTimer(std::vector<DelayTimer*> timers,
+               Notify::NotifyBroadcast* broadcast, std::string msg,
+               size_t time);
+  /**
+   * @brief Deconstructor for `PostureEstimating::MessageTimer`
+   */
+  ~MessageTimer();
+  /**
+   * @brief Starts timer to countdown, sending a messsage at the end of the
+   * countdown
+   */
+  void countdown();
+  /**
+   * @brief Stops the countdown and doesn't send message
+   */
+  void stopCountdown();
+  /**
+   * Broadcasts message using `Notify::NotifyBroadcast`
+   */
+  void timerEvent();
+};
+
+/**
+ * @brief Timer which countdowns and stops a `PostureEstimating::MessageTimer`
+ * if countdown ends
+ */
+class StopTimer : public CppTimer {
+ private:
+  MessageTimer* toStop;  ///< MessageTimer countdown to stop
+
+ public:
+  size_t time;  ///< The time to wait before stopping MessageTimer countdown
+  bool running =
+      false;  ///< Boolen which indicates if timer is running (True = running)
+  /**
+   * @brief Constructor for `PostureEstimating::StopTimer`
+   * @param toStop `PostureEstimating::MessageTimer` that is stopped when
+   * countdown finishes
+   * @param time The time countdown runs for before stopping
+   * `PostureEstimating::MessageTimer` countdown
+   */
+  StopTimer(MessageTimer* toStop, size_t time);
+  /**
+   * @brief Deconstructor for `PostureEstimating::StopTimer`
+   */
+  ~StopTimer();
+  /**
+   * @brief Starts countdown, stopping `PostureEstimating::MessageTimer` if
+   * countdown reached
+   */
+  void countdown();
+  /**
+   * @brief Stops the countdown and doesn't stop
+   * `PostureEstimating::MessageTimer`
+   */
+  void stopCountdown();
+  /**
+   * @brief Runs stopCountdown() on `PostureEstimating::MessageTimer`
+   */
+  void timerEvent();
+};
+
+/**
  * @brief This class handles representations of the user's pose and
  * calculates any updates to their pose that is required.
  *
@@ -129,6 +248,17 @@ class PostureEstimator {
   std::array<cv::Scalar, 4> colours = {
       cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255),
       cv::Scalar(144, 144, 144)};
+
+  /**
+   * @brief NotifySend broadcaster for sending messages
+   */
+  Notify::NotifyBroadcast broadcaster;
+  DelayTimer badPostureNotificationTimer;
+  DelayTimer undefinedPostureNotificationTimer;
+  MessageTimer badPostureTimer;
+  MessageTimer undefinedPostureTimer;
+  StopTimer stopBadPostureTimer;
+  StopTimer stopUndefinedPostureTimer;
 
   /**
    * @brief Calculates the angle(in degrees) between two points, clockwise
@@ -169,16 +299,18 @@ class PostureEstimator {
   void calculatePoseChanges();
 
   /**
-   * @brief Determine the current `PostureEstimating::PostureState` based on the
-   * `current_pose` and the `ideal_pose`. This works as follows:
+   * @brief Determine the current `PostureEstimating::PostureState` based on
+   * the `current_pose` and the `ideal_pose`. This works as follows:
    * - If `posture_state` is currently `Unset` then remain in this state until
    * the user sets their `ideal_pose`
    * - If there are no consecutive nodes that are `Trustworthy` then the state
    * is changed to `Undefined` or `UndefinedAndUnset` depending on if an
    * `ideal_pose` has been set or not
-   * - If the current state is not `Undefined` and the `pose_changes` angles are
-   * outwith the `pose_change_threshold` then the state is changed to `Bad`
-   * - If none of these conditions are met, then the state is changed to `Good`.
+   * - If the current state is not `Undefined` and the `pose_changes` angles
+   * are outwith the `pose_change_threshold` then the state is changed to
+   * `Bad`
+   * - If none of these conditions are met, then the state is changed to
+   * `Good`.
    *
    * Note that this means it is possible for only partial segments of the
    * overall posture to be displayed
@@ -187,19 +319,19 @@ class PostureEstimator {
   void checkPostureState();
 
   /**
-   * @brief Calculates current posture and ideal posture difference and decides
-   * if a good posture has been adopted based on threshold values.
+   * @brief Calculates current posture and ideal posture difference and
+   * decides if a good posture has been adopted based on threshold values.
    *
    */
   void calculateChangesAndCheckPosture();
 
   /**
    * @brief Updates the user's current pose from
-   * `PostProcessing::ProcessingResults`, Calculates pose change needed. Checks
-   * if pose change needed is outside threshold.
+   * `PostProcessing::ProcessingResults`, Calculates pose change needed.
+   * Checks if pose change needed is outside threshold.
    *
-   * @param results `PostProcessing::ProcessingResults` struct containing user's
-   * pose data.
+   * @param results `PostProcessing::ProcessingResults` struct containing
+   * user's pose data.
    * @return `PostureEstimating::PostureState`
    */
   PostureEstimating::PostureState updateCurrentPoseAndCheckPosture(
@@ -211,19 +343,19 @@ class PostureEstimator {
    * @param current_pose `PostureEstimating::Pose` The pose for the current
    * posture
    * @param current_frame `cv::Mat` Current frame to overlay lines onto
-   * @param posture_state `PostureEstimating::PostureState` If `Good` draw green
-   * lines to indicate good posture, and if `Unset` draw the `ideal_pose` has
-   * not been set in which case draw blue lines
+   * @param posture_state `PostureEstimating::PostureState` If `Good` draw
+   * green lines to indicate good posture, and if `Unset` draw the
+   * `ideal_pose` has not been set in which case draw blue lines
    */
   void display_current_pose(PostureEstimating::Pose current_pose,
                             cv::Mat current_frame,
                             PostureEstimating::PostureState posture_state);
   /**
-   * @brief Overlay the pose changes for the current frame. We only use this if
-   * the `posture_state` in `pose_status` is `Bad`.
+   * @brief Overlay the pose changes for the current frame. We only use this
+   * if the `posture_state` in `pose_status` is `Bad`.
    *
-   * @param pose_changes `PostureEstimating::Pose` Changes needed to return to a
-   * good posture
+   * @param pose_changes `PostureEstimating::Pose` Changes needed to return to
+   * a good posture
    * @param current_pose `PostureEstimating::Pose` The pose for the current
    * posture
    * @param current_frame `cv::Mat` Current frame to overlay lines onto
@@ -241,7 +373,7 @@ class PostureEstimator {
   /**
    * @brief Destroy a `PostureEstimator` object
    */
-  ~PostureEstimator() {}
+  ~PostureEstimator();
 
   /**
    * @brief The user's current `Pose` from most recent data provided.
@@ -269,9 +401,9 @@ class PostureEstimator {
   /**
    * @brief Whether the user is currently in a `Good`, `Bad`, `Unset`,
    * `Undefined` or `UndefinedAndUnset` posture.
-   * (`Unset` means that the `ideal_pose` has not yet been set, and `Undefined`
-   * is if pose estimation has not found any successive co-ordinates which are
-   * `Trustworthy`)
+   * (`Unset` means that the `ideal_pose` has not yet been set, and
+   * `Undefined` is if pose estimation has not found any successive
+   * co-ordinates which are `Trustworthy`)
    */
   PostureEstimating::PostureState posture_state = UndefinedAndUnset;
 
@@ -307,23 +439,23 @@ class PostureEstimator {
   /**
    * @brief Return a `PoseStatus` of the user's pose
    *
-   * @param results `PostProcessing::ProcessedResults` struct containing user's
-   * pose data.
+   * @param results `PostProcessing::ProcessedResults` struct containing
+   * user's pose data.
    */
   PoseStatus runEstimator(PostProcessing::ProcessedResults results);
 
   /**
-   * @brief Analyse the `posture_state` field of `PostureEstimating::PoseStatus`
-   * and use it as follows:
+   * @brief Analyse the `posture_state` field of
+   * `PostureEstimating::PoseStatus` and use it as follows:
    *  - If `Unset` then indicate this to user by
    * displaying the current pose as blue lines.
    * - If `Good` then display current pose as green lines.
    * - If `Bad` then use `pose_change_threshold` and
-   * `pose_changes` to indicate which direction the user needs to move in order
-   * to return to a good posture.
+   * `pose_changes` to indicate which direction the user needs to move in
+   * order to return to a good posture.
    *
-   * @param pose_status `PostureEstimating::PoseStatus` The pose status for the
-   * current frame
+   * @param pose_status `PostureEstimating::PoseStatus` The pose status for
+   * the current frame
    * @param current_frame `cv::Mat` The current frame to overlay lines on to
    */
   void analysePosture(PostureEstimating::PoseStatus pose_status,

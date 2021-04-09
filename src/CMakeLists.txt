@@ -29,6 +29,7 @@ set(LIBSRC
   posture_estimator.cpp
   pipeline.cpp)
 
+
 # Set up OpenCV package
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../../opencv_build")
 find_package(OpenCV REQUIRED)
@@ -55,6 +56,6 @@ target_include_directories(PosturePerfection_static PUBLIC "${CMAKE_CURRENT_BINA
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
 target_link_libraries(PosturePerfection cpptimer rt)
-target_link_libraries(PosturePerfection tensorflow-lite PosturePerfection_gui ${CMAKE_DL_LIBS})
+target_link_libraries(PosturePerfection tensorflow-lite PosturePerfection_gui PosturePerfection_notify ${CMAKE_DL_LIBS})
 target_link_libraries(PosturePerfection ${OpenCV_LIBS})
 target_include_directories(PosturePerfection PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
