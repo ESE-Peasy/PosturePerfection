@@ -11,4 +11,10 @@ A detailed description of the pipeline used in PosturePerfection is outlined [he
 
 During initial development, the pipeline did not make use of multi-threading and therefore resulted in a very slow frame rate and high latency in processing a video stream. Therefore a major change was implemented to exploit multi-threading. As mentioned above, the post processing stage must be performed on frames in the correct order due to the use of `IIR` filtering. However, the pose estimation stage can be parallelised to significantly improve performance. Instead of waiting for the stage to process a frame before another can be processed, another waiting thread can process the given frame. Below is an evaluation of how a higher number of threads for this middle stage results in a higher frame rate being able to be used:
 
+In Progress
+{: .label .label-yellow}
+
 ## Latency Evaluation
+
+In Progress
+{: .label .label-yellow}
