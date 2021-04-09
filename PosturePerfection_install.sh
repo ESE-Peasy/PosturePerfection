@@ -10,7 +10,7 @@ printf "Downloading additional assets...\n"
 mkdir -p assets && cd assets
 wget https://github.com/ESE-Peasy/PosturePerfection/raw/main/assets/EfficientPoseRT_LITE.tflite
 wget https://github.com/ESE-Peasy/PosturePerfection/raw/main/assets/logo.png  
-# TODO: Update for QSS Style Sheet
+wget https://github.com/ESE-Peasy/PosturePerfection/raw/main/assets/stylesheet.qss  
 cd ..
 
 # Download and install the PosturePerfection build of OpenCV
