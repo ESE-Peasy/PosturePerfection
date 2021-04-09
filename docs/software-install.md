@@ -19,8 +19,8 @@ If you are only interested in running PosturePerfection with minimal overhead, y
 ### Download and Run
 
 ```sh
-wget https://github.com/ESE-Peasy/PosturePerfection/releases/download/v0.3.0/PosturePerfection_install_0.3.0.sh
-sh PosturePerfection_install_0.3.0.sh
+wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PosturePerfection_install.sh
+sh PosturePerfection_install.sh
 ```
 
 Follow the instructions provided!

@@ -21,7 +21,7 @@ The camera provides a live video stream of the user to the Raspberry Pi. The tea
 
 ### Raspberry Pi
 
-The Raspberry Pi will handle all processing of the incoming video feed. The team has currently chosen to use the 4GB and 8GB models of the Raspberry Pi Model 4B, but further research may be done on older models if times permits. The Raspberry Pi will make use of a trained neueral network model to perform pose estimation on the incoming video stream. Real-time considerations will have to be made so that pose correction feedback can be provided to the user.
+The Raspberry Pi will handle all processing of the incoming video feed. The team has currently chosen to use the 4GB and 8GB models of the Raspberry Pi Model 4B, but further research may be done on older models if times permits. The Raspberry Pi will make use of a trained neural network model to perform pose estimation on the incoming video stream. Real-time considerations will have to be made so that pose correction feedback can be provided to the user.
 
 ### Screen
 
