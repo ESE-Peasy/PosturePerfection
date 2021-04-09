@@ -78,9 +78,12 @@ $(function() {
 
 <p>Interface for representation of user's pose.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;CppTimer.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="intermediate__structures_8h_source.html">intermediate_structures.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="broadcaster_8h_source.html">notifications/broadcaster.h</a>&quot;</code><br />
 <code>#include &quot;opencv2/core.hpp&quot;</code><br />
 <code>#include &quot;opencv2/imgproc.hpp&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -88,13 +91,25 @@ Include dependency graph for posture_estimator.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="posture__estimator_8h__incl.png" border="0" usemap="#aposture__estimator_8h" alt=""/></div>
 <map name="aposture__estimator_8h" id="aposture__estimator_8h">
-<area shape="rect" title="Interface for representation of user&#39;s pose." alt="" coords="157,5,293,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,65,107"/>
-<area shape="rect" title=" " alt="" coords="99,155,153,181"/>
-<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="141,80,309,107"/>
-<area shape="rect" title=" " alt="" coords="333,80,457,107"/>
-<area shape="rect" title=" " alt="" coords="481,80,627,107"/>
-<area shape="rect" title=" " alt="" coords="199,155,250,181"/>
+<area shape="rect" title="Interface for representation of user&#39;s pose." alt="" coords="750,5,886,32"/>
+<area shape="rect" title=" " alt="" coords="349,80,437,107"/>
+<area shape="rect" title=" " alt="" coords="5,229,65,256"/>
+<area shape="rect" title=" " alt="" coords="871,229,925,256"/>
+<area shape="rect" title=" " alt="" coords="987,80,1046,107"/>
+<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="795,80,963,107"/>
+<area shape="rect" href="broadcaster_8h.html" title=" " alt="" coords="547,80,721,107"/>
+<area shape="rect" title=" " alt="" coords="1069,80,1193,107"/>
+<area shape="rect" title=" " alt="" coords="1217,80,1363,107"/>
+<area shape="rect" title=" " alt="" coords="917,155,967,181"/>
+<area shape="rect" href="notify_8h.html" title="Shared functions between server.h and client.h runs on Linux." alt="" coords="512,155,575,181"/>
+<area shape="rect" title=" " alt="" coords="763,229,846,256"/>
+<area shape="rect" title=" " alt="" coords="90,229,151,256"/>
+<area shape="rect" title=" " alt="" coords="175,229,261,256"/>
+<area shape="rect" title=" " alt="" coords="285,229,348,256"/>
+<area shape="rect" title=" " alt="" coords="372,229,467,256"/>
+<area shape="rect" title=" " alt="" coords="491,229,558,256"/>
+<area shape="rect" title=" " alt="" coords="582,229,643,256"/>
+<area shape="rect" title=" " alt="" coords="667,229,739,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -127,6 +142,15 @@ Data Structures</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPostureEstimating_1_1PoseStatus.html">PostureEstimating::PoseStatus</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">representation of user's pose for use by the pipeline processing  <a href="structPostureEstimating_1_1PoseStatus.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1DelayTimer.html">PostureEstimating::DelayTimer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple timer which just has the running flag set when running and unset when not running.  <a href="classPostureEstimating_1_1DelayTimer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1MessageTimer.html">PostureEstimating::MessageTimer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Broadcasts a message using <code><a class="el" href="classNotify_1_1NotifyBroadcast.html" title="A broadcaster to send messages to Notify::NotifyReceiver">Notify::NotifyBroadcast</a></code> after a time is elapsed.  <a href="classPostureEstimating_1_1MessageTimer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1StopTimer.html">PostureEstimating::StopTimer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer which countdowns and stops a <code><a class="el" href="classPostureEstimating_1_1MessageTimer.html" title="Broadcasts a message using Notify::NotifyBroadcast after a time is elapsed.">PostureEstimating::MessageTimer</a></code> if countdown ends.  <a href="classPostureEstimating_1_1StopTimer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostureEstimating_1_1PostureEstimator.html">PostureEstimating::PostureEstimator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class handles representations of the user's pose and calculates any updates to their pose that is required.  <a href="classPostureEstimating_1_1PostureEstimator.html#details">More...</a><br /></td></tr>

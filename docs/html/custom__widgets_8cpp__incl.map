@@ -24,28 +24,29 @@
 <area shape="rect" id="node23" title=" " alt="" coords="2231,155,2303,181"/>
 <area shape="rect" id="node24" title=" " alt="" coords="2327,155,2446,181"/>
 <area shape="rect" id="node25" title=" " alt="" coords="2471,155,2633,181"/>
-<area shape="rect" id="node26" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="2900,453,3079,480"/>
-<area shape="rect" id="node29" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="2709,155,2795,181"/>
-<area shape="rect" id="node43" title=" " alt="" coords="3440,453,3581,480"/>
-<area shape="rect" id="node47" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="2076,229,2212,256"/>
-<area shape="rect" id="node27" title=" " alt="" coords="2964,528,3015,555"/>
-<area shape="rect" id="node28" title=" " alt="" coords="2366,528,2421,555"/>
-<area shape="rect" id="node30" title=" " alt="" coords="2337,229,2425,256"/>
-<area shape="rect" id="node31" title=" " alt="" coords="2450,229,2577,256"/>
-<area shape="rect" id="node32" title=" " alt="" coords="2601,229,2658,256"/>
-<area shape="rect" id="node33" title=" " alt="" coords="2682,229,2739,256"/>
-<area shape="rect" id="node34" title=" " alt="" coords="2764,229,2823,256"/>
-<area shape="rect" id="node35" title=" " alt="" coords="2760,379,2819,405"/>
-<area shape="rect" id="node36" href="$iir_8h.html" title="Very simple IIR filter." alt="" coords="2833,304,2876,331"/>
-<area shape="rect" id="node38" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="3163,304,3280,331"/>
-<area shape="rect" id="node42" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="3313,379,3428,405"/>
-<area shape="rect" id="node44" title=" " alt="" coords="2187,304,2311,331"/>
-<area shape="rect" id="node45" title=" " alt="" coords="3043,229,3183,256"/>
-<area shape="rect" id="node46" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="2898,229,3019,256"/>
-<area shape="rect" id="node37" title=" " alt="" coords="2843,379,2906,405"/>
-<area shape="rect" id="node39" title=" " alt="" coords="3103,379,3238,405"/>
-<area shape="rect" id="node40" title=" " alt="" coords="3343,453,3407,480"/>
-<area shape="rect" id="node41" title=" " alt="" coords="3246,453,3314,480"/>
-<area shape="rect" id="node48" title=" " alt="" coords="1882,304,1942,331"/>
-<area shape="rect" id="node49" title=" " alt="" coords="1966,304,2111,331"/>
+<area shape="rect" id="node26" href="$intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="3152,453,3331,480"/>
+<area shape="rect" id="node29" href="$pipeline_8h.html" title="Main pipeline for the PosturePerfection system." alt="" coords="3263,155,3350,181"/>
+<area shape="rect" id="node43" title=" " alt="" coords="3972,453,4113,480"/>
+<area shape="rect" id="node47" href="$posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="2719,229,2855,256"/>
+<area shape="rect" id="node27" title=" " alt="" coords="3216,528,3267,555"/>
+<area shape="rect" id="node28" title=" " alt="" coords="2767,528,2822,555"/>
+<area shape="rect" id="node30" title=" " alt="" coords="3115,304,3203,331"/>
+<area shape="rect" id="node31" title=" " alt="" coords="2930,229,3057,256"/>
+<area shape="rect" id="node32" title=" " alt="" coords="3081,229,3138,256"/>
+<area shape="rect" id="node33" title=" " alt="" coords="3162,229,3219,256"/>
+<area shape="rect" id="node34" title=" " alt="" coords="3244,229,3303,256"/>
+<area shape="rect" id="node35" title=" " alt="" coords="3360,379,3419,405"/>
+<area shape="rect" id="node36" href="$iir_8h.html" title="Very simple IIR filter." alt="" coords="3528,304,3571,331"/>
+<area shape="rect" id="node38" href="$inference__core_8h.html" title="Wrapper API for the TensorFlow Lite model." alt="" coords="3745,304,3863,331"/>
+<area shape="rect" id="node42" href="$pre__processor_8h.html" title="Interface for pre processing the input image before passing to Inference::InferenceCore" alt="" coords="3893,379,4008,405"/>
+<area shape="rect" id="node44" title=" " alt="" coords="3227,304,3351,331"/>
+<area shape="rect" id="node45" title=" " alt="" coords="3626,229,3766,256"/>
+<area shape="rect" id="node46" href="$post__processor_8h.html" title="Interface for post processing the output of an Inference::InferenceCore" alt="" coords="3429,229,3550,256"/>
+<area shape="rect" id="node37" title=" " alt="" coords="3494,379,3557,405"/>
+<area shape="rect" id="node39" title=" " alt="" coords="3633,379,3767,405"/>
+<area shape="rect" id="node40" title=" " alt="" coords="3776,453,3840,480"/>
+<area shape="rect" id="node41" title=" " alt="" coords="3875,453,3943,480"/>
+<area shape="rect" id="node48" title=" " alt="" coords="2759,304,2819,331"/>
+<area shape="rect" id="node49" href="$broadcaster_8h.html" title=" " alt="" coords="2708,379,2881,405"/>
+<area shape="rect" id="node50" title=" " alt="" coords="2843,304,2989,331"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['default_5fframerate_5fsetting_504',['DEFAULT_FRAMERATE_SETTING',['../framerate__settings_8cpp.html#ab30a5c69a3d93e79679c65eb6c9aed19',1,'framerate_settings.cpp']]]
+  ['confidence_5fthresh_5fdefault_535',['CONFIDENCE_THRESH_DEFAULT',['../pipeline_8cpp.html#ad0d30b1743930d4041e8fcac71c9b678',1,'pipeline.cpp']]]
 ];

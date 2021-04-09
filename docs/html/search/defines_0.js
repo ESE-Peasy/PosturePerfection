@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['confidence_5fthresh_5fdefault_503',['CONFIDENCE_THRESH_DEFAULT',['../pipeline_8cpp.html#ad0d30b1743930d4041e8fcac71c9b678',1,'pipeline.cpp']]]
+  ['bad_5fposture_5fnotification_5ftime_533',['BAD_POSTURE_NOTIFICATION_TIME',['../posture__estimator_8cpp.html#a8ef75bb4b9dd4bea77cc03991c5c4ddf',1,'posture_estimator.cpp']]],
+  ['bad_5fposture_5ftime_534',['BAD_POSTURE_TIME',['../posture__estimator_8cpp.html#a4be71be2d0784c47697b34b770b827c1',1,'posture_estimator.cpp']]]
 ];

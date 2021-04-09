@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['logo_5fheight_5fmax_508',['LOGO_HEIGHT_MAX',['../mainwindow_8cpp.html#a664b6062cd222852b62cbaab84d8c9b0',1,'mainwindow.cpp']]]
+  ['frame_5fdelay_5fdefault_537',['FRAME_DELAY_DEFAULT',['../pipeline_8h.html#a590793cdfea05268adc9911d24a18a6b',1,'pipeline.h']]],
+  ['frame_5fdelay_5fmax_538',['FRAME_DELAY_MAX',['../pipeline_8h.html#acb78faaa3a3b13053be54370c7739523',1,'pipeline.h']]],
+  ['frame_5fdelay_5fmin_539',['FRAME_DELAY_MIN',['../pipeline_8h.html#aa4be07057a307c37ea36990c575282a4',1,'pipeline.h']]]
 ];

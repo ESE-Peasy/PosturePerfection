@@ -1,0 +1,4 @@
+<map id="PostureEstimating::MessageTimer" name="PostureEstimating::MessageTimer">
+<area shape="rect" id="node1" title="Broadcasts a message using Notify::NotifyBroadcast after a time is elapsed." alt="" coords="5,80,140,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="33,5,112,32"/>
+</map>

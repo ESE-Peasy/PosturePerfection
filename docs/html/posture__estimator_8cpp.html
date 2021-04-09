@@ -82,15 +82,27 @@ Include dependency graph for posture_estimator.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="posture__estimator_8cpp__incl.png" border="0" usemap="#aposture__estimator_8cpp" alt=""/></div>
 <map name="aposture__estimator_8cpp" id="aposture__estimator_8cpp">
-<area shape="rect" title=" " alt="" coords="136,5,287,32"/>
-<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="143,80,279,107"/>
-<area shape="rect" title=" " alt="" coords="5,229,60,256"/>
-<area shape="rect" title=" " alt="" coords="303,80,362,107"/>
-<area shape="rect" title=" " alt="" coords="388,155,448,181"/>
-<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="473,155,641,181"/>
-<area shape="rect" title=" " alt="" coords="71,155,195,181"/>
-<area shape="rect" title=" " alt="" coords="219,155,364,181"/>
-<area shape="rect" title=" " alt="" coords="531,229,582,256"/>
+<area shape="rect" title=" " alt="" coords="398,5,548,32"/>
+<area shape="rect" href="posture__estimator_8h.html" title="Interface for representation of user&#39;s pose." alt="" coords="405,80,541,107"/>
+<area shape="rect" title=" " alt="" coords="12,304,67,331"/>
+<area shape="rect" title=" " alt="" coords="565,80,624,107"/>
+<area shape="rect" title=" " alt="" coords="844,155,932,181"/>
+<area shape="rect" title=" " alt="" coords="916,304,976,331"/>
+<area shape="rect" title=" " alt="" coords="444,155,502,181"/>
+<area shape="rect" href="intermediate__structures_8h.html" title="Data structures used in communicating between different parts of the system." alt="" coords="54,155,222,181"/>
+<area shape="rect" href="broadcaster_8h.html" title=" " alt="" coords="246,155,420,181"/>
+<area shape="rect" title=" " alt="" coords="526,155,650,181"/>
+<area shape="rect" title=" " alt="" coords="674,155,819,181"/>
+<area shape="rect" title=" " alt="" coords="54,229,105,256"/>
+<area shape="rect" href="notify_8h.html" title="Shared functions between server.h and client.h runs on Linux." alt="" coords="391,229,454,256"/>
+<area shape="rect" title=" " alt="" coords="482,304,565,331"/>
+<area shape="rect" title=" " alt="" coords="589,304,650,331"/>
+<area shape="rect" title=" " alt="" coords="674,304,760,331"/>
+<area shape="rect" title=" " alt="" coords="784,304,847,331"/>
+<area shape="rect" title=" " alt="" coords="91,304,186,331"/>
+<area shape="rect" title=" " alt="" coords="210,304,277,331"/>
+<area shape="rect" title=" " alt="" coords="301,304,362,331"/>
+<area shape="rect" title=" " alt="" coords="386,304,458,331"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -108,6 +120,21 @@ Macros</h2></td></tr>
 <tr class="memitem:ac2285cbfe19b0859aba291764c21ec69"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#ac2285cbfe19b0859aba291764c21ec69">MAX_POSE_CHANGE_THRESHOLD</a>&#160;&#160;&#160;0.5</td></tr>
 <tr class="memdesc:ac2285cbfe19b0859aba291764c21ec69"><td class="mdescLeft">&#160;</td><td class="mdescRight">28.64 degrees  <a href="posture__estimator_8cpp.html#ac2285cbfe19b0859aba291764c21ec69">More...</a><br /></td></tr>
 <tr class="separator:ac2285cbfe19b0859aba291764c21ec69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4be71be2d0784c47697b34b770b827c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#a4be71be2d0784c47697b34b770b827c1">BAD_POSTURE_TIME</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memdesc:a4be71be2d0784c47697b34b770b827c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">10 seconds  <a href="posture__estimator_8cpp.html#a4be71be2d0784c47697b34b770b827c1">More...</a><br /></td></tr>
+<tr class="separator:a4be71be2d0784c47697b34b770b827c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a639597608650e3ee3dbd108ae6d96b07"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#a639597608650e3ee3dbd108ae6d96b07">UNDEFINED_POSTURE_TIME</a>&#160;&#160;&#160;300000</td></tr>
+<tr class="memdesc:a639597608650e3ee3dbd108ae6d96b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">5 minutes  <a href="posture__estimator_8cpp.html#a639597608650e3ee3dbd108ae6d96b07">More...</a><br /></td></tr>
+<tr class="separator:a639597608650e3ee3dbd108ae6d96b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a476314737c39414910adbf291d2e4404"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#a476314737c39414910adbf291d2e4404">STOP_TIMER_TIME</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="memdesc:a476314737c39414910adbf291d2e4404"><td class="mdescLeft">&#160;</td><td class="mdescRight">2 seconds  <a href="posture__estimator_8cpp.html#a476314737c39414910adbf291d2e4404">More...</a><br /></td></tr>
+<tr class="separator:a476314737c39414910adbf291d2e4404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ef75bb4b9dd4bea77cc03991c5c4ddf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#a8ef75bb4b9dd4bea77cc03991c5c4ddf">BAD_POSTURE_NOTIFICATION_TIME</a>&#160;&#160;&#160;180000</td></tr>
+<tr class="memdesc:a8ef75bb4b9dd4bea77cc03991c5c4ddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">3 minutes  <a href="posture__estimator_8cpp.html#a8ef75bb4b9dd4bea77cc03991c5c4ddf">More...</a><br /></td></tr>
+<tr class="separator:a8ef75bb4b9dd4bea77cc03991c5c4ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dfff9f58a4743c0537a1459b58461ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="posture__estimator_8cpp.html#a3dfff9f58a4743c0537a1459b58461ed">UNDEFINED_POSTURE_NOTIFICATION_TIME</a>&#160;&#160;&#160;600000</td></tr>
+<tr class="memdesc:a3dfff9f58a4743c0537a1459b58461ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">10 minutes  <a href="posture__estimator_8cpp.html#a3dfff9f58a4743c0537a1459b58461ed">More...</a><br /></td></tr>
+<tr class="separator:a3dfff9f58a4743c0537a1459b58461ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -119,6 +146,38 @@ Functions</h2></td></tr>
 <tr class="separator:a2deac6e18a1012d21d7d1cd72e22e28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a8ef75bb4b9dd4bea77cc03991c5c4ddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ef75bb4b9dd4bea77cc03991c5c4ddf">&#9670;&nbsp;</a></span>BAD_POSTURE_NOTIFICATION_TIME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BAD_POSTURE_NOTIFICATION_TIME&#160;&#160;&#160;180000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3 minutes </p>
+
+</div>
+</div>
+<a id="a4be71be2d0784c47697b34b770b827c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4be71be2d0784c47697b34b770b827c1">&#9670;&nbsp;</a></span>BAD_POSTURE_TIME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BAD_POSTURE_TIME&#160;&#160;&#160;10000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>10 seconds </p>
+
+</div>
+</div>
 <a id="ac2285cbfe19b0859aba291764c21ec69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac2285cbfe19b0859aba291764c21ec69">&#9670;&nbsp;</a></span>MAX_POSE_CHANGE_THRESHOLD</h2>
 
@@ -152,6 +211,54 @@ Functions</h2></td></tr>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>. </p>
+
+</div>
+</div>
+<a id="a476314737c39414910adbf291d2e4404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a476314737c39414910adbf291d2e4404">&#9670;&nbsp;</a></span>STOP_TIMER_TIME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STOP_TIMER_TIME&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>2 seconds </p>
+
+</div>
+</div>
+<a id="a3dfff9f58a4743c0537a1459b58461ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dfff9f58a4743c0537a1459b58461ed">&#9670;&nbsp;</a></span>UNDEFINED_POSTURE_NOTIFICATION_TIME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UNDEFINED_POSTURE_NOTIFICATION_TIME&#160;&#160;&#160;600000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>10 minutes </p>
+
+</div>
+</div>
+<a id="a639597608650e3ee3dbd108ae6d96b07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a639597608650e3ee3dbd108ae6d96b07">&#9670;&nbsp;</a></span>UNDEFINED_POSTURE_TIME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UNDEFINED_POSTURE_TIME&#160;&#160;&#160;300000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>5 minutes </p>
 
 </div>
 </div>

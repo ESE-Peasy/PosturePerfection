@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['iir2ndorderfilter_263',['IIR2ndOrderFilter',['../classIIR_1_1IIR2ndOrderFilter.html',1,'IIR']]],
-  ['iirfilter_264',['IIRFilter',['../classIIR_1_1IIRFilter.html',1,'IIR']]],
-  ['incorrectdirectory_265',['IncorrectDirectory',['../structNotify_1_1IncorrectDirectory.html',1,'Notify']]],
-  ['inferencecore_266',['InferenceCore',['../classInference_1_1InferenceCore.html',1,'Inference']]],
-  ['inferenceresults_267',['InferenceResults',['../structInference_1_1InferenceResults.html',1,'Inference']]]
+  ['framegenerator_277',['FrameGenerator',['../classPipeline_1_1FrameGenerator.html',1,'Pipeline']]],
+  ['frameratesetting_278',['FramerateSetting',['../structPipeline_1_1FramerateSetting.html',1,'Pipeline']]],
+  ['frameratesettings_279',['FramerateSettings',['../classPipeline_1_1FramerateSettings.html',1,'Pipeline']]]
 ];
