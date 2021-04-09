@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['next_5fframe_356',['next_frame',['../classPipeline_1_1FrameGenerator.html#a83e73483b2cadbfe02e4804814c0b643',1,'Pipeline::FrameGenerator']]],
-  ['notifybroadcast_357',['NotifyBroadcast',['../classNotify_1_1NotifyBroadcast.html#a34cecaa28f9e2a9b0b8203d20bd257f1',1,'Notify::NotifyBroadcast']]],
-  ['notifyreceiver_358',['NotifyReceiver',['../classNotify_1_1NotifyReceiver.html#a0b7cb04a49ad64e08cd2946860ad2fe7',1,'Notify::NotifyReceiver']]]
+  ['label_379',['Label',['../classGUI_1_1Label.html#ab433db659031a8ef70c9fb57946f0295',1,'GUI::Label::Label(QWidget *parent=0)'],['../classGUI_1_1Label.html#a7d95e019c364b4732453cc9fae6a41f4',1,'GUI::Label::Label(const QString &amp;title, QWidget *parent=0)'],['../classGUI_1_1Label.html#aaf6e2699e2b4c3d25cc40a2b34fa2d8d',1,'GUI::Label::Label(const QString &amp;title, const QString &amp;subtitle, QWidget *parent=0)']]]
 ];

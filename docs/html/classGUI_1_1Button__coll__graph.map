@@ -1,0 +1,4 @@
+<map id="GUI::Button" name="GUI::Button">
+<area shape="rect" id="node1" title="Subclass of QPushButton that allows having a title and subtitle within the button." alt="" coords="10,80,101,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,105,32"/>
+</map>

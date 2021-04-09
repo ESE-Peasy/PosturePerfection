@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classIIR_1_1IIR2ndOrderFilter.html" title="Second&#45;order IIR filter stage, for use with the IIRFilter" alt="" coords="5,5,149,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,69,32"/>
+<area shape="rect" id="node2" href="$classGUI_1_1Label.html" title="Subclass of QLabel that allows having a title and subtitle within the label." alt="" coords="117,5,201,32"/>
 </map>
