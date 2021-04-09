@@ -35,22 +35,54 @@ namespace GUI {
  * @param boxWidth `int` width of the container as returned by `Widget.width()`
  * @param padding `size_t` Desired padding (in pixels) around the text
  */
-void setPointSizeAndResize(QFont *font, QString *text, int pointSize,
-                           int boxWidth, size_t padding) {
-  font->setPointSize(pointSize);
+void setPointSizeAndResize(QFont *font, QString *text, float pointSize,
+                           QRectF rect) {
+  font->setPointSizeF(pointSize);
   QFontMetrics fm(*font);
   int pixelWidth = 0;
-  // Subtitles may be broken over multiple lines and we only need the longest of
-  // these measurements
+  int pixelHeight = 0;
+  // Subtitles may be broken over multiple lines and we need the widest line and
+  // overall height
   for (auto line : text->split("\n")) {
     if (fm.width(line) > pixelWidth) {
       pixelWidth = fm.width(line);
     }
+    pixelHeight += fm.lineSpacing();
   }
-  boxWidth = boxWidth - padding * 2;
-  if (pixelWidth > boxWidth) {
+
+  auto boxWidth = rect.width();
+  auto boxHeight = rect.height();
+
+  if ((pixelWidth > boxWidth) && (pixelHeight > boxHeight)) {
+    // If both dimensions are too large decrease by the one that requires the
+    // largest change
+    if (boxHeight / pixelHeight < boxWidth / pixelWidth) {
+      font->setPointSize((pointSize * boxHeight) / pixelHeight);
+    } else {
+      font->setPointSize((pointSize * boxWidth) / pixelWidth);
+    }
+  } else if (pixelWidth > boxWidth) {
+    // If too wide, scale down
     font->setPointSize((pointSize * boxWidth) / pixelWidth);
+  } else if (pixelHeight > boxHeight) {
+    // If too tall, scale down
+    font->setPointSize((pointSize * boxHeight) / pixelHeight);
   }
+}
+
+QRectF fullRect(int width, int height, size_t padding) {
+  return QRectF(QPoint(padding, padding),
+                QPoint(width - padding, height - padding));
+}
+
+QRectF halfRectTop(int width, int height, size_t padding) {
+  return QRectF(QPoint(padding, padding),
+                QPoint(width - padding, (height - padding) / 2));
+}
+
+QRectF halfRectBot(int width, int height, size_t padding) {
+  return QRectF(QPoint(padding, (height + padding) / 2),
+                QPoint(width - padding, height - padding));
 }
 
 void Label::constructor(const QString &title, const QString &subtitle,
@@ -86,26 +118,24 @@ void Label::paintEvent(QPaintEvent *p) {
 
   QFont titleFont = QApplication::font();
   titleFont.setBold(true);
-  setPointSizeAndResize(&titleFont, &title, POINT_SIZE, width(), padding);
 
   if (subtitle.length() > 0) {
+    auto titleRect = halfRectTop(width(), height(), padding);
+    setPointSizeAndResize(&titleFont, &title, POINT_SIZE, titleRect);
+    paint.setFont(titleFont);
+    paint.drawText(titleRect, Qt::AlignCenter, title);
+
+    auto subtitleRect = halfRectBot(width(), height(), padding);
     QFont subtitleFont = QApplication::font();
     setPointSizeAndResize(&subtitleFont, &subtitle, (3 * POINT_SIZE) / 5,
-                          width(), padding);
-
+                          subtitleRect);
     paint.setFont(subtitleFont);
-    paint.drawText(QRectF(QPoint(padding, (height() - padding) / 2),
-                          QPoint(width() - padding, height() - padding)),
-                   Qt::AlignCenter, subtitle);
-    paint.setFont(titleFont);
-    paint.drawText(QRectF(QPoint(padding, padding),
-                          QPoint(width() - padding, (height() - padding) / 2)),
-                   Qt::AlignCenter, title);
+    paint.drawText(subtitleRect, Qt::AlignCenter, subtitle);
   } else {
+    auto titleRect = fullRect(width(), height(), padding);
+    setPointSizeAndResize(&titleFont, &title, POINT_SIZE, titleRect);
     paint.setFont(titleFont);
-    paint.drawText(QRectF(QPoint(padding, padding),
-                          QPoint(width() - padding, height() - padding)),
-                   Qt::AlignCenter, title);
+    paint.drawText(titleRect, Qt::AlignCenter, title);
   }
 }
 
@@ -140,27 +170,24 @@ void Button::paintEvent(QPaintEvent *p) {
 
   QFont titleFont = QApplication::font();
   titleFont.setBold(true);
-  setPointSizeAndResize(&titleFont, &title, POINT_SIZE, width(), padding);
 
   if (subtitle.length() > 0) {
+    auto titleRect = halfRectTop(width(), height(), padding);
+    setPointSizeAndResize(&titleFont, &title, POINT_SIZE, titleRect);
+    paint.setFont(titleFont);
+    paint.drawText(titleRect, Qt::AlignCenter, title);
+
+    auto subtitleRect = halfRectBot(width(), height(), padding);
     QFont subtitleFont = QApplication::font();
     setPointSizeAndResize(&subtitleFont, &subtitle, (3 * POINT_SIZE) / 5,
-                          width(), padding);
-
+                          subtitleRect);
     paint.setFont(subtitleFont);
-    paint.drawText(QRectF(QPoint(padding, padding),
-                          QPoint(width() - padding, height() - padding)),
-                   Qt::AlignHCenter | Qt::AlignBottom, subtitle);
-
-    paint.setFont(titleFont);
-    paint.drawText(QRectF(QPoint(padding, padding),
-                          QPoint(width() - padding, height() - padding)),
-                   Qt::AlignHCenter | Qt::AlignTop, title);
+    paint.drawText(subtitleRect, Qt::AlignCenter, subtitle);
   } else {
+    auto titleRect = fullRect(width(), height(), padding);
+    setPointSizeAndResize(&titleFont, &title, POINT_SIZE, titleRect);
     paint.setFont(titleFont);
-    paint.drawText(QRectF(QPoint(padding, padding),
-                          QPoint(width() - padding, height() - padding)),
-                   Qt::AlignCenter, title);
+    paint.drawText(titleRect, Qt::AlignCenter, title);
   }
 }
 
