@@ -42,4 +42,4 @@ sudo ldconfig
 printf "${B_GREEN}PosturePerfection has been successfully installed!\n\n"
 
 printf "${GREEN}Run ./PosturePerfection_0.4.0_xxx to run our graphical user interface which displays real time posture estimation. Lines are drawn between
-your Head, Neck, Shoulder and Hip to demonstrate your detected posture! See the `About \& Help` page for more information about usage.${NO_COLOUR}\n\n"
+your Head, Neck, Shoulder and Hip to demonstrate your detected posture! See the \`About & Help\` page for more information about usage.${NO_COLOUR}\n\n"
