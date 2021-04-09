@@ -31,7 +31,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   pipelinePtr = pipeline;
 
   // Load style sheet
-  QFile stylesheet("src/gui/stylesheet.qss");
+  QFile stylesheet("assets/stylesheet.qss");
   stylesheet.open(QFile::ReadOnly);
   QString setSheet = QLatin1String(stylesheet.readAll());
   QWidget::setStyleSheet(setSheet);
