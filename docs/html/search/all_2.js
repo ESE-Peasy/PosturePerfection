@@ -17,5 +17,6 @@ var searchData=
   ['createpose_37',['createPose',['../namespacePostureEstimating.html#a2deac6e18a1012d21d7d1cd72e22e28a',1,'PostureEstimating']]],
   ['createsettingspage_38',['createSettingsPage',['../classGUI_1_1MainWindow.html#a583c7c30730686b4952a4bdc95b421b8',1,'GUI::MainWindow']]],
   ['current_5fpose_39',['current_pose',['../structPostureEstimating_1_1PoseStatus.html#acfbec116ff61d22b8adfc32015d84381',1,'PostureEstimating::PoseStatus::current_pose()'],['../classPostureEstimating_1_1PostureEstimator.html#a140d626b0ec48aa10183ff5ef88364a0',1,'PostureEstimating::PostureEstimator::current_pose()']]],
-  ['currentframesignal_40',['currentFrameSignal',['../classGUI_1_1MainWindow.html#a05f6eea3b31925bdd0bcc9ee931b1779',1,'GUI::MainWindow']]]
+  ['currentframesignal_40',['currentFrameSignal',['../classGUI_1_1MainWindow.html#a05f6eea3b31925bdd0bcc9ee931b1779',1,'GUI::MainWindow']]],
+  ['currentgoodbadposture_41',['currentGoodBadPosture',['../classGUI_1_1MainWindow.html#ab02bd87e168818582cc78039f6264e12',1,'GUI::MainWindow']]]
 ];

@@ -162,27 +162,41 @@ void PostureEstimator::calculatePoseChanges() {
   }
 }
 
-void PostureEstimator::checkGoodPosture() {
-  if (this->posture_state == Unset) {
-    // If the ideal posture has not been set, then remain in the Unset
-    // state regardless
-    return;
-  }
+void PostureEstimator::checkPostureState() {
+  // A posture is fully defined if *all* joints are trustworthy
+  bool fullyDefinedPosture = true;
+  // A posture is partially defined if at least two connected joints
+  // are trustworthy
+  bool partiallyDefinedPosture = false;
 
-  bool trustworthyPosture = true;
-  for (int i = JointMin; i <= JointMax - 2; i++) {
-    // If any detected joint is Untrustworthy, then the overall
-    // posture is untrustworthy
-    if (this->current_pose.joints.at(i).coord.status ==
-        PostProcessing::Untrustworthy) {
-      trustworthyPosture = false;
+  for (int i = JointMin + 1; i <= JointMax - 2; i++) {
+    if (this->current_pose.joints.at(i - 1).coord.status ==
+            PostProcessing::Trustworthy &&
+        this->current_pose.joints.at(i).coord.status ==
+            PostProcessing::Trustworthy) {
+      partiallyDefinedPosture = true;
+    } else if (this->current_pose.joints.at(i - 1).coord.status
+                    == PostProcessing::Untrustworthy) {
+      fullyDefinedPosture = false;
     }
   }
 
-  if (!trustworthyPosture) {
-    this->posture_state = Undefined;
+  if (!fullyDefinedPosture || !partiallyDefinedPosture) {
+    if (this->posture_state == Unset ||
+        this->posture_state == UndefinedAndUnset) {
+      this->posture_state = UndefinedAndUnset;
+    } else {
+      this->posture_state = Undefined;
+    }
     return;
   }
+
+  if (this->posture_state == UndefinedAndUnset) {
+    this->posture_state = Unset;
+    return;
+  }
+
+  if (this->posture_state == Unset) return;
 
   // If the overall posture is trustworthy then check if it is a Bad
   // or Good posture
@@ -200,7 +214,7 @@ void PostureEstimator::checkGoodPosture() {
 
 void PostureEstimator::calculateChangesAndCheckPosture() {
   calculatePoseChanges();
-  checkGoodPosture();
+  checkPostureState();
 }
 
 PostureEstimating::PostureState
@@ -217,6 +231,15 @@ void PostureEstimator::display_current_pose(
   int imageWidth = current_frame.cols;
   int imageHeight = current_frame.rows;
 
+  // Default for `Undefined` and `UndefinedAndUnset`
+  cv::Scalar line_colour = colours.at(Grey);
+
+  if (posture_state == Unset) {
+    line_colour = colours.at(Blue);
+  } else if (posture_state == Good) {
+    line_colour = colours.at(Green);
+  }
+
   for (int i = JointMin + 1; i <= JointMax - 2; i++) {
     // Only consider the Head, Neck, Shoulder and Hip joints
     if (current_pose.joints.at(i).coord.status == PostProcessing::Trustworthy &&
@@ -232,7 +255,7 @@ void PostureEstimator::display_current_pose(
           static_cast<int>(current_pose.joints.at(i).coord.y * imageHeight));
 
       cv::line(current_frame, upper_joint_point, current_joint_point,
-               posture_state == Good ? colours.at(Green) : colours.at(Blue), 5);
+               line_colour, 5);
     }
   }
 }
@@ -287,8 +310,10 @@ void PostureEstimator::display_pose_changes_needed(
 }
 
 void PostureEstimator::update_ideal_pose(PostureEstimating::Pose pose) {
-  this->posture_state = Good;
-  this->ideal_pose = pose;
+  if (this->posture_state != Undefined) {
+    this->posture_state = Good;
+    this->ideal_pose = pose;
+  }
 }
 
 bool PostureEstimator::set_pose_change_threshold(float threshold) {
@@ -319,7 +344,7 @@ void PostureEstimator::analysePosture(PostureEstimating::PoseStatus pose_status,
   PostureEstimating::PostureState posture_state = pose_status.posture_state;
 
   cv::cvtColor(current_frame, current_frame, cv::COLOR_BGR2RGB);
-
+  
   if (posture_state == Undefined) {
     if (!this->undefinedPostureTimer.running) {
       this->undefinedPostureTimer.countdown();

@@ -91,15 +91,21 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:acf4e5c7cbd64c2af4771482608797149"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureState</a> { <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a6d1285da9800c3586139b758c7941155">Good</a>
+<tr class="memitem:acf4e5c7cbd64c2af4771482608797149"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">PostureState</a> { <br />
+&#160;&#160;<a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a6d1285da9800c3586139b758c7941155">Good</a>
 , <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a7052577463df1f7d8661179121b02823">Bad</a>
 , <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149af183b9c342921bb8ab6b3d77a0ed34e8">Unset</a>
+, <a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a61662575271e3da892337440a10e0683">Undefined</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149a869ebd6fd94cca07bd734d21cf5e8518">UndefinedAndUnset</a>
+<br />
  }</td></tr>
 <tr class="memdesc:acf4e5c7cbd64c2af4771482608797149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Potential states which the posture can be. <code>Unset</code> means that the <code>ideal_pose</code> has not been set by the user.  <a href="namespacePostureEstimating.html#acf4e5c7cbd64c2af4771482608797149">More...</a><br /></td></tr>
 <tr class="separator:acf4e5c7cbd64c2af4771482608797149"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a274270b008bcf4805b1cba5a6cfde8fa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8fa">Colours</a> { <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa43b4ba4213c435f8372c3b230f5484ef">Red</a>
 , <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa7639562a8d170b76daf4d4f9e6f2b240">Green</a>
 , <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faa158f8c742139c52dd1200b7bde59c04d">Blue</a>
+, <a class="el" href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8faad5ba5334ec209a773fac20ac0652c375">Grey</a>
  }</td></tr>
 <tr class="memdesc:a274270b008bcf4805b1cba5a6cfde8fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Colours corresponding to <code>PostureEstimator::colours</code>  <a href="namespacePostureEstimating.html#a274270b008bcf4805b1cba5a6cfde8fa">More...</a><br /></td></tr>
 <tr class="separator:a274270b008bcf4805b1cba5a6cfde8fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,6 +139,7 @@ Functions</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a274270b008bcf4805b1cba5a6cfde8faa43b4ba4213c435f8372c3b230f5484ef"></a>Red&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a274270b008bcf4805b1cba5a6cfde8faa7639562a8d170b76daf4d4f9e6f2b240"></a>Green&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a274270b008bcf4805b1cba5a6cfde8faa158f8c742139c52dd1200b7bde59c04d"></a>Blue&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a274270b008bcf4805b1cba5a6cfde8faad5ba5334ec209a773fac20ac0652c375"></a>Grey&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -154,6 +161,8 @@ Functions</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acf4e5c7cbd64c2af4771482608797149a6d1285da9800c3586139b758c7941155"></a>Good&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acf4e5c7cbd64c2af4771482608797149a7052577463df1f7d8661179121b02823"></a>Bad&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acf4e5c7cbd64c2af4771482608797149af183b9c342921bb8ab6b3d77a0ed34e8"></a>Unset&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acf4e5c7cbd64c2af4771482608797149a61662575271e3da892337440a10e0683"></a>Undefined&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acf4e5c7cbd64c2af4771482608797149a869ebd6fd94cca07bd734d21cf5e8518"></a>UndefinedAndUnset&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

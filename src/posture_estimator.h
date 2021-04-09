@@ -85,7 +85,7 @@ struct Pose {
  * `ideal_pose` has not been set by the user.
  *
  */
-enum PostureState { Good, Bad, Unset, Undefined };
+enum PostureState { Good, Bad, Unset, Undefined, UndefinedAndUnset };
 
 /**
  * @brief Creates an empty Pose object
@@ -105,7 +105,7 @@ struct PoseStatus {
 /**
  * @brief Colours corresponding to `PostureEstimator::colours`
  */
-enum Colours { Red, Green, Blue };
+enum Colours { Red, Green, Blue, Grey };
 
 class DelayTimer : public CppTimer {
  private:
@@ -171,8 +171,9 @@ class PostureEstimator {
    * @brief Array of colours used when indicating posture
    *
    */
-  std::array<cv::Scalar, 3> colours = {
-      cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255)};
+  std::array<cv::Scalar, 4> colours = {
+      cv::Scalar(255, 0, 0), cv::Scalar(0, 255, 0), cv::Scalar(0, 0, 255),
+      cv::Scalar(144, 144, 144)};
 
   /**
    * @brief NotifySend broadcaster for sending messages
@@ -225,13 +226,22 @@ class PostureEstimator {
   void calculatePoseChanges();
 
   /**
-   * @brief Checks the current pose_changes_needed and sees if they are still
-   * within the good posture threshold. Designed to be used in conjunction with
-   * calculate pose_changes. WARNING Does not calculate posture
-   * changes.
+   * @brief Determine the current `PostureEstimating::PostureState` based on the
+   * `current_pose` and the `ideal_pose`. This works as follows:
+   * - If `posture_state` is currently `Unset` then remain in this state until
+   * the user sets their `ideal_pose`
+   * - If there are no consecutive nodes that are `Trustworthy` then the state
+   * is changed to `Undefined` or `UndefinedAndUnset` depending on if an
+   * `ideal_pose` has been set or not
+   * - If the current state is not `Undefined` and the `pose_changes` angles are
+   * outwith the `pose_change_threshold` then the state is changed to `Bad`
+   * - If none of these conditions are met, then the state is changed to `Good`.
+   *
+   * Note that this means it is possible for only partial segments of the
+   * overall posture to be displayed
    *
    */
-  void checkGoodPosture();
+  void checkPostureState();
 
   /**
    * @brief Calculates current posture and ideal posture difference and decides
@@ -314,10 +324,13 @@ class PostureEstimator {
   float pose_change_threshold;
 
   /**
-   * @brief Whether the user is currently in a `Good`, `Bad` or `Unset` posture.
-   * (`Unset` means that the `ideal_pose` has not yet been set)
+   * @brief Whether the user is currently in a `Good`, `Bad`, `Unset`,
+   * `Undefined` or `UndefinedAndUnset` posture.
+   * (`Unset` means that the `ideal_pose` has not yet been set, and `Undefined`
+   * is if pose estimation has not found any successive co-ordinates which are
+   * `Trustworthy`)
    */
-  PostureEstimating::PostureState posture_state = Unset;
+  PostureEstimating::PostureState posture_state = UndefinedAndUnset;
 
   /**
    * @brief Calibrate the user's ideal pose using the results of
