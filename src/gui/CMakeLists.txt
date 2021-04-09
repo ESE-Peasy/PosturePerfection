@@ -31,7 +31,7 @@ include_directories("${TENSORFLOW_SOURCE_DIR}")
 include_directories("${TENSORFLOW_SOURCE_DIR}/tensorflow/lite")
 include_directories("${OpenCV_INCLUDE_DIRS}")
 
-add_library(PosturePerfection_gui STATIC mainwindow.cpp ../posture_estimator.cpp ../intermediate_structures.cpp ../pipeline.cpp)
+add_library(PosturePerfection_gui STATIC mainwindow.cpp custom_widgets.cpp ../posture_estimator.cpp ../intermediate_structures.cpp ../pipeline.cpp)
 target_link_libraries(PosturePerfection_gui
   Qt5::Widgets Qt5::PrintSupport
 )

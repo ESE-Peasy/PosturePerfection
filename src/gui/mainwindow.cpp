@@ -20,72 +20,55 @@
  */
 #include "mainwindow.h"
 
+#include <QFile>
 #include <iostream>
 #include <string>
 
 #include "../intermediate_structures.h"
 #include "../posture_estimator.h"
 
+#define LOGO_HEIGHT_MAX 100
+
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
-  // Create the different GUI pages
   pipelinePtr = pipeline;
+
+  // Load style sheet
+  QFile stylesheet("src/gui/stylesheet.qss");
+  stylesheet.open(QFile::ReadOnly);
+  QString setSheet = QLatin1String(stylesheet.readAll());
+  QWidget::setStyleSheet(setSheet);
+
+  // Create the different GUI pages
   createMainPage();
   createSettingsPage();
+  createAboutPage();
 
   // Stack the pages within the mainwindow
-  QStackedWidget *stackedWidget = new QStackedWidget;
   stackedWidget->addWidget(firstPageWidget);
   stackedWidget->addWidget(secondPageWidget);
   stackedWidget->addWidget(thirdPageWidget);
 
-  pageComboBox->addItem(tr("Video Feed"));
-  pageComboBox->addItem(tr("Settings Page"));
-  pageComboBox->setStyleSheet(
-      "QListView{color:white; background-color:#0d1117;}");
-  pageComboBox->setStyleSheet(
-      "QComboBox {color:white; background-color: #0d1117; border-color: "
-      "rgba(255,255,255,200); border-width: 1px; border-style: solid; padding: "
-      "1px 0px 1px 3px;}");
-
-  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
-          stackedWidget, &QStackedWidget::setCurrentIndex);
-
-  central->setStyleSheet("background-color:#0d1117;");
-
-  // create three buttons
-  QPushButton *idealPosture = new QPushButton("&Ideal Posture");
-  framerate->addWidget(idealPosture, 1, 3, 1, 1, Qt::AlignCenter);
-  connect(idealPosture, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
-
-  idealPosture->setStyleSheet(
-      "background-color:rgb(10, 187, 228); border: none;");
-
-  QVBoxLayout *buttonBox = new QVBoxLayout;
-  buttonBox->addWidget(pageComboBox);
-  buttonBox->addWidget(idealPosture);
-  groupBoxButtons->setLayout(buttonBox);
-
   // Create a title
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
-  title->setScaledContents(true);
   QPixmap pix("images/logo.png");
-  title->setPixmap(pix);
-  title->setMinimumSize(10, 10);
-  title->setMaximumSize(250, 125);
+  {
+    auto width = pix.width();
+    auto height = pix.height();
+
+    if (height > LOGO_HEIGHT_MAX) {
+      height = LOGO_HEIGHT_MAX;
+      width = (LOGO_HEIGHT_MAX * width) / height;
+    }
+
+    title->setPixmap(pix.scaled(width, height, Qt::KeepAspectRatio));
+  }
 
   // Run the timer
   QTimer *timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(showDateTime()));
   timer->start();
-
-  // Create dummy labels to allow for the cleaning of old widgets
-  QLabel *updateLabel = new QLabel();
-  QLabel *deleteLabel = new QLabel();
-
-  connect(pageComboBox, QOverload<int>::of(&QComboBox::activated),
-          stackedWidget, &QStackedWidget::setCurrentIndex);
 
   qRegisterMetaType<PostureEstimating::PostureState>(
       "PostureEstimating::PostureState");
@@ -95,63 +78,58 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
 
   // Output widgets to the user interface
   mainLayout->addWidget(title, 0, 0);
-  mainLayout->addWidget(groupBoxButtons, 1, 1);
-  mainLayout->addWidget(deleteLabel, 3, 1);
-  mainLayout->addWidget(updateLabel, 3, 0);
-  mainLayout->addWidget(stackedWidget, 1, 0);
+  mainLayout->addWidget(stackedWidget, 1, 0, 1, 2);
 
   // Display all of the produced widgets on the user's screen
   central->setLayout(mainLayout);
   setCentralWidget(central);
   setWindowTitle(tr("Posture Perfection"));
-
-  qRegisterMetaType<cv::Mat>("cv::Mat");
-  connect(this, SIGNAL(currentFrameSignal(cv::Mat)), this,
-          SLOT(updateVideoFrame(cv::Mat)));
 }
+
+void GUI::MainWindow::openMainPage(void) { stackedWidget->setCurrentIndex(0); }
+
+void GUI::MainWindow::openSettingsPage(void) {
+  stackedWidget->setCurrentIndex(1);
+}
+
+void GUI::MainWindow::openAboutPage(void) { stackedWidget->setCurrentIndex(2); }
 
 void GUI::MainWindow::updatePostureNotification(
     PostureEstimating::PostureState postureState) {
-  // Create notification widgets and set the minimum size shown
-  QWidget *postureNotificationBox = new QWidget;
-  postureNotificationBox->setMinimumSize(200, 40);
-  QGridLayout *postureNotificationLayout = new QGridLayout;
-  QLabel *postureNotification = new QLabel();
-
   // Check if the ideal pose has been set and if so, display notification
   // according to the posture state
   switch (postureState) {
     case PostureEstimating::PostureState::UndefinedAndUnset: {
-      postureNotificationBox->setStyleSheet("background-color: orange");
-      postureNotification->setText("Undefined");
+      postureNotification->setStyleSheet("background-color: #909090");
+      postureNotification->setText("Unknown Posture",
+                                   "Hmm... I can't find your posture");
       break;
     }
     case PostureEstimating::PostureState::Unset: {
-      postureNotificationBox->setStyleSheet("background-color: orange");
-      postureNotification->setText("Unset");
+      postureNotification->setStyleSheet("background-color: #eda333");
+      postureNotification->setText("No Set Posture",
+                                   "Use the Set Ideal Posture\nbutton below");
       break;
     }
     case PostureEstimating::PostureState::Good: {
-      postureNotificationBox->setStyleSheet("background-color: green");
-      postureNotification->setText("Good Posture");
+      postureNotification->setStyleSheet("background-color: #96cb2f");
+      postureNotification->setText("PosturePerfection!");
       break;
     }
     case PostureEstimating::PostureState::Undefined: {
-      postureNotificationBox->setStyleSheet("background-color: orange");
-      postureNotification->setText("Undefined");
+      postureNotification->setStyleSheet("background-color: #909090");
+      postureNotification->setText("Unknown Posture",
+                                   "Hmm... I can't find your posture");
       break;
     }
     case PostureEstimating::PostureState::Bad: {
-      postureNotificationBox->setStyleSheet("background-color: red");
-      postureNotification->setText("Bad Posture");
+      postureNotification->setStyleSheet("background-color: #ed3833");
+      postureNotification->setText(
+          "Imperfect Posture",
+          "Follow the guides to\nachieve PosturePerfection!");
       break;
     }
   }
-  postureNotification->setStyleSheet("QLabel {color : white; }");
-  postureNotificationLayout->addWidget(postureNotification, 0, 0,
-                                       Qt::AlignCenter);
-  postureNotificationBox->setLayout(postureNotificationLayout);
-  mainPageLayout->addWidget(postureNotificationBox, 2, 0, Qt::AlignCenter);
 }
 
 void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
@@ -162,90 +140,147 @@ void GUI::MainWindow::updatePose(PostureEstimating::PoseStatus poseStatus) {
 void GUI::MainWindow::createMainPage() {
   initalFrame();
   firstPageWidget->setLayout(mainPageLayout);
+  connect(idealPostureButton, SIGNAL(clicked()), this, SLOT(setIdealPosture()));
+  auto *settingsButton = new Button("Settings");
+  connect(settingsButton, SIGNAL(clicked()), this, SLOT(openSettingsPage()));
+  auto *aboutButton = new Button("Help & About");
+  connect(aboutButton, SIGNAL(clicked()), this, SLOT(openAboutPage()));
+
+  QGroupBox *mainPageButtonsTop = new QGroupBox();
+  QVBoxLayout *mainPageButtonsBoxTop = new QVBoxLayout;
+  mainPageButtonsBoxTop->addWidget(postureNotification);
+  mainPageButtonsBoxTop->addWidget(idealPostureButton);
+  mainPageButtonsTop->setLayout(mainPageButtonsBoxTop);
+
+  QGroupBox *mainPageButtonsBot = new QGroupBox();
+  QVBoxLayout *mainPageButtonsBoxBot = new QVBoxLayout;
+  mainPageButtonsBoxBot->addWidget(settingsButton);
+  mainPageButtonsBoxBot->addWidget(aboutButton);
+  mainPageButtonsBot->setLayout(mainPageButtonsBoxBot);
+
+  mainPageLayout->addWidget(mainPageButtonsTop, 1, 1);
+  mainPageLayout->addWidget(mainPageButtonsBot, 2, 1);
+
+  qRegisterMetaType<cv::Mat>("cv::Mat");
+  connect(this, SIGNAL(currentFrameSignal(cv::Mat)), this,
+          SLOT(updateVideoFrame(cv::Mat)));
 }
 
 void GUI::MainWindow::createSettingsPage() {
-  QGroupBox *groupThreshold = new QGroupBox();
-  QVBoxLayout *vertThreshold = new QVBoxLayout;
+  QGroupBox *groupSettings = new QGroupBox();
+  QGridLayout *settings = new QGridLayout;
 
   // Create Setting's page title
-  QLabel *settingsTitle = new QLabel();
-  settingsTitle->setText("Settings Page");
-  settingsTitle->setStyleSheet("QLabel {color : white; }");
+  auto *settingsTitle = new Label("Settings Page");
   QFont font = settingsTitle->font();
   font.setPointSize(37);
   font.setBold(true);
   settingsTitle->setFont(font);
-  settingsPageLayout->addWidget(settingsTitle, 0, 0, Qt::AlignCenter);
+
+  // Set layout
+  settingsPageLayout->addWidget(settingsTitle, 0, 0, 1, 5, Qt::AlignLeft);
+  settingsPageLayout->addWidget(groupSettings, 1, 0, 6, 4);
+  settings->setSpacing(0);
+  settings->setMargin(0);
 
   // Allow user to select the confidence threshold
-  QLabel *confidenceLabel = new QLabel();
-  confidenceLabel->setText("Posture Estimating Sensitivity");
-  confidenceLabel->setStyleSheet("QLabel {color : white; }");
+  auto *confidenceLabel = new Label("Confidence Threshold");
   QSlider *confidenceSlider = new QSlider(Qt::Horizontal, this);
   confidenceSlider->setMinimum(0);
   confidenceSlider->setMaximum(100);
   confidenceSlider->setTickInterval(1);
+  confidenceSlider->setMinimumHeight(50);
   int initalThreshold =
       static_cast<int>(pipelinePtr->get_confidence_threshold() * 100);
   confidenceSlider->setValue(initalThreshold);
-  vertThreshold->setSpacing(0);
-  vertThreshold->setMargin(0);
-  vertThreshold->addWidget(confidenceLabel, 0, Qt::AlignBottom);
-  vertThreshold->addWidget(confidenceSlider, 0, Qt::AlignTop);
-
-  settingsPageLayout->addWidget(groupThreshold, 1, 0);
-
+  settings->addWidget(confidenceLabel, 0, 0, 1, 3, Qt::AlignBottom);
+  settings->addWidget(confidenceSlider, 1, 0, 1, 3, Qt::AlignTop);
   connect(confidenceSlider, SIGNAL(valueChanged(int)), this,
           SLOT(setThresholdValue(int)));
 
   // Allow user to select the pose change threshold
-  QLabel *poseChangeThresholdLabel = new QLabel();
-  poseChangeThresholdLabel->setText("Pose Change Threshold");
-  poseChangeThresholdLabel->setStyleSheet("QLabel {color : white; }");
-
+  auto *poseChangeThresholdLabel = new Label("Slouch Sensitivity");
   QSlider *poseChangeThresholdSlider = new QSlider(Qt::Horizontal, this);
   poseChangeThresholdSlider->setMinimum(0);
   poseChangeThresholdSlider->setMaximum(5);
   poseChangeThresholdSlider->setTickInterval(1);
+  poseChangeThresholdSlider->setMinimumHeight(50);
+
   int initalPoseChangeThreshold =
       static_cast<int>(pipelinePtr->get_pose_change_threshold() * 10);
   poseChangeThresholdSlider->setValue(initalPoseChangeThreshold);
-  vertThreshold->addWidget(poseChangeThresholdLabel, 0, Qt::AlignBottom);
-  vertThreshold->addWidget(poseChangeThresholdSlider, 0, Qt::AlignTop);
-  groupThreshold->setLayout(vertThreshold);
-
-  settingsPageLayout->addWidget(groupThreshold, 1, 0);
-
+  settings->addWidget(poseChangeThresholdLabel, 2, 0, 1, 3, Qt::AlignBottom);
+  settings->addWidget(poseChangeThresholdSlider, 3, 0, 1, 3, Qt::AlignTop);
   connect(poseChangeThresholdSlider, SIGNAL(valueChanged(int)), this,
           SLOT(setPoseChangeThresholdValue(int)));
 
   // Let user adjust the video framerate
-  framerate->setSpacing(0);
-  framerate->setMargin(0);
-  QPushButton *upFramerate = new QPushButton("&Up");
-  QPushButton *downFramerate = new QPushButton("&Down");
-  framerate->addWidget(upFramerate, 0, 1, 1, 1, Qt::AlignLeft);
-  framerate->addWidget(downFramerate, 2, 1, 1, 1, Qt::AlignLeft);
-
+  auto *upFramerate = new Button("Up");
+  auto *downFramerate = new Button("Down");
+  settings->addWidget(upFramerate, 4, 0, Qt::AlignLeft);
+  settings->addWidget(downFramerate, 4, 2, Qt::AlignRight);
+  settings->addWidget(currentFrameRate, 4, 1, Qt::AlignHCenter);
   connect(upFramerate, SIGNAL(clicked()), this, SLOT(increaseVideoFramerate()));
   connect(downFramerate, SIGNAL(clicked()), this,
           SLOT(decreaseVideoFramerate()));
-
   setOutputFramerate();
 
-  currentFrame->setStyleSheet("QLabel {color : white; }");
-  framerate->addWidget(currentFrame, 1, 1, 1, 1, Qt::AlignLeft);
-
-  QGroupBox *groupFramerate = new QGroupBox();
-  groupFramerate->setLayout(framerate);
-  settingsPageLayout->addWidget(groupFramerate, 2, 0);
-
+  groupSettings->setLayout(settings);
   secondPageWidget->setLayout(settingsPageLayout);
+
+  auto *homeButton = new Button("Back to video");
+  connect(homeButton, SIGNAL(clicked()), this, SLOT(openMainPage()));
+  QGroupBox *settingsPageButtons = new QGroupBox();
+  QVBoxLayout *settingsPageButtonsBox = new QVBoxLayout;
+  settingsPageButtonsBox->addWidget(homeButton);
+  settingsPageButtons->setLayout(settingsPageButtonsBox);
+  settingsPageLayout->addWidget(settingsPageButtons, 1, 4, 6, 1);
+}
+
+void GUI::MainWindow::createAboutPage() {
+  QGroupBox *aboutText = new QGroupBox();
+  QVBoxLayout *aboutTextBox = new QVBoxLayout;
+  QLabel *aboutTextLabel = new QLabel();
+  aboutTextLabel->setOpenExternalLinks(true);
+  aboutTextLabel->setTextFormat(Qt::RichText);
+  aboutTextLabel->setWordWrap(true);
+  aboutTextLabel->setText(
+      "PosturePerfection -- introducing your new personal posture pal, "
+      "fighting against back pain to bring homeworking into the next era of "
+      "technology!\n\nHere are some simple steps to get "
+      "started:\n<ul><li>Position the camera so the system can see you side-on "
+      "-- from head to hip. You should see lines appearing on "
+      "screen</li><li>Adopt an ideal posture and click the button to tune the "
+      "system to your body</li><li>Have fun! We'll let you know if your "
+      "posture worsens.</li><li>If your posture becomes \"Undefined\" the "
+      "system is struggling to detect you and you may need to reposition "
+      "yourself</li></ul>For more detailed usage instructions visit <a "
+      "href=\"https://ese-peasy.github.io/PosturePerfection/\">our "
+      "website</a>.\n\nIf you spot any bugs or problems let us know by "
+      "submitting an issue on <a "
+      "href=\"https://github.com/ESE-Peasy/PosturePerfection/issues\">GitHub "
+      "Issues</a>.\n\nThe full source code and licensing information is "
+      "available on <a "
+      "href=\"https://github.com/ESE-Peasy/PosturePerfection\">GitHub</a>.");
+  aboutTextBox->addWidget(aboutTextLabel);
+  aboutText->setLayout(aboutTextBox);
+  aboutPageLayout->addWidget(aboutText, 1, 0, 1, 4);
+
+  auto *homeButton = new Button("Back to video");
+  connect(homeButton, SIGNAL(clicked()), this, SLOT(openMainPage()));
+  QGroupBox *navButtons = new QGroupBox();
+  QVBoxLayout *navButtonsBox = new QVBoxLayout;
+  navButtonsBox->addWidget(homeButton);
+  navButtons->setLayout(navButtonsBox);
+
+  aboutPageLayout->addWidget(navButtons, 1, 5);
+  thirdPageWidget->setLayout(aboutPageLayout);
 }
 
 void GUI::MainWindow::setIdealPosture() {
   pipelinePtr->set_ideal_posture(currentPoseStatus.current_pose);
+  idealPostureButton->setText("Reset Ideal Posture",
+                              "Set current\nposture as my target");
 }
 
 void GUI::MainWindow::setThresholdValue(int scaledValue) {
@@ -262,7 +297,7 @@ void GUI::MainWindow::setOutputFramerate() {
   float newFramerate = pipelinePtr->get_framerate();
   QString output =
       "Frame Rate: " + QString::number(newFramerate, 'f', 1) + " fps";
-  currentFrame->setText(output);
+  currentFrameRate->setText(output);
 }
 
 void GUI::MainWindow::decreaseVideoFramerate() {
@@ -303,7 +338,7 @@ void GUI::MainWindow::showDateTime() {
 
   // output the current date/time and clear the previous outputted value
   mainLayout->addWidget(groupDateTime, 0, 1);
-  mainLayout->itemAt(3)->widget()->deleteLater();
+  mainLayout->itemAt(1)->widget()->deleteLater();
 }
 
 GUI::MainWindow::~MainWindow() { delete mainLayout; }
@@ -318,7 +353,7 @@ void GUI::MainWindow::initalFrame() {
                         img.cols, img.rows, img.step, QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
-  mainPageLayout->addWidget(frame, 1, 0);
+  mainPageLayout->addWidget(frame, 1, 0, 2, 1);
 }
 
 void GUI::MainWindow::emitNewFrame(cv::Mat currentFrame) {
@@ -332,5 +367,5 @@ void GUI::MainWindow::updateVideoFrame(cv::Mat currentFrame) {
                         QImage::Format_RGB888);
   QPixmap pixmap = QPixmap::fromImage(imgIn);
   frame->setPixmap(pixmap);
-  mainPageLayout->addWidget(frame, 1, 0);
+  mainPageLayout->addWidget(frame, 1, 0, 2, 1);
 }

@@ -31,6 +31,7 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QMenuBar>
+#include <QPainter>
 #include <QPushButton>
 #include <QRect>
 #include <QStackedWidget>
@@ -49,6 +50,8 @@
 #include "../posture_estimator.h"
 #include "opencv2/opencv.hpp"
 
+#define WIDGET_PADDING 5
+
 QT_BEGIN_NAMESPACE
 
 /**
@@ -57,6 +60,63 @@ QT_BEGIN_NAMESPACE
  *
  */
 namespace GUI {
+
+/**
+ * @brief Subclass of `QPushButton` that allows having a title and subtitle
+ * within the button.
+ *
+ */
+class Button : public QPushButton {
+  Q_OBJECT
+ private:
+  QString title;
+  QString subtitle;
+  size_t padding = WIDGET_PADDING;
+
+  void constructor(const QString &title, const QString &subtitle,
+                   QWidget *parent = 0);
+
+ public:
+  explicit Button(const QString &title, QWidget *parent = 0);
+
+  explicit Button(const QString &title, const QString &subtitle,
+                  QWidget *parent = 0);
+
+  void setText(const QString &title);
+
+  void setText(const QString &title, const QString &subtitle);
+
+  void paintEvent(QPaintEvent *p);
+};
+
+/**
+ * @brief Subclass of `QLabel` that allows having a title and subtitle
+ * within the label.
+ *
+ */
+class Label : public QLabel {
+  Q_OBJECT
+ private:
+  QString title;
+  QString subtitle;
+  size_t padding = WIDGET_PADDING;
+
+  void constructor(const QString &title, const QString &subtitle,
+                   QWidget *parent = 0);
+
+ public:
+  explicit Label(QWidget *parent = 0);
+
+  explicit Label(const QString &title, QWidget *parent = 0);
+
+  Label(const QString &title, const QString &subtitle, QWidget *parent = 0);
+
+  void setText(const QString &title);
+
+  void setText(const QString &title, const QString &subtitle);
+
+  void paintEvent(QPaintEvent *p);
+};
 
 /**
  * @brief Allows for navigation around the application from the main
@@ -101,6 +161,8 @@ class MainWindow : public QMainWindow {
    *
    */
   void createSettingsPage();
+
+  void createAboutPage();
 
   /**
    * @brief Updates the current pose
@@ -159,6 +221,24 @@ class MainWindow : public QMainWindow {
    */
   void updatePostureNotification(PostureEstimating::PostureState postureState);
 
+  /**
+   * @brief Switch to the main page with the video feed
+   *
+   */
+  void openMainPage(void);
+
+  /**
+   * @brief Switch to the settings page
+   *
+   */
+  void openSettingsPage(void);
+
+  /**
+   * @brief Switch to the help and about page
+   *
+   */
+  void openAboutPage(void);
+
  signals:
   /**
    * @brief emit the newly captured frame
@@ -182,12 +262,14 @@ class MainWindow : public QMainWindow {
 
   Pipeline::Pipeline *pipelinePtr = nullptr;
   PostureEstimating::PoseStatus currentPoseStatus;
-  QGridLayout *framerate = new QGridLayout;
-  QLabel *currentFrame = new QLabel();
+
+  Label *currentFrameRate = new Label();
+  Label *postureNotification = new Label();
+  Button *idealPostureButton =
+      new Button("Set Ideal Posture", "Set current\nposture as my target");
 
   QGridLayout *mainLayout = new QGridLayout;
   QWidget *central = new QWidget;
-  QGroupBox *groupBoxButtons = new QGroupBox();
   QStandardItemModel *model = new QStandardItemModel();
   QLabel *frame = new QLabel();
   QStackedWidget *stackedWidget = new QStackedWidget;
@@ -202,6 +284,7 @@ class MainWindow : public QMainWindow {
   QGridLayout *settingsPageLayout = new QGridLayout;
 
   QWidget *thirdPageWidget = new QWidget;
+  QGridLayout *aboutPageLayout = new QGridLayout;
 
  private slots:
   /**
