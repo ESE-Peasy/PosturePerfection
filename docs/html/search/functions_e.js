@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['update_5fideal_5fpose_380',['update_ideal_pose',['../classPostureEstimating_1_1PostureEstimator.html#ad032960ec600840bf538ad88366a12cd',1,'PostureEstimating::PostureEstimator']]],
-  ['updated_5fframerate_381',['updated_framerate',['../classPipeline_1_1FrameGenerator.html#af5a97d26aeb0bbd49bbe7f451690e5ac',1,'Pipeline::FrameGenerator::updated_framerate()'],['../classPipeline_1_1Pipeline.html#a02722a19f44ea3c1451e25997451e545',1,'Pipeline::Pipeline::updated_framerate()']]],
-  ['updatepose_382',['updatePose',['../classGUI_1_1MainWindow.html#a5bb8233bd77db5c51d0e6637527ee07d',1,'GUI::MainWindow']]],
-  ['updateposturenotification_383',['updatePostureNotification',['../classGUI_1_1MainWindow.html#ab7d5b70edafc7ac8a0e252b001230906',1,'GUI::MainWindow']]],
-  ['updatevideoframe_384',['updateVideoFrame',['../classGUI_1_1MainWindow.html#aaf7ad1ebf8a411385498361509f17b75',1,'GUI::MainWindow']]]
+  ['run_395',['run',['../classIIR_1_1IIR2ndOrderFilter.html#a9500fcdaf9d6923057461c1a0ef623d2',1,'IIR::IIR2ndOrderFilter::run()'],['../classIIR_1_1IIRFilter.html#a1f0009b3f0107d00cd5cb230c028a023',1,'IIR::IIRFilter::run()'],['../classInference_1_1InferenceCore.html#ab622367f2d9a518e89401fe0ee710188',1,'Inference::InferenceCore::run()'],['../classNotify_1_1NotifyReceiver.html#ac1eb4346bdec0903b026b6ee47b08885',1,'Notify::NotifyReceiver::run()'],['../classPostProcessing_1_1PostProcessor.html#a2a8ce854324720f34d9c4f10c2b37e4d',1,'PostProcessing::PostProcessor::run()'],['../classPreProcessing_1_1PreProcessor.html#ac81108f758bd9d90483b5c85f1c965d9',1,'PreProcessing::PreProcessor::run()']]],
+  ['runestimator_396',['runEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ac6f12c5c80b96860c57a989c92b28d2b',1,'PostureEstimating::PostureEstimator']]]
 ];

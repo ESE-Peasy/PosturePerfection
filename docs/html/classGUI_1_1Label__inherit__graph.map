@@ -1,0 +1,4 @@
+<map id="GUI::Label" name="GUI::Label">
+<area shape="rect" id="node1" title="Subclass of QLabel that allows having a title and subtitle within the label." alt="" coords="5,80,89,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="15,5,79,32"/>
+</map>

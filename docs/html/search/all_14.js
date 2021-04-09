@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['what_227',['what',['../structNotify_1_1IncorrectDirectory.html#af6d56f661bf214abfa8ee1b9cf9a6c93',1,'Notify::IncorrectDirectory']]],
-  ['wireframes_2emd_228',['wireframes.md',['../wireframes_8md.html',1,'']]]
+  ['valid_241',['valid',['../structBuffer_1_1PopResult.html#a774cb009fb6ca186980c873965730d3c',1,'Buffer::PopResult']]],
+  ['value_242',['value',['../structBuffer_1_1PopResult.html#a01b3b1ad3f13b13b74086b1da4771dd9',1,'Buffer::PopResult']]]
 ];

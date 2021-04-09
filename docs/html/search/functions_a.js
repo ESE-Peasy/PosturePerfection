@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['pipeline_359',['Pipeline',['../classPipeline_1_1Pipeline.html#a42acbc67045f64819cd962e2b5746091',1,'Pipeline::Pipeline']]],
-  ['pop_360',['pop',['../classBuffer_1_1Buffer.html#a0983cf5697200852fadbc8e9cb667252',1,'Buffer::Buffer']]],
-  ['postprocessor_361',['PostProcessor',['../classPostProcessing_1_1PostProcessor.html#a08e86bb5b38024d22acc0dd69c757b7b',1,'PostProcessing::PostProcessor']]],
-  ['postureestimator_362',['PostureEstimator',['../classPostureEstimating_1_1PostureEstimator.html#ab86561e9c3706a2c4ae7a934ffc1ad04',1,'PostureEstimating::PostureEstimator']]],
-  ['preprocessor_363',['PreProcessor',['../classPreProcessing_1_1PreProcessor.html#afd713f3b176e5bfe59f5af63236ea72c',1,'PreProcessing::PreProcessor']]],
-  ['push_364',['push',['../classBuffer_1_1Buffer.html#a22df98fb8aac5c7a3d8f8ac2bfe8dbb2',1,'Buffer::Buffer']]]
+  ['main_380',['main',['../gui_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp'],['../broadcast__example_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;broadcast_example.cpp'],['../receiver__example_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;receiver_example.cpp']]],
+  ['mainwindow_381',['MainWindow',['../classGUI_1_1MainWindow.html#a8c28036978847305a5dbbcc7114e7f05',1,'GUI::MainWindow']]]
 ];

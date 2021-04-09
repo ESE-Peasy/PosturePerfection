@@ -14,5 +14,6 @@ var searchData=
   ['broadcaster_2eh_19',['broadcaster.h',['../broadcaster_8h.html',1,'']]],
   ['buffer_20',['buffer',['../classNotify_1_1NotifyReceiver.html#a04a8e1d4f6d5c67829e7c33a0de146ea',1,'Notify::NotifyReceiver']]],
   ['buffer_21',['Buffer',['../classBuffer_1_1Buffer.html#ab092205b64035a79ae498aa38f197442',1,'Buffer::Buffer::Buffer()'],['../namespaceBuffer.html',1,'Buffer'],['../classBuffer_1_1Buffer.html',1,'Buffer::Buffer&lt; T &gt;']]],
-  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_22',['Buffer&lt; Pipeline::CoreResults &gt;',['../classBuffer_1_1Buffer.html',1,'Buffer']]]
+  ['buffer_3c_20pipeline_3a_3acoreresults_20_3e_22',['Buffer&lt; Pipeline::CoreResults &gt;',['../classBuffer_1_1Buffer.html',1,'Buffer']]],
+  ['button_23',['Button',['../classGUI_1_1Button.html#ace80fde34b0edf411a5e434a506da7b0',1,'GUI::Button::Button(const QString &amp;title, QWidget *parent=0)'],['../classGUI_1_1Button.html#a4850cde3517bd8c7a89da2fe187a03f3',1,'GUI::Button::Button(const QString &amp;title, const QString &amp;subtitle, QWidget *parent=0)'],['../classGUI_1_1Button.html',1,'GUI::Button']]]
 ];

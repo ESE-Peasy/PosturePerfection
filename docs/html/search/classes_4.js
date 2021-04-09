@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mainwindow_250',['MainWindow',['../classGUI_1_1MainWindow.html',1,'GUI']]]
+  ['label_268',['Label',['../classGUI_1_1Label.html',1,'GUI']]]
 ];
