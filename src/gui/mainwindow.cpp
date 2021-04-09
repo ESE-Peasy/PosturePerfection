@@ -31,7 +31,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   pipelinePtr = pipeline;
 
   // Load style sheet
-  QFile stylesheet("src/gui/stylesheet.qss");
+  QFile stylesheet("assets/stylesheet.qss");
   stylesheet.open(QFile::ReadOnly);
   QString setSheet = QLatin1String(stylesheet.readAll());
   QWidget::setStyleSheet(setSheet);
@@ -49,7 +49,7 @@ GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
   // Create a title
   QLabel *title = new QLabel();
   title->setBackgroundRole(QPalette::Dark);
-  QPixmap pix("images/logo.png");
+  QPixmap pix("assets/logo.png");
   {
     auto width = pix.width();
     auto height = pix.height();
@@ -342,7 +342,7 @@ GUI::MainWindow::~MainWindow() { delete mainLayout; }
 
 void GUI::MainWindow::initalFrame() {
   QLabel *frame = new QLabel();
-  cv::Mat img = cv::imread("images/logo.png");
+  cv::Mat img = cv::imread("assets/logo.png");
   // Switch from BGR to RGB
   cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
   QImage imgIn = QImage((uchar *)  // NOLINT [readability/casting]

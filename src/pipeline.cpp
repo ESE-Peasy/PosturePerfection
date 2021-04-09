@@ -133,7 +133,7 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
 
   // Create multiple inference core threads to improve performance
   for (; num_inference_core_threads > 0; num_inference_core_threads--) {
-    Inference::InferenceCore core("models/EfficientPoseRT_LITE.tflite",
+    Inference::InferenceCore core("assets/EfficientPoseRT_LITE.tflite",
                                   MODEL_INPUT_X, MODEL_INPUT_Y);
 
     std::thread core_thread(&Pipeline::Pipeline::core_thread_body, this,
