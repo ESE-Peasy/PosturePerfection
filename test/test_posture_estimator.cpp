@@ -17,6 +17,7 @@ PostureEstimating::Pose helper_create_pose() {
   }
   return p;
 }
+
 PostProcessing::ProcessedResults helper_create_result() {
   PostProcessing::ProcessedResults r;
   for (int i = JointMin; i <= JointMax; i++) {
@@ -190,33 +191,47 @@ BOOST_AUTO_TEST_CASE(ChangesHandlesUntrustworthy) {
   }
 }
 
-BOOST_AUTO_TEST_CASE(StartInUnsetPostureState) {
+BOOST_AUTO_TEST_CASE(StartInUndefinedAndUnsetPostureState) {
   PostureEstimating::PostureEstimator e;
 
-  BOOST_TEST(e.posture_state == PostureEstimating::Unset);
+  BOOST_TEST(e.posture_state == PostureEstimating::UndefinedAndUnset);
 }
 
 BOOST_AUTO_TEST_CASE(AllUntrustworthyJointsGivesUndefinedPostureState) {
   PostureEstimating::PostureEstimator e;
   // current_pose is initialised as a Pose with all Untrustworthy joints
   e.update_ideal_pose(e.current_pose);
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Undefined);
 }
 
 BOOST_AUTO_TEST_CASE(SettingIdealPostureChangesState) {
   PostureEstimating::PostureEstimator e;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   // Start in Unset state
-  BOOST_TEST(e.posture_state == PostureEstimating::Unset);
+  BOOST_TEST(e.posture_state == PostureEstimating::UndefinedAndUnset);
 
   e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
+}
+
+BOOST_AUTO_TEST_CASE(UndefinedPostureIfConsecutiveJointsTrustworthyButNotFullPosture) {
+  PostureEstimating::PostureEstimator e;
+  e.update_ideal_pose(e.current_pose);
+  e.checkPostureState();
+
+  BOOST_TEST(e.posture_state == PostureEstimating::Undefined);
+
+  e.current_pose.joints.at(Head).coord.status = PostProcessing::Trustworthy;
+  e.current_pose.joints.at(Neck).coord.status = PostProcessing::Trustworthy;
+  e.checkPostureState();
+  
+  BOOST_TEST(e.posture_state == PostureEstimating::Undefined);
 }
 
 BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
@@ -224,7 +239,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureNoChanges) {
   e.current_pose = helper_create_pose();
   e.update_ideal_pose(e.current_pose);
   e.pose_change_threshold = M_PI / 4;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
@@ -236,7 +251,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureWithinThreshold) {
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 6;
   e.pose_changes.joints[JointMin].upper_angle = -M_PI / 6;
   e.pose_change_threshold = M_PI / 4;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
@@ -248,7 +263,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOnThreshold) {
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
   e.pose_change_threshold = M_PI / 4;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Good);
 }
@@ -259,7 +274,7 @@ BOOST_AUTO_TEST_CASE(GoodPostureOutsideThreshold) {
   e.pose_changes.joints[JointMin].lower_angle = M_PI / 4;
   e.pose_changes.joints[JointMin + 1].upper_angle = -M_PI / 4;
   e.pose_change_threshold = M_PI / 6;
-  e.checkGoodPosture();
+  e.checkPostureState();
 
   BOOST_TEST(e.posture_state == PostureEstimating::Bad);
 }
