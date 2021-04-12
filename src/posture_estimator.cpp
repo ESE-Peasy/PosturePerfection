@@ -413,7 +413,7 @@ void StopTimer::timerEvent() {
 }
 
 MessageTimer::MessageTimer(std::vector<DelayTimer*> timers,
-                           Notify::NotifyBroadcast* broadcast, std::string msg,
+                           RemoteNotify::Broadcast* broadcast, std::string msg,
                            size_t time)
     : CppTimer() {
   this->notificationTimers = timers;
