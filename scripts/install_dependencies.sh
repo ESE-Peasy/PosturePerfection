@@ -27,7 +27,6 @@ if [ ! -d "cppTimer_src" ]; then
   printf "\n"
   git clone https://github.com/berndporr/cppTimer.git cppTimer_src || exit 1
   cd cppTimer_src
-  git pull
   cmake .
   make
   sudo make install
@@ -42,7 +41,6 @@ if [ ! -d "simple-remote-notify-send_src" ]; then
   printf "\n"
   git clone https://github.com/ESE-Peasy/simple-remote-notify-send simple-remote-notify-send_src || exit 1
   cd simple-remote-notify-send_src
-  git pull
   cmake .
   make
   sudo make install
