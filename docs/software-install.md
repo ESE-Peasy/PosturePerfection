@@ -40,7 +40,7 @@ git clone https://github.com/ESE-Peasy/PosturePerfection.git
 Note that this step includes the installation of Tensorflow and OpenCV from source, and is therefore expected to take a long time (approximately 30 mins to 1 hour).
 
 ```sh
-cd PosturePerfection && ./scripts/install-dependencies.sh
+cd PosturePerfection && ./scripts/install_dependencies.sh
 ```
 
 ### Build PosturePerfection

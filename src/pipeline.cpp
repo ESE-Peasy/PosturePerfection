@@ -26,10 +26,6 @@
 #define MODEL_INPUT_Y 224
 #define CONFIDENCE_THRESH_DEFAULT 0.1
 
-#define ms_to_ns(x) \
-  (size_t)(x *      \
-           (size_t)1000000)  ///< Convert value in milliseconds to nanoseconds
-
 namespace Pipeline {
 
 FrameGenerator::FrameGenerator(void) : cap(0) {
@@ -57,7 +53,7 @@ FrameGenerator::~FrameGenerator() {
 
 void FrameGenerator::updated_framerate(size_t new_frame_delay) {
   stop();
-  start(ms_to_ns(new_frame_delay));
+  startms(new_frame_delay);
 }
 
 void FrameGenerator::timerEvent(void) { cv.notify_one(); }
@@ -145,8 +141,8 @@ Pipeline::Pipeline(uint8_t num_inference_core_threads,
       &Pipeline::Pipeline::post_processing_thread_body, this);
   threads.push_back(std::move(post_processing_thread));
 
-  frame_generator.start(
-      ms_to_ns(framerate_settings.get_framerate_setting().frame_delay));
+  frame_generator.startms(
+      framerate_settings.get_framerate_setting().frame_delay);
 }
 
 Pipeline::~Pipeline() {
