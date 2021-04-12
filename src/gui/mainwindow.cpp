@@ -25,6 +25,7 @@
 #include "../posture_estimator.h"
 
 #define LOGO_HEIGHT_MAX 100
+#define SLOUCH_SENSITIVITY_MAX 50
 
 GUI::MainWindow::MainWindow(Pipeline::Pipeline *pipeline, QWidget *parent)
     : QMainWindow(parent) {
@@ -199,7 +200,7 @@ void GUI::MainWindow::createSettingsPage() {
   auto *poseChangeThresholdLabel = new Label("Slouch Sensitivity");
   QSlider *poseChangeThresholdSlider = new QSlider(Qt::Horizontal, this);
   poseChangeThresholdSlider->setMinimum(0);
-  poseChangeThresholdSlider->setMaximum(5);
+  poseChangeThresholdSlider->setMaximum(SLOUCH_SENSITIVITY_MAX - 1);
   poseChangeThresholdSlider->setTickInterval(1);
   poseChangeThresholdSlider->setMinimumHeight(50);
 
@@ -303,8 +304,9 @@ void GUI::MainWindow::decreaseVideoFramerate() {
 }
 
 void GUI::MainWindow::setPoseChangeThresholdValue(int scaledValue) {
-  float value = static_cast<float>(scaledValue) / 10.0;
-  pipelinePtr->set_confidence_threshold(value);
+  float value =
+      (SLOUCH_SENSITIVITY_MAX - static_cast<float>(scaledValue)) / 100.0;
+  pipelinePtr->set_pose_change_threshold(value);
 }
 
 void GUI::MainWindow::showDateTime() {
