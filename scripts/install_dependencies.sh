@@ -6,6 +6,10 @@ PP_ROOT=$(pwd)
 MIN_CMAKE="3.16"
 TF_VERSION="f32b4d37cc059771198484d453d5cf288cf7803b"
 
+# Makes use of snippet from: https://stackoverflow.com/a/3278427 for
+# cleanly checking git commits of dependencies
+UPSTREAM=${1:-'@{u}'}
+
 ## Check for correct version of CMake
 if ! cmake --version >/dev/null 2>&1; then
   printf "CMake is not installed, please install version 3.16 or higher\n"
@@ -27,13 +31,27 @@ if [ ! -d "cppTimer_src" ]; then
   printf "\n"
   git clone https://github.com/berndporr/cppTimer.git cppTimer_src || exit 1
   cd cppTimer_src
-  git pull
   cmake .
   make
   sudo make install
   cd ..
 else
-  printf " skipped\n"
+  cd cppTimer_src
+  LOCAL=$(git rev-parse @)
+  REMOTE=$(git rev-parse "$UPSTREAM")
+  if [ $LOCAL = $REMOTE ]; then
+    printf " skipped\n"
+  else
+    printf " downloading update\n"
+    make clean
+    git pull origin HEAD
+    cmake .
+    make
+    sudo make install
+  fi
+  cd ..
+  LOCAL=""
+  REMOTE=""
 fi
 
 ## Download cppTimer
@@ -48,8 +66,24 @@ if [ ! -d "simple-remote-notify-send_src" ]; then
   sudo make install
   cd ..
 else
-  printf " skipped\n"
+  cd simple-remote-notify-send_src
+  LOCAL=$(git rev-parse @)
+  REMOTE=$(git rev-parse "$UPSTREAM")
+  if [ $LOCAL = $REMOTE ]; then
+    printf " skipped\n"
+  else
+    printf " downloading update\n"
+    make clean
+    git pull origin HEAD
+    cmake .
+    make
+    sudo make install
+  fi
+  cd ..
+  LOCAL=""
+  REMOTE=""
 fi
+
 ## Download TFL code
 printf "Downloading TensorFlow ..."
 if [ ! -d "tensorflow_src" ]; then
@@ -59,7 +93,17 @@ if [ ! -d "tensorflow_src" ]; then
   git checkout $TF_VERSION
   cd ..
 else
-  printf " skipped\n"
+  cd tensorflow_src
+  LOCAL=$(git rev-parse @)
+  if [ $LOCAL = $TF_VERSION ]; then
+    printf " skipped\n"
+  else
+    printf " downloading update\n"
+    git pull origin $TF_VERSION
+  fi
+  cd ..
+  LOCAL=""
+  REMOTE=""
 fi
 
 ## Download OpenCV code
