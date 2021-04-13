@@ -105,6 +105,8 @@ The installation currently only works on Linux machines. In particular, we test 
 
 To get PosturePerfection running by yourself you will need to follow these steps.
 
+> **Note**: we recommend installing via the [quickstart](#quickstart) described above. Building from source involves downloading larger files and building TensorFlow Lite and OpenCV from source, a process that may take over an hour!
+
 ### Prerequisites
 
 > All requirements will be installed if you follow the [installation](#installation) instructions below.
