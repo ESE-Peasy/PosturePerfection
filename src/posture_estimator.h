@@ -23,13 +23,13 @@
 #define SRC_POSTURE_ESTIMATOR_H_
 
 #include <CppTimer.h>
+#include <RemoteNotifyBroadcast.h>
 #include <stdio.h>
 
 #include <string>
 #include <vector>
 
 #include "intermediate_structures.h"
-#include "notifications/broadcaster.h"
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
 
@@ -138,7 +138,7 @@ class DelayTimer : public CppTimer {
   void countdown();
 };
 /**
- * @brief Broadcasts a message using `Notify::NotifyBroadcast` after a time is
+ * @brief Broadcasts a message using `RemoteNotify::Broadcast` after a time is
  * elapsed
  */
 class MessageTimer : public CppTimer {
@@ -146,8 +146,8 @@ class MessageTimer : public CppTimer {
   std::vector<DelayTimer*>
       notificationTimers;  ///< List of `PostureEstimating::DelayTimers` that
                            ///< must not be running for message to be broadcast
-  Notify::NotifyBroadcast*
-      broadcaster;  ///< `Notify::NotifyBroadcast` used to broadcast message
+  RemoteNotify::Broadcast*
+      broadcaster;  ///< `RemoteNotify::Broadcast` used to broadcast message
   std::string msg;  ///< Message to be sent
 
  public:
@@ -159,12 +159,12 @@ class MessageTimer : public CppTimer {
    * @brief Constructor for `PostureEstimating::MessageTimer`
    * @param notificationTimers List of `PostureEstimating::DelayTimers` that
    * must not be running for message to be broadcast
-   * @param broadcaster  `Notify::NotifyBroadcast` used to broadcast the message
+   * @param broadcaster  `RemoteNotify::Broadcast` used to broadcast the message
    * @param msg message to be sent
    * @param time The time to wait before broadcasting message
    */
   MessageTimer(std::vector<DelayTimer*> timers,
-               Notify::NotifyBroadcast* broadcast, std::string msg,
+               RemoteNotify::Broadcast* broadcast, std::string msg,
                size_t time);
   /**
    * @brief Deconstructor for `PostureEstimating::MessageTimer`
@@ -180,7 +180,7 @@ class MessageTimer : public CppTimer {
    */
   void stopCountdown();
   /**
-   * Broadcasts message using `Notify::NotifyBroadcast`
+   * Broadcasts message using `RemoteNotify::Broadcast`
    */
   void timerEvent();
 };
@@ -253,7 +253,7 @@ class PostureEstimator {
   /**
    * @brief NotifySend broadcaster for sending messages
    */
-  Notify::NotifyBroadcast broadcaster;
+  RemoteNotify::Broadcast broadcaster;
   DelayTimer badPostureNotificationTimer;
   DelayTimer undefinedPostureNotificationTimer;
   MessageTimer badPostureTimer;

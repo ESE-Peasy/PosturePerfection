@@ -14,12 +14,6 @@ endif()
 add_subdirectory(gui ENABLE_EXPORTS)
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/../../src/gui")
 
-set(NTFYSRC
-  notifications/notify.cpp
-  notifications/broadcaster.cpp
-  notifications/receiver.cpp
-)
-
 set(LIBSRC
   iir.cpp
   inference_core.cpp
@@ -51,11 +45,10 @@ add_subdirectory(
   "${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite" EXCLUDE_FROM_ALL)
   
 add_library(PosturePerfection_static STATIC ${LIBSRC})
-add_library(PosturePerfection_notify STATIC ${NTFYSRC})
 target_include_directories(PosturePerfection_static PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")
 
 add_executable(PosturePerfection ${LIBSRC} main.cpp)
-target_link_libraries(PosturePerfection cpptimer rt)
-target_link_libraries(PosturePerfection tensorflow-lite PosturePerfection_gui PosturePerfection_notify ${CMAKE_DL_LIBS})
+target_link_libraries(PosturePerfection cpptimer rt RemoteNotifyBroadcast)
+target_link_libraries(PosturePerfection tensorflow-lite PosturePerfection_gui ${CMAKE_DL_LIBS})
 target_link_libraries(PosturePerfection ${OpenCV_LIBS})
 target_include_directories(PosturePerfection PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include")

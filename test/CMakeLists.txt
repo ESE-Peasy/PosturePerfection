@@ -1,6 +1,6 @@
 find_package (Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
 
-set(libraries       ${CMAKE_THREAD_LIBS_INIT} PosturePerfection_static PosturePerfection_notify cpptimer rt)
+set(libraries       ${CMAKE_THREAD_LIBS_INIT} PosturePerfection_static cpptimer rt RemoteNotifyBroadcast RemoteNotifyReceive)
 set(test_libraries  ${libraries} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 set(OpenCV_DIR "${CMAKE_CURRENT_BINARY_DIR}/../../../opencv_build")
@@ -45,6 +45,5 @@ create_test(test_iir ${test_libraries})
 create_test(test_post_processor ${test_libraries})
 create_test(test_pre_processor ${test_libraries} ${OpenCV_LIBS})
 create_test(test_posture_estimator ${test_libraries} ${OpenCV_LIBS})
-create_test(test_notifications ${test_libraries})
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
