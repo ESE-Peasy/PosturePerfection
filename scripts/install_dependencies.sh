@@ -13,6 +13,8 @@ UPSTREAM=${1:-'@{u}'}
 ## Check for correct version of CMake
 if ! cmake --version >/dev/null 2>&1; then
   printf "CMake is not installed, please install version 3.16 or higher\n"
+  printf "Perhaps run:\n"
+  printf "    pip3 install cmake\n"
   exit 1
 fi
 
@@ -126,6 +128,9 @@ if [ ! -d "opencv_build" ]; then
 else
   printf " skipped\n"
 fi
+
+# Install cpplint for testing purposes
+pip3 install cpplint || printf "Installing cpplint failed\n"
 
 OS="$(uname -s)"
 
