@@ -74,6 +74,7 @@ We are a group of 5th Year Electronics & Software Engineering students at the Un
 - [OpenCV C++ API](https://opencv.org)
 - [QT C++ API](https://www.qt.io)
 - [CppTimer](https://github.com/berndporr/cppTimer)
+- [Simple Remote Notify Send](https://github.com/ESE-Peasy/simple-remote-notify-send)
 
 ### Built With
 
