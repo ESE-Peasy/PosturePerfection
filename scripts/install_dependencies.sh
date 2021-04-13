@@ -5,6 +5,7 @@ printf "Installing dependencies for PosturePerfection\n"
 PP_ROOT=$(pwd)
 MIN_CMAKE="3.16"
 TF_VERSION="f32b4d37cc059771198484d453d5cf288cf7803b"
+CV_VERSION="69357b1e88680658a07cffde7678a4d697469f03"
 
 # Makes use of snippet from: https://stackoverflow.com/a/3278427 for
 # cleanly checking git commits of dependencies
@@ -89,29 +90,20 @@ fi
 printf "Downloading TensorFlow ..."
 if [ ! -d "tensorflow_src" ]; then
   printf "\n"
-  git clone https://github.com/tensorflow/tensorflow.git tensorflow_src || exit 1
-  cd tensorflow_src
-  git checkout $TF_VERSION
-  cd ..
+  wget "https://github.com/tensorflow/tensorflow/archive/$TF_VERSION.zip"
+  unzip -q $TF_VERSION
+  mv "tensorflow-$TF_VERSION" tensorflow_src
 else
-  cd tensorflow_src
-  LOCAL=$(git rev-parse @)
-  if [ $LOCAL = $TF_VERSION ]; then
-    printf " skipped\n"
-  else
-    printf " downloading update\n"
-    git pull origin $TF_VERSION
-  fi
-  cd ..
-  LOCAL=""
-  REMOTE=""
+  printf " skipped\n"
 fi
 
 ## Download OpenCV code
 printf "Downloading OpenCV ..."
 if [ ! -d "opencv_src" ]; then
   printf "\n"
-  git clone https://github.com/opencv/opencv.git opencv_src || exit 1
+  wget "https://github.com/opencv/opencv/archive/$CV_VERSION.zip"
+  unzip -q $CV_VERSION
+  mv "opencv-$CV_VERSION" opencv_src
 else
   printf " skipped\n"
 fi
