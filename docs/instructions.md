@@ -11,7 +11,7 @@ title: Instructions
 
 ## Set your Ideal Posture
 
-PosturePerfection relies on you setting an "Ideal Posture" which is what the system refers to when determining if you have adopted a poor posture. Your detected posture is highlighted in Blue if you have not done this yet. To do so, simply adopt a good posture, ensure that the system can see you and click "Set Ideal Posture"!
+PosturePerfection relies on you setting an "Ideal Posture" which is what the system refers to when determining if you have adopted a poor posture. Your detected posture is highlighted in <span style="color:blue">Blue</span> if you have not done this yet. To do so, simply adopt a good posture, ensure that the system can see you and click "Set Ideal Posture"!
 
 <div align="center">
     <img src="images/instructions/unset_posture.png" width="500"/>
@@ -25,7 +25,7 @@ We have identified some guides below for how you can go about deciding what is a
 
 ## "Unknown Posture" detected?
 
-If pose estimation fails to detect your whole body, we bring this to your attention in the form of Grey lines - if you see this, please adjust your camera or your own positioning until you are clearly detectable in the video feed. In the Settings we have a slider for "Confidence Threshold" which you can tune to modify this - if you feel like you're being presented with an "Unknown Posture" even when you are in an optimal position, decrease this value a bit and that should improve your experience.
+If pose estimation fails to detect your whole body, we bring this to your attention in the form of <span style="color:grey">Grey</span> lines - if you see this, please adjust your camera or your own positioning until you are clearly detectable in the video feed. In the Settings we have a slider for "Confidence Threshold" which you can tune to modify this - if you feel like you're being presented with an <span style="color:grey">"Unknown Posture"</span> even when you are in an optimal position, decrease this value a bit and that should improve your experience.
 
 <div align="center">
     <img src="images/instructions/unknown_posture.png" width="500"/>
@@ -33,7 +33,7 @@ If pose estimation fails to detect your whole body, we bring this to your attent
 
 ## Achieving PosturePerfection!
 
-When you are happy with a posture that you have adopted and have clicked "Set Ideal Posture", your detected posture will be highlighted in Green as you are then in a position where you have achieved PosturePerfection! Carry on with your work, and the system will let you know when we detect you have strayed from this ideal posture. See below for more details to ensure you maximise your time in PosturePerfection!
+When you are happy with a posture that you have adopted and have clicked "Set Ideal Posture", your detected posture will be highlighted in <span style="color:green">Green</span> as you are then in a position where you have achieved PosturePerfection! Carry on with your work, and the system will let you know when we detect you have strayed from this ideal posture. See below for more details to ensure you maximise your time in PosturePerfection!
 
 <div align="center">
     <img src="images/instructions/good_posture.png" width="500"/>
@@ -46,3 +46,20 @@ When we determine that your posture is no longer close to your ideal posture, ar
 <div align="center">
     <img src="images/instructions/bad_posture.png" width="500"/>
 </div>
+
+## Setting up Notifications
+
+We are aware that some of you may choose to setup PosturePerfection on a separate device from your work device. Therefore, we have incorporated the sending of notifications from PosturePerfection to another Linux device on the same network when the system detects you have started slouching! Note that this isn't an exclusive feature - you can even receive these notifications on the same device on which you are running PosturePerfection!
+
+To do this, ensure you have `simple-remote-notify-send` installed. Find the latest release and more information [here](https://github.com/ESE-Peasy/simple-remote-notify-send/releases/tag/v1.0.0). Run the `PosturePerfectionReceiver` on the device where you want to receive notifications, and then start `PosturePerfection`.
+
+<div align="center">
+    <img src="images/instructions/notification_example.png" width="600"/>
+</div>
+
+Notifications are delivered:
+
+- When starting PosturePerfection
+- When a <span style="color:red">Bad</span> posture is detected for 10 seconds
+- When an <span style="color:grey">Unknown</span> posture is detected for 5 minutes (so that you don't get spammed if you leave your desk!)
+- When PosturePerfection is stopped
