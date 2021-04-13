@@ -1,5 +1,9 @@
 #! /bin/sh
 
+# Note: we install TensorFlow and OpenCV via zip files hosted on GitHub. We do this
+# because the git clone operation takes too long and sometimes fails on lower-end
+# systems.
+
 printf "Installing dependencies for PosturePerfection\n"
 
 PP_ROOT=$(pwd)
