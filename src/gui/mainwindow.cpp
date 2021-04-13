@@ -253,7 +253,7 @@ void GUI::MainWindow::createAboutPage() {
       "posture worsens.</li><li>If your posture becomes \"Undefined\" the "
       "system is struggling to detect you and you may need to reposition "
       "yourself</li></ul>For more detailed usage instructions visit <a "
-      "href=\"https://ese-peasy.github.io/PosturePerfection/\">our "
+      "href=\"https://ese-peasy.github.io/PosturePerfection/instructions.html\">our "
       "website</a>.\n\nIf you spot any bugs or problems let us know by "
       "submitting an issue on <a "
       "href=\"https://github.com/ESE-Peasy/PosturePerfection/issues\">GitHub "
