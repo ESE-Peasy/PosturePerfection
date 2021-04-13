@@ -1,3 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structPostureEstimating_1_1PoseStatus.html" title="Representation of user&#39;s pose for use by the pipeline processing." alt="" coords="5,5,140,47"/>
+<area shape="rect" id="node1" href="$classPreProcessing_1_1PreProcessor.html" title="Pre&#45;process the input image before passing to Inference::InferenceCore" alt="" coords="5,5,197,32"/>
 </map>

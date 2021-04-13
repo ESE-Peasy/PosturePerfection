@@ -71,62 +71,26 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae0ab055b1c2f986c5f5f5e726d9a4086"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ae0ab055b1c2f986c5f5f5e726d9a4086">set</a> (CMAKE_CXX_STANDARD 11) <a class="el" href="notifications_2CMakeLists_8txt.html#a3bd88b37b46edc79162cb34ee99417e1">cmake_minimum_required</a>(VERSION 3.16) project(PosturePerfection VERSION 0.3.0) if(APPLE) set(CMAKE_PREFIX_PATH &quot;/usr/local/Cellar/&quot;) endif() if(UNIX AND NOT APPLE) set(CMAKE_CXX_LINK_FLAGS &quot;$</td></tr>
+<tr class="memitem:ae0ab055b1c2f986c5f5f5e726d9a4086"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ae0ab055b1c2f986c5f5f5e726d9a4086">set</a> (CMAKE_CXX_STANDARD 11) <a class="el" href="gui_2CMakeLists_8txt.html#ae34aff959167aebc70a3bcd23fc526ef">cmake_minimum_required</a>(VERSION 3.16) project(PosturePerfection VERSION 0.3.0) if(APPLE) set(CMAKE_PREFIX_PATH &quot;/usr/local/Cellar/&quot;) endif() if(UNIX AND NOT APPLE) set(CMAKE_CXX_LINK_FLAGS &quot;$</td></tr>
 <tr class="separator:ae0ab055b1c2f986c5f5f5e726d9a4086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af59fdf539fffbc2cf445c4f762adcf66"><td class="memItemLeft" align="right" valign="top">latomic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#af59fdf539fffbc2cf445c4f762adcf66">endif</a> () <a class="el" href="CMakeLists_8txt.html#a66d77f2386efd58d6b289a8143bd6a22">add_subdirectory</a>(gui ENABLE_EXPORTS) <a class="el" href="gui_2CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a>(&quot;$</td></tr>
 <tr class="separator:af59fdf539fffbc2cf445c4f762adcf66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a947a40c33775ca73d2d7e6e9799c07ac"><td class="memItemLeft" align="right" valign="top">src gui&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a947a40c33775ca73d2d7e6e9799c07ac">set</a> (NTFYSRC notifications/notify.cpp notifications/broadcaster.cpp notifications/receiver.cpp) set(LIBSRC iir.cpp inference_core.cpp framerate_settings.cpp post_processor.cpp pre_processor.cpp posture_estimator.cpp pipeline.cpp) set(OpenCV_DIR &quot;$</td></tr>
-<tr class="separator:a947a40c33775ca73d2d7e6e9799c07ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4977b55f3a1d75799c69848e1538ad9"><td class="memItemLeft" align="right" valign="top">src gui&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#ae4977b55f3a1d75799c69848e1538ad9">set</a> (LIBSRC iir.cpp inference_core.cpp framerate_settings.cpp post_processor.cpp pre_processor.cpp posture_estimator.cpp pipeline.cpp) set(OpenCV_DIR &quot;$</td></tr>
+<tr class="separator:ae4977b55f3a1d75799c69848e1538ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff19a2b08a70c1671d45f82b7f9aac16"><td class="memItemLeft" align="right" valign="top">opencv_build&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#aff19a2b08a70c1671d45f82b7f9aac16">find_package</a> (OpenCV REQUIRED) if(NOT TENSORFLOW_SOURCE_DIR) get_filename_component(TENSORFLOW_SOURCE_DIR &quot;$</td></tr>
 <tr class="separator:aff19a2b08a70c1671d45f82b7f9aac16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a888087499d9107f7438009b28e1a0a50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a888087499d9107f7438009b28e1a0a50">include_directories</a> (&quot;${TENSORFLOW_SOURCE_DIR}/tensorflow/lite&quot;) include_directories(&quot;$</td></tr>
 <tr class="separator:a888087499d9107f7438009b28e1a0a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66d77f2386efd58d6b289a8143bd6a22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a66d77f2386efd58d6b289a8143bd6a22">add_subdirectory</a> (&quot;${TENSORFLOW_SOURCE_DIR}/tensorflow/lite&quot; &quot;${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite&quot; EXCLUDE_FROM_ALL) <a class="el" href="CMakeLists_8txt.html#a95c561a7c4ab4f98ade379ad378d8372">add_library</a>(PosturePerfection_static STATIC $</td></tr>
+<tr class="memitem:a66d77f2386efd58d6b289a8143bd6a22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a66d77f2386efd58d6b289a8143bd6a22">add_subdirectory</a> (&quot;${TENSORFLOW_SOURCE_DIR}/tensorflow/lite&quot; &quot;${CMAKE_CURRENT_BINARY_DIR}/tensorflow-lite&quot; EXCLUDE_FROM_ALL) add_library(PosturePerfection_static STATIC $</td></tr>
 <tr class="separator:a66d77f2386efd58d6b289a8143bd6a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95c561a7c4ab4f98ade379ad378d8372"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a95c561a7c4ab4f98ade379ad378d8372">add_library</a> (PosturePerfection_notify STATIC ${NTFYSRC}) target_include_directories(PosturePerfection_static PUBLIC &quot;$</td></tr>
-<tr class="separator:a95c561a7c4ab4f98ade379ad378d8372"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af932d5bd1a66123597201328e3f1edcf"><td class="memItemLeft" align="right" valign="top">flatbuffers include&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#af932d5bd1a66123597201328e3f1edcf">add_executable</a> (PosturePerfection ${LIBSRC} main.cpp) <a class="el" href="CMakeLists_8txt.html#a9c779c44143503c58fb384b5b5b004a3">target_link_libraries</a>(PosturePerfection cpptimer rt) <a class="el" href="CMakeLists_8txt.html#a9c779c44143503c58fb384b5b5b004a3">target_link_libraries</a>(PosturePerfection tensorflow-lite PosturePerfection_gui PosturePerfection_notify $</td></tr>
-<tr class="separator:af932d5bd1a66123597201328e3f1edcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c779c44143503c58fb384b5b5b004a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a9c779c44143503c58fb384b5b5b004a3">target_link_libraries</a> (PosturePerfection ${OpenCV_LIBS}) target_include_directories(PosturePerfection PRIVATE &quot;$</td></tr>
+<tr class="memitem:a89f3fbdce8073f38649dc6c99389c787"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a89f3fbdce8073f38649dc6c99389c787">target_include_directories</a> (PosturePerfection_static PUBLIC &quot;${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include&quot;) add_executable(PosturePerfection $</td></tr>
+<tr class="separator:a89f3fbdce8073f38649dc6c99389c787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf60863def836df208f26f3951a65146"><td class="memItemLeft" align="right" valign="top"><a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> cpp&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#abf60863def836df208f26f3951a65146">target_link_libraries</a> (PosturePerfection cpptimer rt RemoteNotifyBroadcast) target_link_libraries(PosturePerfection tensorflow-lite PosturePerfection_gui $</td></tr>
+<tr class="separator:abf60863def836df208f26f3951a65146"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c779c44143503c58fb384b5b5b004a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="CMakeLists_8txt.html#a9c779c44143503c58fb384b5b5b004a3">target_link_libraries</a> (PosturePerfection ${OpenCV_LIBS}) <a class="el" href="CMakeLists_8txt.html#a89f3fbdce8073f38649dc6c99389c787">target_include_directories</a>(PosturePerfection PRIVATE &quot;$</td></tr>
 <tr class="separator:a9c779c44143503c58fb384b5b5b004a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="af932d5bd1a66123597201328e3f1edcf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af932d5bd1a66123597201328e3f1edcf">&#9670;&nbsp;</a></span>add_executable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">flatbuffers include add_executable </td>
-          <td>(</td>
-          <td class="paramtype">PosturePerfection ${LIBSRC} main.&#160;</td>
-          <td class="paramname"><em>cpp</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a95c561a7c4ab4f98ade379ad378d8372"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95c561a7c4ab4f98ade379ad378d8372">&#9670;&nbsp;</a></span>add_library()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">add_library </td>
-          <td>(</td>
-          <td class="paramtype">PosturePerfection_notify STATIC ${NTFYSRC}&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a66d77f2386efd58d6b289a8143bd6a22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66d77f2386efd58d6b289a8143bd6a22">&#9670;&nbsp;</a></span>add_subdirectory()</h2>
 
@@ -216,8 +180,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a947a40c33775ca73d2d7e6e9799c07ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a947a40c33775ca73d2d7e6e9799c07ac">&#9670;&nbsp;</a></span>set() <span class="overload">[2/2]</span></h2>
+<a id="ae4977b55f3a1d75799c69848e1538ad9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4977b55f3a1d75799c69848e1538ad9">&#9670;&nbsp;</a></span>set() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +189,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">src gui set </td>
           <td>(</td>
-          <td class="paramtype">NTFYSRC notifications/notify.cpp notifications/broadcaster.cpp notifications/receiver.&#160;</td>
+          <td class="paramtype">LIBSRC iir.cpp inference_core.cpp framerate_settings.cpp post_processor.cpp pre_processor.cpp posture_estimator.cpp pipeline.&#160;</td>
           <td class="paramname"><em>cpp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -234,8 +198,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a89f3fbdce8073f38649dc6c99389c787"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89f3fbdce8073f38649dc6c99389c787">&#9670;&nbsp;</a></span>target_include_directories()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">target_include_directories </td>
+          <td>(</td>
+          <td class="paramtype">PosturePerfection_static PUBLIC &quot;${CMAKE_CURRENT_BINARY_DIR}/../flatbuffers/include&quot;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9c779c44143503c58fb384b5b5b004a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c779c44143503c58fb384b5b5b004a3">&#9670;&nbsp;</a></span>target_link_libraries()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c779c44143503c58fb384b5b5b004a3">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,6 +227,24 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">PosturePerfection ${OpenCV_LIBS}&#160;</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf60863def836df208f26f3951a65146"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf60863def836df208f26f3951a65146">&#9670;&nbsp;</a></span>target_link_libraries() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> cpp target_link_libraries </td>
+          <td>(</td>
+          <td class="paramtype">PosturePerfection cpptimer rt&#160;</td>
+          <td class="paramname"><em>RemoteNotifyBroadcast</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
