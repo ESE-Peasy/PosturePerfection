@@ -90,7 +90,7 @@ fi
 printf "Downloading TensorFlow ..."
 if [ ! -d "tensorflow_src" ]; then
   printf "\n"
-  wget "https://github.com/tensorflow/tensorflow/archive/$TF_VERSION.zip"
+  wget "https://github.com/tensorflow/tensorflow/archive/$TF_VERSION.zip" || exit 1
   unzip -q $TF_VERSION
   mv "tensorflow-$TF_VERSION" tensorflow_src
 else
@@ -101,7 +101,7 @@ fi
 printf "Downloading OpenCV ..."
 if [ ! -d "opencv_src" ]; then
   printf "\n"
-  wget "https://github.com/opencv/opencv/archive/$CV_VERSION.zip"
+  wget "https://github.com/opencv/opencv/archive/$CV_VERSION.zip" || exit 1
   unzip -q $CV_VERSION
   mv "opencv-$CV_VERSION" opencv_src
 else
