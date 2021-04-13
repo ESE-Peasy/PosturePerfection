@@ -1,9 +1,9 @@
 ---
 nav_order: 5
-title: Instructions
+title: Usage Manual
 ---
 
-# Instructions
+# Usage Manual
 
 | Note for v1.0.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -33,7 +33,7 @@ If pose estimation fails to detect your whole body, we bring this to your attent
 
 ## Achieving PosturePerfection!
 
-When you are happy with a posture that you have adopted and have clicked "Set Ideal Posture", your detected posture will be highlighted in <span style="color:green">Green</span> as you are then in a position where you have achieved PosturePerfection! Carry on with your work, and the system will let you know when we detect you have strayed from this ideal posture. See below for more details to ensure you maximise your time in PosturePerfection!
+When you are happy with a posture that you have adopted and have clicked "Set Ideal Posture", your detected posture will be highlighted in <span style="color:green">Green</span> as you are then in a position where you have achieved PosturePerfection! Carry on with your work, and the system will let you know when we detect you have strayed from this ideal posture. See below for more details to ensure you optimise your time in PosturePerfection!
 
 <div align="center">
     <img src="images/instructions/good_posture.png" width="500"/>
@@ -51,7 +51,7 @@ When we determine that your posture is no longer close to your ideal posture, ar
 
 We are aware that some of you may choose to setup PosturePerfection on a separate device from your work device. Therefore, we have incorporated the sending of notifications from PosturePerfection to another Linux device on the same network when the system detects you have started slouching! Note that this isn't an exclusive feature - you can even receive these notifications on the same device on which you are running PosturePerfection!
 
-To do this, ensure you have `simple-remote-notify-send` installed. Find the latest release and more information [here](https://github.com/ESE-Peasy/simple-remote-notify-send/releases/tag/v1.0.0). Run the `PosturePerfectionReceiver` on the device where you want to receive notifications, and then start `PosturePerfection`.
+To do this, ensure you have `simple-remote-notify-send` installed. This is a library which we ourselves have created, which allows the sending of a `notify-send` command from a broadcasting device to a receiver on the same network. Find the latest release and information to download and install this [here](https://github.com/ESE-Peasy/simple-remote-notify-send/releases/tag/v1.0.0). Run the `PosturePerfectionReceiver` on the device where you want to receive notifications, and then start `PosturePerfection`.
 
 <div align="center">
     <img src="images/instructions/notification_example.png" width="600"/>
