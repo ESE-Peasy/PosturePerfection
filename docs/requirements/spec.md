@@ -1,7 +1,7 @@
 ---
 nav_order: 1
 title: Specification
-parent: Requirements
+parent: Project Requirements
 ---
 
 # Specification
