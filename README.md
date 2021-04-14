@@ -94,7 +94,7 @@ wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PostureP
 sh PosturePerfection_install.sh
 ```
 
-**We have provided a short user manual [here](https://ese-peasy.github.io/PosturePerfection/instructions.html) that will guide you through usage of the application.**
+**We have provided a short user manual [here](https://ese-peasy.github.io/PosturePerfection/instructions.html) that will guide you through usage of the application. Ths includes how to install the notification client, which you may want to run on a separate device.**
 
 The installation currently only works on Linux machines. In particular, we test the software on the following:
 
