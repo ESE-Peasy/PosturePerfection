@@ -149,6 +149,16 @@ To build the project and run linting checks and the unit tests:
 ./scripts/build.sh -enable-testing
 ```
 
+## Demonstration
+
+Check out a demo of PosturePerfection below:
+
+<div align="center">
+  <video width="400" controls>
+    <source src="docs/videos/PosturePerfectionv1.0.0.mp4" type="video/mp4">
+  </video>
+</div>
+
 <!-- ROADMAP -->
 
 ## Roadmap

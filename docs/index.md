@@ -23,14 +23,14 @@ Therefore we wanted to create a system which notifies you when it detects a poor
 
 ## Demonstration
 
-Coming Soon!
-{: .label .label-yellow}
+Check out a demonstration of PosturePerfection running on a Raspberry Pi 4B below:
 
-## Future Plans
-
-Coming Soon!
-{: .label .label-yellow}
+<div align="center">
+  <video width="600" controls>
+    <source src="videos/PosturePerfectionv1.0.0.mp4" type="video/mp4">
+  </video>
+</div>
 
 ## Support or Contact
 
-Please reach out to us [here](/about-us) if you have any questions.
+Please reach out to us [here](about-us) if you have any questions.
