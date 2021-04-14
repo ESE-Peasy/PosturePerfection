@@ -22,14 +22,14 @@ case $OS  in
     *"armv7"*)
         wget "https://github.com/ESE-Peasy/opencv/releases/download/v4.5.1-pp/opencv-4.5.1_armhf.deb"
         sudo apt install ./opencv-4.5.1_armhf.deb
-        wget "https://github.com/ESE-Peasy/PosturePerfection/releases/download/v0.4.0/PosturePerfection_0.4.0_armv7l"
-        chmod u+x PosturePerfection_0.4.0_armv7l 
+        wget "https://github.com/ESE-Peasy/PosturePerfection/releases/download/v1.0.0/PosturePerfection_1.0.0_armv7l"
+        chmod u+x PosturePerfection_1.0.0_armv7l 
         ;;
     *"x86"*)
         wget "https://github.com/ESE-Peasy/opencv/releases/download/v4.5.1-pp/opencv-4.5.1_x86.deb"
         sudo apt install ./opencv-4.5.1_x86.deb
-        wget "https://github.com/ESE-Peasy/PosturePerfection/releases/download/v0.4.0/PosturePerfection_0.4.0_x86_64"
-        chmod u+x PosturePerfection_0.4.0_x86_64
+        wget "https://github.com/ESE-Peasy/PosturePerfection/releases/download/v1.0.0/PosturePerfection_1.0.0_x86_64"
+        chmod u+x PosturePerfection_1.0.0_x86_64
         ;;
     *)
         printf -e "${RED}Unfortunately PosturePerfection is not yet supported on your system.${NO_COLOUR}\n"
@@ -41,5 +41,4 @@ sudo ldconfig
 
 printf "${B_GREEN}PosturePerfection has been successfully installed!\n\n"
 
-printf "${GREEN}Run ./PosturePerfection_0.4.0_xxx to run our graphical user interface which displays real time posture estimation. Lines are drawn between
-your Head, Neck, Shoulder and Hip to demonstrate your detected posture! See the \`About & Help\` page for more information about usage.${NO_COLOUR}\n\n"
+printf "${GREEN}Run ./PosturePerfection_1.0.0_xxx to run our graphical user interface which displays real time posture estimation. Lines are drawn between your Head, Neck, Shoulder and Hip to demonstrate your detected posture! When you adopt a poor posture, the system will show you guidance back to a better posture in real time! See the \`About & Help\` page for more information about usage.${NO_COLOUR}\n\n"
