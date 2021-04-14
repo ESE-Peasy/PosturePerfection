@@ -39,6 +39,7 @@
       <ul>
         <li><a href="#components-used">Components Used</a></li>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#demonstration">Demonstration</a></li>
       </ul>
     </li>
     <li>
@@ -82,6 +83,16 @@ We are a group of 5th Year Electronics & Software Engineering students at the Un
 - Doxygen
 - CMake
 - CTest
+
+## Demonstration
+
+Check out a demo of PosturePerfection below:
+
+<div align="center">
+  <video width="400" controls>
+    <source src="docs/videos/PosturePerfectionv1.0.0.mp4" type="video/mp4">
+  </video>
+</div>
 
 <!-- GETTING STARTED -->
 
@@ -148,16 +159,6 @@ To build the project and run linting checks and the unit tests:
 ```sh
 ./scripts/build.sh -enable-testing
 ```
-
-## Demonstration
-
-Check out a demo of PosturePerfection below:
-
-<div align="center">
-  <video width="400" controls>
-    <source src="docs/videos/PosturePerfectionv1.0.0.mp4" type="video/mp4">
-  </video>
-</div>
 
 <!-- ROADMAP -->
 
