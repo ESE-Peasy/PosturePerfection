@@ -94,7 +94,7 @@ wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PostureP
 sh PosturePerfection_install.sh
 ```
 
-This script will provide you with more information about usage.
+**We have provided a short user manual [here](https://ese-peasy.github.io/PosturePerfection/instructions.html) that will guide you through usage of the application. Ths includes how to install the notification client, which you may want to run on a separate device.**
 
 The installation currently only works on Linux machines. In particular, we test the software on the following:
 
@@ -104,6 +104,8 @@ The installation currently only works on Linux machines. In particular, we test 
 ## Getting Started
 
 To get PosturePerfection running by yourself you will need to follow these steps.
+
+> **Note**: we recommend installing via the [quickstart](#quickstart) described above. Building from source involves downloading larger files and building TensorFlow Lite and OpenCV from source, a process that may take over an hour!
 
 ### Prerequisites
 

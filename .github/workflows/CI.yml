@@ -25,5 +25,4 @@ jobs:
       - name: Install and run linter (Google style)
         run: |
           pip install cpplint
-          cd src
           python -m cpplint --filter=-build/include_subdir --recursive --quiet ./src/*

@@ -1,10 +1,15 @@
 #! /bin/sh
 
+# Note: we install TensorFlow and OpenCV via zip files hosted on GitHub. We do this
+# because the git clone operation takes too long and sometimes fails on lower-end
+# systems.
+
 printf "Installing dependencies for PosturePerfection\n"
 
 PP_ROOT=$(pwd)
 MIN_CMAKE="3.16"
 TF_VERSION="f32b4d37cc059771198484d453d5cf288cf7803b"
+CV_VERSION="69357b1e88680658a07cffde7678a4d697469f03"
 
 # Makes use of snippet from: https://stackoverflow.com/a/3278427 for
 # cleanly checking git commits of dependencies
@@ -13,6 +18,10 @@ UPSTREAM=${1:-'@{u}'}
 ## Check for correct version of CMake
 if ! cmake --version >/dev/null 2>&1; then
   printf "CMake is not installed, please install version 3.16 or higher\n"
+  printf "Perhaps run:\n"
+  printf "    pip3 install cmake\n"
+  printf "You may also need to add the pip install directory to your PATH:\n"
+  printf "    PATH=\$PATH:~/.local/bin\n"
   exit 1
 fi
 
@@ -87,29 +96,20 @@ fi
 printf "Downloading TensorFlow ..."
 if [ ! -d "tensorflow_src" ]; then
   printf "\n"
-  git clone https://github.com/tensorflow/tensorflow.git tensorflow_src || exit 1
-  cd tensorflow_src
-  git checkout $TF_VERSION
-  cd ..
+  wget "https://github.com/tensorflow/tensorflow/archive/$TF_VERSION.zip" || exit 1
+  unzip -q $TF_VERSION
+  mv "tensorflow-$TF_VERSION" tensorflow_src
 else
-  cd tensorflow_src
-  LOCAL=$(git rev-parse @)
-  if [ $LOCAL = $TF_VERSION ]; then
-    printf " skipped\n"
-  else
-    printf " downloading update\n"
-    git pull origin $TF_VERSION
-  fi
-  cd ..
-  LOCAL=""
-  REMOTE=""
+  printf " skipped\n"
 fi
 
 ## Download OpenCV code
 printf "Downloading OpenCV ..."
 if [ ! -d "opencv_src" ]; then
   printf "\n"
-  git clone https://github.com/opencv/opencv.git opencv_src || exit 1
+  wget "https://github.com/opencv/opencv/archive/$CV_VERSION.zip" || exit 1
+  unzip -q $CV_VERSION
+  mv "opencv-$CV_VERSION" opencv_src
 else
   printf " skipped\n"
 fi
@@ -126,6 +126,9 @@ if [ ! -d "opencv_build" ]; then
 else
   printf " skipped\n"
 fi
+
+# Install cpplint for testing purposes
+pip3 install cpplint || printf "Installing cpplint failed\n"
 
 OS="$(uname -s)"
 
