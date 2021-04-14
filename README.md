@@ -39,6 +39,7 @@
       <ul>
         <li><a href="#components-used">Components Used</a></li>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#demonstration">Demonstration</a></li>
       </ul>
     </li>
     <li>
@@ -82,6 +83,12 @@ We are a group of 5th Year Electronics & Software Engineering students at the Un
 - Doxygen
 - CMake
 - CTest
+
+## Demonstration
+
+Check out a demo of PosturePerfection below:
+
+[![Demonstration of PosturePerfection](https://user-images.githubusercontent.com/45148261/114715259-ce48d900-9d2a-11eb-8306-7c3a4138aee7.mp4)](https://ese-peasy.github.io/PosturePerfection/#demonstration)
 
 <!-- GETTING STARTED -->
 

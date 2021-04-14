@@ -10,7 +10,7 @@ The project is separated into three main sections, each with a unique function.
 
 1. The Pipeline is responsible for performing pose estimation to detect the user's posture and identify when it has worsened as well as the adjustments required to guide the user into a better posture.
 2. The GUI is responsible for displaying these results and posture adjustment suggestions to the user, as well as allowing various configuration options to be set.
-3. The [Notification System](@ref Notify) allows an alert to be sent to a separate device which the user is using.
+3. The [Notification System](@ref Notify) allows an alert to be sent to a separate device which the user is using. This is done using [simple-remote-notify-send](https://github.com/ESE-Peasy/simple-remote-notify-send), also developed by us!
 
 \subsection pipeline Pipeline
 
@@ -48,9 +48,6 @@ The _GUI_ is responsible for user interaction and displaying a live feed of the 
 \subsection notify Notification System
 
 A _[Notification System](@ref Notify)_ has been developed to allow an alert to be sent to a separate device when then system detects a poor posture. In this way, although the PosturePerfection system will be placed at the side of the user to analyse their posture profile, an alert can be sent to their laptop device which they are working on so that they are immediately notified of their poor posture.
-
-- [NotifyBroadcast](@ref Notify::NotifyBroadcast)
-- [NotifyReceiver](@ref Notify::NotifyReceiver)
 
 \section additional_resources Additional Resources
 

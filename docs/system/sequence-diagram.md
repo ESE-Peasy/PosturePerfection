@@ -15,9 +15,11 @@ To more easily understand the exact process of analysing the video input and per
 
 The system is separated into six main components:
 
-## 1. `PiCamera`
+## 1. `FrameGenerator`
 
 An input video stream must first be obtained which allows frames to be passed through the system. This is done using [OpenCV](https://docs.opencv.org/3.4/d8/dfe/classcv_1_1VideoCapture.html) and individual individual frames are passed to the `Core Thread`.
+
+[FrameGenerator Documentation](../html/classPipeline_1_1FrameGenerator.html){: .btn .btn-green}
 
 ## 2. `PreProcessor`
 
