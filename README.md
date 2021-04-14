@@ -88,11 +88,7 @@ We are a group of 5th Year Electronics & Software Engineering students at the Un
 
 Check out a demo of PosturePerfection below:
 
-<div align="center">
-  <video width="400" controls>
-    <source src="docs/videos/PosturePerfectionv1.0.0.mp4" type="video/mp4">
-  </video>
-</div>
+[![Demonstration of PosturePerfection](https://user-images.githubusercontent.com/45148261/114715259-ce48d900-9d2a-11eb-8306-7c3a4138aee7.mp4)]()
 
 <!-- GETTING STARTED -->
 
