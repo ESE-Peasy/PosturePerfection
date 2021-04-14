@@ -21,7 +21,7 @@ if ! cmake --version >/dev/null 2>&1; then
   printf "Perhaps run:\n"
   printf "    pip3 install cmake\n"
   printf "You may also need to add the pip install directory to your PATH:\n"
-  printf "    PATH=\$PATH:/home/pi/.local/bin\n"
+  printf "    PATH=\$PATH:~/.local/bin\n"
   exit 1
 fi
 
