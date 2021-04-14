@@ -94,7 +94,7 @@ wget https://raw.githubusercontent.com/ESE-Peasy/PosturePerfection/main/PostureP
 sh PosturePerfection_install.sh
 ```
 
-This script will provide you with more information about usage.
+**We have provided a short user manual [here](https://ese-peasy.github.io/PosturePerfection/instructions.html) that will guide you through usage of the application.**
 
 The installation currently only works on Linux machines. In particular, we test the software on the following:
 
