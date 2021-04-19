@@ -116,7 +116,7 @@ To get PosturePerfection running by yourself you will need to follow these steps
 
 ### Prerequisites
 
-> All requirements will be installed if you follow the [installation](#installation) instructions below.
+> All requirements will be installed if you follow the [installation](#installation) instructions below. To set up the required hardware please follow the instructions found [here](https://ese-peasy.github.io/PosturePerfection/components.html#assembly).
 
 PosturePerfection uses the following tools and libraries:
 
