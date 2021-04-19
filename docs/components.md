@@ -25,4 +25,5 @@ This section covers the hardware assembly. For software setup checkout the [soft
 1. Attach the camera module to the CSI port. This is the slot closest to the Ethernet (or furthest from the SD card). Lift up the plastic toggle and slide in the camera ribbon cable. Ensure the contacts on the cable face in the correct direction. Push down the toggle softly to fix the ribbon cable in place.
 1. Attach the screen or monitor. You will either attach this via a HDMI port (on the side) or the other ribbon cable port.
 1. Insert the flashed SD card (see [the official Raspberry Pi guide](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) for instructions on flashing).
+1. Enable the camera functionality on your Raspberry Pi by running ```sudo raspi-config``` in the terminal, then navigating to *Interfacing Options*, select *Camera* and finally select *Enable*. You will need to reboot the Pi to activate the change.
 1. Attach the power supply and you're good to go!
